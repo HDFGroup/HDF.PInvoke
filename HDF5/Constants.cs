@@ -20,7 +20,7 @@ namespace HDF.PInvoke
 {
     public static class Constants
     {
-        public const string DLLFileName = "hdf5dll";
+        public const string DLLFileName = "hdf5.dll";
 
         public const hid_t H5P_DEFAULT = 0;
     }
