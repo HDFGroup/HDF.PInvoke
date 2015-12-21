@@ -20,7 +20,7 @@ using System.Security;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
-using size_t = System.UInt64;
+using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {

@@ -16,7 +16,7 @@
 using System;
 
 using hbool_t = System.UInt32;
-using size_t = System.UInt64;
+using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {
