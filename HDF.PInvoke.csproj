@@ -69,6 +69,7 @@
     <Compile Include="HDF5\H5Cpublic.cs" />
     <Compile Include="HDF5\H5DLLImporter.cs" />
     <Compile Include="HDF5\H5Fpublic.cs" />
+    <Compile Include="HDF5\H5Gpublic.cs" />
     <Compile Include="HDF5\H5public.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
