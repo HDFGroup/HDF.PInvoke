@@ -113,7 +113,8 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
-        /// Allocates memory that will later be freed internally by the HDF5 Library.
+        /// Allocates memory that will later be freed internally by the HDF5
+        /// Library.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-AllocateMemory
         /// </summary>
         /// <param name="size">
@@ -154,11 +155,13 @@ namespace HDF.PInvoke
         public static extern herr_t check_version(uint majnum, uint minnum, uint relnum);
 
         /// <summary>
-        /// Flushes all data to disk, closes all open identifiers, and cleans up memory.
+        /// Flushes all data to disk, closes all open identifiers, and cleans
+        /// up memory.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-Close
         /// </summary>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint="H5close",
             CallingConvention = CallingConvention.Cdecl),
@@ -170,7 +173,8 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-DontAtExit
         /// </summary>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5dont_atexit",
             CallingConvention = CallingConvention.Cdecl),
@@ -185,7 +189,8 @@ namespace HDF.PInvoke
         /// Buffer to be freed. Can be NULL.
         /// </param>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5free_memory",
             CallingConvention = CallingConvention.Cdecl),
@@ -197,7 +202,8 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-GarbageCollect
         /// </summary>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5garbage_collect",
             CallingConvention = CallingConvention.Cdecl),
@@ -218,7 +224,8 @@ namespace HDF.PInvoke
         /// The release number of the library.S
         /// </param>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5get_libversion", 
             CallingConvention = CallingConvention.Cdecl),
@@ -227,14 +234,17 @@ namespace HDF.PInvoke
             (ref uint majnum, ref uint minnum, ref uint relnum);
 
         /// <summary>
-        /// Determine whether the HDF5 Library was built with the thread-safety feature enabled.
+        /// Determine whether the HDF5 Library was built with the thread-safety
+        /// feature enabled.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-IsLibraryThreadsafe
         /// </summary>
         /// <param name="is_ts">
-        /// Boolean value indicating whether the library was built with thread-safety enabled.
+        /// Boolean value indicating whether the library was built with
+        /// thread-safety enabled.
         /// </param>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5is_library_threadsafe",
             CallingConvention = CallingConvention.Cdecl),
@@ -246,7 +256,8 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-Open
         /// </summary>
         /// <returns>
-        /// Returns a non-negative value if successful; otherwise returns a negative value.
+        /// Returns a non-negative value if successful; otherwise returns a
+        /// negative value.
         /// </returns>
         [DllImport(Constants.DLLFileName, EntryPoint="H5open",
             CallingConvention = CallingConvention.Cdecl),
