@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="H5Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="H5FTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HDF.PInvoke.csproj">

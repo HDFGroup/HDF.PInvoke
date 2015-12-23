@@ -131,7 +131,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern IntPtr allocate_memory
-            (UIntPtr size, hbool_t clear);
+            (IntPtr size, hbool_t clear);
 
         /// <summary>
         /// Verifies that HDF5 library versions are consistent.
@@ -284,7 +284,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5resize_memory",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern IntPtr resize_memory(IntPtr mem, UIntPtr size);
+        public static extern IntPtr resize_memory(IntPtr mem, IntPtr size);
 
 
         /// <summary>

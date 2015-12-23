@@ -12,7 +12,7 @@ namespace UnitTests
         {
             Assert.IsTrue(H5.open() >= 0);
 
-            UIntPtr size = new UIntPtr(1024*1024);
+            IntPtr size = new IntPtr(1024*1024);
 
             // uninitialized allocation
             IntPtr ptr = H5.allocate_memory(size, 0);
@@ -25,7 +25,7 @@ namespace UnitTests
             Assert.IsTrue(H5.free_memory(ptr) >= 0);
 
             // size = 0 -> NULL return
-            size = new UIntPtr(0);
+            size = new IntPtr(0);
             ptr = H5.allocate_memory(size, 0);
             Assert.IsTrue(ptr == IntPtr.Zero);
             Assert.IsTrue(H5.free_memory(ptr) >= 0);
@@ -59,14 +59,14 @@ namespace UnitTests
         {
             Assert.IsTrue(H5.open() >= 0);
 
-            UIntPtr size = new UIntPtr(1024 * 1024);
+            IntPtr size = new IntPtr(1024 * 1024);
 
             // uninitialized allocation
             IntPtr ptr = H5.allocate_memory(size, 0);
             Assert.IsFalse(ptr == IntPtr.Zero);
 
             // reallocate
-            size = new UIntPtr(1024 * 1024 * 10);
+            size = new IntPtr(1024 * 1024 * 10);
             IntPtr ptr1 = H5.resize_memory(ptr, size);
             Assert.IsFalse(ptr1 == IntPtr.Zero);
             Assert.IsTrue(H5.free_memory(ptr1) >= 0);
@@ -79,12 +79,12 @@ namespace UnitTests
             // reallocate to size zero -> free
             ptr = H5.allocate_memory(size, 1);
             Assert.IsFalse(ptr == IntPtr.Zero);
-            size = new UIntPtr(0);
+            size = new IntPtr(0);
             ptr1 = H5.resize_memory(ptr, size);
             Assert.IsTrue(ptr1 == IntPtr.Zero);
 
             // H5resize_memory(NULL, 0)	Returns NULL (undefined in C standard).
-            size = new UIntPtr(0);
+            size = new IntPtr(0);
             Assert.IsTrue(H5.resize_memory(IntPtr.Zero, size) == IntPtr.Zero);
 
             Assert.IsTrue(H5.garbage_collect() >= 0);

@@ -30,80 +30,74 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5F
     {
-        /// <summary>
-        /// Flags for H5F.open() and H5F.create() calls
-        /// </summary>
-        public enum open_create_flags : uint
-        {
-            /// <summary>
-            /// absence of rdwr => rd-only [value = 0].
-            /// </summary>
-            H5F_ACC_RDONLY = 0x0000u,
-            /// <summary>
-            /// open for read and write [value = 1].
-            /// </summary>
-            H5F_ACC_RDWR = 0x0001u,
-            /// <summary>
-            /// overwrite existing files [value = 2].
-            /// </summary>
-            H5F_ACC_TRUNC = 0x0002u,
-            /// <summary>
-            /// fail if file already exists [value = 4].
-            /// </summary>
-            H5F_ACC_EXCL = 0x0004u,
-            /// <summary>
-            /// print debug info [value = 8].
-            /// </summary>
-            H5F_ACC_DEBUG = 0x0008u,
-            /// <summary>
-            /// create non-existing files [value = 16].
-            /// </summary>
-            H5F_ACC_CREAT = 0x0010u
-        }
+        // Flags for H5F.open() and H5F.create() calls
 
-        ///<summary
+        /// <summary>
+        /// absence of rdwr => rd-only
+        /// </summary>
+        public const uint ACC_RDONLY = 0x0000u;
+        /// <summary>
+        /// open for read and write
+        /// </summary>
+        public const uint ACC_RDWR = 0x0001u;
+        /// <summary>
+        /// overwrite existing files
+        /// </summary>
+        public const uint ACC_TRUNC = 0x0002u;
+        /// <summary>
+        /// fail if file already exists
+        /// </summary>
+        public const uint ACC_EXCL = 0x0004u;
+        /// <summary>
+        /// print debug info
+        /// </summary>
+        public const uint ACC_DEBUG = 0x0008u;
+        /// <summary>
+        /// create non-existing files
+        /// </summary>
+        public const uint ACC_CREAT = 0x0010u;
+        /// <summary>
         /// Value passed to H5P.set_elink_acc_flags to cause flags to be taken
         /// from the parent file.
-        ///</summary>
-        public const uint H5F_ACC_DEFAULT = 0xffffu; 	/*ignore setting on lapl     */
+        /// </summary>
+        public const uint ACC_DEFAULT = 0xffffu;
 
-        ///<summary
-        /// Flags for H5F.get_obj_count() & H5F.get_obj_ids() calls
-        ///</sumary>
-        public enum get_obj_count_or_get_obj_ids_flags : uint
-        {
-            /// <summary>
-            /// File objects [value = 1].
-            /// </summary>
-            H5F_OBJ_FILE = 0x0001u,
-            /// <summary>
-            /// Dataset objects [value = 2].
-            /// </summary>
-            H5F_OBJ_DATASET = 0x0002u,
-            /// <summary>
-            /// Group objects [value = 4].
-            /// </summary>
-            H5F_OBJ_GROUP = 0x0004u,
-            /// <summary>
-            /// Named datatype objects [value = 8].
-            /// </summary>
-            H5F_OBJ_DATATYPE = 0x0008u,
-            /// <summary>
-            /// Attribute objects [value = 16].
-            /// </summary>
-            H5F_OBJ_ATTR = 0x0010u,
-            /// <summary>
-            /// All objects [value = 31].
-            /// H5F_OBJ_FILE|H5F_OBJ_DATASET|H5F_OBJ_GROUP|H5F_OBJ_DATATYPE|H5F_OBJ_ATTR)
-            /// </summary>
-            H5F_OBJ_ALL = 0x001Fu,
-            /// <summary>
-            /// All objects [value = 32].
-            /// Restrict search to objects opened through current file ID
-            /// (as opposed to objects opened through any file ID accessing this file)
-            /// </summary>
-            H5F_OBJ_LOCAL = 0x0020u
-        }
+
+        // Flags for H5F.get_obj_count() & H5F.get_obj_ids() calls
+
+        /// <summary>
+        /// File objects
+        /// </summary>
+        public const uint OBJ_FILE = 0x0001u;
+        /// <summary>
+        /// Dataset objects
+        /// </summary>
+        public const uint OBJ_DATASET = 0x0002u;
+        /// <summary>
+        /// Group objects
+        /// </summary>
+        public const uint OBJ_GROUP = 0x0004u;
+        /// <summary>
+        /// Named datatype objects
+        /// </summary>
+        public const uint OBJ_DATATYPE = 0x0008u;
+        /// <summary>
+        /// Attribute objects
+        /// </summary>
+        public const uint OBJ_ATTR = 0x0010u;
+        /// <summary>
+        /// All objects:
+        /// H5F_OBJ_FILE|H5F_OBJ_DATASET|H5F_OBJ_GROUP|H5F_OBJ_DATATYPE|H5F_OBJ_ATTR)
+        /// </summary>
+        public const uint OBJ_ALL = 0x001Fu;
+        /// <summary>
+        /// All local objects:
+        /// Restrict search to objects opened through current file ID
+        /// (as opposed to objects opened through any file ID accessing this
+        /// file)
+        /// </summary>
+        public const uint OBJ_LOCAL = 0x0020u;
+        
 
         public hsize_t H5F_FAMILY_DEFAULT = 0;
 
@@ -236,79 +230,267 @@ namespace HDF.PInvoke
             H5F_LIBVER_LATEST
         }
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fclear_elink_file_cache(hid_t file_id);
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fclear_elink_file_cache",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t clear_elink_file_cache(hid_t file_id);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fclose(hid_t file_id);
+        /// <summary>
+        /// Terminates access to an HDF5 file.
+        /// https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Close
+        /// </summary>
+        /// <param name="file_id">Identifier of a file to which access is
+        /// terminated.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fclose",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t close(hid_t file_id);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Fcreate(string filename, uint flags, hid_t create_plist, hid_t access_plist);
+        /// <summary>
+        /// Creates an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-CreateS
+        /// </summary>
+        /// <param name="filename">Name of the file to access.</param>
+        /// <param name="flags">File access flags (H5.ACC_*).</param>
+        /// <param name="create_plist">File creation property list identifier.
+        /// </param>
+        /// <param name="access_plist">File access property list identifier.
+        /// </param>
+        /// <returns>Returns a file identifier if successful; otherwise returns
+        /// a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fcreate",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t create
+            (string filename, uint flags, hid_t create_plist, hid_t access_plist);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fflush(hid_t object_id, scope_t scope);
+        /// <summary>
+        /// Flushes all buffers associated with a file to disk.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Flush
+        /// </summary>
+        /// <param name="object_id">Identifier of object used to identify the
+        /// file.</param>
+        /// <param name="scope">Specifies the scope of the flushing
+        /// action.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fflush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t flush(hid_t object_id, scope_t scope);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Fget_access_plist(hid_t file_id);
+        /// <summary>
+        /// Returns a file access property list identifier.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetAccessPlist
+        /// </summary>
+        /// <param name="file_id">Identifier of file of which to get access
+        /// property list</param>
+        /// <returns>Returns a file access property list identifier if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_access_plist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t get_access_plist(hid_t file_id);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Fget_create_plist(hid_t file_id);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_filesize(hid_t file_id, ref hsize_t size);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Fget_file_image(hid_t file_id, IntPtr buf_ptr, size_t buf_len);
+        /// <summary>
+        /// Returns a file creation property list identifier.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetCreatePlist
+        /// </summary>
+        /// <param name="file_id">Identifier of file of which to get creation
+        /// property list</param>
+        /// <returns>Returns a file access property list identifier if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_create_plist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t get_create_plist(hid_t file_id);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hssize_t H5Fget_freespace(hid_t file_id);
+        /// <summary>
+        /// Returns the size of an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFilesize
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5
+        /// file</param>
+        /// <param name="size">Size of the file, in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_filesize",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_filesize
+            (hid_t file_id, ref hsize_t size);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_info(hid_t obj_id, H5F.info_t bh_info);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_intent(hid_t file_id, uint intent);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_mdc_config(hid_t file_id, ref H5AC.cache_config_t config_ptr);
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_file_image", 
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_file_image
+            (hid_t file_id, IntPtr buf_ptr, size_t buf_len);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_mdc_hit_rate(hid_t file_id, ref double hit_rate_ptr);
+        /// <summary>
+        /// Returns the amount of free space in a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFreespace
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5
+        /// file</param>
+        /// <returns>Returns the amount of free space in the file if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_freespace", 
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hssize_t get_freespace(hid_t file_id);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_mdc_size(hid_t file_id, ref size_t max_size_ptr, ref size_t min_clean_size_ptr, ref size_t cur_size_ptr, ref int cur_num_entries_ptr);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Fget_name(hid_t obj_id, string name, size_t size);
+        /// <summary>
+        /// Returns global information for a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetInfo
+        /// </summary>
+        /// <param name="obj_id">Object identifier for any object in the
+        /// file.</param>
+        /// <param name="bh_info">Struct containing global file
+        /// information.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info
+            (hid_t obj_id, ref H5F.info_t bh_info);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static int H5Fget_obj_count(hid_t file_id, H5F.get_obj_count_or_get_obj_ids_flags types);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Fget_obj_ids(hid_t file_id, uint types, size_t max_objs, ref hid_t obj_id_list);
+        /// <summary>
+        /// Determines the read/write or read-only status of a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetIntent
+        /// </summary>
+        /// <param name="file_id">File identifier for a currently-open HDF5
+        /// file.</param>
+        /// <param name="intent">Intended access mode flag as originally passed
+        /// with H5Fopen.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_intent",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_intent(hid_t file_id, ref uint intent);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fget_vfd_handle(hid_t file_id, hid_t fapl, IntPtr file_handle);
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_mdc_config",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_mdc_config
+            (hid_t file_id, ref H5AC.cache_config_t config_ptr);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static htri_t H5Fis_hdf5(string filename);
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_mdc_hit_rate",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_mdc_hit_rate
+            (hid_t file_id, ref double hit_rate_ptr);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fmount(hid_t loc, string name, hid_t child, hid_t plist);
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_mdc_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_mdc_size
+            (hid_t file_id, ref size_t max_size_ptr,
+            ref size_t min_clean_size_ptr, ref size_t cur_size_ptr,
+            ref int cur_num_entries_ptr);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Fopen(string filename, uint flags, hid_t access_plist);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Freopen(hid_t file_id);
+        /// <summary>
+        /// Retrieves name of file to which object belongs.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetName
+        /// </summary>
+        /// <param name="obj_id">Identifier of the object for which the
+        /// associated filename is sought.</param>
+        /// <param name="name">Buffer to contain the returned filename.</param>
+        /// <param name="size">Buffer size, in bytes.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_name
+            (hid_t obj_id, IntPtr name, size_t size);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Freset_mdc_hit_rate_stats(hid_t file_id);
+        /// <summary>
+        /// Returns the number of open object identifiers for an open file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetObjCount
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5 file.
+        /// </param>
+        /// <param name="types">Type of object for which identifiers are to be
+        /// returned.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_obj_count",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_obj_count
+            (hid_t file_id, uint types);
 
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Fset_mdc_config(hid_t file_id, ref H5AC.cache_config_t config_ptr);
-        
-        [DllImport(Constants.DLLFileName, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Funmount(hid_t loc, string name);
+        /// <summary>
+        /// Returns a list of open object identifiers.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetObjIDs
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5 file.</param>
+        /// <param name="types">Type of object for which identifiers are to be
+        /// returned.</param>
+        /// <param name="max_objs">Maximum number of object identifiers to be
+        /// returned.</param>
+        /// <param name="obj_id_list">Pointer to the returned list of open
+        /// object identifiers.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_obj_ids",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_obj_ids
+            (hid_t file_id, uint types, size_t max_objs, IntPtr obj_id_list);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_vfd_handle",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_vfd_handle
+            (hid_t file_id, hid_t fapl, IntPtr file_handle);
+
+        /// <summary>
+        /// Determines whether a file is in the HDF5 format.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-IsHDF5
+        /// </summary>
+        /// <returns>When successful, returns a positive value, for TRUE,
+        /// or 0 (zero), for FALSE. On any error, including the case that
+        /// the file does not exist, returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fis_hdf5",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static htri_t is_hdf5(string filename);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t mount
+            (hid_t loc, string name, hid_t child, hid_t plist);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fopen",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t open
+            (string filename, uint flags, hid_t access_plist);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Freopen",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t reopen(hid_t file_id);
+
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Freset_mdc_hit_rate_stats",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t reset_mdc_hit_rate_stats(hid_t file_id);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fset_mdc_config",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t set_mdc_config
+            (hid_t file_id, ref H5AC.cache_config_t config_ptr);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Funmount",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t unmount(hid_t loc, string name);
     }
 }
