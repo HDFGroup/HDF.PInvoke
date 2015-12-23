@@ -66,11 +66,13 @@
   <ItemGroup>
     <Compile Include="HDF5\Constants.cs" />
     <Compile Include="HDF5\H5ACpublic.cs" />
+    <Compile Include="HDF5\H5Apublic.cs" />
     <Compile Include="HDF5\H5Cpublic.cs" />
     <Compile Include="HDF5\H5DLLImporter.cs" />
     <Compile Include="HDF5\H5Fpublic.cs" />
     <Compile Include="HDF5\H5Gpublic.cs" />
     <Compile Include="HDF5\H5public.cs" />
+    <Compile Include="HDF5\H5Tpublic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
