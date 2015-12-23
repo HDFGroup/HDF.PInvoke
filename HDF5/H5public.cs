@@ -130,7 +130,8 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5allocate_memory",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern IntPtr allocate_memory(UIntPtr size, hbool_t clear);
+        public static extern IntPtr allocate_memory
+            (UIntPtr size, hbool_t clear);
 
         /// <summary>
         /// Verifies that HDF5 library versions are consistent.
@@ -152,7 +153,8 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5check_version",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t check_version(uint majnum, uint minnum, uint relnum);
+        public static extern herr_t check_version
+            (uint majnum, uint minnum, uint relnum);
 
         /// <summary>
         /// Flushes all data to disk, closes all open identifiers, and cleans
@@ -221,7 +223,7 @@ namespace HDF.PInvoke
         /// The minor version of the library.
         /// </param>
         /// <param name="relnum">
-        /// The release number of the library.S
+        /// The release number of the library.
         /// </param>
         /// <returns>
         /// Returns a non-negative value if successful; otherwise returns a
@@ -318,7 +320,8 @@ namespace HDF.PInvoke
         /// Returns a non-negative value if successful; otherwise returns a
         /// negative value.
         /// </returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5set_free_list_limits",
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5set_free_list_limits",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_free_list_limits
