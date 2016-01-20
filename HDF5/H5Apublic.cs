@@ -229,111 +229,314 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t get_create_plist(hid_t attr_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Retrieves attribute information, by attribute identifier.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetInfo
+        /// </summary>
+        /// <param name="attr_id">Attribute identifier</param>
+        /// <param name="ainfo">Attribute information struct</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_info",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aget_info(hid_t attr_id, ref info_t ainfo);
+        public extern static herr_t get_info(hid_t attr_id, ref info_t ainfo);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Retrieves attribute information, by attribute index position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetInfoByIdx
+        /// </summary>
+        /// <param name="loc_id">Location of object to which attribute is
+        /// attached</param>
+        /// <param name="obj_name">Name of object to which attribute is
+        /// attached, relative to location</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Index traversal order</param>
+        /// <param name="n">Attribute’s position in index</param>
+        /// <param name="ainfo">Struct containing returned attribute
+        /// information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_info_by_idx",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aget_info_by_idx
+        public extern static herr_t get_info_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, ref info_t ainfo, hid_t lapl_id);
-        
-        [DllImport(Constants.DLLFileName,
+
+        /// <summary>
+        /// Retrieves attribute information, by attribute name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetInfoByName
+        /// </summary>
+        /// <param name="loc_id">Location of object to which attribute is
+        /// attached</param>
+        /// <param name="obj_name">Name of object to which attribute is
+        /// attached, relative to location</param>
+        /// <param name="attr_name">Attribute name</param>
+        /// <param name="ainfo">Struct containing returned attribute
+        /// information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_info_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aget_info_by_name
+        public extern static herr_t get_info_by_name
             (hid_t loc_id, string obj_name, string attr_name, ref info_t ainfo,
             hid_t lapl_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Gets an attribute name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetName
+        /// </summary>
+        /// <param name="attr_id">Identifier of the attribute.</param>
+        /// <param name="buf_size">The size of the buffer to store the name
+        /// in.</param>
+        /// <param name="buf">Buffer to store name in.</param>
+        /// <returns>Returns the length of the attribute's name, which may be
+        /// longer than <code>buf_size</code>, if successful. Otherwise returns
+        /// a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Aget_name(
-            hid_t attr_id, size_t buf_size, [Out] string buf);
+        public extern static ssize_t get_name(
+            hid_t attr_id, size_t buf_size, IntPtr buf);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Gets an attribute name, by attribute index position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetNameByIdx
+        /// </summary>
+        /// <param name="loc_id">Location of object to which attribute is
+        /// attached</param>
+        /// <param name="obj_name">Name of object to which attribute is
+        /// attached, relative to location</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Index traversal order</param>
+        /// <param name="n">Attribute’s position in index</param>
+        /// <param name="name">Attribute name</param>
+        /// <param name="size">Size, in bytes, of attribute name</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns attribute name size, in bytes, if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_name_by_idx",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Aget_name_by_idx
+        public extern static ssize_t get_name_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, [Out] string name, size_t size,
+            H5.iter_order_t order, hsize_t n, IntPtr name, size_t size,
             hid_t lapl_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Gets a copy of the dataspace for an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetSpace
+        /// </summary>
+        /// <param name="attr_id">Identifier of an attribute.</param>
+        /// <returns>Returns attribute dataspace identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_space",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Aget_space(hid_t attr_id);
+        public extern static hid_t get_space(hid_t attr_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Returns the amount of storage required for an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetStorageSize
+        /// </summary>
+        /// <param name="attr_id">Identifier of the attribute to query.</param>
+        /// <returns>Returns the amount of storage size allocated for the
+        /// attribute; otherwise returns 0 (zero).</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_storage_size",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hsize_t H5Aget_storage_size(hid_t attr_id);
+        public extern static hsize_t get_storage_size(hid_t attr_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Returns the amount of storage required for an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetType
+        /// </summary>
+        /// <param name="attr_id">Identifier of an attribute.</param>
+        /// <returns>Returns a datatype identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_type",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Aget_type(hid_t attr_id);
+        public extern static hid_t get_type(hid_t attr_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Calls user-defined function for each attribute on an object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Iterate2
+        /// </summary>
+        /// <param name="obj_id">Identifier for object to which attributes are
+        /// attached; may be group, dataset, or named datatype.</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which to iterate over index</param>
+        /// <param name="n">Initial and returned offset within index</param>
+        /// <param name="op">User-defined function to pass each attribute to</param>
+        /// <param name="op_data">User data to pass through to and to be
+        /// returned by iterator operator function</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value. Further note that this function returns
+        /// the return value of the last operator if it was non-zero, which
+        /// can be a negative value, zero if all attributes were processed, or
+        /// a positive value indicating short-circuit success
+        /// </returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aiterate2",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aiterate2
-            (hid_t loc_id, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t idx, operator2_t op, IntPtr op_data);
+        public extern static herr_t iterate
+            (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
+            ref hsize_t n, operator2_t op, IntPtr op_data);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Calls user-defined function for each attribute on an object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-IterateByName
+        /// </summary>
+        /// <param name="loc_id">Location or object identifier; may be dataset
+        /// or group</param>
+        /// <param name="obj_name">Name of object, relative to location</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which to iterate over index</param>
+        /// <param name="n">Initial and returned offset within index</param>
+        /// <param name="op">User-defined function to pass each attribute to</param>
+        /// <param name="op_data">User data to pass through to and to be
+        /// returned by iterator operator function</param>
+        /// <param name="lapd_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value. Further note that this function returns
+        /// the return value of the last operator if it was non-zero, which can
+        /// be a negative value, zero if all attributes were processed, or a
+        /// positive value indicating short-circuit success</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aiterate_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aiterate_by_name(hid_t loc_id,
+        public extern static herr_t iterate_by_name(hid_t loc_id,
             string obj_name, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t idx, operator2_t op, IntPtr op_data, hid_t lapd_id);
-        
-        [DllImport(Constants.DLLFileName,
+            ref hsize_t n, operator2_t op, IntPtr op_data, hid_t lapd_id);
+
+        /// <summary>
+        /// Opens an attribute for an object specified by object identifier
+        /// and attribute name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Open
+        /// </summary>
+        /// <param name="obj_id">Identifer for object to which attribute is
+        /// attached</param>
+        /// <param name="attr_name">Name of attribute to open</param>
+        /// <param name="aapl_id">Attribute access property list</param>
+        /// <returns>Returns an attribute identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Aopen
+        public extern static hid_t open
             (hid_t obj_id, string attr_name, hid_t aapl_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Opens an attribute for an object specified by attribute index
+        /// position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-OpenByIdx
+        /// </summary>
+        /// <param name="loc_id">Location of object to which attribute is
+        /// attached</param>
+        /// <param name="obj_name">Name of object to which attribute is
+        /// attached, relative to location</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Index traversal order</param>
+        /// <param name="n">Attribute’s position in index</param>
+        /// <param name="aapl_id">Attribute access property list</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns an attribute identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen_by_idx",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Aopen_by_idx
+        public extern static hid_t open_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, hid_t aapl_id, hid_t lapl_id);
-        
-        [DllImport(Constants.DLLFileName,
+
+        /// <summary>
+        /// Opens an attribute for an object by object name and attribute name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-OpenByName
+        /// </summary>
+        /// <param name="loc_id">Location from which to find object to which
+        /// attribute is attached</param>
+        /// <param name="obj_name">Name of object to which attribute is
+        /// attached, relative to <paramref name="loc_id"/></param>
+        /// <param name="attr_name">Name of attribute to open</param>
+        /// <param name="aapl_id">Attribute access property list </param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns an attribute identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static hid_t H5Aopen_by_name
+        public extern static hid_t open_by_name
             (hid_t loc_id, string obj_name, string attr_name, hid_t aapl_id,
             hid_t lapl_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Reads an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Read
+        /// </summary>
+        /// <param name="attr_id">Identifier of an attribute to read.</param>
+        /// <param name="type_id"> Identifier of the attribute datatype
+        /// (in memory).</param>
+        /// <param name="buf">Buffer for data to be read.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aread",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Aread
+        public extern static herr_t read
             (hid_t attr_id, hid_t type_id, IntPtr buf);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Renames an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Rename
+        /// </summary>
+        /// <param name="loc_id">Location of the attribute.</param>
+        /// <param name="old_name">Name of the attribute to be changed.</param>
+        /// <param name="new_name">New name for the attribute.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.S</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Arename",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Arename
+        public extern static herr_t rename
             (hid_t loc_id, string old_name, string new_name);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Renames an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-RenameByName
+        /// </summary>
+        /// <param name="loc_id">Location or object identifier; may be dataset
+        /// or group</param>
+        /// <param name="obj_name">Name of object, relative to location, whose
+        /// attribute is to be renamed</param>
+        /// <param name="old_attr_name">Prior attribute name</param>
+        /// <param name="new_attr_name">New attribute name</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Arename_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Arename_by_name
+        public extern static herr_t rename_by_name
             (hid_t loc_id, string obj_name, string old_attr_name,
             string new_attr_name, hid_t lapl_id);
 
-        [DllImport(Constants.DLLFileName,
+        /// <summary>
+        /// Writes data to an attribute.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Write
+        /// </summary>
+        /// <param name="attr_id">Identifier of an attribute to write.</param>
+        /// <param name="type_id">Identifier of the attribute datatype
+        /// (in memory).</param>
+        /// <param name="buf">Data to be written.</param>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Awrite",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Awrite
+        public extern static herr_t write
             (hid_t attr_id, hid_t type_id, IntPtr buf);
     }
 }
