@@ -538,7 +538,8 @@ namespace HDF.PInvoke
         /// by <paramref name="child_id"/> is to be mounted.</param>
         /// <param name="child_id">Identifier of the file to be mounted.</param>
         /// <param name="fmpl_id">File mount property list identifier.</param>
-        /// <returns></returns>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -549,32 +550,70 @@ namespace HDF.PInvoke
         /// Opens an existing HDF5 file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Open
         /// </summary>
-        /// <param name="filename">Name of the file to be opened.</param>
-        
-        /// <returns></returns>
+        /// <param name="name">Name of the file to be opened.</param>
+        /// <param name="flags">File access flags. (<code>H5F_ACC_RDWR</code>
+        /// or <code>H5F_ACC_RDONLY</code>)</param>
+        /// <param name="fapl_id">Identifier for the file access properties
+        /// list.</param>
+        /// <returns>Returns a file identifier if successful; otherwise returns
+        /// a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fopen",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
             (string filename, uint flags, hid_t access_plist);
 
+        /// <summary>
+        /// Returns a new identifier for a previously-opened HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Reopen
+        /// </summary>
+        /// <param name="file_id">Identifier of a file for which an additional
+        /// identifier is required.</param>
+        /// <returns>Returns a new file identifier if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Freopen",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t reopen(hid_t file_id);
 
+        /// <summary>
+        /// Reset hit rate statistics counters for the target file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-ResetMdcHitRateStats
+        /// </summary>
+        /// <param name="file_id">Identifier of the target file.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Freset_mdc_hit_rate_stats",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t reset_mdc_hit_rate_stats(hid_t file_id);
 
+        /// <summary>
+        /// Attempt to configure metadata cache of target file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-SetMdcConfig
+        /// </summary>
+        /// <param name="file_id">Identifier of the target file</param>
+        /// <param name="config_ptr">Pointer to the instance of
+        /// <code>H5AC_cache_config_t</code> containing the desired
+        /// configuration.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fset_mdc_config",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t set_mdc_config
             (hid_t file_id, ref H5AC.cache_config_t config_ptr);
 
+        /// <summary>
+        /// Unmounts a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Unmount
+        /// </summary>
+        /// <param name="loc_id">File or group identifier for the location at
+        /// which the specified file is to be unmounted.</param>
+        /// <param name="name">Name of the mount point.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Funmount",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
