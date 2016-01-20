@@ -93,7 +93,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void VersionTest()
+        public void VersionAndThreadSafeBuildTest()
         {
             Assert.IsTrue(H5.open() >= 0);
 
@@ -108,10 +108,6 @@ namespace UnitTests
                 uint is_ts = 0;
                 Assert.IsTrue(H5.is_library_threadsafe(ref is_ts) >= 0);
             }
-
-            Assert.IsTrue(H5.check_version(majnum, minnum, relnum) >= 0);
-            // The following should fail (?), but doesn't. (HDFFV-9637)
-            //Assert.IsTrue(H5.check_version(0, 0, 0) >= 0);
 
             Assert.IsTrue(H5.close() >= 0);
         }

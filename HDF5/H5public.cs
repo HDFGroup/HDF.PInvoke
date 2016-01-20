@@ -134,29 +134,6 @@ namespace HDF.PInvoke
             (IntPtr size, hbool_t clear);
 
         /// <summary>
-        /// Verifies that HDF5 library versions are consistent.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-VersCheckS
-        /// </summary>
-        /// <param name="majnum">
-        /// HDF5 library major version number.
-        /// </param>
-        /// <param name="minnum">
-        /// HDF5 library minor version number.
-        /// </param>
-        /// <param name="relnum">
-        /// HDF5 library release number.S
-        /// </param>
-        /// <returns>
-        /// Returns a non-negative value if successful. Upon failure, this
-        /// function causes the application to abort.
-        /// </returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5check_version",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t check_version
-            (uint majnum, uint minnum, uint relnum);
-
-        /// <summary>
         /// Flushes all data to disk, closes all open identifiers, and cleans
         /// up memory.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5.html#Library-Close
