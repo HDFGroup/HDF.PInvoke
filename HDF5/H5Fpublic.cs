@@ -272,7 +272,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            (string filename, uint flags, hid_t create_plist, hid_t access_plist);
+            (string filename, uint flags, hid_t create_plist =H5P.H5P_DEFAULT,
+            hid_t access_plist = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Flushes all buffers associated with a file to disk.
@@ -544,7 +545,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t mount
-            (hid_t loc, string name, hid_t child, hid_t plist);
+            (hid_t loc, string name, hid_t child,
+            hid_t plist = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Opens an existing HDF5 file.
@@ -561,7 +563,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (string filename, uint flags, hid_t access_plist);
+            (string filename, uint flags,
+            hid_t access_plist = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Returns a new identifier for a previously-opened HDF5 file.

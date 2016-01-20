@@ -108,7 +108,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
             (hid_t loc_id, string attr_name, hid_t type_id, hid_t space_id,
-            hid_t acpl_id, hid_t aapl_id);
+            hid_t acpl_id = H5P.H5P_DEFAULT, hid_t aapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Creates an attribute attached to a specified object.
@@ -131,7 +131,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create_by_name
             (hid_t loc_id, string obj_name, string attr_name, hid_t type_id,
-            hid_t space_id, hid_t acpl_id, hid_t aapl_id, hid_t lapl_id);
+            hid_t space_id, hid_t acpl_id = H5P.H5P_DEFAULT,
+            hid_t aapl_id = H5P.H5P_DEFAULT, hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Deletes an attribute from a specified location.
@@ -166,7 +167,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, hid_t lapl_id);
+            H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Removes an attribute from a specified location.
@@ -184,7 +185,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete_by_name
-            (hid_t loc_id, string obj_name, string attr_name, hid_t lapl_id);
+            (hid_t loc_id, string obj_name, string attr_name,
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Determines whether an attribute with a given name exists on an object.
@@ -215,7 +217,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static htri_t exists_by_name
-            (hid_t loc_id, string obj_name, string attr_name, hid_t lapl_id);
+            (hid_t loc_id, string obj_name, string attr_name,
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Gets an attribute creation property list identifier.
@@ -263,7 +266,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, ref info_t ainfo, hid_t lapl_id);
+            H5.iter_order_t order, hsize_t n, ref info_t ainfo,
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Retrieves attribute information, by attribute name.
@@ -284,7 +288,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
             (hid_t loc_id, string obj_name, string attr_name, ref info_t ainfo,
-            hid_t lapl_id);
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Gets an attribute name.
@@ -325,7 +329,7 @@ namespace HDF.PInvoke
         public extern static ssize_t get_name_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, IntPtr name, size_t size,
-            hid_t lapl_id);
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Gets a copy of the dataspace for an attribute.
@@ -412,7 +416,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate_by_name(hid_t loc_id,
             string obj_name, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator2_t op, IntPtr op_data, hid_t lapd_id);
+            ref hsize_t n, operator2_t op, IntPtr op_data,
+            hid_t lapd_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Opens an attribute for an object specified by object identifier
@@ -429,7 +434,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (hid_t obj_id, string attr_name, hid_t aapl_id);
+            (hid_t obj_id, string attr_name, hid_t aapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Opens an attribute for an object specified by attribute index
@@ -452,7 +457,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open_by_idx
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, hid_t aapl_id, hid_t lapl_id);
+            H5.iter_order_t order, hsize_t n, hid_t aapl_id = H5P.H5P_DEFAULT,
+            hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Opens an attribute for an object by object name and attribute name.
@@ -471,8 +477,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open_by_name
-            (hid_t loc_id, string obj_name, string attr_name, hid_t aapl_id,
-            hid_t lapl_id);
+            (hid_t loc_id, string obj_name, string attr_name,
+            hid_t aapl_id = H5P.H5P_DEFAULT, hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Reads an attribute.
@@ -523,7 +529,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t rename_by_name
             (hid_t loc_id, string obj_name, string old_attr_name,
-            string new_attr_name, hid_t lapl_id);
+            string new_attr_name, hid_t lapl_id = H5P.H5P_DEFAULT);
 
         /// <summary>
         /// Writes data to an attribute.
