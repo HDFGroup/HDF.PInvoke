@@ -70,9 +70,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="H5FTest\FileCreation.cs" />
+    <Compile Include="H5FTest\FileQuery.cs" />
+    <Compile Include="H5GTest\GroupCreation.cs" />
+    <Compile Include="H5GTest\H5GTest.cs" />
     <Compile Include="H5Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="H5FTest.cs" />
+    <Compile Include="H5FTest\H5FTest.cs" />
+    <Compile Include="_AssemblySpecific.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HDF.PInvoke.csproj">

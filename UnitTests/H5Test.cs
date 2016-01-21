@@ -1,4 +1,19 @@
-﻿using System;
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Board of Trustees of the University of Illinois.         *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of HDF5.  The full HDF5 copyright notice, including     *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the files COPYING and Copyright.html.  COPYING can be found at the root   *
+ * of the source code distribution tree; Copyright.html can be found at the  *
+ * root level of an installed copy of the electronic HDF5 document set and   *
+ * is linked from the top-level documents page.  It can also be found at     *
+ * http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have          *
+ * access to either file, you may request a copy from help@hdfgroup.org.     *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -10,8 +25,6 @@ namespace UnitTests
         [TestMethod]
         public void AllocationTest()
         {
-            Assert.IsTrue(H5.open() >= 0);
-
             IntPtr size = new IntPtr(1024*1024);
 
             // uninitialized allocation
@@ -29,36 +42,21 @@ namespace UnitTests
             ptr = H5.allocate_memory(size, 0);
             Assert.IsTrue(ptr == IntPtr.Zero);
             Assert.IsTrue(H5.free_memory(ptr) >= 0);
-
-            Assert.IsTrue(H5.close() >= 0);
         }
 
         [TestMethod]
         public void FreeListTest()
         {
-            Assert.IsTrue(H5.open() >= 0);
-
             Assert.IsTrue(
                 H5.set_free_list_limits(-1, -1, -1, -1, -1, -1) >= 0);
 
             Assert.IsTrue(
                 H5.set_free_list_limits(1024, -1, 4096, -1, -1, 1024) >= 0);
-
-            Assert.IsTrue(H5.close() >= 0);
-        }
-
-        [TestMethod]
-        public void OpenAndCloseTest()
-        {
-            Assert.IsTrue(H5.open() >= 0);
-            Assert.IsTrue(H5.close() >= 0);
         }
 
         [TestMethod]
         public void ReallocationTest()
         {
-            Assert.IsTrue(H5.open() >= 0);
-
             IntPtr size = new IntPtr(1024 * 1024);
 
             // uninitialized allocation
@@ -88,15 +86,11 @@ namespace UnitTests
             Assert.IsTrue(H5.resize_memory(IntPtr.Zero, size) == IntPtr.Zero);
 
             Assert.IsTrue(H5.garbage_collect() >= 0);
-
-            Assert.IsTrue(H5.close() >= 0);
         }
 
         [TestMethod]
         public void VersionAndThreadSafeBuildTest()
         {
-            Assert.IsTrue(H5.open() >= 0);
-
             uint majnum = 0, minnum = 0, relnum = 0;
             Assert.IsTrue(
                 H5.get_libversion(ref majnum, ref minnum, ref relnum) >= 0);
@@ -108,8 +102,6 @@ namespace UnitTests
                 uint is_ts = 0;
                 Assert.IsTrue(H5.is_library_threadsafe(ref is_ts) >= 0);
             }
-
-            Assert.IsTrue(H5.close() >= 0);
         }
     }
 }
