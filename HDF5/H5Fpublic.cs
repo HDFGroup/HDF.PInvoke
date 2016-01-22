@@ -99,7 +99,7 @@ namespace HDF.PInvoke
         public const uint OBJ_LOCAL = 0x0020u;
         
 
-        public hsize_t H5F_FAMILY_DEFAULT = 0;
+        public hsize_t FAMILY_DEFAULT = 0;
 
         /// <summary>
         /// The difference between a single file and a set of mounted files
@@ -109,11 +109,11 @@ namespace HDF.PInvoke
             /// <summary>
             /// specified file handle only [value = 0].
             /// </summary>
-            H5F_SCOPE_LOCAL = 0,
+            SCOPE_LOCAL = 0,
             /// <summary>
             /// entire virtual file [value = 1].
             /// </summary>
-            H5F_SCOPE_GLOBAL = 1
+            SCOPE_GLOBAL = 1
         }
 
 
@@ -130,20 +130,20 @@ namespace HDF.PInvoke
             /// <summary>
             /// Use the degree pre-defined by underlining VFL [value = 0].
             /// </summary>
-            H5F_CLOSE_DEFAULT = 0,
+            CLOSE_DEFAULT = 0,
             /// <summary>
             /// file closes only after all opened objects are closed [value = 1].
             /// </summary>
-            H5F_CLOSE_WEAK = 1,
+            CLOSE_WEAK = 1,
             /// <summary>
             /// if no opened objects, file is close; otherwise, file close
             /// fails [value = 2].
             /// </summary>
-            H5F_CLOSE_SEMI = 2,
+            CLOSE_SEMI = 2,
             /// if there are opened objects, close them first, then close file
             /// [value = 3].
             /// </summary>
-            H5F_CLOSE_STRONG = 3
+            CLOSE_STRONG = 3
         }
 
         /// <summary>
@@ -223,11 +223,11 @@ namespace HDF.PInvoke
             /// <summary>
             /// Use the earliest possible format for storing objects
             /// </summary>
-            H5F_LIBVER_EARLIEST,
+            LIBVER_EARLIEST,
             /// <summary>
             /// Use the latest possible format available for storing objects
             /// </summary>
-            H5F_LIBVER_LATEST
+            LIBVER_LATEST
         }
 
         /// <summary>
@@ -272,8 +272,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            (string filename, uint flags, hid_t create_plist =H5P.H5P_DEFAULT,
-            hid_t access_plist = H5P.H5P_DEFAULT);
+            (string filename, uint flags, hid_t create_plist =H5P.DEFAULT,
+            hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
         /// Flushes all buffers associated with a file to disk.
@@ -546,7 +546,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t mount
             (hid_t loc, string name, hid_t child,
-            hid_t plist = H5P.H5P_DEFAULT);
+            hid_t plist = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an existing HDF5 file.
@@ -564,7 +564,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
             (string filename, uint flags,
-            hid_t access_plist = H5P.H5P_DEFAULT);
+            hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
         /// Returns a new identifier for a previously-opened HDF5 file.

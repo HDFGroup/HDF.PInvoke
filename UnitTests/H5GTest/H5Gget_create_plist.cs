@@ -20,41 +20,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
-using hsize_t = System.UInt64;
-using hssize_t = System.Int64;
 
 namespace UnitTests
 {
     public partial class H5GTest
     {
         [TestMethod]
-        public void GroupCreationTest()
-        {
-            hid_t gid = H5G.create(m_test_file, "A");
-            Assert.IsTrue(gid > 0);
-
-            hid_t gid1 = H5G.create(gid, "B");
-            Assert.IsTrue(gid1 > 0);
-
-            Assert.IsTrue(H5G.close(gid1) >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-        }
-
-        [TestMethod]
-        public void GroupAnonCreationTest()
-        {
-            hid_t gid = H5G.create_anon(m_test_file);
-            Assert.IsTrue(gid > 0);
-
-            hid_t gid1 = H5G.create_anon(gid);
-            Assert.IsTrue(gid1 > 0);
-
-            Assert.IsTrue(H5G.close(gid1) >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-        }
-
-        [TestMethod]
-        public void GroupCPLTest()
+        public void H5Gget_create_plistTest1()
         {
             hid_t gid = H5G.create(m_test_file, "A");
             Assert.IsTrue(gid > 0);
@@ -72,6 +44,16 @@ namespace UnitTests
             Assert.IsTrue(H5P.close(gcpl) >= 0);
             Assert.IsTrue(H5G.close(gid1) >= 0);
             Assert.IsTrue(H5G.close(gid) >= 0);
+        }
+
+        [TestMethod]
+        public void H5Gget_create_plistTest2()
+        {
+
+            Random r = new Random();
+            hid_t group = r.Next(-255, -1);
+            hid_t gcpl = H5G.get_create_plist(group);
+            Assert.IsTrue(gcpl < 0);
         }
     }
 }

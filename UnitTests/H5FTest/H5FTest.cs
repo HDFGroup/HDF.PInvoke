@@ -31,9 +31,17 @@ namespace HDF.PInvoke
         public static void ClassInit(TestContext testContext)
         {
             // create a test file which persists across group tests
+            //hid_t plist = H5P.create(H5P.H5P_CLS_FILE_ACCESS);
+            //Assert.IsTrue(plist >= 0);
+            /*
+            Assert.IsTrue(H5P.set_libver_bounds(plist,
+                H5F.libver_t.H5F_LIBVER_LATEST,
+                H5F.libver_t.H5F_LIBVER_LATEST) >= 0);
+             * */
             string fname = Path.GetTempFileName();
             m_class_file = H5F.create(fname, H5F.ACC_TRUNC);
             Assert.IsTrue(m_class_file >= 0);
+            //Assert.IsTrue(H5P.close(plist) >= 0);
         }
 
         [TestInitialize()]

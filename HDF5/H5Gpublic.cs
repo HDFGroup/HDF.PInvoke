@@ -103,8 +103,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            (hid_t loc_id, string name, hid_t lcpl_id = H5P.H5P_DEFAULT,
-            hid_t gcpl_id = H5P.H5P_DEFAULT, hid_t gapl_id = H5P.H5P_DEFAULT);
+            (hid_t loc_id, string name, hid_t lcpl_id = H5P.DEFAULT,
+            hid_t gcpl_id = H5P.DEFAULT, hid_t gapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Creates a new empty group without linking it into the file structure.
@@ -120,8 +120,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create_anon
-            (hid_t loc_id, hid_t gcpl_id = H5P.H5P_DEFAULT,
-            hid_t gapl_id = H5P.H5P_DEFAULT);
+            (hid_t loc_id, hid_t gcpl_id = H5P.DEFAULT,
+            hid_t gapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Gets a group creation property list identifier.
@@ -172,7 +172,7 @@ namespace HDF.PInvoke
         public extern static herr_t get_info_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, ref info_t ginfo,
-            hid_t lapl_id = H5P.H5P_DEFAULT);
+            hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Retrieves information about a group.
@@ -190,7 +190,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
             (hid_t loc_id, string name, ref info_t ginfo,
-            hid_t lapl_id = H5P.H5P_DEFAULT);
+            hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an existing group with a group access property list.
@@ -206,6 +206,6 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (hid_t loc_id, string name, hid_t gapl_id = H5P.H5P_DEFAULT);        
+            (hid_t loc_id, string name, hid_t gapl_id = H5P.DEFAULT);        
     }
 }

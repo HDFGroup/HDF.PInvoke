@@ -44,7 +44,7 @@ namespace HDF.PInvoke
 
             // flush the file
             Assert.IsTrue(H5F.flush(m_test_file,
-                H5F.scope_t.H5F_SCOPE_GLOBAL) >= 0);
+                H5F.scope_t.SCOPE_GLOBAL) >= 0);
 
             // check 4 free space
             Assert.IsTrue(H5F.get_freespace(m_test_file) >= 0);

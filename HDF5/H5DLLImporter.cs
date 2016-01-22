@@ -58,6 +58,9 @@ namespace HDF.PInvoke
     internal class H5WindowsDLLImporter : H5DLLImporter
     {
         [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern IntPtr GetModuleHandle(string lpszLib);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr GetProcAddress
             (IntPtr hModule, string procName);
 
@@ -73,7 +76,12 @@ namespace HDF.PInvoke
         {
             try
             {
-                IntPtr hdl = LoadLibrary(libname);
+                IntPtr hdl = GetModuleHandle(libname);
+                if (hdl == IntPtr.Zero)  // the library hasn't been loaded
+                {
+                    hdl = LoadLibrary(libname);
+                }
+
                 if (hdl != IntPtr.Zero)
                 {
                     IntPtr addr = GetProcAddress(hdl, varName);
