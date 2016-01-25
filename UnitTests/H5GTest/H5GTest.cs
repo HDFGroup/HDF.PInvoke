@@ -29,28 +29,16 @@ namespace UnitTests
         public static void ClassInit(TestContext testContext)
         {
             // create a test file which persists across group tests
-            hid_t plist = H5P.create(H5P.CLS_FILE_ACCESS);
-            Assert.IsTrue(plist >= 0);
-            Assert.IsTrue(H5P.set_libver_bounds(plist,
-                H5F.libver_t.LIBVER_LATEST) >= 0);
-            string fname = Path.GetTempFileName();
-            m_class_file = H5F.create(fname, H5F.ACC_TRUNC);
+            m_class_file = Utilities.H5TempFile();
             Assert.IsTrue(m_class_file >= 0);
-            Assert.IsTrue(H5P.close(plist) >= 0);
         }
 
         [TestInitialize()]
         public void Init()
         {
             // create a test-local file
-            hid_t plist = H5P.create(H5P.CLS_FILE_ACCESS);
-            Assert.IsTrue(plist >= 0);
-            Assert.IsTrue(H5P.set_libver_bounds(plist,
-                H5F.libver_t.LIBVER_LATEST) >= 0);
-            string fname = Path.GetTempFileName();
-            m_test_file = H5F.create(fname, H5F.ACC_TRUNC);
+            m_test_file = Utilities.H5TempFile();
             Assert.IsTrue(m_test_file >= 0);
-            Assert.IsTrue(H5P.close(plist) >= 0);
         }
 
         [TestCleanup()]

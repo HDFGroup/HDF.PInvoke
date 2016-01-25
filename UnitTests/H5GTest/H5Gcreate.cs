@@ -19,8 +19,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
-using hsize_t = System.UInt64;
-using hssize_t = System.Int64;
 
 namespace UnitTests
 {
@@ -42,8 +40,7 @@ namespace UnitTests
         [TestMethod]
         public void H5GcreateTest2()
         {
-            Random r = new Random();
-            int file = r.Next(-255,-1);
+            hid_t file = Utilities.RandomInvalidHandle();
             hid_t gid = H5G.create(file, "A");
             Assert.IsTrue(gid < 0);
         }

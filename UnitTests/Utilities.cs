@@ -15,43 +15,49 @@
 
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5GTest
+    class Utilities
     {
-        [TestMethod]
-        public void H5Gget_create_plistTest1()
+        /// <summary>
+        /// Create a temporary HDF5 file and return a file handle.
+        /// </summary>
+        public static hid_t H5TempFile()
         {
-            hid_t gid = H5G.create(m_test_file, "A");
-            Assert.IsTrue(gid > 0);
-
-            hid_t gcpl = H5G.get_create_plist(gid);
-            Assert.IsTrue(gcpl > 0);
-
-            hid_t gid1 = H5G.create_anon(gid);
-            Assert.IsTrue(gid1 > 0);
-
-            hid_t gcpl1 = H5G.get_create_plist(gid1);
-            Assert.IsTrue(gcpl1 > 0);
-
-            Assert.IsTrue(H5P.close(gcpl1) >= 0);
-            Assert.IsTrue(H5P.close(gcpl) >= 0);
-            Assert.IsTrue(H5G.close(gid1) >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
+            hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
+            if (fapl < 0)
+            {
+                throw new ApplicationException("H5P.create failed.");
+            }
+            if (H5P.set_libver_bounds(fapl, H5F.libver_t.LIBVER_LATEST) < 0)
+            {
+                throw new ApplicationException("H5P.set_libver_bounds failed.");
+            }
+            string fname = Path.GetTempFileName();
+            hid_t file = H5F.create(fname, H5F.ACC_TRUNC, H5P.DEFAULT, fapl);
+            if (file < 0)
+            {
+                throw new ApplicationException("H5F.create failed.");
+            }
+            if (H5P.close(fapl) < 0)
+            {
+                throw new ApplicationException("H5P.close failed.");
+            }
+            return file;
         }
 
-        [TestMethod]
-        public void H5Gget_create_plistTest2()
+        /// <summary>
+        /// Return a random INVALID handle.
+        /// </summary>
+        public static hid_t RandomInvalidHandle()
         {
-            hid_t group = Utilities.RandomInvalidHandle();
-            hid_t gcpl = H5G.get_create_plist(group);
-            Assert.IsTrue(gcpl < 0);
+            Random r = new Random();
+            return r.Next(System.Int32.MinValue, -1);
         }
     }
 }
