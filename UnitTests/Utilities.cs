@@ -27,14 +27,15 @@ namespace UnitTests
         /// <summary>
         /// Create a temporary HDF5 file and return a file handle.
         /// </summary>
-        public static hid_t H5TempFile()
+        public static hid_t H5TempFile(H5F.libver_t version =
+            H5F.libver_t.LIBVER_LATEST)
         {
             hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
             if (fapl < 0)
             {
                 throw new ApplicationException("H5P.create failed.");
             }
-            if (H5P.set_libver_bounds(fapl, H5F.libver_t.LIBVER_LATEST) < 0)
+            if (H5P.set_libver_bounds(fapl, version) < 0)
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
             }
@@ -54,14 +55,15 @@ namespace UnitTests
         /// <summary>
         /// Create a temporary HDF5 file and return a file handle.
         /// </summary>
-        public static hid_t H5TempFile(ref string fileName)
+        public static hid_t H5TempFile(ref string fileName,
+            H5F.libver_t version = H5F.libver_t.LIBVER_LATEST)
         {
             hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
             if (fapl < 0)
             {
                 throw new ApplicationException("H5P.create failed.");
             }
-            if (H5P.set_libver_bounds(fapl, H5F.libver_t.LIBVER_LATEST) < 0)
+            if (H5P.set_libver_bounds(fapl, version) < 0)
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
             }

@@ -96,6 +96,10 @@
     <Compile Include="H5GTest\H5GTest.cs" />
     <Compile Include="H5GTest\H5Gcreate.cs" />
     <Compile Include="H5GTest\H5Gclose.cs" />
+    <Compile Include="H5GTest\H5Gget_info.cs" />
+    <Compile Include="H5GTest\H5get_info_by_idx.cs" />
+    <Compile Include="H5GTest\H5Gget_info_by_name.cs" />
+    <Compile Include="H5GTest\H5Gopen.cs" />
     <Compile Include="H5Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="H5FTest\H5FTest.cs" />

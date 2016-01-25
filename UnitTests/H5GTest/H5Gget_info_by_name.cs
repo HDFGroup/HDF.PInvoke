@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -25,33 +26,34 @@ namespace UnitTests
     public partial class H5GTest
     {
         [TestMethod]
-        public void H5Gcreate_anonTest1()
+        public void H5Gget_info_by_nameTest1()
         {
-            hid_t gid = H5G.create_anon(m_v0_test_file);
-            Assert.IsTrue(gid > 0);
-
-            hid_t gid1 = H5G.create_anon(gid);
-            Assert.IsTrue(gid1 > 0);
-
-            Assert.IsTrue(H5G.close(gid1) >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-
-            gid = H5G.create_anon(m_v2_test_file);
-            Assert.IsTrue(gid > 0);
-
-            gid1 = H5G.create_anon(gid);
-            Assert.IsTrue(gid1 > 0);
-
-            Assert.IsTrue(H5G.close(gid1) >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
+            H5G.info_t info = new H5G.info_t();
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v0_class_file, ".", ref info) >= 0);
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v0_test_file, ".", ref info) >= 0);
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v2_class_file, ".", ref info) >= 0);
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v2_test_file, ".", ref info) >= 0);
         }
 
         [TestMethod]
-        public void H5Gcreate_anonTest2()
+        public void H5Gget_info_by_nameTest2()
         {
-            int file = Utilities.RandomInvalidHandle();
-            hid_t gid = H5G.create_anon(file);
-            Assert.IsTrue(gid < 0);
+            hid_t group = H5G.create(m_v0_test_file, "A");
+            Assert.IsTrue(group >= 0);
+            H5G.info_t info = new H5G.info_t();
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v0_test_file, "A", ref info) >= 0);
+            Assert.IsTrue(H5G.close(group) >= 0);
+
+            group = H5G.create(m_v2_test_file, "A");
+            Assert.IsTrue(group >= 0);
+            Assert.IsTrue(
+                H5G.get_info_by_name(m_v2_test_file, "A", ref info) >= 0);
+            Assert.IsTrue(H5G.close(group) >= 0);
         }
     }
 }

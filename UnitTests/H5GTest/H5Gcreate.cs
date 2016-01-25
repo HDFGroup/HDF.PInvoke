@@ -27,10 +27,19 @@ namespace UnitTests
         [TestMethod]
         public void H5GcreateTest1()
         {
-            hid_t gid = H5G.create(m_test_file, "A");
+            hid_t gid = H5G.create(m_v0_test_file, "A");
             Assert.IsTrue(gid > 0);
 
             hid_t gid1 = H5G.create(gid, "B");
+            Assert.IsTrue(gid1 > 0);
+
+            Assert.IsTrue(H5G.close(gid1) >= 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
+
+            gid = H5G.create(m_v2_test_file, "A");
+            Assert.IsTrue(gid > 0);
+
+            gid1 = H5G.create(gid, "B");
             Assert.IsTrue(gid1 > 0);
 
             Assert.IsTrue(H5G.close(gid1) >= 0);

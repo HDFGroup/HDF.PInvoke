@@ -167,12 +167,13 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Gget_info_by_idx",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
-            (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, ref info_t ginfo,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string group_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
+            ref info_t ginfo, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Retrieves information about a group.
@@ -186,11 +187,12 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Gget_info_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
-            (hid_t loc_id, string name, ref info_t ginfo,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string name,
+            ref info_t ginfo, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an existing group with a group access property list.

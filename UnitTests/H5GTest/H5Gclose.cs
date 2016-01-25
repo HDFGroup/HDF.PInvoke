@@ -28,7 +28,11 @@ namespace UnitTests
         [TestMethod]
         public void H5GcloseTest1()
         {
-            hid_t gid = H5G.create(m_test_file, "A");
+            hid_t gid = H5G.create(m_v0_test_file, "A");
+            Assert.IsTrue(gid >= 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
+
+            gid = H5G.create(m_v2_test_file, "A");
             Assert.IsTrue(gid >= 0);
             Assert.IsTrue(H5G.close(gid) >= 0);
         }
@@ -36,7 +40,12 @@ namespace UnitTests
         [TestMethod]
         public void H5GcloseTest2()
         {
-            hid_t gid = H5G.create(m_test_file, "A");
+            hid_t gid = H5G.create(m_v0_test_file, "A");
+            Assert.IsTrue(gid >= 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
+            Assert.IsTrue(H5G.close(gid) < 0);
+
+            gid = H5G.create(m_v2_test_file, "A");
             Assert.IsTrue(gid >= 0);
             Assert.IsTrue(H5G.close(gid) >= 0);
             Assert.IsTrue(H5G.close(gid) < 0);

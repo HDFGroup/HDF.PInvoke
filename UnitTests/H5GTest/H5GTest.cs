@@ -29,34 +29,45 @@ namespace UnitTests
         public static void ClassInit(TestContext testContext)
         {
             // create a test file which persists across group tests
-            m_class_file = Utilities.H5TempFile();
-            Assert.IsTrue(m_class_file >= 0);
+            m_v0_class_file = Utilities.H5TempFile(
+                H5F.libver_t.LIBVER_EARLIEST);
+            Assert.IsTrue(m_v0_class_file >= 0);
+            m_v2_class_file = Utilities.H5TempFile();
+            Assert.IsTrue(m_v2_class_file >= 0);
         }
 
         [TestInitialize()]
         public void Init()
         {
-            // create a test-local file
-            m_test_file = Utilities.H5TempFile();
-            Assert.IsTrue(m_test_file >= 0);
+            // create a test-local files
+            m_v0_test_file = Utilities.H5TempFile(H5F.libver_t.LIBVER_EARLIEST);
+            Assert.IsTrue(m_v0_test_file >= 0);
+            m_v2_test_file = Utilities.H5TempFile();
+            Assert.IsTrue(m_v2_test_file >= 0);
         }
 
         [TestCleanup()]
         public void Cleanup()
         {
-            // close the test-local file
-            Assert.IsTrue(H5F.close(m_test_file) >= 0);
+            // close the test-local files
+            Assert.IsTrue(H5F.close(m_v0_test_file) >= 0);
+            Assert.IsTrue(H5F.close(m_v2_test_file) >= 0);
         }
 
         [ClassCleanup()]
         public static void ClassCleanup()
         {
-            // close the global test file
-            Assert.IsTrue(H5F.close(m_class_file) >= 0);
+            // close the global test files
+            Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
+            Assert.IsTrue(H5F.close(m_v2_class_file) >= 0);
         }
 
-        private static hid_t m_class_file = -1;
+        private static hid_t m_v0_class_file = -1;
+        
+        private static hid_t m_v2_class_file = -1;
 
-        private hid_t m_test_file = -1;
+        private hid_t m_v0_test_file = -1;
+
+        private hid_t m_v2_test_file = -1;
     }
 }
