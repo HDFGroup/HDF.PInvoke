@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -22,43 +23,30 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    [TestClass]
-    public partial class H5FTest
+    public partial class H5GTest
     {
-        [ClassInitialize()]
-        public static void ClassInit(TestContext testContext)
+        [TestMethod]
+        public void H5GcloseTest1()
         {
-            // create a test file which persists across file tests
-            m_class_file = Utilities.H5TempFile();
-            Assert.IsTrue(m_class_file >= 0);
+            hid_t gid = H5G.create(m_test_file, "A");
+            Assert.IsTrue(gid >= 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
         }
 
-        [TestInitialize()]
-        public void Init()
+        [TestMethod]
+        public void H5GcloseTest2()
         {
-            // create a test-local file
-            m_test_file = Utilities.H5TempFile(ref m_test_file_name);
-            Assert.IsTrue(m_test_file >= 0);
+            hid_t gid = H5G.create(m_test_file, "A");
+            Assert.IsTrue(gid >= 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
+            Assert.IsTrue(H5G.close(gid) < 0);
         }
 
-        [TestCleanup()]
-        public void Cleanup()
+        [TestMethod]
+        public void H5GcloseTest3()
         {
-            // close the test-local file
-            Assert.IsTrue(H5F.close(m_test_file) >= 0);
+            hid_t gid = Utilities.RandomInvalidHandle();
+            Assert.IsTrue(H5G.close(gid) < 0);
         }
-
-        [ClassCleanup()]
-        public static void ClassCleanup()
-        {
-            // close the global test file
-            Assert.IsTrue(H5F.close(m_class_file) >= 0);
-        }
-
-        private static hid_t m_class_file = -1;
-
-        private hid_t m_test_file = -1;
-
-        private string m_test_file_name;
     }
 }

@@ -52,6 +52,33 @@ namespace UnitTests
         }
 
         /// <summary>
+        /// Create a temporary HDF5 file and return a file handle.
+        /// </summary>
+        public static hid_t H5TempFile(ref string fileName)
+        {
+            hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
+            if (fapl < 0)
+            {
+                throw new ApplicationException("H5P.create failed.");
+            }
+            if (H5P.set_libver_bounds(fapl, H5F.libver_t.LIBVER_LATEST) < 0)
+            {
+                throw new ApplicationException("H5P.set_libver_bounds failed.");
+            }
+            fileName = Path.GetTempFileName();
+            hid_t file = H5F.create(fileName, H5F.ACC_TRUNC, H5P.DEFAULT, fapl);
+            if (file < 0)
+            {
+                throw new ApplicationException("H5F.create failed.");
+            }
+            if (H5P.close(fapl) < 0)
+            {
+                throw new ApplicationException("H5P.close failed.");
+            }
+            return file;
+        }
+
+        /// <summary>
         /// Return a random INVALID handle.
         /// </summary>
         public static hid_t RandomInvalidHandle()

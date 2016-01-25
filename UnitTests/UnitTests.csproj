@@ -95,6 +95,7 @@
     <Compile Include="H5GTest\H5Gcreate_anon.cs" />
     <Compile Include="H5GTest\H5GTest.cs" />
     <Compile Include="H5GTest\H5Gcreate.cs" />
+    <Compile Include="H5GTest\H5Gclose.cs" />
     <Compile Include="H5Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="H5FTest\H5FTest.cs" />

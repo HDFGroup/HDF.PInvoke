@@ -22,7 +22,7 @@ using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using hssize_t = System.Int64;
 
-namespace HDF.PInvoke
+namespace UnitTests
 {
     public partial class H5FTest
     {
