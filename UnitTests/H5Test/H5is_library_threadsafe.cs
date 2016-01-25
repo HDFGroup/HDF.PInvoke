@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -24,36 +25,19 @@ namespace UnitTests
     public partial class H5GTest
     {
         [TestMethod]
-        public void H5GcloseTest1()
+        public void H5is_library_threadsafeTest1()
         {
-            hid_t gid = H5G.create(m_v0_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
+            uint majnum = 0, minnum = 0, relnum = 0;
+            Assert.IsTrue(
+                H5.get_libversion(ref majnum, ref minnum, ref relnum) >= 0);
+            Assert.IsTrue(majnum == 1);
+            Assert.IsTrue(minnum >= 8);
 
-            gid = H5G.create(m_v2_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-        }
-
-        [TestMethod]
-        public void H5GcloseTest2()
-        {
-            hid_t gid = H5G.create(m_v0_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-            Assert.IsTrue(H5G.close(gid) < 0);
-
-            gid = H5G.create(m_v2_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-            Assert.IsTrue(H5G.close(gid) < 0);
-        }
-
-        [TestMethod]
-        public void H5GcloseTest3()
-        {
-            hid_t gid = Utilities.RandomInvalidHandle();
-            Assert.IsTrue(H5G.close(gid) < 0);
+            if ((minnum == 8 && relnum >= 16) || majnum >= 10)
+            {
+                uint is_ts = 0; 
+                Assert.IsTrue(H5.is_library_threadsafe(ref is_ts) >= 0);
+            }
         }
     }
 }

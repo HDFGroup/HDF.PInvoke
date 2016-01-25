@@ -100,7 +100,14 @@
     <Compile Include="H5GTest\H5get_info_by_idx.cs" />
     <Compile Include="H5GTest\H5Gget_info_by_name.cs" />
     <Compile Include="H5GTest\H5Gopen.cs" />
-    <Compile Include="H5Test.cs" />
+    <Compile Include="H5Test\H5allocate_memory.cs" />
+    <Compile Include="H5Test\H5dont_atexit.cs" />
+    <Compile Include="H5Test\H5free_memory.cs" />
+    <Compile Include="H5Test\H5garbage_collect.cs" />
+    <Compile Include="H5Test\H5get_libversion.cs" />
+    <Compile Include="H5Test\H5is_library_threadsafe.cs" />
+    <Compile Include="H5Test\H5resize_memory.cs" />
+    <Compile Include="H5Test\H5set_free_list_limits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="H5FTest\H5FTest.cs" />
     <Compile Include="Utilities.cs" />

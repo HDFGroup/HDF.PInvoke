@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -24,36 +25,41 @@ namespace UnitTests
     public partial class H5GTest
     {
         [TestMethod]
-        public void H5GcloseTest1()
+        public void H5free_memoryTest1()
         {
-            hid_t gid = H5G.create(m_v0_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
+            IntPtr size = new IntPtr(1024 * 1024);
 
-            gid = H5G.create(m_v2_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
+            // uninitialized allocation
+            IntPtr ptr = H5.allocate_memory(size, 0);
+            Assert.IsFalse(ptr == IntPtr.Zero);
+            Assert.IsTrue(H5.free_memory(ptr) >= 0);
+
+            // initialize with zeros
+            ptr = H5.allocate_memory(size, 1);
+            Assert.IsFalse(ptr == IntPtr.Zero);
+            Assert.IsTrue(H5.free_memory(ptr) >= 0);
+
+            // size = 0 -> NULL return
+            size = new IntPtr(0);
+            ptr = H5.allocate_memory(size, 0);
+            Assert.IsTrue(ptr == IntPtr.Zero);
+            Assert.IsTrue(H5.free_memory(ptr) >= 0);
         }
 
         [TestMethod]
-        public void H5GcloseTest2()
+        public void H5free_memoryTest2()
         {
-            hid_t gid = H5G.create(m_v0_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-            Assert.IsTrue(H5G.close(gid) < 0);
+            IntPtr size = new IntPtr(1024 * 1024);
 
-            gid = H5G.create(m_v2_test_file, "A");
-            Assert.IsTrue(gid >= 0);
-            Assert.IsTrue(H5G.close(gid) >= 0);
-            Assert.IsTrue(H5G.close(gid) < 0);
-        }
+            // uninitialized allocation
+            IntPtr ptr = Marshal.AllocHGlobal(size);
+            Assert.IsFalse(ptr == IntPtr.Zero);
+            Assert.IsTrue(H5.free_memory(ptr) >= 0);
 
-        [TestMethod]
-        public void H5GcloseTest3()
-        {
-            hid_t gid = Utilities.RandomInvalidHandle();
-            Assert.IsTrue(H5G.close(gid) < 0);
+            // size = 0
+            size = new IntPtr(0);
+            ptr = Marshal.AllocHGlobal(size);
+            Assert.IsTrue(H5.free_memory(ptr) >= 0);
         }
     }
 }

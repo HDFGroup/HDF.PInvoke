@@ -14,18 +14,20 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+using hid_t = System.Int32;
+
 namespace UnitTests
 {
-    [TestClass]
-    public class H5Test
+    public partial class H5GTest
     {
         [TestMethod]
-        public void AllocationTest()
+        public void H5allocate_memoryTest1()
         {
-            IntPtr size = new IntPtr(1024*1024);
+            IntPtr size = new IntPtr(1024 * 1024);
 
             // uninitialized allocation
             IntPtr ptr = H5.allocate_memory(size, 0);
@@ -45,63 +47,25 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void FreeListTest()
-        {
-            Assert.IsTrue(
-                H5.set_free_list_limits(-1, -1, -1, -1, -1, -1) >= 0);
-
-            Assert.IsTrue(
-                H5.set_free_list_limits(1024, -1, 4096, -1, -1, 1024) >= 0);
-        }
-
-        [TestMethod]
-        public void ReallocationTest()
+        public void H5allocate_memoryTest2()
         {
             IntPtr size = new IntPtr(1024 * 1024);
 
             // uninitialized allocation
             IntPtr ptr = H5.allocate_memory(size, 0);
             Assert.IsFalse(ptr == IntPtr.Zero);
+            Marshal.FreeHGlobal(ptr);
 
-            // reallocate
-            size = new IntPtr(1024 * 1024 * 10);
-            IntPtr ptr1 = H5.resize_memory(ptr, size);
-            Assert.IsFalse(ptr1 == IntPtr.Zero);
-            Assert.IsTrue(H5.free_memory(ptr1) >= 0);
-
-            // reallocate from NULL -> allocation
-            ptr = H5.resize_memory(IntPtr.Zero, size);
-            Assert.IsFalse(ptr == IntPtr.Zero);
-            Assert.IsTrue(H5.free_memory(ptr) >= 0);
-
-            // reallocate to size zero -> free
+            // initialize with zeros
             ptr = H5.allocate_memory(size, 1);
             Assert.IsFalse(ptr == IntPtr.Zero);
+            Marshal.FreeHGlobal(ptr);
+
+            // size = 0 -> NULL return
             size = new IntPtr(0);
-            ptr1 = H5.resize_memory(ptr, size);
-            Assert.IsTrue(ptr1 == IntPtr.Zero);
-
-            // H5resize_memory(NULL, 0)	Returns NULL (undefined in C standard).
-            size = new IntPtr(0);
-            Assert.IsTrue(H5.resize_memory(IntPtr.Zero, size) == IntPtr.Zero);
-
-            Assert.IsTrue(H5.garbage_collect() >= 0);
-        }
-
-        [TestMethod]
-        public void VersionAndThreadSafeBuildTest()
-        {
-            uint majnum = 0, minnum = 0, relnum = 0;
-            Assert.IsTrue(
-                H5.get_libversion(ref majnum, ref minnum, ref relnum) >= 0);
-            Assert.IsTrue(majnum == 1);
-            Assert.IsTrue(minnum == 8);
-
-            if (relnum >= 16)
-            {
-                uint is_ts = 0;
-                Assert.IsTrue(H5.is_library_threadsafe(ref is_ts) >= 0);
-            }
+            ptr = H5.allocate_memory(size, 0);
+            Assert.IsTrue(ptr == IntPtr.Zero);
+            Marshal.FreeHGlobal(ptr);
         }
     }
 }
