@@ -104,10 +104,12 @@ namespace HDF.PInvoke
         /// <returns>Returns an attribute identifier if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Acreate2",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            (hid_t loc_id, string attr_name, hid_t type_id, hid_t space_id,
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string attr_name,
+            hid_t type_id, hid_t space_id,
             hid_t acpl_id = H5P.DEFAULT, hid_t aapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -127,10 +129,12 @@ namespace HDF.PInvoke
         /// <returns>Returns an attribute identifier if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Acreate_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create_by_name
-            (hid_t loc_id, string obj_name, string attr_name, hid_t type_id,
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name, hid_t type_id,
             hid_t space_id, hid_t acpl_id = H5P.DEFAULT,
             hid_t aapl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
@@ -144,9 +148,11 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Adelete",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t delete(hid_t loc_id, string name);
+        public extern static herr_t delete(hid_t loc_id,
+            [MarshalAs(UnmanagedType.LPStr)]string name);
 
         /// <summary>
         /// Deletes an attribute from an object according to index order.
@@ -163,11 +169,13 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Adelete_by_idx",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete_by_idx
-            (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
+            hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Removes an attribute from a specified location.
@@ -182,10 +190,12 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Adelete_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete_by_name
-            (hid_t loc_id, string obj_name, string attr_name,
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -198,9 +208,11 @@ namespace HDF.PInvoke
         /// <code>TRUE</code>, or 0 (zero), for <code>FALSE</code>. Otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aexists",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static htri_t exists(hid_t obj_id, string attr_name);
+        public extern static htri_t exists(hid_t obj_id,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name);
 
         /// <summary>
         /// Determines whether an attribute with a given name exists on an object.
@@ -214,10 +226,12 @@ namespace HDF.PInvoke
         /// <code>TRUE</code>, or 0 (zero), for <code>FALSE</code>. Otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aexists_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static htri_t exists_by_name
-            (hid_t loc_id, string obj_name, string attr_name,
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -262,12 +276,13 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_info_by_idx",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
-            (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, ref info_t ainfo,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
+            ref info_t ainfo, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Retrieves attribute information, by attribute name.
@@ -284,11 +299,13 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_info_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
-            (hid_t loc_id, string obj_name, string attr_name, ref info_t ainfo,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name,
+            ref info_t ainfo, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Gets an attribute name.
@@ -324,12 +341,13 @@ namespace HDF.PInvoke
         /// <returns>Returns attribute name size, in bytes, if successful;
         /// otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aget_name_by_idx",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name_by_idx
-            (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, IntPtr name, size_t size,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n, IntPtr name,
+            size_t size, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Gets a copy of the dataspace for an attribute.
@@ -412,10 +430,12 @@ namespace HDF.PInvoke
         /// be a negative value, zero if all attributes were processed, or a
         /// positive value indicating short-circuit success</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aiterate_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate_by_name(hid_t loc_id,
-            string obj_name, H5.index_t idx_type, H5.iter_order_t order,
+            [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            H5.index_t idx_type, H5.iter_order_t order,
             ref hsize_t n, operator2_t op, IntPtr op_data,
             hid_t lapd_id = H5P.DEFAULT);
 
@@ -431,10 +451,12 @@ namespace HDF.PInvoke
         /// <returns>Returns an attribute identifier if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (hid_t obj_id, string attr_name, hid_t aapl_id = H5P.DEFAULT);
+            (hid_t obj_id, [MarshalAs(UnmanagedType.LPStr)]string attr_name,
+            hid_t aapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an attribute for an object specified by attribute index
@@ -453,12 +475,13 @@ namespace HDF.PInvoke
         /// <returns>Returns an attribute identifier if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen_by_idx",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open_by_idx
-            (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, hid_t aapl_id = H5P.DEFAULT,
-            hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
+            hid_t aapl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an attribute for an object by object name and attribute name.
@@ -474,10 +497,12 @@ namespace HDF.PInvoke
         /// <returns>Returns an attribute identifier if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Aopen_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open_by_name
-            (hid_t loc_id, string obj_name, string attr_name,
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string attr_name,
             hid_t aapl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -506,10 +531,12 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.S</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Arename",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t rename
-            (hid_t loc_id, string old_name, string new_name);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string old_name,
+            [MarshalAs(UnmanagedType.LPStr)]string new_name);
 
         /// <summary>
         /// Renames an attribute.
@@ -525,11 +552,14 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Arename_by_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t rename_by_name
-            (hid_t loc_id, string obj_name, string old_attr_name,
-            string new_attr_name, hid_t lapl_id = H5P.DEFAULT);
+            (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)]string old_attr_name,
+            [MarshalAs(UnmanagedType.LPStr)]string new_attr_name,
+            hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Writes data to an attribute.

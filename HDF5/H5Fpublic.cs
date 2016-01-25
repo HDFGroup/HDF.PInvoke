@@ -269,11 +269,12 @@ namespace HDF.PInvoke
         /// <returns>Returns a file identifier if successful; otherwise returns
         /// a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fcreate",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            (string filename, uint flags, hid_t create_plist =H5P.DEFAULT,
-            hid_t access_plist = H5P.DEFAULT);
+            ([MarshalAs(UnmanagedType.LPStr)]string filename, uint flags,
+            hid_t create_plist = H5P.DEFAULT, hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
         /// Flushes all buffers associated with a file to disk.
@@ -525,9 +526,11 @@ namespace HDF.PInvoke
         /// or 0 (zero), for FALSE. On any error, including the case that
         /// the file does not exist, returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fis_hdf5",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static htri_t is_hdf5(string filename);
+        public extern static htri_t is_hdf5
+            ([MarshalAs(UnmanagedType.LPStr)]string filename);
 
         /// <summary>
         /// Mounts a file.
@@ -542,11 +545,12 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t mount
-            (hid_t loc, string name, hid_t child,
-            hid_t plist = H5P.DEFAULT);
+            (hid_t loc, [MarshalAs(UnmanagedType.LPStr)]string name,
+            hid_t child, hid_t plist = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an existing HDF5 file.
@@ -560,10 +564,11 @@ namespace HDF.PInvoke
         /// <returns>Returns a file identifier if successful; otherwise returns
         /// a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fopen",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (string filename, uint flags,
+            ([MarshalAs(UnmanagedType.LPStr)]string filename, uint flags,
             hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
@@ -618,8 +623,10 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Funmount",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t unmount(hid_t loc, string name);
+        public extern static herr_t unmount(hid_t loc,
+            [MarshalAs(UnmanagedType.LPStr)]string name);
     }
 }
