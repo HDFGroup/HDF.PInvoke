@@ -25,7 +25,7 @@ namespace UnitTests
     class Utilities
     {
         /// <summary>
-        /// Create a temporary HDF5 file and return a file handle.
+        /// Create a temporary HDF5 file IN MEMORY and return a file handle.
         /// </summary>
         public static hid_t H5TempFile(H5F.libver_t version =
             H5F.libver_t.LIBVER_LATEST)
@@ -38,6 +38,11 @@ namespace UnitTests
             if (H5P.set_libver_bounds(fapl, version) < 0)
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
+            }
+            // use the core VFD, 64K increments, no backing store
+            if (H5P.set_fapl_core(fapl, new IntPtr(65536), 0) < 0)
+            {
+                throw new ApplicationException("H5P.set_fapl_core failed.");
             }
             string fname = Path.GetTempFileName();
             hid_t file = H5F.create(fname, H5F.ACC_TRUNC, H5P.DEFAULT, fapl);
@@ -53,7 +58,8 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Create a temporary HDF5 file and return a file handle.
+        /// Create a temporary HDF5 file IN MEMORY and return its name and
+        /// a file handle.
         /// </summary>
         public static hid_t H5TempFile(ref string fileName,
             H5F.libver_t version = H5F.libver_t.LIBVER_LATEST)
@@ -66,6 +72,11 @@ namespace UnitTests
             if (H5P.set_libver_bounds(fapl, version) < 0)
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
+            }
+            // use the core VFD, 64K increments, no backing store
+            if (H5P.set_fapl_core(fapl, new IntPtr(65536), 0) < 0)
+            {
+                throw new ApplicationException("H5P.set_fapl_core failed.");
             }
             fileName = Path.GetTempFileName();
             hid_t file = H5F.create(fileName, H5F.ACC_TRUNC, H5P.DEFAULT, fapl);

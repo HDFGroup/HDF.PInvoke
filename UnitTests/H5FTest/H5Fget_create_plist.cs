@@ -14,39 +14,31 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
-using System.IO;
-using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
-using hsize_t = System.UInt64;
-using hssize_t = System.Int64;
 
 namespace UnitTests
 {
     public partial class H5FTest
     {
         [TestMethod]
-        public void HDF5FileTest()
+        public void H5Fget_create_plistTest1()
         {
-            string fname = Path.GetTempFileName();
-            // this is not an HDF5 file
-            Assert.IsTrue(H5F.is_hdf5(fname) == 0);
+            hid_t fcpl = H5F.get_create_plist(m_v0_class_file);
+            Assert.IsTrue(fcpl >= 0);
+            Assert.IsTrue(H5P.close(fcpl) >= 0);
+            fcpl = H5F.get_create_plist(m_v2_class_file);
+            Assert.IsTrue(fcpl >= 0);
+            Assert.IsTrue(H5P.close(fcpl) >= 0);
         }
 
         [TestMethod]
-        public void FileNameTest()
+        public void H5Fget_create_plistTest2()
         {
-            IntPtr buf = H5.allocate_memory(new IntPtr(256), 0);
-
-            Assert.IsTrue(H5F.get_name(m_test_file, buf, new IntPtr(255)) >= 0);
-
-            string name = Marshal.PtrToStringAnsi(buf);
-            // names should match
-            Assert.AreEqual(m_test_file_name, name);
-
-            Assert.IsTrue(H5.free_memory(buf) >= 0);
+            Assert.IsFalse(
+                H5F.get_create_plist(Utilities.RandomInvalidHandle()) >= 0);
         }
     }
 }

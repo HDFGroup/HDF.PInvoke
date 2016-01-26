@@ -90,7 +90,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="H5FTest\FileCreation.cs" />
-    <Compile Include="H5FTest\FileQuery.cs" />
+    <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
+    <Compile Include="H5FTest\H5Fget_filesize.cs" />
+    <Compile Include="H5FTest\H5Fget_create_plist.cs" />
+    <Compile Include="H5FTest\H5Fget_access_plist.cs" />
+    <Compile Include="H5FTest\H5Fflush.cs" />
+    <Compile Include="H5FTest\H5Fget_name.cs" />
+    <Compile Include="H5FTest\H5Fcreate.cs" />
+    <Compile Include="H5FTest\H5Fclose.cs" />
     <Compile Include="H5GTest\H5Gget_create_plist.cs" />
     <Compile Include="H5GTest\H5Gcreate_anon.cs" />
     <Compile Include="H5GTest\H5GTest.cs" />

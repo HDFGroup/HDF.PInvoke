@@ -17,6 +17,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
+using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
 
@@ -131,6 +132,22 @@ namespace HDF.PInvoke
         public static extern hid_t create(hid_t cls_id);
 
         /// <summary>
+        /// Modifies the file access property list to use the
+        /// <code>H5FD_CORE</code> driver.
+        /// </summary>
+        /// <param name="fapl">File access property list identifier.</param>
+        /// <param name="increment">Size, in bytes, of memory increments.</param>
+        /// <param name="backing_store">Boolean flag indicating whether to
+        /// write the file contents to disk when the file is closed.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_core",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_core
+            (hid_t fapl, IntPtr increment, hbool_t backing_store);
+
+        /// <summary>
         /// Sets bounds on library versions, and indirectly format versions,
         /// to be used when creating objects.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetLibverBounds
@@ -153,6 +170,5 @@ namespace HDF.PInvoke
             (hid_t plist,
             H5F.libver_t low = H5F.libver_t.LIBVER_EARLIEST,
             H5F.libver_t high = H5F.libver_t.LIBVER_LATEST);
-
     }
 }

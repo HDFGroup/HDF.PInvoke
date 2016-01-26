@@ -318,21 +318,6 @@ namespace HDF.PInvoke
         public extern static hid_t get_create_plist(hid_t file_id);
 
         /// <summary>
-        /// Returns the size of an HDF5 file.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFilesize
-        /// </summary>
-        /// <param name="file_id">Identifier of a currently-open HDF5
-        /// file</param>
-        /// <param name="size">Size of the file, in bytes.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_filesize",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t get_filesize
-            (hid_t file_id, ref hsize_t size);
-
-        /// <summary>
         /// Retrieves a copy of the image of an existing, open file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFileImage
         /// </summary>
@@ -348,6 +333,21 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_file_image
             (hid_t file_id, IntPtr buf_ptr, size_t buf_len);
+
+        /// <summary>
+        /// Returns the size of an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFilesize
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5
+        /// file</param>
+        /// <param name="size">Size of the file, in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_filesize",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_filesize
+            (hid_t file_id, ref hsize_t size);
 
         /// <summary>
         /// Returns the amount of free space in a file.
