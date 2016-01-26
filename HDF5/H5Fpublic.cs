@@ -24,7 +24,7 @@ using hsize_t = System.UInt64;
 using hssize_t = System.Int64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.Int32;
+using ssize_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {
@@ -332,7 +332,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_file_image
-            (hid_t file_id, IntPtr buf_ptr, size_t buf_len);
+            (hid_t file_id, IntPtr buf_ptr, ref IntPtr buf_len);
 
         /// <summary>
         /// Returns the size of an HDF5 file.

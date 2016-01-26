@@ -31,6 +31,7 @@ namespace UnitTests
             Assert.IsTrue(H5F.get_filesize(m_v0_class_file, ref size) >= 0);
             Assert.IsTrue(H5F.get_filesize(m_v2_class_file, ref size) >= 0);
             Assert.IsTrue(H5F.get_filesize(m_v0_test_file, ref size) >= 0);
+            // the next two are "empty" and have a predictable size
             Assert.IsTrue(size == 2144, String.Format("File size: {0}", size));
             Assert.IsTrue(H5F.get_filesize(m_v2_test_file, ref size) >= 0);
             Assert.IsTrue(size == 2096, String.Format("File size: {0}", size));

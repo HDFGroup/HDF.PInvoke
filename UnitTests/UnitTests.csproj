@@ -91,6 +91,11 @@
   <ItemGroup>
     <Compile Include="H5FTest\FileCreation.cs" />
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
+    <Compile Include="H5FTest\H5Fget_mdc_config.cs" />
+    <Compile Include="H5FTest\H5Fget_intent.cs" />
+    <Compile Include="H5FTest\H5Fget_info.cs" />
+    <Compile Include="H5FTest\H5Fget_freespace.cs" />
+    <Compile Include="H5FTest\H5Fget_files_image.cs" />
     <Compile Include="H5FTest\H5Fget_filesize.cs" />
     <Compile Include="H5FTest\H5Fget_create_plist.cs" />
     <Compile Include="H5FTest\H5Fget_access_plist.cs" />

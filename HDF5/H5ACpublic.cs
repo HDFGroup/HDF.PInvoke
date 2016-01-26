@@ -43,22 +43,18 @@ namespace HDF.PInvoke
 
             hbool_t rpt_fcn_enabled;
 
-            hbool_t open_trace_file;
-
-            hbool_t close_trace_file;
-
+            hbool_t    open_trace_file;
+            hbool_t    close_trace_file;
             fixed char trace_file_name[H5AC__MAX_TRACE_FILE_NAME_LEN + 1];
 
             hbool_t evictions_enabled;
             
             hbool_t set_initial_size;
-            
-            size_t initial_size;
+            size_t  initial_size;
             
             double min_clean_fraction;
             
             size_t max_size;
-            
             size_t min_size;
             
             long epoch_length;
@@ -71,37 +67,83 @@ namespace HDF.PInvoke
             double increment;
 
             hbool_t apply_max_increment;
-
-            size_t max_increment;
+            size_t  max_increment;
 
             H5C.cache_flash_incr_mode flash_incr_mode;
-
-            double flash_multiple;
-
-            double flash_threshold;
+            double                    flash_multiple;
+            double                    flash_threshold;
 
             /* size decrease control fields: */
             H5C.cache_decr_mode decr_mode;
-
+            
             double upper_hr_threshold;
-
+            
             double decrement;
 
             hbool_t apply_max_decrement;
-
-            size_t max_decrement;
+            size_t  max_decrement;
 
             int epochs_before_eviction;
 
             hbool_t apply_empty_reserve;
-
-            double empty_reserve;
+            double  empty_reserve;
 
 
             /* parallel configuration fields: */
             int dirty_bytes_threshold;
-
             int metadata_write_strategy;
+
+            public cache_config_t(int cache_config_version)
+            {
+                version = cache_config_version;
+
+                rpt_fcn_enabled = 0;
+
+                open_trace_file = 0;
+                close_trace_file = 0;
+
+                evictions_enabled = 0;
+
+                set_initial_size = 0;
+                initial_size = IntPtr.Zero;
+
+                min_clean_fraction = 0.0;
+
+                max_size = IntPtr.Zero;
+                min_size = IntPtr.Zero;
+
+                epoch_length = 0;
+
+                incr_mode = H5C.cache_incr_mode.H5C_incr__off;
+
+                lower_hr_threshold = 0.0;
+
+                increment = 0.0;
+
+                apply_max_increment = 0;
+                max_increment = IntPtr.Zero;
+
+                flash_incr_mode = H5C.cache_flash_incr_mode.H5C_flash_incr__off;
+                flash_multiple = 0.0;
+                flash_threshold = 0.0;
+
+                decr_mode = H5C.cache_decr_mode.H5C_decr__off;
+
+                upper_hr_threshold = 0.0;
+
+                decrement = 0.0;
+
+                apply_max_decrement = 0;
+                max_decrement = IntPtr.Zero;
+
+                epochs_before_eviction = 0;
+
+                apply_empty_reserve = 0;
+                empty_reserve = 0.0;
+
+                dirty_bytes_threshold = 0;
+                metadata_write_strategy = 0;
+            }
         }
     }
 }

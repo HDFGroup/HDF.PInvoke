@@ -14,50 +14,62 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+using herr_t = System.Int32;
 using hid_t = System.Int32;
+using hsize_t = System.UInt64;
+using ssize_t = System.IntPtr;
 
 namespace UnitTests
 {
     public partial class H5FTest
     {
         [TestMethod]
-        public void H5Fget_nameTest1()
+        public void H5Fget_files_imageTest1()
         {
-            IntPtr buf = H5.allocate_memory(new IntPtr(256), 0);
+            string fname = Path.GetTempFileName();
+            hid_t file = H5F.create(fname, H5F.ACC_TRUNC);
+            Assert.IsTrue(file >= 0);
 
-            Assert.IsTrue(
-                H5F.get_name(m_v0_test_file, buf,
-                new IntPtr(255)).ToInt64() >= 0);
+            IntPtr buf_len = new IntPtr();
+            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
+            Assert.IsTrue(size.ToInt64() > 0);
 
-            string name = Marshal.PtrToStringAnsi(buf);
-            // names should match
-            Assert.AreEqual(m_v0_test_file_name, name);
+            IntPtr buf = H5.allocate_memory(size, 1);
+            Assert.IsTrue(buf != IntPtr.Zero);
 
-            Assert.IsTrue(
-                H5F.get_name(m_v2_test_file, buf,
-                new IntPtr(255)).ToInt64() >= 0);
-
-            name = Marshal.PtrToStringAnsi(buf);
-            // names should match
-            Assert.AreEqual(m_v2_test_file_name, name);
+            Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
+                ref size).ToInt64() > 0);
 
             Assert.IsTrue(H5.free_memory(buf) >= 0);
+            
+            Assert.IsTrue(H5F.close(file) >= 0);
         }
 
         [TestMethod]
-        public void H5Fget_nameTest2()
+        public void H5Fget_files_imageTest2()
         {
-            IntPtr buf = H5.allocate_memory(new IntPtr(256), 0);
+            string fname = Path.GetTempFileName();
+            hid_t file = H5F.create(fname, H5F.ACC_TRUNC);
+            Assert.IsTrue(file >= 0);
 
-            Assert.IsTrue(
-                H5F.get_name(Utilities.RandomInvalidHandle(), buf,
-                new IntPtr(255)).ToInt64() < 0);
+            IntPtr buf_len = new IntPtr();
+            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
+            Assert.IsTrue(size.ToInt64() > 0);
 
-            Assert.IsTrue(H5.free_memory(buf) >= 0);
+            IntPtr buf = Marshal.AllocHGlobal(size.ToInt32());
+            Assert.IsTrue(buf != IntPtr.Zero);
+
+            Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
+                ref size).ToInt64() > 0);
+
+            Marshal.FreeHGlobal(buf);
+
+            Assert.IsTrue(H5F.close(file) >= 0);
         }
     }
 }
