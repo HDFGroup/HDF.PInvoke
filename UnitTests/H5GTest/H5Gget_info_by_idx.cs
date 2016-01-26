@@ -28,6 +28,25 @@ namespace UnitTests
         [TestMethod]
         public void H5Gget_info_by_indexTest1()
         {
+            hid_t group = H5G.create(m_v0_test_file, "A");
+            Assert.IsTrue(group >= 0);
+            H5G.info_t info = new H5G.info_t();
+            Assert.IsTrue(H5G.get_info_by_idx(m_v0_test_file, ".",
+                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE, 0,
+                ref info) >= 0);
+            Assert.IsTrue(H5G.close(group) >= 0);
+
+            group = H5G.create(m_v2_test_file, "A");
+            Assert.IsTrue(group >= 0);
+            Assert.IsTrue(H5G.get_info_by_idx(m_v2_test_file, ".",
+                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE, 0,
+                ref info) >= 0);
+            Assert.IsTrue(H5G.close(group) >= 0);
+        }
+
+        [TestMethod]
+        public void H5Gget_info_by_indexTest2()
+        {
             H5G.info_t info = new H5G.info_t();
             Assert.IsTrue(H5G.get_info_by_idx(m_v0_test_file, ".",
                 H5.index_t.H5_INDEX_CRT_ORDER, H5.iter_order_t.H5_ITER_NATIVE, 0,
@@ -35,34 +54,6 @@ namespace UnitTests
             Assert.IsTrue(H5G.get_info_by_idx(m_v2_test_file, ".",
                 H5.index_t.H5_INDEX_CRT_ORDER, H5.iter_order_t.H5_ITER_NATIVE, 0,
                 ref info) < 0);
-        }
-
-        [TestMethod]
-        public void H5Gget_info_by_indexTest2()
-        {
-            // Filed JIRA issue HDFFV-9665
-            /*
-            hid_t group = H5G.create(m_v0_test_file, "A");
-            Assert.IsTrue(group >= 0);
-            hid_t group1 = H5G.create(group, "B");
-            Assert.IsTrue(group >= 0);
-            H5G.info_t info = new H5G.info_t();
-            Assert.IsTrue(H5G.get_info_by_idx(group, "B",
-                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE, 0,
-                ref info) >= 0);
-            Assert.IsTrue(H5G.close(group1) >= 0);
-            Assert.IsTrue(H5G.close(group) >= 0);
-
-            group = H5G.create(m_v2_test_file, "A");
-            Assert.IsTrue(group >= 0);
-            group1 = H5G.create(group, "B");
-            Assert.IsTrue(group >= 0);
-            Assert.IsTrue(H5G.get_info_by_idx(group, "B",
-                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE, 0,
-                ref info) >= 0);
-            Assert.IsTrue(H5G.close(group1) >= 0);
-            Assert.IsTrue(H5G.close(group) >= 0);
-            */
         }
     }
 }
