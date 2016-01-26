@@ -89,8 +89,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
-    <Compile Include="H5FTest\H5Fget_access_plist - Copy.cs" />
+    <Compile Include="H5FTest\H5Fget_access_plist.cs" />
     <Compile Include="H5FTest\H5Freopen.cs" />
     <Compile Include="H5FTest\H5Freset_mdc_hit_rate_stats.cs" />
     <Compile Include="H5FTest\H5Fset_mdc_config.cs" />
@@ -142,6 +143,7 @@
       <Name>HDF.PInvoke</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

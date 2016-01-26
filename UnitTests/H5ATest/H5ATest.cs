@@ -22,7 +22,7 @@ using hid_t = System.Int32;
 namespace UnitTests
 {
     [TestClass]
-    public partial class H5GTest
+    public partial class H5ATest
     {
         [ClassInitialize()]
         public static void ClassInit(TestContext testContext)
@@ -62,7 +62,7 @@ namespace UnitTests
         }
 
         private static hid_t m_v0_class_file = -1;
-        
+
         private static hid_t m_v2_class_file = -1;
 
         private hid_t m_v0_test_file = -1;
