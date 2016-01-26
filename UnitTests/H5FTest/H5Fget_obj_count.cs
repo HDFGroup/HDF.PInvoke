@@ -30,16 +30,16 @@ namespace UnitTests
                 H5F.get_obj_count(m_v0_class_file, H5F.OBJ_ALL).ToInt32() > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_DATASET).ToInt32() == 0);
+                H5F.OBJ_DATASET).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_GROUP).ToInt32() == 0);
+                H5F.OBJ_GROUP).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_DATATYPE).ToInt32() == 0);
+                H5F.OBJ_DATATYPE).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_ATTR).ToInt32() == 0);
+                H5F.OBJ_ATTR).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
                 H5F.OBJ_ALL).ToInt32() >  0);
@@ -51,21 +51,42 @@ namespace UnitTests
                 H5F.get_obj_count(m_v2_class_file, H5F.OBJ_ALL).ToInt32() > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_DATASET).ToInt32() == 0);
+                H5F.OBJ_DATASET).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_GROUP).ToInt32() == 0);
+                H5F.OBJ_GROUP).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_DATATYPE).ToInt32() == 0);
+                H5F.OBJ_DATATYPE).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_ATTR).ToInt32() == 0);
+                H5F.OBJ_ATTR).ToInt32() >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
                 H5F.OBJ_ALL).ToInt32() > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
+                H5F.OBJ_LOCAL).ToInt32() < 0);
+
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file, H5F.OBJ_ALL).ToInt32() > 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
+                H5F.OBJ_DATASET).ToInt32() == 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
+                H5F.OBJ_GROUP).ToInt32() == 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
+                H5F.OBJ_DATATYPE).ToInt32() == 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
+                H5F.OBJ_ATTR).ToInt32() == 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
+                H5F.OBJ_ALL).ToInt32() > 0);
+            Assert.IsTrue(
+                H5F.get_obj_count(m_v2_test_file,
                 H5F.OBJ_LOCAL).ToInt32() < 0);
         }
 

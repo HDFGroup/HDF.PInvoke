@@ -90,11 +90,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
+    <Compile Include="H5FTest\H5Fget_access_plist - Copy.cs" />
+    <Compile Include="H5FTest\H5Freopen.cs" />
+    <Compile Include="H5FTest\H5Freset_mdc_hit_rate_stats.cs" />
+    <Compile Include="H5FTest\H5Fset_mdc_config.cs" />
+    <Compile Include="H5FTest\H5Funmount.cs" />
+    <Compile Include="H5FTest\H5Fmount.cs" />
     <Compile Include="H5FTest\H5Fis_hdf5.cs" />
     <Compile Include="H5FTest\H5Fget_vfd_handle.cs" />
     <Compile Include="H5FTest\H5Fget_obj_ids.cs" />
     <Compile Include="H5FTest\H5Fget_obj_count.cs" />
-    <Compile Include="H5FTest\H5Fget_access_plist.cs" />
+    <Compile Include="H5FTest\H5Fopen.cs" />
     <Compile Include="H5FTest\H5Fget_mdc_config.cs" />
     <Compile Include="H5FTest\H5Fget_intent.cs" />
     <Compile Include="H5FTest\H5Fget_info.cs" />
