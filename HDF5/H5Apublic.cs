@@ -77,7 +77,7 @@ namespace HDF.PInvoke
         /// be restarted at the next attribute, as indicated by the return value
         /// of <code>n</code>.</returns>
         public delegate herr_t operator_t
-            (hid_t location_id, string attr_name, info_t ainfo, object op_data);
+            (hid_t location_id, string attr_name, ref info_t ainfo, object op_data);
 
         /// <summary>
         /// Closes the specified attribute.
@@ -408,7 +408,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate
             (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_t op, IntPtr op_data);
+            ref hsize_t n, operator_t op, object op_data);
 
         /// <summary>
         /// Calls user-defined function for each attribute on an object.

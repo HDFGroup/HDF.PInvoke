@@ -89,6 +89,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="H5ATest\H5Aiterate.cs" />
     <Compile Include="H5ATest\H5Awrite.cs" />
     <Compile Include="H5ATest\H5Arename_by_name.cs" />
     <Compile Include="H5ATest\H5Arename.cs" />
