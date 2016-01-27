@@ -566,13 +566,13 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Write
         /// </summary>
         /// <param name="attr_id">Identifier of an attribute to write.</param>
-        /// <param name="type_id">Identifier of the attribute datatype
+        /// <param name="mem_type_id">Identifier of the attribute datatype
         /// (in memory).</param>
         /// <param name="buf">Data to be written.</param>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Awrite",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t write
-            (hid_t attr_id, hid_t type_id, IntPtr buf);
+            (hid_t attr_id, hid_t mem_type_id, IntPtr buf);
     }
 }

@@ -19,6 +19,7 @@ using System.Security;
 
 using herr_t = System.Int32;
 using hid_t = System.Int32;
+using htri_t = System.Int32;
 
 namespace HDF.PInvoke
 {
@@ -313,5 +314,10 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t copy(hid_t type_id);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tequal",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t equal(hid_t type_id1, hid_t type_id2);
     }
 }

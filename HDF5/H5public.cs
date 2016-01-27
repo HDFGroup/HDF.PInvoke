@@ -34,23 +34,23 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown order [value = -1].
             /// </summary>
-            H5_ITER_UNKNOWN = -1,
+            ITER_UNKNOWN = -1,
             /// <summary>
             /// Increasing order [value = 0].
             /// </summary>
-            H5_ITER_INC,
+            ITER_INC,
             /// <summary>
             /// Decreasing order [value = 1].
             /// </summary>
-            H5_ITER_DEC,
+            ITER_DEC,
             /// <summary>
             /// No particular order, whatever is fastest [value = 2].
             /// </summary>
-            H5_ITER_NATIVE,
+            ITER_NATIVE,
             /// <summary>
             /// Number of iteration orders [value = 3].
             /// </summary>
-            H5_ITER_N
+            ITER_N
         }
 
         ///<summary>
@@ -64,15 +64,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// Failure [value = -1].
             /// </summary>
-            H5_ITER_FAILURE = -1,
+            ITER_FAILURE = -1,
             /// <summary>
             /// Success and continue [value = 0].
             /// </summary>
-            H5_ITER_CONT = 0,
+            ITER_CONT = 0,
             /// <summary>
             /// Success and stop [value = 1].
             /// </summary>
-            H5_ITER_STOP = 1
+            ITER_STOP = 1
         }
 
         /// <summary>
@@ -85,19 +85,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown index type [value = -1].
             /// </summary>
-            H5_INDEX_UNKNOWN = -1,
+            INDEX_UNKNOWN = -1,
             /// <summary>
             /// Index on names [value = 0].
             /// </summary>
-            H5_INDEX_NAME,
+            INDEX_NAME,
             /// <summary>
             /// Index on creation order [value = 1].
             /// </summary>
-            H5_INDEX_CRT_ORDER,
+            INDEX_CRT_ORDER,
             /// <summary>
             /// Number of indices defined [value = 2].
             /// </summary>
-            H5_INDEX_N
+            INDEX_N
         };
 
         /// <summary>

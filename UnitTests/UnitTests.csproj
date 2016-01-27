@@ -89,6 +89,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="H5ATest\H5Awrite.cs" />
+    <Compile Include="H5ATest\H5Arename_by_name.cs" />
+    <Compile Include="H5ATest\H5Arename.cs" />
+    <Compile Include="H5ATest\H5Aread.cs" />
+    <Compile Include="H5ATest\H5Aopen_by_name.cs" />
+    <Compile Include="H5ATest\H5Aopen_by_idx.cs" />
+    <Compile Include="H5ATest\H5Aopen.cs" />
     <Compile Include="H5ATest\H5Aexists_by_name.cs" />
     <Compile Include="H5ATest\H5Aexists.cs" />
     <Compile Include="H5ATest\H5Aclose.cs" />
@@ -96,6 +103,9 @@
     <Compile Include="H5ATest\H5Adelete_by_name.cs" />
     <Compile Include="H5ATest\H5Adelete.cs" />
     <Compile Include="H5ATest\H5Acreate_by_name.cs" />
+    <Compile Include="H5ATest\H5Aget_type.cs" />
+    <Compile Include="H5ATest\H5Aget_storage_size.cs" />
+    <Compile Include="H5ATest\H5Aget_space.cs" />
     <Compile Include="H5ATest\H5Aget_name_by_idx.cs" />
     <Compile Include="H5ATest\H5Aget_name.cs" />
     <Compile Include="H5ATest\H5Aget_info_by_name.cs" />

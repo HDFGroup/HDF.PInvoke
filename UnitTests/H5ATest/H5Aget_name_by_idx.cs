@@ -43,7 +43,7 @@ namespace UnitTests
             buf = Marshal.AllocHGlobal(19);
             buf_size = new IntPtr(19);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE,
+                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
                 0, buf, buf_size);
             Assert.IsTrue(size.ToInt32() == 11);
             string name = Marshal.PtrToStringAnsi(buf);
@@ -51,7 +51,7 @@ namespace UnitTests
             Assert.AreEqual("H5Aget_name", name);
 
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE,
+                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
                 1, buf, buf_size);
             Assert.IsTrue(size.ToInt32() == 18);
             name = Marshal.PtrToStringAnsi(buf);
@@ -61,7 +61,7 @@ namespace UnitTests
             // read a truncated version
             buf_size = new IntPtr(3);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE,
+                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
                 1, buf, buf_size);
             Assert.IsTrue(size.ToInt32() == 18);
             name = Marshal.PtrToStringAnsi(buf);
@@ -76,7 +76,7 @@ namespace UnitTests
         public void H5Aget_name_by_idxTest2()
         {
             Assert.IsFalse(H5A.get_name_by_idx(Utilities.RandomInvalidHandle(),
-                ".", H5.index_t.H5_INDEX_NAME, H5.iter_order_t.H5_ITER_NATIVE,
+                ".", H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
                 0, IntPtr.Zero, IntPtr.Zero).ToInt32() >= 0);
         }
     }

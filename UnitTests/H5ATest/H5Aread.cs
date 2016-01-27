@@ -14,56 +14,52 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
+using htri_t = System.Int32;
 
 namespace UnitTests
 {
     public partial class H5ATest
     {
         [TestMethod]
-        public void H5Aget_info_by_idxTest1()
+        public void H5AreadTest1()
         {
-            H5A.info_t info = new H5A.info_t();
+            double[] x = { Math.PI };
+            IntPtr buf = Marshal.AllocHGlobal(8);
             hid_t att = H5A.create(m_v2_test_file, "A", H5T.IEEE_F64LE,
                 m_space_scalar);
             Assert.IsTrue(att >= 0);
-            Assert.IsTrue(H5A.close(att) >= 0);
-            att = H5A.create(m_v2_test_file, "B", H5T.IEEE_F64LE,
-                m_space_scalar);
-            Assert.IsTrue(att >= 0);
+            Assert.IsTrue(H5A.read(att, H5T.IEEE_F64BE, buf) >= 0);
+            Assert.IsTrue(H5A.read(att, H5T.NATIVE_DOUBLE, buf) >= 0);
+            Marshal.Copy(buf, x, 0, 1);
+            Assert.IsTrue(x[0] == 0.0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
-            Assert.IsTrue(H5A.get_info_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 0,
-                ref info) >= 0);
-            Assert.IsTrue(H5A.get_info_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1,
-                ref info) >= 0);
-            
             att = H5A.create(m_v0_test_file, "A", H5T.IEEE_F64LE,
                 m_space_scalar);
             Assert.IsTrue(att >= 0);
+            Assert.IsTrue(H5A.read(att, H5T.IEEE_F64BE, buf) >= 0);
+            Assert.IsTrue(H5A.read(att, H5T.NATIVE_DOUBLE, buf) >= 0);
+            Marshal.Copy(buf, x, 0, 1);
+            Assert.IsTrue(x[0] == 0.0);
             Assert.IsTrue(H5A.close(att) >= 0);
-            Assert.IsTrue(H5A.get_info_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 0,
-                ref info) >= 0);
 
-            Assert.IsFalse(H5A.get_info_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1,
-                ref info) >= 0);
+            Marshal.FreeHGlobal(buf);
         }
 
         [TestMethod]
-        public void H5Aget_info_by_idxTest2()
+        public void H5AreadTest2()
         {
-            H5A.info_t info = new H5A.info_t();
             Assert.IsFalse(
-                H5A.get_info_by_idx(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1024,
-                ref info) >= 0);
+                H5A.read(Utilities.RandomInvalidHandle(),
+                Utilities.RandomInvalidHandle(), IntPtr.Zero) >= 0);
+            Assert.IsFalse(
+                H5A.read(Utilities.RandomInvalidHandle(),
+                H5T.NATIVE_DOUBLE, IntPtr.Zero) >= 0);
         }
     }
 }
