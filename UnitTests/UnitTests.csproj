@@ -89,11 +89,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="H5ATest\H5Aexists_by_name.cs" />
+    <Compile Include="H5ATest\H5Aexists.cs" />
     <Compile Include="H5ATest\H5Aclose.cs" />
+    <Compile Include="H5ATest\H5Adelete_by_idx.cs" />
+    <Compile Include="H5ATest\H5Adelete_by_name.cs" />
     <Compile Include="H5ATest\H5Adelete.cs" />
     <Compile Include="H5ATest\H5Acreate_by_name.cs" />
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
+    <Compile Include="H5ATest\H5Aget_create_plist.cs" />
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
     <Compile Include="H5FTest\H5Fget_access_plist.cs" />
     <Compile Include="H5FTest\H5Freopen.cs" />
