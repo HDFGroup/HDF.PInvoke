@@ -436,7 +436,7 @@ namespace HDF.PInvoke
         public extern static herr_t iterate_by_name(hid_t loc_id,
             [MarshalAs(UnmanagedType.LPStr)]string obj_name,
             H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_t op, IntPtr op_data,
+            ref hsize_t n, operator_t op, object op_data,
             hid_t lapd_id = H5P.DEFAULT);
 
         /// <summary>

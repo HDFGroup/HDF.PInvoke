@@ -14,9 +14,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+using herr_t = System.Int32;
 using hid_t = System.Int32;
 
 namespace UnitTests
@@ -78,5 +80,20 @@ namespace UnitTests
         private static hid_t m_space_null = -1;
 
         private static hid_t m_space_scalar = -1;
+
+        // Callback for H5A.iterate and H5A.iterate_by_name
+        // We expect an array list as op_data, add the attribute names to the
+        // array list as we go
+        public herr_t DelegateMethod
+            (
+            hid_t location_id,
+            string attr_name,
+            ref H5A.info_t ainfo,
+            object op_data)
+        {
+            ArrayList al = (ArrayList)op_data;
+            al.Add(attr_name);
+            return 0;
+        }
     }
 }
