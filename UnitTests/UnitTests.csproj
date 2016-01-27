@@ -96,6 +96,11 @@
     <Compile Include="H5ATest\H5Adelete_by_name.cs" />
     <Compile Include="H5ATest\H5Adelete.cs" />
     <Compile Include="H5ATest\H5Acreate_by_name.cs" />
+    <Compile Include="H5ATest\H5Aget_name_by_idx.cs" />
+    <Compile Include="H5ATest\H5Aget_name.cs" />
+    <Compile Include="H5ATest\H5Aget_info_by_name.cs" />
+    <Compile Include="H5ATest\H5Aget_info_by_idx.cs" />
+    <Compile Include="H5ATest\H5Aget_info.cs" />
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
