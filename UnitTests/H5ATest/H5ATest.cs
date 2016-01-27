@@ -33,6 +33,10 @@ namespace UnitTests
             Assert.IsTrue(m_v0_class_file >= 0);
             m_v2_class_file = Utilities.H5TempFile();
             Assert.IsTrue(m_v2_class_file >= 0);
+            m_space_null = H5S.create(H5S.class_t.NULL);
+            Assert.IsTrue(m_space_null >= 0);
+            m_space_scalar = H5S.create(H5S.class_t.SCALAR);
+            Assert.IsTrue(m_space_scalar >= 0);
         }
 
         [TestInitialize()]
@@ -59,6 +63,8 @@ namespace UnitTests
             // close the global test files
             Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
             Assert.IsTrue(H5F.close(m_v2_class_file) >= 0);
+            Assert.IsTrue(H5S.close(m_space_null) >= 0);
+            Assert.IsTrue(H5S.close(m_space_scalar) >= 0);
         }
 
         private static hid_t m_v0_class_file = -1;
@@ -68,5 +74,9 @@ namespace UnitTests
         private hid_t m_v0_test_file = -1;
 
         private hid_t m_v2_test_file = -1;
+
+        private static hid_t m_space_null = -1;
+
+        private static hid_t m_space_scalar = -1;
     }
 }

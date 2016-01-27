@@ -94,6 +94,7 @@
     <Compile Include="HDF5\H5Gpublic.cs" />
     <Compile Include="HDF5\H5Ppublic.cs" />
     <Compile Include="HDF5\H5public.cs" />
+    <Compile Include="HDF5\H5Spublic.cs" />
     <Compile Include="HDF5\H5Tpublic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
