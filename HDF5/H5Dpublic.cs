@@ -1,0 +1,281 @@
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Board of Trustees of the University of Illinois.         *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of HDF5.  The full HDF5 copyright notice, including     *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the files COPYING and Copyright.html.  COPYING can be found at the root   *
+ * of the source code distribution tree; Copyright.html can be found at the  *
+ * root level of an installed copy of the electronic HDF5 document set and   *
+ * is linked from the top-level documents page.  It can also be found at     *
+ * http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have          *
+ * access to either file, you may request a copy from help@hdfgroup.org.     *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+using System;
+using System.Runtime.InteropServices;
+using System.Security;
+
+using haddr_t = System.UInt64;
+using hbool_t = System.UInt32;
+using herr_t = System.Int32;
+using hid_t = System.Int32;
+using hsize_t = System.UInt64;
+using htri_t = System.Int32;
+using size_t = System.IntPtr;
+using ssize_t = System.IntPtr;
+
+namespace HDF.PInvoke
+{
+    public unsafe sealed class H5D
+    {
+        /// <summary>
+        /// Values for the status of space allocation
+        /// </summary>
+        public enum space_status_t
+        {
+            H5D_SPACE_STATUS_ERROR = -1,
+            H5D_SPACE_STATUS_NOT_ALLOCATED = 0,
+            H5D_SPACE_STATUS_PART_ALLOCATED = 1,
+            H5D_SPACE_STATUS_ALLOCATED = 2
+        }
+
+        /// <summary>
+        /// Define the operator function pointer for H5Diterate()
+        /// </summary>
+        public delegate herr_t operator_t
+            (object elem, hid_t type_id, uint ndim, ref hsize_t point,
+            object operator_data);
+
+        /// <summary>
+        /// Closes the specified dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Close
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to close access to.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dclose",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t close(hid_t dset_id);
+
+        /// <summary>
+        /// Creates a new dataset and links it into the file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Create2
+        /// </summary>
+        /// <param name="loc_id">Location identifier</param>
+        /// <param name="name">Dataset name</param>
+        /// <param name="type_id">Datatype identifier</param>
+        /// <param name="space_id">Dataspace identifier</param>
+        /// <param name="lcpl_id">Link creation property list</param>
+        /// <param name="dcpl_id">Dataset creation property list</param>
+        /// <param name="dapl_id">Dataset access property list</param>
+        /// <returns>Returns a dataset identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint="H5Dcreate2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t create
+            (hid_t loc_id, string name, hid_t type_id, hid_t space_id,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t dcpl_id = H5P.DEFAULT,
+            hid_t dapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates a dataset in a file without linking it into the file structure.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-CreateAnon
+        /// </summary>
+        /// <param name="file_id">Identifier of the file or group within which
+        /// to create the dataset.</param>
+        /// <param name="type_id">Identifier of the datatype to use when
+        /// creating the dataset.</param>
+        /// <param name="space_id">Identifier of the dataspace to use when
+        /// creating the dataset.</param>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <returns>Returns a dataset identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dcreate_anon",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t create_anon
+            (hid_t file_id, hid_t type_id, hid_t space_id,
+            hid_t dcpl_id = H5P.DEFAULT, hid_t dapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Fills dataspace elements with a fill value in a memory buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Fill
+        /// </summary>
+        /// <param name="fill">Pointer to the fill value to be used.</param>
+        /// <param name="fill_type">Fill value datatype identifier.</param>
+        /// <param name="buf">Pointer to the memory buffer containing the
+        /// selection to be filled.</param>
+        /// <param name="buf_type">Datatype of dataspace elements to be filled.
+        /// </param>
+        /// <param name="space">Dataspace describing memory buffer and
+        /// containing the selection to be filled.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dfill",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t fill
+            (IntPtr fill, hid_t fill_type, IntPtr buf, hid_t buf_type,
+            hid_t space);
+
+        /* herr_t H5Dgather( hid_t src_space_id, const void * src_buf, hid_t type_id, size_t dst_buf_size, void *dst_buf H5D_gather_func_t op, void * op_data, ) */
+
+        /// <summary>
+        /// Returns the dataset access property list associated with a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetAccessPlist
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to get access
+        /// property list of.</param>
+        /// <returns>Returns a dataset access property list identifier if
+        /// Ssuccessful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_access_plist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_access_plist(hid_t dset_id);
+
+        /// <summary>
+        /// Returns an identifier for a copy of the dataset creation property
+        /// list for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetCreatePlist
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// <returns>Returns a dataset creation property list identifier if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_create_plist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_create_plist(hid_t dset_id);
+
+        /// <summary>
+        /// Returns dataset address in file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetOffset
+        /// </summary>
+        /// <param name="dset_id">Dataset identifier.</param>
+        /// <returns>Returns the offset in bytes; otherwise returns
+        /// <code>HADDR_UNDEF</code>, a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_offset",
+           CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern haddr_t get_offset(hid_t dset_id);
+
+        /// <summary>
+        /// Returns an identifier for a copy of the dataspace for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetSpace
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// <returns>Returns a dataspace identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_space",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_space(hid_t dset_id);
+
+        /// <summary>
+        /// Determines whether space has been allocated for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetSpaceStatus
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// <param name="allocation">Space allocation status.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_space_status",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_space_status
+            (hid_t dset_id, ref space_status_t allocation);
+
+        /// <summary>
+        /// Returns the amount of storage allocated for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetStorageSize
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// <returns>Returns the amount of storage space, in bytes, allocated
+        /// for the dataset, not counting metadata; otherwise returns 0 (zero).
+        /// </returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_storage_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hsize_t get_storage_size(hid_t dset_id);
+
+        /// <summary>
+        /// Returns an identifier for a copy of the datatype for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetType
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// <returns>Returns a datatype identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_type(hid_t dset_id);
+
+        /// <summary>
+        /// Iterates over all selected elements in a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Iterate
+        /// </summary>
+        /// <param name="buf">Pointer to the buffer in memory containing the
+        /// elements to iterate over</param>
+        /// <param name="type_id">Datatype identifier for the elements stored
+        /// in <code>buf</code></param>
+        /// <param name="space_id">Dataspace identifier for <code>buf</code></param>
+        /// <param name="op">Function pointer to the routine to be called for
+        /// each element in buf iterated over</param>
+        /// <param name="operator_data">Pointer to any user-defined data
+        /// associated with the operation</param>
+        /// <returns>Returns the return value of the last operator if it was
+        /// non-zero, or zero if all elements have been processed. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Diterate",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t iterate
+            (IntPtr buf, hid_t type_id, hid_t space_id, operator_t op,
+            object operator_data);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dopen2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t open
+            (hid_t file_id, string name, hid_t dapl_id = H5P.DEFAULT);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dread",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t read
+            (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
+            hid_t file_space_id, hid_t plist_id, IntPtr buf/*out*/);
+
+
+        /* herr_t H5Dscatter( H5D_scatter_func_t op, void * op_data, hid_t type_id, hid_t dst_space_id, void *dst_buf ) */
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dset_extent",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_extent(hid_t dset_id, hsize_t* size);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dvlen_get_buf_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t vlen_get_buf_size
+            (hid_t dataset_id, hid_t type_id, hid_t space_id, ref hsize_t size);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dvlen_reclaim",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t vlen_reclaim
+            (hid_t type_id, hid_t space_id, hid_t plist_id, IntPtr buf);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dwrite",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t write
+            (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
+            hid_t file_space_id, hid_t plist_id, IntPtr buf);
+    }
+}

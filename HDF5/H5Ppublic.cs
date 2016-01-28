@@ -20,6 +20,7 @@ using System.Security;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
+using hsize_t = System.UInt64;
 
 namespace HDF.PInvoke
 {
@@ -130,6 +131,39 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create(hid_t cls_id);
+
+        /// <summary>
+        /// Retrieves the size of chunks for the raw data of a chunked layout
+        /// dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetChunk
+        /// </summary>
+        /// <param name="plist_id">Identifier of property list to query.</param>
+        /// <param name="max_ndims">Length of the <paramref name="dims"/>
+        /// array.</param>
+        /// <param name="dims">Array to store the chunk dimensions.</param>
+        /// <returns>Returns chunk dimensionality if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_chunk
+            (hid_t plist_id, int max_ndims, [Out] hsize_t[] dims);
+
+        /// <summary>
+        /// Sets the size of the chunks used to store a chunked layout dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetChunk
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="ndims">The number of dimensions of each chunk.</param>
+        /// <param name="dim">An array defining the size, in dataset elements,
+        /// of each chunk.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_chunk
+            (hid_t plist_id, int ndims, hsize_t* dim);
 
         /// <summary>
         /// Modifies the file access property list to use the

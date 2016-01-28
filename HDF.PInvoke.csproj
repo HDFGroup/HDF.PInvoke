@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="HDF5\Constants.cs" />
     <Compile Include="HDF5\H5ACpublic.cs" />
+    <Compile Include="HDF5\H5Dpublic.cs" />
     <Compile Include="HDF5\H5Apublic.cs" />
     <Compile Include="HDF5\H5Cpublic.cs" />
     <Compile Include="HDF5\H5DLLImporter.cs" />

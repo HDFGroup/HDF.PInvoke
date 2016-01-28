@@ -57,20 +57,44 @@ namespace HDF.PInvoke
             NULL = 2
         }
 
+        /// <summary>
+        /// Releases and terminates access to a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Close
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace to release.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Sclose",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t close(hid_t space_id);
 
+        /// <summary>
+        /// Creates a new dataspace of a specified type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Create
+        /// </summary>
+        /// <param name="type">Type of dataspace to be created.</param>
+        /// <returns>Returns a dataspace identifier if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Screate",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create(class_t type);
 
+        /// <summary>
+        /// Creates a new simple dataspace and opens it for access.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-CreateSimple
+        /// </summary>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">Array specifying the size of each dimension.</param>
+        /// <param name="maxdims">Array specifying the maximum size of each
+        /// dimension.</param>
+        /// <returns>Returns a dataspace identifier if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Screate_simple",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create_simple
-            (int rank, hsize_t[] dims, hsize_t[] maxdims);
+            (int rank, hsize_t* dims, hsize_t* maxdims);
     }
 }
