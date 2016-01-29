@@ -238,12 +238,35 @@ namespace HDF.PInvoke
             (IntPtr buf, hid_t type_id, hid_t space_id, operator_t op,
             object operator_data);
 
+        /// <summary>
+        /// Opens an existing dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Open2
+        /// </summary>
+        /// <param name="file_id">Location identifier</param>
+        /// <param name="name">Dataset name</param>
+        /// <param name="dapl_id">Dataset access property list</param>
+        /// <returns>Returns a dataset identifier if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dopen2",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t open
             (hid_t file_id, string name, hid_t dapl_id = H5P.DEFAULT);
 
+        /// <summary>
+        /// Reads raw data from a dataset into a buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Read
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset read from.</param>
+        /// <param name="mem_type_id">Identifier of the memory datatype.</param>
+        /// <param name="mem_space_id">Identifier of the memory dataspace.</param>
+        /// <param name="file_space_id">Identifier of the dataset's dataspace
+        /// in the file.</param>
+        /// <param name="plist_id">Identifier of a transfer property list for
+        /// this I/O operation.</param>
+        /// <param name="buf">Buffer to receive data read from file.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dread",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -254,23 +277,69 @@ namespace HDF.PInvoke
 
         /* herr_t H5Dscatter( H5D_scatter_func_t op, void * op_data, hid_t type_id, hid_t dst_space_id, void *dst_buf ) */
 
+        /// <summary>
+        /// Changes the sizes of a dataset’s dimensions.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-SetExtent
+        /// </summary>
+        /// <param name="dset_id">Dataset identifier</param>
+        /// <param name="size">Array containing the new magnitude of each
+        /// dimension of the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dset_extent",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_extent(hid_t dset_id, hsize_t* size);
 
+        /// <summary>
+        /// Determines the number of bytes required to store variable-length
+        /// (VL) data.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-VLGetBuf
+        /// </summary>
+        /// <param name="dataset_id">Identifier of the dataset to query.</param>
+        /// <param name="type_id">Datatype identifier.</param>
+        /// <param name="space_id">Dataspace identifier.</param>
+        /// <param name="size">The size in bytes of the memory buffer required
+        /// to store the VL data.</param>
+        /// <returns>Returns non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dvlen_get_buf_size",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t vlen_get_buf_size
             (hid_t dataset_id, hid_t type_id, hid_t space_id, ref hsize_t size);
 
+        /// <summary>
+        /// Reclaims variable-length (VL) datatype memory buffers.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-VLReclaim
+        /// </summary>
+        /// <param name="type_id">Identifier of the datatype.</param>
+        /// <param name="space_id">Identifier of the dataspace.</param>
+        /// <param name="plist_id">Identifier of the property list used to
+        /// create the buffer.</param>
+        /// <param name="buf">Pointer to the buffer to be reclaimed.</param>
+        /// <returns>Returns non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dvlen_reclaim",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t vlen_reclaim
             (hid_t type_id, hid_t space_id, hid_t plist_id, IntPtr buf);
 
+        /// <summary>
+        /// Writes raw data from a buffer to a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Write
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to write to.</param>
+        /// <param name="mem_type_id">Identifier of the memory datatype.</param>
+        /// <param name="mem_space_id">Identifier of the memory dataspace.</param>
+        /// <param name="file_space_id">Identifier of the dataset's dataspace
+        /// in the file.</param>
+        /// <param name="plist_id">Identifier of a transfer property list for
+        /// this I/O operation.</param>
+        /// <param name="buf">Buffer with data to be written to the file.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dwrite",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
