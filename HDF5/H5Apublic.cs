@@ -64,8 +64,8 @@ namespace HDF.PInvoke
         /// dataset being iterated over</param>
         /// <param name="attr_name">The name of the current object attribute.</param>
         /// <param name="ainfo">The attribute’s <code>info</code>struct</param>
-        /// <param name="op_data">An object representing operator data passed
-        /// to <code>iterate2</code></param>
+        /// <param name="op_data">A pointer referencing operator data passed
+        /// to <code>iterate</code></param>
         /// <returns>Valid return values from an operator and the resulting
         /// H5Aiterate2 and op behavior are as follows: Zero causes the iterator
         /// to continue, returning zero when all attributes have been processed.
