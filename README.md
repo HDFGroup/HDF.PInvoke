@@ -4,7 +4,7 @@ Currently, the bindings are tested and developed with HDF5 1.8.16. Once we've co
 
 ### Dependencies
 
-HDF5 binaries can be obtained from [here](https://www.hdfgroup.org/HDF5/release/obtain5.html). The ``HDF.PInvoke.dll`` assemblies, located in ``bin\[x86,x64]\[Debug,Release]``, depend on ``hdf5.dll``, ``szip.dll``, and ``zlib.dll`` for the corresponding processor architecture. In order to prevent stray copies in your ``PATH`` being picked up at runtime, we recommend that you place them in the same directory alongside the assemblies.
+HDF5 binaries can be obtained from [here](https://www.hdfgroup.org/HDF5/release/obtain5.html). The ``HDF.PInvoke.dll`` assemblies, located in ``bin\[x86,x64]\[Debug,Release]``, depend on ``hdf5.dll``, ``szip.dll``, and ``zlib.dll`` for the corresponding processor architecture. In order to prevent stray copies in your ``PATH`` being picked up at runtime, we recommend that you place them in those same directories alongside the assemblies.
 
 The assemblies for the unit tests are located in ``UnitTests\bin\[x86,x64]\[Debug,Release]``. Save yourself some headaches and place the unmanaged DLLs there as well!
 
