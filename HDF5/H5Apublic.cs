@@ -76,8 +76,9 @@ namespace HDF.PInvoke
         /// immediately return that value, indicating failure. The iterator can
         /// be restarted at the next attribute, as indicated by the return value
         /// of <code>n</code>.</returns>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t operator_t
-            (hid_t location_id, string attr_name, ref info_t ainfo, object op_data);
+            (hid_t location_id, string attr_name, ref info_t ainfo, IntPtr op_data);
 
         /// <summary>
         /// Closes the specified attribute.
@@ -408,7 +409,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate
             (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_t op, object op_data);
+            ref hsize_t n, operator_t op, IntPtr op_data);
 
         /// <summary>
         /// Calls user-defined function for each attribute on an object.
@@ -436,7 +437,7 @@ namespace HDF.PInvoke
         public extern static herr_t iterate_by_name(hid_t loc_id,
             [MarshalAs(UnmanagedType.LPStr)]string obj_name,
             H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_t op, object op_data,
+            ref hsize_t n, operator_t op, IntPtr op_data,
             hid_t lapd_id = H5P.DEFAULT);
 
         /// <summary>

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -86,12 +87,14 @@ namespace UnitTests
         // array list as we go
         public herr_t DelegateMethod
             (
-            hid_t location_id,
-            string attr_name,
+            hid_t          location_id,
+            string         attr_name,
             ref H5A.info_t ainfo,
-            object op_data)
+            IntPtr         op_data
+            )
         {
-            ArrayList al = (ArrayList)op_data;
+            GCHandle hnd = (GCHandle)op_data;
+            ArrayList al = (hnd.Target as ArrayList);
             al.Add(attr_name);
             return 0;
         }
