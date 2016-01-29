@@ -41,12 +41,37 @@ namespace HDF.PInvoke
             H5D_SPACE_STATUS_ALLOCATED = 2
         }
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate herr_t gather_func_t
+        (
+        IntPtr dst_buf,
+        size_t dst_buf_bytes_used,
+        IntPtr op_data
+        );
+
         /// <summary>
         /// Define the operator function pointer for H5Diterate()
         /// </summary>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t operator_t
-            (object elem, hid_t type_id, uint ndim, ref hsize_t point,
-            object operator_data);
+        (
+        IntPtr      elem,
+        hid_t       type_id,
+        uint        ndim,
+        ref hsize_t point,
+        IntPtr      op_data
+        );
+
+        /// <summary>
+        /// Define the operator function pointer for H5Dscatter()
+        /// </summary>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate herr_t scatter_func_t
+        (
+        ref IntPtr src_buf/*out*/,
+        ref size_t src_buf_bytes_used/*out*/,
+        IntPtr op_data
+        );
 
         /// <summary>
         /// Closes the specified dataset.
@@ -124,7 +149,36 @@ namespace HDF.PInvoke
             (IntPtr fill, hid_t fill_type, IntPtr buf, hid_t buf_type,
             hid_t space);
 
-        /* herr_t H5Dgather( hid_t src_space_id, const void * src_buf, hid_t type_id, size_t dst_buf_size, void *dst_buf H5D_gather_func_t op, void * op_data, ) */
+        /// <summary>
+        /// Gathers data from a selection within a memory buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Gather
+        /// </summary>
+        /// <param name="src_space_id">Identifier for the dataspace describing
+        /// both the dimensions of the source buffer and the selection within
+        /// the source buffer to gather data from.</param>
+        /// <param name="src_buf">Source buffer which the data will be gathered
+        /// from.</param>
+        /// <param name="type_id"> Identifier for the datatype describing the
+        /// data in both the source and definition buffers. This is only used
+        /// to calculate the element size.</param>
+        /// <param name="dst_buf_size">Size in bytes of
+        /// <paramref name="dst_buf"/>.</param>
+        /// <param name="dst_buf">Destination buffer where the gathered data
+        /// will be placed.</param>
+        /// <param name="op">Callback function which handles the gathered data.
+        /// Optional if <paramref name="dst_buf"/> is large enough to hold all
+        /// of the gathered data; required otherwise.</param>
+        /// <param name="op_data">User-defined pointer to data required by
+        /// <paramref name="op"/>.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dgather",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t gather
+            (hid_t src_space_id, IntPtr src_buf, hid_t type_id,
+            size_t dst_buf_size, IntPtr dst_buf, gather_func_t op,
+            IntPtr op_data);
 
         /// <summary>
         /// Returns the dataset access property list associated with a dataset.
@@ -274,8 +328,29 @@ namespace HDF.PInvoke
             (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
             hid_t file_space_id, hid_t plist_id, IntPtr buf/*out*/);
 
-
-        /* herr_t H5Dscatter( H5D_scatter_func_t op, void * op_data, hid_t type_id, hid_t dst_space_id, void *dst_buf ) */
+        /// <summary>
+        /// Scatters data into a selection within a memory buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Scatter
+        /// </summary>
+        /// <param name="op">Callback function which provides data to be
+        /// scattered.</param>
+        /// <param name="op_data">User-defined pointer to data required by op.</param>
+        /// <param name="type_id">Identifier for the datatype describing the
+        /// data in both the source and definition buffers. This is only used
+        /// to calculate the element size.</param>
+        /// <param name="dst_space_id">Identifier for the dataspace describing
+        /// both the dimensions of the destination buffer and the selection
+        /// within the destination buffer that data will be scattered to.</param>
+        /// <param name="dst_buf">Destination buffer which the data will be
+        /// scattered to.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dscatter",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t scatter
+            (scatter_func_t op, IntPtr op_data, hid_t type_id,
+            hid_t dst_space_id, IntPtr dst_buf);
 
         /// <summary>
         /// Changes the sizes of a dataset’s dimensions.
