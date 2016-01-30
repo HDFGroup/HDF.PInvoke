@@ -93,6 +93,7 @@
     <Compile Include="HDF5\H5DLLImporter.cs" />
     <Compile Include="HDF5\H5Fpublic.cs" />
     <Compile Include="HDF5\H5Gpublic.cs" />
+    <Compile Include="HDF5\H5Ipublic.cs" />
     <Compile Include="HDF5\H5Ppublic.cs" />
     <Compile Include="HDF5\H5public.cs" />
     <Compile Include="HDF5\H5Epublic.cs" />
