@@ -31,6 +31,41 @@ namespace HDF.PInvoke
     public unsafe sealed class H5D
     {
         /// <summary>
+        /// Values for the H5D_LAYOUT property
+        /// </summary>
+        public enum layout_t
+        {
+            LAYOUT_ERROR = -1,
+            COMPACT = 0,
+            CONTIGUOUS = 1,
+            CHUNKED = 2,
+            NLAYOUTS = 3
+        }
+
+        /// <summary>
+        /// Types of chunk index data structures
+        /// </summary>
+        public enum chunk_index_t
+        {
+            /// <summary>
+            /// v1 B-tree index [value = 0]
+            /// </summary>
+            CHUNK_BTREE = 0
+        }
+
+        /// <summary>
+        /// Values for the space allocation time property
+        /// </summary>
+        public enum alloc_time_t
+        {
+            ALLOC_TIME_ERROR = -1,
+            ALLOC_TIME_DEFAULT = 0,
+            ALLOC_TIME_EARLY = 1,
+            ALLOC_TIME_LATE = 2,
+            ALLOC_TIME_INCR = 3
+        }
+
+        /// <summary>
         /// Values for the status of space allocation
         /// </summary>
         public enum space_status_t
@@ -41,6 +76,40 @@ namespace HDF.PInvoke
             H5D_SPACE_STATUS_ALLOCATED = 2
         }
 
+        /// <summary>
+        /// Values for time of writing fill value property
+        /// </summary>
+        public enum fill_time_t
+        {
+            FILL_TIME_ERROR = -1,
+            FILL_TIME_ALLOC = 0,
+            FILL_TIME_NEVER = 1,
+            FILL_TIME_IFSET = 2
+        }
+
+        /// <summary>
+        /// Values for fill value status
+        /// </summary>
+        public enum fill_value_t
+        {
+            FILL_VALUE_ERROR = -1,
+            FILL_VALUE_UNDEFINED = 0,
+            FILL_VALUE_DEFAULT = 1,
+            FILL_VALUE_USER_DEFINED = 2
+        }
+
+        /// <summary>
+        /// Delegate for H5Dgather() callback
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Gather
+        /// </summary>
+        /// <param name="dst_buf">Pointer to the destination buffer which has
+        /// been filled with the next set of elements gathered.</param>
+        /// <param name="dst_buf_bytes_used">Pointer to the number of valid
+        /// bytes in <paramref name="dst_buf"/>.</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// callback function.</param>
+        /// <returns>The callback function should return zero (0) to indicate
+        /// success, and a negative value to indicate failure.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t gather_func_t
         (
@@ -50,8 +119,24 @@ namespace HDF.PInvoke
         );
 
         /// <summary>
-        /// Define the operator function pointer for H5Diterate()
+        /// Delegate for H5Diterate() callback
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Iterate
         /// </summary>
+        /// <param name="elem">Pointer to the memory buffer containing the
+        /// current data element</param>
+        /// <param name="type_id">Datatype identifier for the elements stored
+        /// in <paramref name="elem"/></param>
+        /// <param name="ndim">Number of dimensions for the
+        /// <paramref name="point"/> array</param>
+        /// <param name="point">Array containing the location of the element
+        /// within the original dataspace</param>
+        /// <param name="op_data">Pointer to any user-defined data associated
+        /// with the operation</param>
+        /// <returns>Zero causes the iterator to continue, returning zero when
+        /// all data elements have been processed. A positive value causes the
+        /// iterator to immediately return that positive value, indicating
+        /// short-circuit success. A negative value causes the iterator to
+        /// immediately return that value, indicating failure.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t operator_t
         (
@@ -63,8 +148,17 @@ namespace HDF.PInvoke
         );
 
         /// <summary>
-        /// Define the operator function pointer for H5Dscatter()
+        /// Delegate for H5Dscatter()
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Scatter
         /// </summary>
+        /// <param name="src_buf">Pointer to the buffer holding the next set of
+        /// elements to scatter. </param>
+        /// <param name="src_buf_bytes_used">Pointer to the number of valid
+        /// bytes in <paramref name="src_buf"/>.</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// callback function.</param>
+        /// <returns>The callback function should return zero (0) to indicate
+        /// success, and a negative value to indicate failure.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t scatter_func_t
         (
