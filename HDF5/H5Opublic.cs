@@ -438,7 +438,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t H5Oget_comment_by_name
+        public extern static ssize_t get_comment_by_name
             (hid_t loc_id, string name, IntPtr comment, size_t bufsize,
             hid_t lapl_id = H5P.DEFAULT);
 
