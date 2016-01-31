@@ -403,6 +403,46 @@ namespace HDF.PInvoke
             (hid_t loc_id, string name, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
+        /// Retrieves comment for specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetComment
+        /// </summary>
+        /// <param name="obj_id">Identifier for the target object.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="bufsize">Size of the <paramref name="comment"/> buffer.</param>
+        /// <returns>Upon success, returns the number of characters in the
+        /// comment, not including the <code>NULL</code> terminator, or zero
+        /// (0) if the object has no comment. The value returned may be larger
+        /// than <code>bufsize</code>. Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_comment
+            (hid_t obj_id, IntPtr comment, size_t bufsize);
+
+        /// <summary>
+        /// Retrieves comment for specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetCommentByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file, group, dataset, or named
+        /// datatype.</param>
+        /// <param name="name">Name of the object whose comment is to be
+        /// retrieved, specified as a path relative to
+        /// <paramref name="loc_id"/>.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="bufsize">Size of the <paramref name="comment"/> buffer.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Upon success, returns the number of characters in the
+        /// comment, not including the <code>NULL</code> terminator, or zero
+        /// (0) if the object has no comment. The value returned may be larger
+        /// than <paramref name="bufsize"/>. Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment_by_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t H5Oget_comment_by_name
+            (hid_t loc_id, string name, IntPtr comment, size_t bufsize,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
         /// Retrieves the metadata for an object specified by an identifier.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfo
         /// </summary>
