@@ -1661,6 +1661,141 @@ namespace HDF.PInvoke
             (hid_t plid, string name, IntPtr value);
 
         /// <summary>
+        /// Sets alignment properties of a file access property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetAlignment
+        /// </summary>
+        /// <param name="plist">Identifier for a file access property list.</param>
+        /// <param name="threshold">Threshold value.</param>
+        /// <param name="alignment">Alignment value.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_alignment",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_alignment
+            (hid_t plist, hsize_t threshold, hsize_t alignment);
+
+        /// <summary>
+        /// Sets the timing for storage space allocation.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetAllocTime
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="alloc_time">When to allocate dataset storage space.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_alloc_time",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_alloc_time
+            (hid_t plist_id, H5D.alloc_time_t alloc_time);
+
+        /// <summary>
+        /// Sets tracking and indexing of attribute creation order.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetAttrCreationOrder
+        /// </summary>
+        /// <param name="ocpl_id">Object creation property list identifier</param>
+        /// <param name="crt_order_flags">Flags specifying whether to track and
+        /// index attribute creation order</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_attr_creation_order",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_attr_creation_order
+            (hid_t ocpl_id, uint crt_order_flags);
+
+        /// <summary>
+        /// Sets attribute storage phase change thresholds.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetAttrPhaseChange
+        /// </summary>
+        /// <param name="ocpl_id">Object creation property list identifier</param>
+        /// <param name="max_compact">Maximum number of attributes to be stored
+        /// in compact storage</param>
+        /// <param name="min_dense">Minimum number of attributes to be stored
+        /// in dense storage </param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_attr_phase_change",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_attr_phase_change
+            (hid_t ocpl_id, uint max_compact = 8, uint min_dense = 6);
+
+        /// <summary>
+        /// Sets B-tree split ratios for a dataset transfer property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetBTreeRatios
+        /// </summary>
+        /// <param name="plist">The dataset transfer property list identifier.</param>
+        /// <param name="left">The B-tree split ratio for left-most nodes.</param>
+        /// <param name="middle">The B-tree split ratio for right-most nodes
+        /// and lone nodes.</param>
+        /// <param name="right">The B-tree split ratio for all other nodes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_btree_ratios",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_btree_ratios
+            (hid_t plist, double left, double middle, double right);
+
+        /// <summary>
+        /// Sets type conversion and background buffers.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetBuffer
+        /// </summary>
+        /// <param name="plist">Identifier for the dataset transfer property
+        /// list.</param>
+        /// <param name="size">Size, in bytes, of the type conversion and
+        /// background buffers.</param>
+        /// <param name="tconv">Pointer to application-allocated type
+        /// conversion buffer.</param>
+        /// <param name="bkg">Pointer to application-allocated background
+        /// buffer.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_buffer",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_buffer
+            (hid_t plist, hsize_t size, IntPtr tconv, IntPtr bkg);
+
+        /// <summary>
+        /// Sets the raw data chunk cache parameters.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetCache
+        /// </summary>
+        /// <param name="plist_id">File access property list identifier.</param>
+        /// <param name="mdc_nelmts">UNSUSED</param>
+        /// <param name="rdcc_nslots">The number of chunk slots in the raw
+        /// data chunk cache for this dataset.</param>
+        /// <param name="rdcc_nbytes">Total size of the raw data chunk cache 
+        /// in bytes.</param>
+        /// <param name="rdcc_w0">The chunk preemption policy for all datasets.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_cache",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_cache
+            (hid_t plist_id, int mdc_nelmts, size_t rdcc_nslots,
+            size_t rdcc_nbytes, double rdcc_w0);
+
+        /// <summary>
+        /// Sets the character encoding used to encode link and attribute names.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetCharEncoding
+        /// </summary>
+        /// <param name="plist_id">Link creation or attribute creation property
+        /// list identifier</param>
+        /// <param name="encoding">String encoding character set</param>
+        /// <returns>Returns a non-negative valule if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_char_encoding",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_char_encoding
+            (hid_t plist_id, H5T.cset_t encoding);
+
+        /// <summary>
         /// Sets the size of the chunks used to store a chunked layout dataset.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetChunk
         /// </summary>
@@ -1677,6 +1812,259 @@ namespace HDF.PInvoke
             (hid_t plist_id, int ndims, hsize_t* dim);
 
         /// <summary>
+        /// Sets the raw data chunk cache parameters.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetChunkCache
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="rdcc_nslots">The number of chunk slots in the raw data
+        /// chunk cache for this dataset.</param>
+        /// <param name="rdcc_nbytes">The total size of the raw data chunk
+        /// cache for this dataset.</param>
+        /// <param name="rdcc_w0">The chunk preemption policy for this dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk_cache",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_chunk_cache
+            (hid_t dapl_id, size_t rdcc_nslots, size_t rdcc_nbytes,
+            double rdcc_w0);
+
+        /// <summary>
+        /// Sets properties to be used when an object is copied.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetCopyObject
+        /// </summary>
+        /// <param name="ocpypl_id">Object copy property list identifier</param>
+        /// <param name="copy_options">Copy option(s) to be set</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_copy_object",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_copy_object
+            (hid_t ocpypl_id, uint copy_options);
+
+        /// <summary>
+        /// Sets write tracking information for core driver, <code>H5FD_CORE</code>.
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="is_enabled">Boolean value specifying whether feature
+        /// is enabled.</param>
+        /// <param name="page_size">Positive integer specifying size, in bytes,
+        /// of write aggregation pages.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_core_write_tracking",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_core_write_tracking
+            (hid_t fapl_id, hbool_t is_enabled, size_t page_size);
+
+        /// <summary>
+        /// Specifies in property list whether to create missing intermediate
+        /// groups.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetCreateIntermediateGroup
+        /// </summary>
+        /// <param name="lcpl_id">Link creation property list identifier</param>
+        /// <param name="crt_intermed_group">Flag specifying whether to create
+        /// intermediate groups upon the creation of an object</param>
+        /// <returns>Returns a non-negative valule if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_create_intermediate_group",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_create_intermediate_group
+            (hid_t lcpl_id, uint crt_intermed_group);
+
+        /// <summary>
+        /// Sets a data transform expression.
+        /// </summary>
+        /// <param name="plist_id">Identifier of the property list or class</param>
+        /// <param name="expression">Pointer to the null-terminated data
+        /// transform expression</param>
+        /// <returns>Returns a non-negative valule if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_data_transform",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_data_transform
+            (hid_t plist_id, string expression);
+
+        /// <summary>
+        /// Sets deflate (GNU gzip) compression method and compression level.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetDeflate
+        /// </summary>
+        /// <param name="plist_id">Dataset or group creation property list
+        /// identifier.</param>
+        /// <param name="level">Compression level.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_deflate",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_deflate(hid_t plist_id, uint level);
+
+        /// <summary>
+        /// Sets a file driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetDriver
+        /// </summary>
+        /// <param name="plist_id">File access or data transfer property list
+        /// identifier.</param>
+        /// <param name="new_driver_id">Driver identifier.</param>
+        /// <param name="new_driver_info">Optional struct containing driver
+        /// properties.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_driver",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_driver
+            (hid_t plist_id, hid_t new_driver_id, IntPtr new_driver_info);
+
+        /// <summary>
+        /// Sets whether to enable error-detection when reading a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetEdcCheck
+        /// </summary>
+        /// <param name="plist">Dataset transfer property list identifier.</param>
+        /// <param name="check">Specifies whether error checking is enabled or
+        /// disabled for dataset read operations.</param>
+        /// <returns>Returns a non-negative value if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_edc_check",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_edc_check
+            (hid_t plist, H5Z.EDC_t check);
+
+        /// <summary>
+        /// Sets the external link traversal file access flag in a link access
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetELinkAccFlags
+        /// </summary>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <param name="flags">The access flag for external link traversal.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_elink_acc_flags",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_elink_acc_flags
+            (hid_t lapl_id, uint flags);
+
+        /// <summary>
+        /// Sets the external link traversal callback function in a link access
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetELinkCb
+        /// </summary>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <param name="func">User-defined external link traversal callback
+        /// function.</param>
+        /// <param name="op_data">User-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_elink_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_elink_cb
+            (hid_t lapl_id, H5L.elink_traverse_t func, IntPtr op_data);
+
+        /// <summary>
+        /// Sets a file access property list for use in accessing a file
+        /// pointed to by an external link.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetELinkFapl
+        /// </summary>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_elink_fapl",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_elink_fapl
+            (hid_t lapl_id, hid_t fapl_id);
+
+        /// <summary>
+        /// Sets the number of files that can be held open in an external link
+        /// open file cache.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetELinkFileCacheSize
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="efc_size">External link open file cache size in number
+        /// of files.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_elink_file_cache_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_elink_file_cache_size
+            (hid_t fapl_id, uint efc_size);
+
+        /// <summary>
+        /// Sets prefix to be applied to external link paths.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetELinkPrefix
+        /// </summary>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <param name="prefix">Prefix to be applied to external link paths</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_elink_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_elink_prefix
+            (hid_t lapl_id, string prefix);
+
+        /// <summary>
+        /// Sets estimated number of links and length of link names in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetEstLinkInfo
+        /// </summary>
+        /// <param name="gcpl_id">Group creation property list identifier</param>
+        /// <param name="est_num_entries">Estimated number of links to be
+        /// inserted into group</param>
+        /// <param name="est_name_len">Estimated average length of link names</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_est_link_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_est_link_info
+            (hid_t gcpl_id, uint est_num_entries, uint est_name_len);
+
+        /// <summary>
+        /// Adds an external file to the list of external files.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetExternal
+        /// </summary>
+        /// <param name="plist">Identifier of a dataset creation property list.</param>
+        /// <param name="name">Name of an external file.</param>
+        /// <param name="offset">Offset, in bytes, from the beginning of the
+        /// file to the location in the file where the data starts.</param>
+        /// <param name="size">Number of bytes reserved in the file for the
+        /// data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_external",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_external
+            (hid_t plist, string name, off_t offset, hsize_t size);
+
+        /// <summary>
+        /// Sets offset property for low-level access to a file in a family of files.
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="offset">Offset in bytes within the HDF5 file.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_family_offset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_family_offset
+            (hid_t fapl_id, hsize_t offset);
+
+        /// <summary>
         /// Modifies the file access property list to use the
         /// <code>H5FD_CORE</code> driver.
         /// </summary>
@@ -1691,6 +2079,321 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_fapl_core
             (hid_t fapl, IntPtr increment, hbool_t backing_store);
+
+        /// <summary>
+        /// Sets the file access property list to use the family driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplFamily
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="memb_size">Size in bytes of each file member.</param>
+        /// <param name="memb_fapl_id">Identifier of file access property list
+        /// for each family member.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_family",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_family
+            (hid_t fapl_id, hsize_t memb_size, hid_t memb_fapl_id);
+
+        /// <summary>
+        /// Sets up use of the direct I/O driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplDirect
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="alignment">Required memory alignment boundary</param>
+        /// <param name="block_size">File system block size</param>
+        /// <param name="cbuf_size">Copy buffer size</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_direct",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_direct
+            (hid_t fapl_id, size_t alignment, size_t block_size,
+            size_t cbuf_size);
+
+        /// <summary>
+        /// Sets up the logging virtual file driver (<code>H5FD_LOG</code>) for
+        /// use.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplLog
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="logfile">Name of the log file.</param>
+        /// <param name="flags">Flags specifying the types of logging activity.</param>
+        /// <param name="buf_size">The size of the logging buffers, in bytes.</param>
+        /// <returns>Returns non-negative if successful. Otherwise returns
+        /// negative.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_log",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_log
+            ( hid_t fapl_id, string logfile, UInt64 flags, size_t buf_size );
+
+        /// <summary>
+        /// Sets up use of the multi-file driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplMulti
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="memb_map">Maps memory usage types to other memory
+        /// usage types.</param>
+        /// <param name="memb_fapl">Property list for each memory usage type.</param>
+        /// <param name="memb_name">Name generator for names of member files.</param>
+        /// <param name="memb_addr">The offsets within the virtual address
+        /// space, from 0 (zero) to <code>HADDR_MAX</code>, at which each type
+        /// of data storage begins.</param>
+        /// <param name="relax">Allows read-only access to incomplete file sets
+        /// when positive.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_multi",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_multi
+            (hid_t fapl_id, ref H5F.mem_t memb_map, ref hid_t memb_fapl,
+            ref byte[] memb_name, ref haddr_t memb_addr, hbool_t relax);
+
+        /// <summary>
+        /// Modifies the file access property list to use the
+        /// <code>H5FD_SEC2</code> driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplSec2
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_sec2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_sec2(hid_t fapl_id);
+
+        /// <summary>
+        /// Emulates the old split file driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplSplit
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="meta_ext">Metadata filename extension.</param>
+        /// <param name="meta_plist_id">File access property list identifier
+        /// for the metadata file.</param>
+        /// <param name="raw_ext">Raw data filename extension.</param>
+        /// <param name="raw_plist_id">File access property list identifier for
+        /// the raw data file.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_split",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_split
+            (hid_t fapl_id, string meta_ext, hid_t meta_plist_id,
+            string raw_ext, hid_t raw_plist_id);
+
+        /// <summary>
+        /// Sets the standard I/O driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplStdio
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_stdio",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_stdio(hid_t fapl_id);
+
+        /// <summary>
+        /// Sets the Windows I/O driver.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplWindows
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_windows",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fapl_windows(hid_t fapl_id);
+
+        /// <summary>
+        /// Sets the file close degree.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFcloseDegree
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="fc_degree">The file close degree property.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fclose_degree",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fclose_degree
+            (hid_t fapl_id, H5F.close_degree_t fc_degree);
+
+        /// <summary>
+        /// Sets an initial file image in a memory buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileImage
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="buf_ptr">Pointer to the initial file image, or
+        /// <code>NULL</code> if no initial file image is desired</param>
+        /// <param name="buf_len">Size of the supplied buffer, or 0 (zero) if
+        /// no initial image is desired</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_file_image",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_image
+            (hid_t fapl_id, IntPtr buf_ptr, size_t buf_len);
+
+        /// <summary>
+        /// Sets the callbacks for working with file images.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileImageCallbacks
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="callbacks_ptr">Pointer to an instance of the
+        /// <code>H5FD.file_image_callbacks_t</code> structure.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_file_image_callbacks",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_image_callbacks
+            (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
+
+        /// <summary>
+        /// Sets the time when fill values are written to a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFillTime
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="fill_time">When to write fill values to a dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fill_time",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fill_time
+            (hid_t plist_id, H5D.fill_time_t fill_time);
+
+        /// <summary>
+        /// Sets the fill value for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFillValue
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="type_id">Datatype of <paramref name="value"/>.</param>
+        /// <param name="value">Pointer to buffer containing value to use as
+        /// fill value.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fill_value",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fill_value
+            (hid_t plist_id, hid_t type_id, IntPtr value);
+
+        /// <summary>
+        /// Adds a filter to the filter pipeline.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFilter
+        /// </summary>
+        /// <param name="plist_id">Dataset or group creation property list
+        /// identifier.</param>
+        /// <param name="filter_id">Filter identifier for the filter to be
+        /// added to the pipeline.</param>
+        /// <param name="flags">Bit vector specifying certain general
+        /// properties of the filter.</param>
+        /// <param name="cd_nelmts">Number of elements in
+        /// <code>cd_values</code>.</param>
+        /// <param name="cd_values">Auxiliary data for the filter.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_filter",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_filter
+            (hid_t plist_id, H5Z.filter_t filter_id, uint flags,
+            size_t cd_nelmts, uint[] cd_values);
+
+        /// <summary>
+        /// Sets user-defined filter callback function.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFilterCallback
+        /// </summary>
+        /// <param name="plist">Dataset transfer property list identifier.</param>
+        /// <param name="func">User-defined filter callback function.</param>
+        /// <param name="op_data">User-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_filter_callback",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_filter_callback
+            (hid_t plist, H5Z.filter_func_t func, IntPtr op_data);
+
+        /// <summary>
+        /// Sets up use of the Fletcher32 checksum filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFletcher32
+        /// </summary>
+        /// <param name="plist_id">Dataset or group creation property list
+        /// identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fletcher32",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fletcher32(hid_t plist_id);
+
+        /// <summary>
+        /// Sets garbage collecting references flag.
+        /// </summary>
+        /// <param name="plist">File access property list identifier.</param>
+        /// <param name="gc_ref">Flag setting reference garbage collection to
+        /// on (1) or off (0).</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_gc_reference",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_gc_reference(hid_t plist, uint gc_ref);
+
+        /// <summary>
+        /// Sets number of I/O vectors to be read/written in hyperslab I/O.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetHyperVectorSize
+        /// </summary>
+        /// <param name="dxpl_id">Dataset transfer property list identifier.</param>
+        /// <param name="vector_size">Number of I/O vectors to accumulate in
+        /// memory for I/O operations.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_hyper_vector_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_hyper_vector_size
+            (hid_t dxpl_id, size_t vector_size);
+
+        /// <summary>
+        /// Sets the size of the parameter used to control the B-trees for
+        /// indexing chunked datasets.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetIstoreK
+        /// </summary>
+        /// <param name="fcpl_id">File creation property list identifier</param>
+        /// <param name="ik">1/2 rank of chunked storage B-tree</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_istore_k",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_istore_k(hid_t fcpl_id, uint ik);
+
+        /// <summary>
+        /// Sets the type of storage used to store the raw data for a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetLayout
+        /// </summary>
+        /// <param name="plist">Identifier of property list to query.</param>
+        /// <param name="layout">Type of storage layout for raw data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_layout",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_layout
+            (hid_t plist, H5D.layout_t layout);
 
         /// <summary>
         /// Sets bounds on library versions, and indirectly format versions,
@@ -1715,5 +2418,385 @@ namespace HDF.PInvoke
             (hid_t plist,
             H5F.libver_t low = H5F.libver_t.LIBVER_EARLIEST,
             H5F.libver_t high = H5F.libver_t.LIBVER_LATEST);
+
+        /// <summary>
+        /// Sets creation order tracking and indexing for links in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetLinkCreationOrder
+        /// </summary>
+        /// <param name="gcpl_id">Group creation property list identifier</param>
+        /// <param name="crt_order_flags">Creation order flag(s)</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_link_creation_order",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_link_creation_order
+            (hid_t gcpl_id, uint crt_order_flags);
+
+        /// <summary>
+        /// Sets the parameters for conversion between compact and dense groups.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetLinkPhaseChange
+        /// </summary>
+        /// <param name="gcpl_id">Group creation property list identifier</param>
+        /// <param name="max_compact">Maximum number of links for compact
+        /// storage</param>
+        /// <param name="min_dense">Minimum number of links for dense storage</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_link_phase_change",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_link_phase_change
+            (hid_t gcpl_id, uint max_compact = 8, uint min_dense = 6);
+
+        /// <summary>
+        /// Specifies the anticipated maximum size of a local heap.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetLocalHeapSizeHint
+        /// </summary>
+        /// <param name="gcpl_id">Group creation property list identifier</param>
+        /// <param name="size_hint">Anticipated maximum size in bytes of
+        /// local heap</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_local_heap_size_hint",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_local_heap_size_hint
+            (hid_t gcpl_id, size_t size_hint);
+
+        /// <summary>
+        /// Sets the callback function that <code>H5Ocopy</code> will invoke
+        /// before searching the entire destination file for a matching
+        /// committed datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetMcdtSearchCb
+        /// </summary>
+        /// <param name="ocpypl_id">Object copy property list identifier</param>
+        /// <param name="func">User-defined callback function</param>
+        /// <param name="op_data">User-defined input data for the callback
+        /// function</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_mcdt_search_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_mcdt_search_cb
+            (hid_t ocpypl_id, H5O.mcdt_search_cb_t func, IntPtr op_data);
+
+        /// <summary>
+        /// Set the initial metadata cache configuration in the indicated File
+        /// Access Property List to the supplied value.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetMdcConfig
+        /// </summary>
+        /// <param name="plist_id">Identifier of the file access property list.</param>
+        /// <param name="config_ptr">Pointer to the instance of
+        /// <code>H5AC.cache_config_t</code> containing the desired
+        /// configuration.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_config",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_mdc_config
+            (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
+
+        /// <summary>
+        /// Sets the minimum metadata block size.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetMetaBlockSize
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="size">Minimum size, in bytes, of metadata block
+        /// allocations.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_meta_block_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_meta_block_size
+            (hid_t fapl_id, hsize_t size);
+
+        /// <summary>
+        /// Specifies type of data to be accessed via the <code>MULTI</code>
+        /// driver, enabling more direct access.
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="type">Type of data to be accessed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_multi_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_multi_type
+            (hid_t fapl_id, H5F.mem_t type);
+
+        /// <summary>
+        /// Sets up the use of the N-Bit filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetNbit
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_nbit",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_nbit(hid_t plist_id);
+
+        /// <summary>
+        /// Sets maximum number of soft or user-defined link traversals.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetNLinks
+        /// </summary>
+        /// <param name="lapl_id">File access property list identifier</param>
+        /// <param name="nlinks">Maximum number of links to traverse</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_nlinks",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_nlinks
+            (hid_t lapl_id, size_t nlinks);
+
+        /// <summary>
+        /// Sets the recording of times associated with an object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetObjTrackTimes
+        /// </summary>
+        /// <param name="ocpl_id">Object creation property list identifier</param>
+        /// <param name="track_times">Boolean value, 1 or 0, specifying whether
+        /// object times are to be tracked</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_obj_track_times",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_obj_track_times
+            (hid_t ocpl_id, hbool_t track_times);
+
+        /// <summary>
+        /// Sets up the use of the scale-offset filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetScaleoffset
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="scale_type">Flag indicating compression method.</param>
+        /// <param name="scale_factor">Parameter related to scale. Must be
+        /// non-negative.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_scaleoffset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_scaleoffset
+            (hid_t plist_id, H5Z.SO_scale_type_t scale_type, int scale_factor);
+
+        /// <summary>
+        /// Configures the specified shared object header message index.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSharedMesgIndex
+        /// </summary>
+        /// <param name="fcpl_id">File creation property list identifier.</param>
+        /// <param name="index_num">Index being configured</param>
+        /// <param name="mesg_type_flags">Types of messages that should be
+        /// stored in this index.</param>
+        /// <param name="min_mesg_size">Minimum message size.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_shared_mesg_index",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_shared_mesg_index
+            (hid_t fcpl_id, uint index_num, uint mesg_type_flags,
+            uint min_mesg_size);
+
+        /// <summary>
+        /// Sets number of shared object header message indexes.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSharedMesgNIndexes
+        /// </summary>
+        /// <param name="plist_id">File creation property list</param>
+        /// <param name="nindexes">Number of shared object header message
+        /// indexes to be available in files created with this property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_shared_mesg_nindexes",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_shared_mesg_nindexes
+            (hid_t plist_id, uint nindexes);
+
+        /// <summary>
+        /// Sets shared object header message storage phase change thresholds.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSharedMesgPhaseChange
+        /// </summary>
+        /// <param name="fcpl_id">File creation property list identifier</param>
+        /// <param name="max_list">Threshold above which storage of a shared
+        /// object header message index shifts from list to B-tree</param>
+        /// <param name="min_btree">Threshold below which storage of a shared
+        /// object header message index reverts to list format</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_shared_mesg_phase_change",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_shared_mesg_phase_change
+            (hid_t fcpl_id, uint max_list, uint min_btree);
+
+        /// <summary>
+        /// Sets up use of the shuffle filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetShuffle
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_shuffle",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_shuffle(hid_t plist_id);
+
+        /// <summary>
+        /// Sets the maximum size of the data sieve buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSieveBufSize
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="size">Maximum size, in bytes, of data sieve buffer.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_sieve_buf_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_sieve_buf_size
+            (hid_t fapl_id, size_t size);
+
+        /// <summary>
+        /// Sets the byte size of the offsets and lengths used to address
+        /// objects in an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSizes
+        /// </summary>
+        /// <param name="plist">Identifier of property list to modify.</param>
+        /// <param name="sizeof_addr">Size of an object offset in bytes.</param>
+        /// <param name="sizeof_size">Size of an object length in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_sizes",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_sizes
+            (hid_t plist, size_t sizeof_addr, size_t sizeof_size);
+
+        /// <summary>
+        /// Sets the size of a contiguous block reserved for small data.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSmallData
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="size">Maximum size, in bytes, of the small data block.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise a
+        /// negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_small_data_block_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_small_data_block_size
+            (hid_t fapl_id, hsize_t size = 2048);
+
+        /// <summary>
+        /// Sets the size of parameters used to control the symbol table nodes.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSymK
+        /// </summary>
+        /// <param name="fcpl_id">File creation property list identifier</param>
+        /// <param name="ik">Symbol table tree rank</param>
+        /// <param name="lk">Symbol table node size</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_sym_k",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_sym_k
+            (hid_t fcpl_id, uint ik, uint lk);
+
+        /// <summary>
+        /// Sets up use of the SZIP compression filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetSzip
+        /// </summary>
+        /// <param name="plist">Dataset creation property list identifier.</param>
+        /// <param name="options_mask">A bit-mask conveying the desired SZIP
+        /// options.</param>
+        /// <param name="pixels_per_block">The number of pixels or data
+        /// elements in each data block.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_szip",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_szip
+            (hid_t plist, uint options_mask, uint pixels_per_block);
+
+        /// <summary>
+        /// Sets user-defined datatype conversion callback function.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetTypeConvCb
+        /// </summary>
+        /// <param name="plist">Dataset transfer property list identifier.</param>
+        /// <param name="func">User-defined type conversion callback function.</param>
+        /// <param name="op_data">User-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_type_conv_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_type_conv_cb
+            (hid_t plist, H5T.conv_except_func_t func, IntPtr op_data);
+
+        /// <summary>
+        /// Sets user block size.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetUserblock
+        /// </summary>
+        /// <param name="plist">Identifier of property list to modify.</param>
+        /// <param name="size">Size of the user-block in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_userblock",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_userblock(hid_t plist, hsize_t size);
+
+        /// <summary>
+        /// Sets the memory manager for variable-length datatype allocation in
+        /// <code>H5Dread</code> and <code>H5Dvlen_reclaim</code>.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetVLMemManager
+        /// </summary>
+        /// <param name="plist">Identifier for the dataset transfer property list.</param>
+        /// <param name="alloc">User's allocate routine, or <code>NULL</code>
+        /// for system <code>malloc</code>.</param>
+        /// <param name="alloc_info">Extra parameter for user's allocation
+        /// routine. Contents are ignored if preceding parameter is <code>NULL</code>.</param>
+        /// <param name="free">User's free routine, or <code>NULL</code>
+        /// for system <code>free</code>.</param>
+        /// <param name="free_info">Extra parameter for user's free
+        /// routine. Contents are ignored if preceding parameter is <code>NULL</code>.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_vlen_mem_manager",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_vlen_mem_manager
+            (hid_t plist, H5MM.allocate_t alloc, IntPtr alloc_info,
+            H5MM.free_t free, IntPtr free_info);
+
+        /// <summary>
+        /// Removes a property from a property list class.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-Unregister
+        /// </summary>
+        /// <param name="cls">Property list class from which to remove
+        /// permanent property</param>
+        /// <param name="name">Name of property to remove</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Punregister",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t unregister(hid_t cls, string name);
     }
 }

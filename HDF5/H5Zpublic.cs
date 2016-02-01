@@ -20,6 +20,7 @@ using System.Security;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
 using hsize_t = System.UInt64;
+using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {
@@ -73,6 +74,16 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
+        /// Special parameters for ScaleOffset filter
+        /// </summary>
+        public enum SO_scale_type_t
+        {
+            SO_FLOAT_DSCALE = 0,
+            SO_FLOAT_ESCALE = 1,
+            SO_INT = 2
+        }
+
+        /// <summary>
         /// Values to decide if EDC is enabled for reading data
         /// </summary>
         public enum EDC_t
@@ -85,5 +96,35 @@ namespace HDF.PInvoke
             H5Z_ENABLE_EDC = 1,
             H5Z_NO_EDC = 2
         }
+
+        /// <summary>
+        /// Return values for filter callback function
+        /// </summary>
+        public enum cb_return_t
+        {
+            H5Z_CB_ERROR = -1,
+            /// <summary>
+            /// I/O should fail if filter fails.
+            /// </summary>
+            H5Z_CB_FAIL = 0,
+            /// <summary>
+            /// I/O continues if filter fails.
+            /// </summary>
+            H5Z_CB_CONT = 1,
+            H5Z_CB_NO = 2
+        }
+
+        /// <summary>
+        /// Filter callback function definition
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="buf"></param>
+        /// <param name="buf_size"></param>
+        /// <param name="op_data"></param>
+        /// <returns></returns>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate cb_return_t filter_func_t
+        (filter_t filter, IntPtr buf, size_t buf_size, IntPtr op_data);
+
     }
 }
