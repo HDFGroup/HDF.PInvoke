@@ -27,6 +27,7 @@ using ssize_t = System.IntPtr;
 
 // See the typedef for message creation indexes in H5Opublic.h
 using H5O_msg_crt_idx_t = System.UInt32;
+using System.Text;
 
 namespace HDF.PInvoke
 {
@@ -323,7 +324,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name(
-            hid_t attr_id, size_t size, IntPtr name);
+            hid_t attr_id, size_t size, StringBuilder name);
 
         /// <summary>
         /// Gets an attribute name, by attribute index position.
@@ -347,7 +348,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name_by_idx
             (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)]string obj_name,
-            H5.index_t idx_type, H5.iter_order_t order, hsize_t n, IntPtr name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n, StringBuilder name,
             size_t size, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>

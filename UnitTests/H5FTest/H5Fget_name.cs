@@ -19,6 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
+using System.Text;
 
 namespace UnitTests
 {
@@ -27,37 +28,33 @@ namespace UnitTests
         [TestMethod]
         public void H5Fget_nameTest1()
         {
-            IntPtr buf = H5.allocate_memory(new IntPtr(256), 0);
+            StringBuilder nameBuilder = new StringBuilder(256);
 
             Assert.IsTrue(
-                H5F.get_name(m_v0_test_file, buf,
-                new IntPtr(255)).ToInt64() >= 0);
+                H5F.get_name(m_v0_test_file, nameBuilder,
+                new IntPtr(nameBuilder.Capacity)).ToInt64() >= 0);
 
-            string name = Marshal.PtrToStringAnsi(buf);
+            string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual(m_v0_test_file_name, name);
 
             Assert.IsTrue(
-                H5F.get_name(m_v2_test_file, buf,
-                new IntPtr(255)).ToInt64() >= 0);
+                H5F.get_name(m_v2_test_file, nameBuilder,
+                new IntPtr(nameBuilder.Capacity)).ToInt64() >= 0);
 
-            name = Marshal.PtrToStringAnsi(buf);
+            name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual(m_v2_test_file_name, name);
-
-            Assert.IsTrue(H5.free_memory(buf) >= 0);
         }
 
         [TestMethod]
         public void H5Fget_nameTest2()
         {
-            IntPtr buf = H5.allocate_memory(new IntPtr(256), 0);
+            StringBuilder nameBuilder = new StringBuilder(256);
 
             Assert.IsTrue(
-                H5F.get_name(Utilities.RandomInvalidHandle(), buf,
-                new IntPtr(255)).ToInt64() < 0);
-
-            Assert.IsTrue(H5.free_memory(buf) >= 0);
+                H5F.get_name(Utilities.RandomInvalidHandle(), nameBuilder,
+                new IntPtr(nameBuilder.Capacity)).ToInt64() < 0);
         }
     }
 }
