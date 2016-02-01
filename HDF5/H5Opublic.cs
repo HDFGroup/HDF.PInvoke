@@ -474,7 +474,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Oget_info_by_idx
+        public extern static herr_t get_info_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, ref info_t oinfo,
             hid_t lapl_id = H5P.DEFAULT);
@@ -495,7 +495,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Oget_info_by_name
+        public extern static herr_t get_info_by_name
             (hid_t loc_id, string name, ref info_t oinfo,
             hid_t lapl_id = H5P.DEFAULT);
 
@@ -606,7 +606,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Ovisit
+        public extern static herr_t visit
             (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
             iterate_t op, IntPtr op_data);
         
@@ -632,7 +632,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t H5Ovisit_by_name
+        public extern static herr_t visit_by_name
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
             H5.iter_order_t order, iterate_t op, object op_data,
             hid_t lapl_id = H5P.DEFAULT);
