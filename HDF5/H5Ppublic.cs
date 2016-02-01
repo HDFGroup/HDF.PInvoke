@@ -428,7 +428,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_attr_phase_change
-            (hid_t ocpl_id, ref uint max_compact = 8, ref uint min_dense = 6);
+            (hid_t ocpl_id, ref uint max_compact, ref uint min_dense);
 
         /// <summary>
         /// Gets B-tree split ratios for a dataset transfer property list.
@@ -517,6 +517,78 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_chunk
             (hid_t plist_id, int max_ndims, [Out] hsize_t[] dims);
+
+        /// <summary>
+        /// Retrieves the raw data chunk cache parameters.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetChunkCache
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="rdcc_nslots">Number of chunk slots in the raw data 
+        /// chunk cache hash table.</param>
+        /// <param name="rdcc_nbytes">Total size of the raw data chunk cache,
+        /// in bytes.</param>
+        /// <param name="rdcc_w0">Preemption policy.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_cache",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_cache
+            (hid_t dapl_id, ref size_t rdcc_nslots, ref size_t rdcc_nbytes,
+            ref double rdcc_w0);
+
+        /// <summary>
+        /// Returns the property list class identifier for a property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetClass
+        /// </summary>
+        /// <param name="plist">Identifier of property list to query.</param>
+        /// <returns>Returns a property list class identifier if successful.
+        /// Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_class",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_class(hid_t plist);
+
+        /// <summary>
+        /// Retrieves the name of a class.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetClassName
+        /// </summary>
+        /// <param name="pcid">Identifier of the property class to query</param>
+        /// <returns>If successful returns a pointer to an allocated string
+        /// containing the class name; <code>NULL</code> if unsuccessful.</returns>
+        /// <remarks>The pointer to the name must be freed by the user after
+        /// each successful call.</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_class_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern IntPtr get_class_name(hid_t pcid);
+
+        /// <summary>
+        /// Retrieves the parent class of a property class.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetClassParent
+        /// </summary>
+        /// <param name="pcid">Identifier of the property class to query</param>
+        /// <returns>If successful, returns a valid parent class object
+        /// identifier; returns a negative value on failure.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_class_parent",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_class_parent(hid_t pcid);
+
+        /// <summary>
+        /// Retrieves the properties to be used when an object is copied.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetCopyObject
+        /// </summary>
+        /// <param name="ocp_plist_id">Object copy property list identifier</param>
+        /// <param name="copy_options">Copy option(s) set in the object copy
+        /// property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_copy_object",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_copy_object
+            (hid_t ocp_plist_id, ref uint copy_options);
 
         /// <summary>
         /// Sets the size of the chunks used to store a chunked layout dataset.
