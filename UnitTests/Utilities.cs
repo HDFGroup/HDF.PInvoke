@@ -30,7 +30,7 @@ namespace UnitTests
         public static hid_t H5TempFile(H5F.libver_t version =
             H5F.libver_t.LIBVER_LATEST)
         {
-            hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
+            hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             if (fapl < 0)
             {
                 throw new ApplicationException("H5P.create failed.");
@@ -64,7 +64,7 @@ namespace UnitTests
         public static hid_t H5TempFile(ref string fileName,
             H5F.libver_t version = H5F.libver_t.LIBVER_LATEST)
         {
-            hid_t fapl = H5P.create(H5P.CLS_FILE_ACCESS);
+            hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             if (fapl < 0)
             {
                 throw new ApplicationException("H5P.create failed.");
