@@ -21,6 +21,7 @@ using HDF.PInvoke;
 using hid_t = System.Int32;
 using size_t = System.IntPtr;
 using ssize_t = System.IntPtr;
+using System.Text;
 
 namespace UnitTests
 {
@@ -38,38 +39,37 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
-            size_t buf_size = IntPtr.Zero, size = IntPtr.Zero,
-                buf = IntPtr.Zero;
-            buf = Marshal.AllocHGlobal(19);
+            size_t buf_size = IntPtr.Zero, size = IntPtr.Zero;
+            StringBuilder nameBuilder = new StringBuilder(19);
             buf_size = new IntPtr(19);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
-                0, buf, buf_size);
+                0, nameBuilder, buf_size);
             Assert.IsTrue(size.ToInt32() == 11);
-            string name = Marshal.PtrToStringAnsi(buf);
+            string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name", name);
 
+            nameBuilder.Clear();
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
-                1, buf, buf_size);
+                1, nameBuilder, buf_size);
             Assert.IsTrue(size.ToInt32() == 18);
-            name = Marshal.PtrToStringAnsi(buf);
+            name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name_by_idx", name);
 
             // read a truncated version
             buf_size = new IntPtr(3);
+            nameBuilder = new StringBuilder(3);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
-                1, buf, buf_size);
+                1, nameBuilder, buf_size);
             Assert.IsTrue(size.ToInt32() == 18);
-            name = Marshal.PtrToStringAnsi(buf);
+            name = nameBuilder.ToString();
             // names won't match
             Assert.AreNotEqual("H5Aget_name_by_idx", name);
             Assert.AreEqual("H5", name);
-
-            Marshal.FreeHGlobal(buf);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace UnitTests
         {
             Assert.IsFalse(H5A.get_name_by_idx(Utilities.RandomInvalidHandle(),
                 ".", H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
-                0, IntPtr.Zero, IntPtr.Zero).ToInt32() >= 0);
+                0, null, IntPtr.Zero).ToInt32() >= 0);
         }
     }
 }

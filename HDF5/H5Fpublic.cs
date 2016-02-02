@@ -16,7 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
-
+using System.Text;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
@@ -465,7 +465,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name
-            (hid_t obj_id, IntPtr name, size_t size);
+            (hid_t obj_id, StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns the number of open object identifiers for an open file.
