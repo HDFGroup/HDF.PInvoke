@@ -60,6 +60,35 @@ namespace HDF.PInvoke
             NULL = 2
         }
 
+       
+        /// <summary>
+        /// Enumerated type for the type of selection
+        /// </summary>
+        public enum sel_type
+        {
+            /// <summary>
+            /// Error
+            /// </summary>
+            SEL_ERROR = -1,
+            /// <summary>
+            /// Nothing selected
+            /// </summary>
+            SEL_NONE = 0,
+            /// <summary>
+            /// Sequence of points selected
+            /// </summary>
+            SEL_POINTS = 1,
+            /// <summary>
+            /// "New-style" hyperslab selection defined
+            /// </summary>
+            SEL_HYPERSLABS = 2,
+            /// <summary>
+            /// Entire extent selected
+            /// </summary>
+            SEL_ALL = 3,
+            SEL_N
+        }
+
         /// <summary>
         /// Releases and terminates access to a dataspace.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Close
@@ -202,5 +231,152 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hssize_t get_select_elem_npoints(hid_t space_id);
+
+        /// <summary>
+        /// Gets the list of element points currently selected.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectElemPointList
+        /// </summary>
+        /// <param name="space_id">Dataspace identifier of selection to query.</param>
+        /// <param name="startpoint">Element point to start with.</param>
+        /// <param name="numpoints">Number of element points to get.</param>
+        /// <param name="buf">List of element points selected.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_elem_pointlist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_select_elem_pointlist
+            (hid_t space_id, hsize_t startpoint, hsize_t numpoints,
+            [Out] hsize_t[] buf);
+
+        /// <summary>
+        /// Gets the list of hyperslab blocks currently selected.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectHyperBlockList
+        /// </summary>
+        /// <param name="space_id">Dataspace identifier of selection to query.</param>
+        /// <param name="startblock">Hyperslab block to start with.</param>
+        /// <param name="numblocks">Number of hyperslab blocks to get.</param>
+        /// <param name="buf">List of hyperslab blocks selected.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_hyper_blocklist",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_select_hyper_blocklist
+            (hid_t space_id, hsize_t startblock, hsize_t numblocks,
+            [Out] hsize_t[] buf);
+
+        /// <summary>
+        /// Get number of hyperslab blocks.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectHyperNBlocks
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace to query.</param>
+        /// <returns>Returns the number of hyperslab blocks in the current
+        /// dataspace selection if successful. Otherwise returns a negative
+        /// value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_hyper_nblocks",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hssize_t get_select_hyper_nblocks
+            (hid_t space_id);
+
+        /// <summary>
+        /// Determines the number of elements in a dataspace selection.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectNpoints
+        /// </summary>
+        /// <param name="space_id">Dataspace identifier.</param>
+        /// <returns>Returns the number of elements in the selection if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_npoints",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hssize_t get_select_npoints(hid_t space_id);
+
+        /// <summary>
+        /// Determines the type of the dataspace selection.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-GetSelectType
+        /// </summary>
+        /// <param name="space_id">Dataspace identifier.</param>
+        /// <returns>Returns the dataspace selection type, a value of the
+        /// enumerated datatype <code>H5S.sel_type</code>, if successful.
+        /// Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern sel_type get_select_type(hid_t space_id);
+
+        /// <summary>
+        /// Retrieves dataspace dimension size and maximum size.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentDims
+        /// </summary>
+        /// <param name="space_id">Identifier of the dataspace object to query</param>
+        /// <param name="dims">Pointer to array to store the size of each dimension.</param>
+        /// <param name="maxdims">Pointer to array to store the maximum size of each dimension.</param>
+        /// <returns>Returns the number of dimensions in the dataspace if
+        /// successful; otherwise returns a negative value.</returns>
+        /// <remarks>Either or both of <paramref name="dims"/> and
+        /// <paramref name="maxdims"/> may be <code>NULL</code>.</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_simple_extent_dims",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_simple_extent_dims
+            (hid_t space_id, hsize_t* dims, hsize_t* maxdims);
+
+        /// <summary>
+        /// Determines the dimensionality of a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentNdims
+        /// </summary>
+        /// <param name="space_id">Identifier of the dataspace</param>
+        /// <returns>Returns the number of dimensions in the dataspace if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_simple_extent_ndims",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_simple_extent_ndims(hid_t space_id);
+
+        /// <summary>
+        /// Determines the number of elements in a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentNpoints
+        /// </summary>
+        /// <param name="space_id">Identifier of the dataspace object to query</param>
+        /// <returns>Returns the number of elements in the dataspace if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_simple_extent_npoints",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hssize_t get_simple_extent_npoints(hid_t space_id);
+
+        /// <summary>
+        /// Determines the current class of a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentType
+        /// </summary>
+        /// <param name="space_id">Dataspace identifier.</param>
+        /// <returns>Returns a dataspace class name if successful; otherwise
+        /// <code>H5S.class_t.NO_CLASS</code>.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_simple_extent_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern class_t H5Sget_simple_extent_type(hid_t space_id);
+
+        /// <summary>
+        /// Determines whether a dataspace is a simple dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-IsSimple
+        /// </summary>
+        /// <param name="space_id">Identifier of the dataspace to query</param>
+        /// <returns>When successful, returns a positive value, for
+        /// <code>TRUE</code>, or 0 (zero), for <code>FALSE</code>. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sis_simple",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t H5Sis_simple(hid_t space_id);
     }
 }
