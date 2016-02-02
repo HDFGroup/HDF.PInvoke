@@ -880,29 +880,6 @@ namespace HDF.PInvoke
             (hid_t fapl_id, ref hsize_t memb_size, ref hid_t memb_fapl_id);
 
         /// <summary>
-        /// Returns information about the multi-file access property list.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFaplMulti
-        /// </summary>
-        /// <param name="fapl_id">File access property list identifier.</param>
-        /// <param name="memb_map">Maps memory usage types to other memory
-        /// usage types.</param>
-        /// <param name="memb_fapl">Property list for each memory usage type.</param>
-        /// <param name="memb_name">Name generator for names of member files.</param>
-        /// <param name="memb_addr">The offsets within the virtual address
-        /// space, from 0 (zero) to <code>HADDR_MAX</code>, at which each type
-        /// of data storage begins.</param>
-        /// <param name="relax">Allows read-only access to incomplete file sets
-        /// when positive.</param>
-        /// <returns>Returns a non-negative value if successful. Otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_fapl_multi",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t get_fapl_multi
-            (hid_t fapl_id, ref H5F.mem_t memb_map, ref hid_t memb_fapl,
-            ref IntPtr memb_name, ref haddr_t memb_addr, ref hbool_t relax);
-
-        /// <summary>
         /// Returns the file close degree.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFcloseDegree
         /// </summary>
@@ -1219,20 +1196,6 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_meta_block_size
             (hid_t fapl_id, ref hsize_t size);
-
-        /// <summary>
-        /// Retrieves type of data property for <code>MULTI</code> driver.
-        /// </summary>
-        /// <param name="fapl_id">File access property list or data transfer
-        /// property list identifier.</param>
-        /// <param name="type">Type of data.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_multi_type",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t get_multi_type
-            (hid_t fapl_id, ref H5F.mem_t type);
 
         /// <summary>
         /// Returns the number of filters in the pipeline.
@@ -2131,29 +2094,6 @@ namespace HDF.PInvoke
             ( hid_t fapl_id, string logfile, UInt64 flags, size_t buf_size );
 
         /// <summary>
-        /// Sets up use of the multi-file driver.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplMulti
-        /// </summary>
-        /// <param name="fapl_id">File access property list identifier.</param>
-        /// <param name="memb_map">Maps memory usage types to other memory
-        /// usage types.</param>
-        /// <param name="memb_fapl">Property list for each memory usage type.</param>
-        /// <param name="memb_name">Name generator for names of member files.</param>
-        /// <param name="memb_addr">The offsets within the virtual address
-        /// space, from 0 (zero) to <code>HADDR_MAX</code>, at which each type
-        /// of data storage begins.</param>
-        /// <param name="relax">Allows read-only access to incomplete file sets
-        /// when positive.</param>
-        /// <returns>Returns a non-negative value if successful. Otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_multi",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t set_fapl_multi
-            (hid_t fapl_id, ref H5F.mem_t memb_map, ref hid_t memb_fapl,
-            ref byte[] memb_name, ref haddr_t memb_addr, hbool_t relax);
-
-        /// <summary>
         /// Modifies the file access property list to use the
         /// <code>H5FD_SEC2</code> driver.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFaplSec2
@@ -2518,20 +2458,6 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_meta_block_size
             (hid_t fapl_id, hsize_t size);
-
-        /// <summary>
-        /// Specifies type of data to be accessed via the <code>MULTI</code>
-        /// driver, enabling more direct access.
-        /// </summary>
-        /// <param name="fapl_id">File access property list identifier.</param>
-        /// <param name="type">Type of data to be accessed.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_multi_type",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t set_multi_type
-            (hid_t fapl_id, H5F.mem_t type);
 
         /// <summary>
         /// Sets up the use of the N-Bit filter.
