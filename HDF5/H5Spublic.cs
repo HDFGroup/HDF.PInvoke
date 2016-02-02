@@ -20,6 +20,9 @@ using System.Security;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
 using hsize_t = System.UInt64;
+using hssize_t = System.Int64;
+using htri_t = System.Int32;
+using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {
@@ -70,6 +73,18 @@ namespace HDF.PInvoke
         public static extern herr_t close(hid_t space_id);
 
         /// <summary>
+        /// Creates an exact copy of a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Copy
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace to copy.</param>
+        /// <returns>Returns a dataspace identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Scopy",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t copy(hid_t space_id);
+
+        /// <summary>
         /// Creates a new dataspace of a specified type.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Create
         /// </summary>
@@ -96,5 +111,96 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create_simple
             (int rank, hsize_t* dims, hsize_t* maxdims);
+
+        /// <summary>
+        /// Decode a binary object description of data space and return a new
+        /// object handle.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Decode
+        /// </summary>
+        /// <param name="buf">Buffer for the data space object to be decoded.</param>
+        /// <returns>Returns an object ID(non-negative) if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sdecode",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t decode(byte* buf);
+
+        /// <summary>
+        /// Encode a data space object description into a binary buffer.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Encode
+        /// </summary>
+        /// <param name="obj_id">Identifier of the object to be encoded.</param>
+        /// <param name="buf">Buffer for the object to be encoded into. If the
+        /// provided buffer is <code>NULL</code>, only the size of buffer
+        /// needed is returned through <paramref name="nalloc"/>.</param>
+        /// <param name="nalloc">The size of the allocated buffer or the size
+        /// of the buffer needed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sencode",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t encode
+            (hid_t obj_id, [Out] byte[] buf, ref size_t nalloc);
+
+        /// <summary>
+        /// Copies the extent of a dataspace.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentCopy
+        /// </summary>
+        /// <param name="dest_space_id">The identifier for the dataspace to
+        /// which the extent is copied.</param>
+        /// <param name="source_space_id">The identifier for the dataspace from
+        /// which the extent is copied.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sextent_copy",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t extent_copy
+            (hid_t dest_space_id, hid_t source_space_id);
+
+        /// <summary>
+        /// Determines whether two dataspace extents are equal.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentEqual
+        /// </summary>
+        /// <param name="space1_id">First dataspace identifier.</param>
+        /// <param name="space2_id">Second dataspace identifier.</param>
+        /// <returns>Returns 1 if equal, 0 if unequal, if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sextent_equal",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t extent_equal
+            (hid_t space1_id, hid_t space2_id);
+
+        /// <summary>
+        /// Gets the bounding box containing the current selection.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectBounds
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace to query.</param>
+        /// <param name="start">Starting coordinates of the bounding box.</param>
+        /// <param name="end">Ending coordinates of the bounding box, i.e.,
+        /// the coordinates of the diagonally opposite corner.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sget_select_bounds",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_select_bounds
+            (hid_t space_id, hsize_t[] start, hsize_t[] end);
+
+        /// <summary>
+        /// Gets the number of element points in the current selection.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectElemNPoints
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace to query.</param>
+        /// <returns>Returns the number of element points in the current
+        /// dataspace selection if successful. Otherwise returns a negative
+        /// value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_select_elem_npoints",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hssize_t get_select_elem_npoints(hid_t space_id);
     }
 }
