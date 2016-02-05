@@ -20,6 +20,7 @@ using System.Security;
 using herr_t = System.Int32;
 using hid_t = System.Int32;
 using hsize_t = System.UInt64;
+using htri_t = System.Int32;
 using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
@@ -126,5 +127,109 @@ namespace HDF.PInvoke
         public delegate cb_return_t filter_func_t
         (filter_t filter, IntPtr buf, size_t buf_size, IntPtr op_data);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate htri_t can_apply_func_t
+        (hid_t dcpl_id, hid_t type_id, hid_t space_id);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate herr_t set_local_func_t
+        (hid_t dcpl_id, hid_t type_id, hid_t space_id);
+        
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate size_t func_t
+        (uint flags, size_t cd_nelmts, uint[] cd_values, size_t nbytes,
+			     ref size_t buf_size, ref IntPtr buf);
+
+        /// <summary>
+        /// The filter table maps filter identification numbers to structs that
+        /// contain a pointers to the filter function and timing statistics.
+        /// </summary>
+        public struct class_t
+        {
+            /// <summary>
+            /// Version number of the <code>class_t</code> struct
+            /// </summary>
+            int version;
+            /// <summary>
+            /// Filter ID number
+            /// </summary>
+            filter_t id;
+            /// <summary>
+            /// Does this filter have an encoder?
+            /// </summary>
+            uint encoder_present;
+            /// <summary>
+            /// Does this filter have a decoder?
+            /// </summary>
+            uint decoder_present;
+            /// <summary>
+            /// Comment for debugging
+            /// </summary>
+            byte* name;
+            /// <summary>
+            /// The "can apply" callback for a filter
+            /// </summary>
+            can_apply_func_t can_apply;
+            /// <summary>
+            /// The "set local" callback for a filter
+            /// </summary>
+            set_local_func_t set_local;
+            /// <summary>
+            /// The actual filter function
+            /// </summary>
+            func_t filter;
+        }
+
+        /// <summary>
+        /// Determines whether a filter is available.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Z.html#Compression-FilterAvail
+        /// </summary>
+        /// <param name="filter">Filter identifier.</param>
+        /// <returns>Returns a Boolean value if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Zfilter_avail",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t filter_avail(filter_t filter);
+
+        /// <summary>
+        /// Retrieves information about a filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Z.html#Compression-GetFilterInfo
+        /// </summary>
+        /// <param name="filter">Identifier of the filter to query.</param>
+        /// <param name="filter_config">A bit field encoding the returned
+        /// filter information</param>
+        /// <returns>Returns a non-negative value on success, a negative value
+        /// on failure.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Zget_filter_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_filter_info
+            (filter_t filter, ref uint filter_config);
+
+        /// <summary>
+        /// Registers new filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Z.html#Compression-Register
+        /// </summary>
+        /// <param name="filter_class">A pointer to a buffer for the struct
+        /// containing filter-definition information.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Zregister",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t register(ref class_t filter_class);
+
+        /// <summary>
+        /// Unregisters a filter.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Z.html#Compression-Unregister
+        /// </summary>
+        /// <param name="filter">Identifier of the filter to be unregistered.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Zunregister",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t unregister(filter_t filter);
     }
 }
