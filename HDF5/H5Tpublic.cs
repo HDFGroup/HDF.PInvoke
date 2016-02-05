@@ -71,6 +71,79 @@ namespace HDF.PInvoke
         /// </summary>
         public const cset_t H5T_NCSET = cset_t.H5T_CSET_RESERVED_2;
 
+        /// <summary>
+        /// The exception type passed into the conversion callback function
+        /// </summary>
+        public enum conv_except_t
+        {
+            /// <summary>
+            /// source value is greater than destination's range
+            /// </summary>
+            CONV_EXCEPT_RANGE_HI = 0,
+            /// <summary>
+            /// source value is less than destination's range
+            /// </summary>
+            CONV_EXCEPT_RANGE_LOW = 1,
+            /// <summary>
+            /// source value loses precision in destination
+            /// </summary>
+            CONV_EXCEPT_PRECISION = 2,
+            /// <summary>
+            /// source value is truncated in destination
+            /// </summary>
+            CONV_EXCEPT_TRUNCATE = 3,
+            /// <summary>
+            /// source value is positive infinity(floating number)
+            /// </summary>
+            CONV_EXCEPT_PINF = 4,
+            /// <summary>
+            /// source value is negative infinity(floating number)
+            /// </summary>
+            CONV_EXCEPT_NINF = 5,
+            /// <summary>
+            /// source value is NaN(floating number)
+            /// </summary>
+            CONV_EXCEPT_NAN = 6
+        }
+
+        /// <summary>
+        /// The return value from conversion callback function
+        /// conv_except_func_t
+        /// </summary>
+        public enum conv_ret_t
+        {
+            /// <summary>
+            /// abort conversion [value = -1]
+            /// </summary>
+            CONV_ABORT = -1,
+            /// <summary>
+            /// callback function failed to handle the exception [value = 0]
+            /// </summary>
+            CONV_UNHANDLED = 0,
+            /// <summary>
+            /// callback function handled the exception successfully [value = 1]
+            /// </summary>
+            CONV_HANDLED = 1
+        }
+      
+        /// <summary>
+        /// Exception handler.  If an exception like overflow happenes during
+        /// conversion, this function is called if it's registered through
+        /// H5P.set_type_conv_cb.
+        /// </summary>
+        /// <param name="except_type"></param>
+        /// <param name="src_id"></param>
+        /// <param name="dst_id"></param>
+        /// <param name="src_buf"></param>
+        /// <param name="dst_buf"></param>
+        /// <param name="user_data"></param>
+        /// <returns></returns>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate conv_ret_t conv_except_func_t
+        (conv_except_t except_type, hid_t src_id, hid_t dst_id,
+        IntPtr src_buf, IntPtr dst_buf, IntPtr user_data);
+
+
         #region native imported types caches
         /*
          * The IEEE floating point types in various byte orders.
