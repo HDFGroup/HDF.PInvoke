@@ -35,6 +35,26 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
+        /// These are the various classes of datatypes.
+        /// </summary>
+        public enum class_t
+        {
+            NO_CLASS = -1,
+            INTEGER = 0,
+            FLOAT = 1,
+            TIME = 2,
+            STRING = 3,
+            BITFIELD = 4,
+            OPAQUE = 5,
+            COMPOUND = 6,
+            REFERENCE = 7,
+            ENUM = 8,
+            VLEN = 9,
+            ARRAY = 10,
+            NCLASSES
+        }
+
+        /// <summary>
         /// Character set to use for text strings.
         /// </summary>
         public enum cset_t
@@ -42,36 +62,36 @@ namespace HDF.PInvoke
             /// <summary>
             /// error [value = -1].
             /// </summary>
-            H5T_CSET_ERROR = -1,
+            CSET_ERROR = -1,
             /// <summary>
             /// US ASCII [value = 0].
             /// </summary>
-            H5T_CSET_ASCII = 0,
+            CSET_ASCII = 0,
             /// <summary>
             /// UTF-8 Unicode encoding [value = 1].
             /// </summary>
-            H5T_CSET_UTF8 = 1,
+            CSET_UTF8 = 1,
             // reserved for later use [values = 2-15]
-            H5T_CSET_RESERVED_2 = 2,
-            H5T_CSET_RESERVED_3 = 3,
-            H5T_CSET_RESERVED_4 = 4,
-            H5T_CSET_RESERVED_5 = 5,
-            H5T_CSET_RESERVED_6 = 6,
-            H5T_CSET_RESERVED_7 = 7,
-            H5T_CSET_RESERVED_8 = 8,
-            H5T_CSET_RESERVED_9 = 9,
-            H5T_CSET_RESERVED_10 = 10,
-            H5T_CSET_RESERVED_11 = 11,
-            H5T_CSET_RESERVED_12 = 12,
-            H5T_CSET_RESERVED_13 = 13,
-            H5T_CSET_RESERVED_14 = 14,
-            H5T_CSET_RESERVED_15 = 15
+            CSET_RESERVED_2 = 2,
+            CSET_RESERVED_3 = 3,
+            CSET_RESERVED_4 = 4,
+            CSET_RESERVED_5 = 5,
+            CSET_RESERVED_6 = 6,
+            CSET_RESERVED_7 = 7,
+            CSET_RESERVED_8 = 8,
+            CSET_RESERVED_9 = 9,
+            CSET_RESERVED_10 = 10,
+            CSET_RESERVED_11 = 11,
+            CSET_RESERVED_12 = 12,
+            CSET_RESERVED_13 = 13,
+            CSET_RESERVED_14 = 14,
+            CSET_RESERVED_15 = 15
         }
 
         /// <summary>
         /// Number of character sets actually defined 
         /// </summary>
-        public const cset_t H5T_NCSET = cset_t.H5T_CSET_RESERVED_2;
+        public const cset_t NCSET = cset_t.CSET_RESERVED_2;
 
         /// <summary>
         /// The exception type passed into the conversion callback function
