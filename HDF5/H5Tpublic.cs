@@ -19,7 +19,9 @@ using System.Security;
 
 using herr_t = System.Int32;
 using hid_t = System.Int32;
+using hsize_t = System.UInt64;
 using htri_t = System.Int32;
+using size_t = System.IntPtr;
 
 namespace HDF.PInvoke
 {
@@ -378,16 +380,145 @@ namespace HDF.PInvoke
 
         #endregion
 
+        /// <summary>
+        /// Creates an array datatype object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-ArrayCreate2
+        /// </summary>
+        /// <param name="base_type_id">Datatype identifier for the array base
+        /// datatype.</param>
+        /// <param name="rank">Rank of the array.</param>
+        /// <param name="dims">Size of each array dimension.</param>
+        /// <returns>Returns a valid datatype identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tarray_create2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t array_create
+            (hid_t base_type_id, uint rank, hsize_t[] dims);
+
+        /// <summary>
+        /// Releases a datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Close
+        /// </summary>
+        /// <param name="type_id">Identifier of datatype to release.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tclose",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t close(hid_t type_id);
 
+        /// <summary>
+        /// Commits a transient datatype, linking it into the file and creating
+        /// a new named datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Commit2
+        /// </summary>
+        /// <param name="loc_id">Location identifier</param>
+        /// <param name="name">Name given to committed datatype</param>
+        /// <param name="dtype_id">Identifier of datatype to be committed and,
+        /// upon function’s return, identifier for the committed datatype</param>
+        /// <param name="lcpl_id">Link creation property list</param>
+        /// <param name="tcpl_id">Datatype creation property list</param>
+        /// <param name="tapl_id">Datatype access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcommit2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t commit
+            (hid_t loc_id, string name, hid_t dtype_id,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t tcpl_id = H5P.DEFAULT,
+            hid_t tapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Commits a transient datatype to a file, creating a new named
+        /// datatype, but does not link it into the file structure.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-CommitAnon
+        /// </summary>
+        /// <param name="loc_id">A file or group identifier specifying the file
+        /// in which the new named datatype is to be created.</param>
+        /// <param name="dtype_id">A datatype identifier.</param>
+        /// <param name="tcpl_id">A datatype creation property list identifier.</param>
+        /// <param name="tapl_id">A datatype access property list identifier.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcommit_anon",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t commit_anon
+            (hid_t loc_id, hid_t dtype_id, hid_t tcpl_id = H5P.DEFAULT,
+            hid_t tapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Determines whether a datatype is a named type or a transient type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Committed
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier.</param>
+        /// <returns>When successful, returns a positive value, for
+        /// <code>TRUE</code>, if the datatype has been committed, or 0 (zero),
+        /// for <code>FALSE</code>, if the datatype has not been committed.
+        /// Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcommitted",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t committed( hid_t dtype_id );
+
+        /// <summary>
+        /// Check whether the library’s default conversion is hard conversion.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-CompilerConv
+        /// </summary>
+        /// <param name="src_id">Identifier for the source datatype.</param>
+        /// <param name="dst_id">Identifier for the destination datatype.</param>
+        /// <returns>When successful, returns a positive value, for
+        /// <code>TRUE</code>, if the datatype has been committed, or 0 (zero),
+        /// for <code>FALSE</code>, if the datatype has not been committed.
+        /// Otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcompiler_conv",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t compiler_conv(hid_t src_id, hid_t dst_id);
+
+        /// <summary>
+        /// Converts data from one specified datatype to another.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Convert
+        /// </summary>
+        /// <param name="src_type_id">Identifier for the source datatype.</param>
+        /// <param name="dest_type_id">Identifier for the destination datatype.</param>
+        /// <param name="nelmts">Size of array <paramref name="buf"/>.</param>
+        /// <param name="buf">Array containing pre- and post-conversion values.</param>
+        /// <param name="background">Optional background buffer.</param>
+        /// <param name="plist_id">Dataset transfer property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tconvert",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t convert
+            (hid_t src_type_id, hid_t dest_type_id, size_t nelmts,
+            IntPtr buf, IntPtr background, hid_t plist_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Copies an existing datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Copy
+        /// </summary>
+        /// <param name="type_id">Identifier of datatype to copy.</param>
+        /// <returns>Returns a datatype identifier if successful; otherwise
+        /// returns a negative value</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcopy",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t copy(hid_t type_id);
 
+        /// <summary>
+        /// Determines whether two datatype identifiers refer to the same
+        /// datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Equal
+        /// </summary>
+        /// <param name="type_id1">Identifier of datatype to compare.</param>
+        /// <param name="type_id2">Identifier of datatype to compare.</param>
+        /// <returns>When successful, returns a positive value, for
+        /// <code>TRUE</code>, if the datatype has been committed, or 0 (zero),
+        /// for <code>FALSE</code>, if the datatype has not been committed.
+        /// Otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tequal",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
