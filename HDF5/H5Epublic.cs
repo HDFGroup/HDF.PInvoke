@@ -16,6 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 
 using herr_t = System.Int32;
 using hid_t = System.Int32;
@@ -606,9 +607,8 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Eget_class_name",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern ssize_t get_class_name
-            (hid_t class_id, [MarshalAs(UnmanagedType.LPStr)]string name,
-            size_t size);
+        public static extern ssize_t get_class_name(
+            hid_t class_id, StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns copy of current error stack.
@@ -635,9 +635,8 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Eget_msg",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern ssize_t get_msg
-            (hid_t msg_id, ref type_t msg_type,
-            [MarshalAs(UnmanagedType.LPStr)]string msg, size_t size);
+        public static extern ssize_t get_msg(
+            hid_t msg_id, ref type_t msg_type, StringBuilder msg, size_t size);
 
         /// <summary>
         /// Retrieves the number of error messages in an error stack.

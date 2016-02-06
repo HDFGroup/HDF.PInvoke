@@ -16,6 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 
 using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
@@ -641,7 +642,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_data_transform
-            (hid_t plist_id, [Out] byte[] expression, size_t size);
+            (hid_t plist_id, StringBuilder expression, size_t size);
 
         /// <summary>
         /// Returns low-lever driver identifier.
