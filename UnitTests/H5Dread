@@ -1,0 +1,67 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Copyright by The HDF Group.                                               *
+ * Copyright by the Board of Trustees of the University of Illinois.         *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of HDF5.  The full HDF5 copyright notice, including     *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the files COPYING and Copyright.html.  COPYING can be found at the root   *
+ * of the source code distribution tree; Copyright.html can be found at the  *
+ * root level of an installed copy of the electronic HDF5 document set and   *
+ * is linked from the top-level documents page.  It can also be found at     *
+ * http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have          *
+ * access to either file, you may request a copy from help@hdfgroup.org.     *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HDF.PInvoke;
+
+using hid_t = System.Int32;
+using htri_t = System.Int32;
+
+namespace UnitTests
+{
+    public partial class H5DTest
+    {
+        [TestMethod]
+        public void H5DreadTest1()
+        {
+          var inputString = "HDF5";
+          var dataSetName = "dataset";
+          ulong[] dims = new ulong[1];
+          dims[0] = (ulong)inputString.Length;
+          var spaceId = -1;
+
+          unsafe
+          {
+            fixed (ulong* ptr = dims)
+            {
+              spaceId = H5S.create_simple(dims.Length, ptr, ptr);
+              Assert.IsTrue(spaceId >= 0);
+            }
+          }
+
+          var dataSetId = H5D.create(m_v2_class_file, dataSetName, H5T.C_S1, spaceId);
+
+          IntPtr strPtr = Marshal.StringToHGlobalUni(inputString);
+          hid_t att = H5D.write(dataSetId, H5T.C_S1, H5S.ALL, H5S.ALL, H5P.DEFAULT, strPtr);
+          Marshal.FreeHGlobal(strPtr);
+          Assert.IsTrue(att >= 0);
+            
+          var strPtr = IntPtr.Zero;
+
+          var dataSetId = H5D.open(m_v2_class_file, dataSetName);
+          Assert.IsTrue(dataSetId >= 0);
+
+          var dataType = H5D.get_type(dataSetId);
+
+          att = H5D.read(dataSetId, dataType, H5S.ALL, H5S.ALL, H5P.DEFAULT, strPtr);
+          Assert.IsTrue(att >= 0);
+          var outputString = Marshal.PtrToStringAuto(strPtr);
+          AreEqual(inputString,outputString);
+          H5D.close(dataSetId);
+        }
+    }
+}
