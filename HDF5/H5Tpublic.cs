@@ -798,5 +798,19 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t get_create_plist(hid_t dtype_id);
+
+        /// <summary>
+        /// Sets the total size for a datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetSize
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype for which the size is
+        /// being changed</param>
+        /// <param name="size">New datatype size in bytes or <code>VARIABLE</code></param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_size(hid_t dtype_id, size_t size);
     }
 }

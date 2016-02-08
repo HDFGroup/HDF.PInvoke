@@ -116,6 +116,8 @@
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
+    <Compile Include="H5DTest\H5DTest.cs" />
+    <Compile Include="H5DTest\H5Dread.cs" />
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
     <Compile Include="H5FTest\H5Fget_access_plist.cs" />
     <Compile Include="H5FTest\H5Freopen.cs" />
