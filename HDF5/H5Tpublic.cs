@@ -64,36 +64,139 @@ namespace HDF.PInvoke
             /// <summary>
             /// error [value = -1].
             /// </summary>
-            CSET_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// US ASCII [value = 0].
             /// </summary>
-            CSET_ASCII = 0,
+            ASCII = 0,
             /// <summary>
             /// UTF-8 Unicode encoding [value = 1].
             /// </summary>
-            CSET_UTF8 = 1,
+            UTF8 = 1,
             // reserved for later use [values = 2-15]
-            CSET_RESERVED_2 = 2,
-            CSET_RESERVED_3 = 3,
-            CSET_RESERVED_4 = 4,
-            CSET_RESERVED_5 = 5,
-            CSET_RESERVED_6 = 6,
-            CSET_RESERVED_7 = 7,
-            CSET_RESERVED_8 = 8,
-            CSET_RESERVED_9 = 9,
-            CSET_RESERVED_10 = 10,
-            CSET_RESERVED_11 = 11,
-            CSET_RESERVED_12 = 12,
-            CSET_RESERVED_13 = 13,
-            CSET_RESERVED_14 = 14,
-            CSET_RESERVED_15 = 15
+            RESERVED_2 = 2,
+            RESERVED_3 = 3,
+            RESERVED_4 = 4,
+            RESERVED_5 = 5,
+            RESERVED_6 = 6,
+            RESERVED_7 = 7,
+            RESERVED_8 = 8,
+            RESERVED_9 = 9,
+            RESERVED_10 = 10,
+            RESERVED_11 = 11,
+            RESERVED_12 = 12,
+            RESERVED_13 = 13,
+            RESERVED_14 = 14,
         }
 
         /// <summary>
         /// Number of character sets actually defined 
         /// </summary>
-        public const cset_t NCSET = cset_t.CSET_RESERVED_2;
+        public const cset_t NCSET = cset_t.RESERVED_2;
+
+        /// <summary>
+        /// Type of padding to use in character strings.
+        /// </summary>
+        public enum str_t
+        {
+            /// <summary>
+            /// error
+            /// </summary>
+            STR_ERROR = -1,
+            /// <summary>
+            /// null terminate like in C
+            /// </summary>
+            STR_NULLTERM = 0,
+            /// <summary>
+            /// pad with nulls
+            /// </summary>
+            STR_NULLPAD = 1,
+            /// <summary>
+            /// pad with spaces like in Fortran
+            /// </summary>
+            STR_SPACEPAD = 2,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_3 = 3,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_4 = 4,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_5 = 5,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_6 = 6,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_7 = 7,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_8 = 8,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_9 = 9,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_10 = 10,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_11 = 11,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_12 = 12,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_13 = 13,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_14 = 14,
+            /// <summary>
+            /// reserved for later use
+            /// </summary>
+            STR_RESERVED_15 = 15
+        }
+
+        /// <summary>
+        /// num H5T_str_t types actually defined
+        /// </summary>
+        public const str_t H5T_NSTR = str_t.STR_RESERVED_3;
+
+        /// <summary>
+        /// Type of padding to use in other atomic types
+        /// </summary>
+        public enum pad_t
+        {
+            /// <summary>
+            /// error
+            /// </summary>
+            PAD_ERROR = -1,
+            /// <summary>
+            /// always set to zero
+            /// </summary>
+            PAD_ZERO = 0,
+            /// <summary>
+            /// always set to one
+            /// </summary>
+            PAD_ONE = 1,
+            /// <summary>
+            /// set to background value
+            /// </summary>
+            PAD_BACKGROUND = 2,
+            NPAD = 3
+        }
 
         /// <summary>
         /// The exception type passed into the conversion callback function
@@ -800,6 +903,19 @@ namespace HDF.PInvoke
         public static extern hid_t get_create_plist(hid_t dtype_id);
 
         /// <summary>
+        /// Sets character set to be used in a string or character datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetCset
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to modify.</param>
+        /// <param name="cset">Character set type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_cset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_cset(hid_t dtype_id, cset_t cset);
+
+        /// <summary>
         /// Sets the total size for a datatype.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetSize
         /// </summary>
@@ -812,5 +928,18 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_size(hid_t dtype_id, size_t size);
+
+        /// <summary>
+        /// Defines the type of padding used for character strings.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetStrpad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to modify.</param>
+        /// <param name="strpad">String padding type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_strpad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_strpad(hid_t dtype_id, str_t strpad);
     }
 }
