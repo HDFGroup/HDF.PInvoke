@@ -205,7 +205,9 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create_simple
-            (int rank, hsize_t* dims, hsize_t* maxdims);
+            (int rank, 
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]hsize_t[] dims, 
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]hsize_t[] maxdims);
 
         /// <summary>
         /// Decode a binary object description of data space and return a new
@@ -393,7 +395,9 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_simple_extent_dims
-            (hid_t space_id, hsize_t* dims, hsize_t* maxdims);
+            (hid_t space_id, 
+            [MarshalAs(UnmanagedType.LPArray)]hsize_t[] dims, 
+            [MarshalAs(UnmanagedType.LPArray)]hsize_t[] maxdims);
 
         /// <summary>
         /// Determines the dimensionality of a dataspace.
