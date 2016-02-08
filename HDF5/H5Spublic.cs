@@ -278,11 +278,13 @@ namespace HDF.PInvoke
         /// the coordinates of the diagonally opposite corner.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>The <code>start</code> and <code>end</code> buffers must
+        /// be large enough to hold the dataspace rank number of coordinates.</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Sget_select_bounds",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_bounds
-            (hid_t space_id, hsize_t[] start, hsize_t[] end);
+            (hid_t space_id, [Out] hsize_t[] start, [Out] hsize_t[] end);
 
         /// <summary>
         /// Gets the number of element points in the current selection.
@@ -454,6 +456,10 @@ namespace HDF.PInvoke
         /// <param name="offset">The offset at which to position the selection.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>The offset array must be the same number of elements as
+        /// the number of dimensions for the dataspace. If the offset array is
+        /// set to <code>NULL</code>, the offset for the dataspace is reset
+        /// to 0.</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Soffset_simple",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]

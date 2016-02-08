@@ -16,6 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
@@ -201,8 +202,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name
-            (hid_t obj_id, [MarshalAs(UnmanagedType.LPStr)]string name,
-            size_t size);
+            (hid_t obj_id, StringBuilder name, size_t size);
 
         /// <summary>
         /// Retrieves the reference count for an object.
