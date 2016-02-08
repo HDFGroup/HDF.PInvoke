@@ -102,77 +102,77 @@ namespace HDF.PInvoke
             /// <summary>
             /// error
             /// </summary>
-            STR_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// null terminate like in C
             /// </summary>
-            STR_NULLTERM = 0,
+            NULLTERM = 0,
             /// <summary>
             /// pad with nulls
             /// </summary>
-            STR_NULLPAD = 1,
+            NULLPAD = 1,
             /// <summary>
             /// pad with spaces like in Fortran
             /// </summary>
-            STR_SPACEPAD = 2,
+            SPACEPAD = 2,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_3 = 3,
+            RESERVED_3 = 3,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_4 = 4,
+            RESERVED_4 = 4,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_5 = 5,
+            RESERVED_5 = 5,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_6 = 6,
+            RESERVED_6 = 6,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_7 = 7,
+            RESERVED_7 = 7,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_8 = 8,
+            RESERVED_8 = 8,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_9 = 9,
+            RESERVED_9 = 9,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_10 = 10,
+            RESERVED_10 = 10,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_11 = 11,
+            RESERVED_11 = 11,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_12 = 12,
+            RESERVED_12 = 12,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_13 = 13,
+            RESERVED_13 = 13,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_14 = 14,
+            RESERVED_14 = 14,
             /// <summary>
             /// reserved for later use
             /// </summary>
-            STR_RESERVED_15 = 15
+            RESERVED_15 = 15
         }
 
         /// <summary>
         /// num H5T_str_t types actually defined
         /// </summary>
-        public const str_t H5T_NSTR = str_t.STR_RESERVED_3;
+        public const str_t H5T_NSTR = str_t.RESERVED_3;
 
         /// <summary>
         /// Type of padding to use in other atomic types
@@ -182,19 +182,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// error
             /// </summary>
-            PAD_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// always set to zero
             /// </summary>
-            PAD_ZERO = 0,
+            ZERO = 0,
             /// <summary>
             /// always set to one
             /// </summary>
-            PAD_ONE = 1,
+            ONE = 1,
             /// <summary>
             /// set to background value
             /// </summary>
-            PAD_BACKGROUND = 2,
+            BACKGROUND = 2,
             NPAD = 3
         }
 
@@ -206,31 +206,31 @@ namespace HDF.PInvoke
             /// <summary>
             /// source value is greater than destination's range
             /// </summary>
-            CONV_EXCEPT_RANGE_HI = 0,
+            RANGE_HI = 0,
             /// <summary>
             /// source value is less than destination's range
             /// </summary>
-            CONV_EXCEPT_RANGE_LOW = 1,
+            RANGE_LOW = 1,
             /// <summary>
             /// source value loses precision in destination
             /// </summary>
-            CONV_EXCEPT_PRECISION = 2,
+            PRECISION = 2,
             /// <summary>
             /// source value is truncated in destination
             /// </summary>
-            CONV_EXCEPT_TRUNCATE = 3,
+            TRUNCATE = 3,
             /// <summary>
             /// source value is positive infinity(floating number)
             /// </summary>
-            CONV_EXCEPT_PINF = 4,
+            PINF = 4,
             /// <summary>
             /// source value is negative infinity(floating number)
             /// </summary>
-            CONV_EXCEPT_NINF = 5,
+            NINF = 5,
             /// <summary>
             /// source value is NaN(floating number)
             /// </summary>
-            CONV_EXCEPT_NAN = 6
+            NAN = 6
         }
 
         /// <summary>
@@ -241,15 +241,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// query and/or initialize private data
             /// </summary>
-            H5T_CONV_INIT = 0,
+            INIT = 0,
             /// <summary>
             /// convert data from source to dest datatype
             /// </summary>
-            H5T_CONV_CONV = 1,
+            CONV = 1,
             /// <summary>
             /// function is being removed from path
             /// </summary>
-            H5T_CONV_FREE = 2
+            FREE = 2
         }
 
         /// <summary>
@@ -260,15 +260,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// background buffer is not needed, send NULL
             /// </summary>
-            H5T_BKG_NO = 0,
+            NO = 0,
             /// <summary>
             /// bkg buffer used as temp storage only
             /// </summary>
-            H5T_BKG_TEMP = 1,
+            TEMP = 1,
             /// <summary>
             /// init bkg buf with data before conversion
             /// </summary>
-            H5T_BKG_YES = 2
+            YES = 2
         }
 
         /// <summary>
@@ -303,15 +303,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// abort conversion [value = -1]
             /// </summary>
-            CONV_ABORT = -1,
+            ABORT = -1,
             /// <summary>
             /// callback function failed to handle the exception [value = 0]
             /// </summary>
-            CONV_UNHANDLED = 0,
+            UNHANDLED = 0,
             /// <summary>
             /// callback function handled the exception successfully [value = 1]
             /// </summary>
-            CONV_HANDLED = 1
+            HANDLED = 1
         }
       
         /// <summary>
@@ -901,6 +901,80 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t get_create_plist(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the character set type of a string datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetCset
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a valid character set type if successful;
+        /// otherwise <code>H5T.cset_t.CSET_ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_cset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern cset_t get_cset(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the exponent bias of a floating-point type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetEbias
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns the bias if successful; otherwise 0.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_ebias",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern size_t get_ebias(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves floating point datatype bit field information.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetFields
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="spos">Pointer to location to return floating-point
+        /// sign bit.</param>
+        /// <param name="epos">Pointer to location to return exponent
+        /// bit-position.</param>
+        /// <param name="esize">Pointer to location to return size of exponent
+        /// in bits.</param>
+        /// <param name="mpos">Pointer to location to return mantissa
+        /// bit-position.</param>
+        /// <param name="msize">Pointer to location to return size of mantissa
+        /// in bits.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_fields",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_fields
+            (hid_t dtype_id, ref size_t spos, ref size_t epos,
+            ref size_t esize, ref size_t mpos, ref size_t msize);
+
+        /// <summary>
+        /// Retrieves the internal padding type for unused bits in
+        /// floating-point datatypes.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetInpad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a valid padding type if successful; otherwise
+        /// <code>H5T.pad_t.ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_inpad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern pad_t get_inpad(hid_t dtype_id);
+
+        /// <summary>
+        /// Returns datatype class of compound datatype member.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberClass
+        /// </summary>
+        /// <param name="cdtype_id">Datatype identifier of compound object.</param>
+        /// <param name="member_no">Compound type member number.</param>
+        /// <returns>Returns the datatype class, a non-negative value, if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_class",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern class_t get_member_class
+            (hid_t cdtype_id, uint member_no);
 
         /// <summary>
         /// Sets character set to be used in a string or character datatype.

@@ -37,7 +37,7 @@ namespace UnitTests
             hid_t dtype = H5T.create(H5T.class_t.STRING,
                 new IntPtr(wdata.Length));
             Assert.IsTrue(H5T.set_cset(dtype, H5T.cset_t.UTF8) >= 0);
-            Assert.IsTrue(H5T.set_strpad(dtype, H5T.str_t.STR_SPACEPAD) >= 0);
+            Assert.IsTrue(H5T.set_strpad(dtype, H5T.str_t.SPACEPAD) >= 0);
 
             hid_t dset_v0 = H5D.create(m_v0_test_file, "dset", dtype,
                 m_space_scalar);
