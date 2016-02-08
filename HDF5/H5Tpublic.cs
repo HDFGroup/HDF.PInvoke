@@ -57,6 +57,82 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
+        /// Byte orders
+        /// </summary>
+        public enum order_t
+        {
+            /// <summary>
+            /// error
+            /// </summary>
+            ERROR = -1,
+            /// <summary>
+            /// little endian
+            /// </summary>
+            LE = 0,
+            /// <summary>
+            /// big endian
+            /// </summary>
+            BE = 1,
+            /// <summary>
+            /// VAX mixed endian
+            /// </summary>
+            VAX = 2,
+            /// <summary>
+            /// Compound type with mixed member orders
+            /// </summary>
+            MIXED = 3,
+            /// <summary>
+            /// no particular order (strings, bits,..)
+            /// </summary>
+            ONE = 4
+        }
+
+        /// <summary>
+        /// Types of integer sign schemes
+        /// </summary>
+        public enum sign_t
+        {
+            /// <summary>
+            /// error
+            /// </summary>
+            ERROR = -1,
+            /// <summary>
+            /// unsigned
+            /// </summary>
+            NONE = 0,
+            /// <summary>
+            /// two's complement
+            /// </summary>
+            SGN_2 = 1,
+            NSGN = 2
+        }
+
+
+        /// <summary>
+        /// Floating-point normalization schemes
+        /// </summary>
+        public enum norm_t
+        {
+            /// <summary>
+            /// error
+            /// </summary>
+            ERROR = -1,
+            /// <summary>
+            /// msb of mantissa isn't stored, always 1
+            /// </summary>
+            IMPLIED = 0,
+            /// <summary>
+            /// msb of mantissa is always 1
+            /// </summary>
+            MSBSET = 1,
+            /// <summary>
+            /// not normalized
+            /// </summary>
+            NONE = 2
+        }
+
+
+        /// <summary>
         /// Character set to use for text strings.
         /// </summary>
         public enum cset_t
@@ -269,6 +345,25 @@ namespace HDF.PInvoke
             /// init bkg buf with data before conversion
             /// </summary>
             YES = 2
+        }
+
+        /// <summary>
+        /// The order to retrieve atomic native datatype
+        /// </summary>
+        public enum direction_t
+        {
+            /// <summary>
+            /// default direction is ascending
+            /// </summary>
+            DEFAULT = 0,
+            /// <summary>
+            /// in ascending order
+            /// </summary>
+            ASCEND = 1,
+            /// <summary>
+            /// in descending order
+            /// </summary>
+            DESCEND = 2
         }
 
         /// <summary>
@@ -975,6 +1070,241 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern class_t get_member_class
             (hid_t cdtype_id, uint member_no);
+
+        /// <summary>
+        /// Retrieves the index of a compound or enumeration datatype member.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberIndex
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="field_name">Name of the field or member whose index is
+        /// to be retrieved.</param>
+        /// <returns>Returns a valid field or member index if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_index",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_member_index
+            (hid_t dtype_id, string field_name);
+
+        /// <summary>
+        /// Retrieves the name of a compound or enumeration datatype member.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberName
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="field_idx">Zero-based index of the field or element
+        /// whose name is to be retrieved.</param>
+        /// <returns>Returns a pointer to a string allocated in unmanaged
+        /// memory if successful; otherwise returns <code>NULL</code>.</returns>
+        /// <remarks>The caller is responsible for freeing the allocated
+        /// memory.</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern byte* get_member_name
+            (hid_t dtype_id, uint field_idx);
+
+        /// <summary>
+        /// Retrieves the offset of a field of a compound datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberOffset
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="memb_no">Number of the field whose offset is
+        /// requested.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_offset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern size_t get_member_offset
+            (hid_t dtype_id, uint memb_no);
+
+        /// <summary>
+        /// Returns the datatype of the specified member.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberType
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="field_idx">Field index (0-based) of the field type to
+        /// retrieve.</param>
+        /// <returns>Returns the identifier of a copy of the datatype of the
+        /// field if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_member_type
+            (hid_t dtype_id, uint field_idx);
+
+        /// <summary>
+        /// Returns the value of an enumeration datatype member.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetMemberValue
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier for the enumeration
+        /// datatype.</param>
+        /// <param name="memb_no">Number of the enumeration datatype member.</param>
+        /// <param name="value">Pointer to a buffer for output of the value of
+        /// the enumeration datatype member.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_value",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_member_value
+            (hid_t dtype_id, uint memb_no, IntPtr value);
+
+        /// <summary>
+        /// Returns the native datatype of a specified datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetNativeType
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier for the dataset
+        /// datatype.</param>
+        /// <param name="direction">Direction of search.</param>
+        /// <returns>Returns the native datatype identifier for the specified
+        /// dataset datatype if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_native_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_native_type
+            (hid_t dtype_id, direction_t direction);
+
+        /// <summary>
+        /// Retrieves the number of elements in a compound or enumeration
+        /// datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetNmembers
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns the number of elements if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_nmembers",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_nmembers(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves mantissa normalization of a floating-point datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetNorm
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a valid normalization type if successful;
+        /// otherwise <code>H5T.norm_t.ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_norm",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern norm_t get_norm(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the bit offset of the first significant bit.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetOffset
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns an offset value if successful; otherwise returns a
+        /// negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_offset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_offset(hid_t dtype_id);
+
+        /// <summary>
+        /// Returns the byte order of an atomic datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetOrder
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a byte order constant if successful; otherwise
+        /// <code>H5T.order_t.ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_order",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern order_t get_order(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the padding type of the least and most-significant bit
+        /// padding.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetPad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <param name="lsb">Pointer to location to return least-significant
+        /// bit padding type.</param>
+        /// <param name="msb">Pointer to location to return most-significant
+        /// bit padding type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_pad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_pad
+            (hid_t dtype_id, ref pad_t lsb, ref pad_t msb);
+
+        /// <summary>
+        /// Returns the precision of an atomic datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetPrecision
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns the number of significant bits if successful;
+        /// otherwise 0.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_precision",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern size_t get_precision(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the sign type for an integer type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetSign
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a valid sign type if successful; otherwise
+        /// <code>H5T.sign_t.ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_sign",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern sign_t get_sign(hid_t dtype_id);
+
+        /// <summary>
+        /// Returns the size of a datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetSize
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns the size of the datatype in bytes if successful;
+        /// otherwise 0.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern size_t get_size(hid_t dtype_id);
+
+        /// <summary>
+        /// Retrieves the type of padding used for a string datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetStrpad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to query.</param>
+        /// <returns>Returns a valid string storage mechanism if successful;
+        /// otherwise <code>H5T.str_t.ERROR</code>.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_strpad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern str_t get_strpad(hid_t dtype_id);
+
+        /// <summary>
+        /// Returns the base datatype from which a datatype is derived.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetSuper
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier for the derived
+        /// datatype.</param>
+        /// <returns>Returns the datatype identifier for the base datatype if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_super",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_super(hid_t dtype_id);
+
+        /// <summary>
+        /// Gets the tag associated with an opaque datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetTag
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier for the opaque datatype.</param>
+        /// <returns>Returns a pointer to a string allocated in unmanaged
+        /// memory if successful; otherwise returns <code>NULL</code>.</returns>
+        /// <remarks>The caller is responsible for freeing the allocated
+        /// memory.</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_tag",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern byte* get_tag(hid_t dtype_id);
 
         /// <summary>
         /// Sets character set to be used in a string or character datatype.
