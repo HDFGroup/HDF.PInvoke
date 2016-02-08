@@ -30,16 +30,8 @@ namespace UnitTests
         public void H5Screate_simpleTest1()
         {
             hsize_t[] dims = { 1, 2, 3 };
-            hid_t space = -1;
+            hid_t space =  H5S.create_simple(dims.Length, dims, dims);
 
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    space = H5S.create_simple(dims.Length, ptr, ptr);
-                }
-            }
-             
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
         }
@@ -48,15 +40,7 @@ namespace UnitTests
         public void H5Screate_simpleTest2()
         {
             hsize_t[] dims = { 1, 2, 3 };
-            hid_t space = -1;
-
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    space = H5S.create_simple(dims.Length, ptr, null);
-                }
-            }
+            hid_t space = H5S.create_simple(dims.Length, dims, dims);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
@@ -66,15 +50,7 @@ namespace UnitTests
         public void H5Screate_simpleTest3()
         {
             hsize_t[] dims = { 1, 2, 3, 0 };
-            hid_t space = -1;
-
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    space = H5S.create_simple(dims.Length, ptr, null);
-                }
-            }
+            hid_t space = H5S.create_simple(dims.Length, dims, dims);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
@@ -85,18 +61,7 @@ namespace UnitTests
         {
             hsize_t[] dims = { 1, 2, 3 };
             hsize_t[] max_dims = { H5S.UNLIMITED, H5S.UNLIMITED, H5S.UNLIMITED };
-            hid_t space = -1;
-
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    fixed (hsize_t* max_ptr = max_dims)
-                    {
-                        space = H5S.create_simple(dims.Length, ptr, max_ptr);
-                    }
-                }
-            }
+            hid_t space = H5S.create_simple(dims.Length, dims, max_dims);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
@@ -107,18 +72,7 @@ namespace UnitTests
         {
             hsize_t[] dims = { 1, 2, 3, 0 };
             hsize_t[] max_dims = { 1, H5S.UNLIMITED, 3, 0 };
-            hid_t space = -1;
-
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    fixed (hsize_t* max_ptr = max_dims)
-                    {
-                        space = H5S.create_simple(dims.Length, ptr, max_ptr);
-                    }
-                }
-            }
+            hid_t space = H5S.create_simple(dims.Length, dims, max_dims);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);

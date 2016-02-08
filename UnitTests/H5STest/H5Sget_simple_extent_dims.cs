@@ -31,25 +31,21 @@ namespace UnitTests
         {
             hsize_t[] dims = { 1, 2, 3 };
             hid_t space = -1;
+            hsize_t[] dims_out = new hsize_t[3];
 
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    space = H5S.create_simple(dims.Length, ptr, ptr);
+            space = H5S.create_simple(dims.Length, dims, dims);
+            Assert.IsTrue(
+                H5S.get_simple_extent_dims(space, null, null) == 3);
 
-                    Assert.IsTrue(
-                        H5S.get_simple_extent_dims(space, null, null) == 3);
+            Assert.IsTrue(
+                H5S.get_simple_extent_dims(space, dims_out, null) == 3);
 
-                    Assert.IsTrue(
-                        H5S.get_simple_extent_dims(space, ptr, null) == 3);
-                    Assert.IsTrue(dims[2] == 3);
+            Assert.IsTrue(dims_out[2] == 3);
 
-                    Assert.IsTrue(
-                        H5S.get_simple_extent_dims(space, null, ptr) == 3);
-                    Assert.IsTrue(dims[0] == 1);
-                }
-            }
+            Assert.IsTrue(
+                H5S.get_simple_extent_dims(space, null, dims_out) == 3);
+
+            Assert.IsTrue(dims_out[0] == 1);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
@@ -61,27 +57,19 @@ namespace UnitTests
             hsize_t[] dims = { 1, 2, 3 };
             hsize_t[] max_dims = { H5S.UNLIMITED, H5S.UNLIMITED, H5S.UNLIMITED };
             hid_t space = -1;
+            hsize_t[] dims_out = new hsize_t[3];
 
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    fixed (hsize_t* max_ptr = max_dims)
-                    {
-                        space = H5S.create_simple(dims.Length, ptr, max_ptr);
-                    }
-                    Assert.IsTrue(
-                    H5S.get_simple_extent_dims(space, null, null) == 3);
+            space = H5S.create_simple(dims.Length, dims, max_dims);
+            Assert.IsTrue(
+            H5S.get_simple_extent_dims(space, null, null) == 3);
 
-                    Assert.IsTrue(
-                        H5S.get_simple_extent_dims(space, ptr, null) == 3);
-                    Assert.IsTrue(dims[0] == 1);
+            Assert.IsTrue(
+                H5S.get_simple_extent_dims(space, dims_out, null) == 3);
+            Assert.IsTrue(dims_out[0] == 1);
 
-                    Assert.IsTrue(
-                        H5S.get_simple_extent_dims(space, null, ptr) == 3);
-                    Assert.IsTrue(dims[0] == H5S.UNLIMITED);
-                }
-            }
+            Assert.IsTrue(
+                H5S.get_simple_extent_dims(space, null, dims_out) == 3);
+            Assert.IsTrue(dims_out[0] == H5S.UNLIMITED);
 
             Assert.IsTrue(space > 0);
             Assert.IsTrue(H5S.close(space) >= 0);
