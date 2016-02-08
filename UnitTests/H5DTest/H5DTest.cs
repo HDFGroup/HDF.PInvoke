@@ -46,18 +46,13 @@ namespace UnitTests
             // store as H5T.FORTRAN_S1 -> space padding
 
             hsize_t[] dims = { 256 };
-            unsafe
-            {
-                fixed (hsize_t* ptr = dims)
-                {
-                    hid_t space = H5S.create_simple(1, ptr, ptr);
-                    m_v0_ascii_dset = H5D.create(m_v0_class_file, "ASCII",
-                        H5T.FORTRAN_S1, space);
-                    m_v2_ascii_dset = H5D.create(m_v2_class_file, "ASCII",
-                        H5T.FORTRAN_S1, space);
-                    Assert.IsTrue(H5S.close(space) >= 0);
-                }
-            }
+
+            hid_t space = H5S.create_simple(1, dims, null);
+            m_v0_ascii_dset = H5D.create(m_v0_class_file, "ASCII",
+                H5T.FORTRAN_S1, space);
+            m_v2_ascii_dset = H5D.create(m_v2_class_file, "ASCII",
+                H5T.FORTRAN_S1, space);
+            Assert.IsTrue(H5S.close(space) >= 0);
 
             // we write from C and must provide null-terminated strings
 
