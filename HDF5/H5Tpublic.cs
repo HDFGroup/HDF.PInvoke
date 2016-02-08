@@ -348,25 +348,6 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
-        /// The order to retrieve atomic native datatype
-        /// </summary>
-        public enum direction_t
-        {
-            /// <summary>
-            /// default direction is ascending
-            /// </summary>
-            DEFAULT = 0,
-            /// <summary>
-            /// in ascending order
-            /// </summary>
-            ASCEND = 1,
-            /// <summary>
-            /// in descending order
-            /// </summary>
-            DESCEND = 2
-        }
-
-        /// <summary>
         /// Type conversion client data
         /// </summary>
         public struct cdata_t
@@ -390,6 +371,45 @@ namespace HDF.PInvoke
         }
 
         /// <summary>
+        /// Conversion function persistence
+        /// </summary>
+        public enum pers_t
+        {
+            /// <summary>
+            /// wild card
+            /// </summary>
+            H5T_PERS_DONTCARE = -1,
+            /// <summary>
+            /// hard conversion function
+            /// </summary>
+            H5T_PERS_HARD = 0,
+            /// <summary>
+            /// soft conversion function
+            /// </summary>
+            H5T_PERS_SOFT = 1
+        }
+
+        /// <summary>
+        /// The order to retrieve atomic native datatype
+        /// </summary>
+        public enum direction_t
+        {
+            /// <summary>
+            /// default direction is ascending
+            /// </summary>
+            DEFAULT = 0,
+            /// <summary>
+            /// in ascending order
+            /// </summary>
+            ASCEND = 1,
+            /// <summary>
+            /// in descending order
+            /// </summary>
+            DESCEND = 2
+        }
+
+        
+        /// <summary>
         /// The return value from conversion callback function
         /// conv_except_func_t
         /// </summary>
@@ -408,6 +428,32 @@ namespace HDF.PInvoke
             /// </summary>
             HANDLED = 1
         }
+
+        /// <summary>
+        /// Variable Length Datatype struct in memory
+        /// (This is only used for VL sequences, not VL strings, which are
+        /// stored in byte[]'s)
+        /// </summary>
+        public struct hvl_t
+        {
+            /// <summary>
+            /// Length of VL data (in base type units)
+            /// </summary>
+            public size_t len;
+            /// <summary>
+            /// Pointer to VL data
+            /// </summary>
+            public IntPtr p;
+        }
+
+        /* Indicate that a string is variable length (null-terminated in C,
+         * instead of fixed length) */
+        //public IntPtr H5T_VARIABLE   = ((size_t)(-1)) 
+        
+        /// <summary>
+        /// Maximum length of an opaque tag
+        /// </summary>
+        public const int H5T_OPAQUE_TAG_MAX = 256;
       
         /// <summary>
         /// Exception handler.  If an exception like overflow happenes during
@@ -1307,6 +1353,93 @@ namespace HDF.PInvoke
         public static extern byte* get_tag(hid_t dtype_id);
 
         /// <summary>
+        /// Adds a new member to a compound datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Insert
+        /// </summary>
+        /// <param name="dtype_id">Identifier of compound datatype to modify.</param>
+        /// <param name="name">Name of the field to insert.</param>
+        /// <param name="offset">Offset in memory structure of the field to
+        /// insert.</param>
+        /// <param name="field_id">Datatype identifier of the field to insert.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tinsert",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t insert
+            (hid_t dtype_id, string name, size_t offset, hid_t field_id);
+
+        /// <summary>
+        /// Determines whether datatype is a variable-length string.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-IsVariableString
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier.</param>
+        /// <returns>Returns <code>TRUE</code> or <code>FALSE</code> if
+        /// successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tis_variable_str",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t is_variable_str(hid_t dtype_id);
+
+        /// <summary>
+        /// Locks a datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Lock
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to lock.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tlock",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t lock_datatype(hid_t dtype_id);
+
+        /// <summary>
+        /// Opens a committed (named) datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Open2
+        /// </summary>
+        /// <param name="loc_id">A file or group identifier.</param>
+        /// <param name="name">A datatype name, defined within the file or
+        /// group identified by <paramref name="loc_id"/>.</param>
+        /// <param name="tapl_id">Datatype access property list identifier.</param>
+        /// <returns>Returns a committed datatype identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Topen2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t open
+            (hid_t loc_id, string name, hid_t tapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Recursively removes padding from within a compound datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Pack
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to modify.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tpack",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t pack(hid_t dtype_id);
+
+        /// <summary>
+        /// Registers a conversion function.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Register
+        /// </summary>
+        /// <param name="type">Conversion function type</param>
+        /// <param name="name">Name displayed in diagnostic output</param>
+        /// <param name="src_id">Identifier of source datatype</param>
+        /// <param name="dst_id">Identifier of destination datatype</param>
+        /// <param name="func">Function to convert between source and
+        /// destination datatypes</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tregister",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t register(pers_t type, string name,
+            hid_t src_id, hid_t dst_id, conv_t func);
+
+        /// <summary>
         /// Sets character set to be used in a string or character datatype.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetCset
         /// </summary>
@@ -1318,6 +1451,133 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_cset(hid_t dtype_id, cset_t cset);
+
+        /// <summary>
+        /// Sets the exponent bias of a floating-point type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetEbias
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="ebias">Exponent bias value.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_ebias",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_ebias(hid_t dtype_id, size_t ebias);
+
+        /// <summary>
+        /// Sets locations and sizes of floating point bit fields.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetFields
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="spos">Sign position, i.e., the bit offset of the
+        /// floating-point sign bit.</param>
+        /// <param name="epos">Exponent bit position.</param>
+        /// <param name="esize">Size of exponent in bits.</param>
+        /// <param name="mpos">Mantissa bit position.</param>
+        /// <param name="msize">Size of mantissa in bits.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_fields",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_fields
+            (hid_t dtype_id, size_t spos, size_t epos, size_t esize,
+            size_t mpos, size_t msize);
+
+        /// <summary>
+        /// Sets interal bit padding of floating point numbers.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetInpad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to modify.</param>
+        /// <param name="inpad">Padding type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_inpad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_inpad(hid_t dtype_id, pad_t inpad);
+
+        /// <summary>
+        /// Sets the mantissa normalization of a floating-point datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetNorm
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="norm">Mantissa normalization type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_norm",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_norm(hid_t dtype_id, norm_t norm);
+
+        /// <summary>
+        /// Sets the bit offset of the first significant bit.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetOffset
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="offset">Offset of first significant bit.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_offset",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_offset(hid_t dtype_id, size_t offset);
+
+        /// <summary>
+        /// Sets the byte order of a datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetOrder
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="order">Byte order.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_order",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_order(hid_t dtype_id, order_t order);
+
+        /// <summary>
+        /// Sets the least and most-significant bits padding types.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetPad
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="lsb">Padding type for least-significant bits.</param>
+        /// <param name="msb">Padding type for most-significant bits.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_pad",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_pad
+            (hid_t dtype_id, pad_t lsb, pad_t msb);
+
+        /// <summary>
+        /// Sets the precision of an atomic datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetPrecision
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="precision">Number of bits of precision for datatype.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_precision",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_precision
+            (hid_t dtype_id, size_t precision);
+
+        /// <summary>
+        /// Sets the sign property for an integer type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetSign
+        /// </summary>
+        /// <param name="dtype_id">Identifier of datatype to set.</param>
+        /// <param name="sign">Sign type.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_sign",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_sign(hid_t dtype_id, sign_t sign);
 
         /// <summary>
         /// Sets the total size for a datatype.
@@ -1345,5 +1605,53 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_strpad(hid_t dtype_id, str_t strpad);
+
+        /// <summary>
+        /// Tags an opaque datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-SetTag
+        /// </summary>
+        /// <param name="dtype_id">Datatype identifier for the opaque datatype
+        /// to be tagged.</param>
+        /// <param name="tag">Descriptive ASCII string with which the opaque
+        /// datatype is to be tagged.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks><paramref name="tag"/> is intended to provide a concise
+        /// description; the maximum size is hard-coded in the HDF5 Library as
+        /// 256 bytes </remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_tag",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_tag( hid_t dtype_id, string tag);
+
+        /// <summary>
+        /// Removes a conversion function.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Unregister
+        /// </summary>
+        /// <param name="type">Conversion function type</param>
+        /// <param name="name">Name displayed in diagnostic output.</param>
+        /// <param name="src_id">Identifier of source datatype.</param>
+        /// <param name="dst_id">Identifier of destination datatype.</param>
+        /// <param name="func">Function to convert between source and
+        /// destination datatypes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tunregister",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t unregister
+            (pers_t type, string name, hid_t src_id, hid_t dst_id, conv_t func);
+
+        /// <summary>
+        /// Creates a new variable-length array datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-VLCreate
+        /// </summary>
+        /// <param name="base_type_id">Base type of datatype to create.</param>
+        /// <returns>Returns datatype identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tvlen_create",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t vlen_create(hid_t base_type_id);
     }
 }
