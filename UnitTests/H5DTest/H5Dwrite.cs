@@ -58,5 +58,33 @@ namespace UnitTests
             Assert.IsTrue(H5D.close(dset_v2) >= 0);
             Assert.IsTrue(H5D.close(dset_v0) >= 0);
         }
+
+        [TestMethod]
+        public void H5DwriteTest2()
+        {
+            System.Collections.Generic.List<string> utf8strings
+                = new System.Collections.Generic.List<string>()
+                { "Ελληνικά", "日本語", "العربية" };
+
+            hid_t dtype = H5T.create(H5T.class_t.STRING, new IntPtr(-1));
+            Assert.IsTrue(H5T.set_cset(dtype, H5T.cset_t.UTF8) >= 0);
+            Assert.IsTrue(H5T.set_strpad(dtype, H5T.str_t.SPACEPAD) >= 0);
+
+            //hid_t dspace = H5S.create_simple(1, new ulong[] { (ulong)utf8strings.Count }, null);
+            hid_t dspace = H5S.create_simple(1, new ulong[] { (ulong)1 }, null);
+
+            hid_t dset = H5D.create(m_v0_test_file, "dset", dtype, dspace);
+            Assert.IsTrue(dset >= 0);
+
+            byte[] vlenStringBytes = Encoding.UTF8.GetBytes(utf8strings[0]);
+
+            GCHandle hnd = GCHandle.Alloc(vlenStringBytes, GCHandleType.Pinned);
+            Assert.IsTrue(H5D.write(dset, dtype, H5S.ALL, H5S.ALL, H5P.DEFAULT, hnd.AddrOfPinnedObject()) >= 0);
+            hnd.Free();
+
+            Assert.IsTrue(H5D.close(dset) >= 0);
+            Assert.IsTrue(H5S.close(dspace) >= 0);
+            Assert.IsTrue(H5T.close(dtype) >= 0);
+        }
     }
 }
