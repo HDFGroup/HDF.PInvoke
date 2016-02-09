@@ -17,8 +17,6 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-using hid_t = System.Int32;
-
 namespace UnitTests
 {
     public partial class H5Test
