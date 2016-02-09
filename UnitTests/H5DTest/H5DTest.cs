@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections;
+using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
@@ -31,12 +32,13 @@ namespace UnitTests
         [ClassInitialize()]
         public static void ClassInit(TestContext testContext)
         {
-            // create a test file which persists across group tests
-            m_v0_class_file = Utilities.H5TempFile(
+            // create test files which persists across file tests
+            m_v0_class_file = Utilities.H5TempFile(ref m_v0_class_file_name,
                 H5F.libver_t.LIBVER_EARLIEST);
             Assert.IsTrue(m_v0_class_file >= 0);
-            m_v2_class_file = Utilities.H5TempFile();
+            m_v2_class_file = Utilities.H5TempFile(ref m_v2_class_file_name);
             Assert.IsTrue(m_v2_class_file >= 0);
+
             m_space_null = H5S.create(H5S.class_t.NULL);
             Assert.IsTrue(m_space_null >= 0);
             m_space_scalar = H5S.create(H5S.class_t.SCALAR);
@@ -78,10 +80,12 @@ namespace UnitTests
         [TestInitialize()]
         public void Init()
         {
-            // create a test-local files
-            m_v0_test_file = Utilities.H5TempFile(H5F.libver_t.LIBVER_EARLIEST);
+            // create test-local files
+            m_v0_test_file = Utilities.H5TempFile(ref m_v0_test_file_name,
+                H5F.libver_t.LIBVER_EARLIEST);
             Assert.IsTrue(m_v0_test_file >= 0);
-            m_v2_test_file = Utilities.H5TempFile();
+
+            m_v2_test_file = Utilities.H5TempFile(ref m_v2_test_file_name);
             Assert.IsTrue(m_v2_test_file >= 0);
         }
 
@@ -91,6 +95,8 @@ namespace UnitTests
             // close the test-local files
             Assert.IsTrue(H5F.close(m_v0_test_file) >= 0);
             Assert.IsTrue(H5F.close(m_v2_test_file) >= 0);
+            File.Delete(m_v0_test_file_name);
+            File.Delete(m_v2_test_file_name);
         }
 
         [ClassCleanup()]
@@ -105,15 +111,26 @@ namespace UnitTests
             Assert.IsTrue(H5F.close(m_v2_class_file) >= 0);
             Assert.IsTrue(H5S.close(m_space_null) >= 0);
             Assert.IsTrue(H5S.close(m_space_scalar) >= 0);
+
+            File.Delete(m_v0_class_file_name);
+            File.Delete(m_v2_class_file_name);
         }
 
         private static hid_t m_v0_class_file = -1;
 
+        private static string m_v0_class_file_name;
+
         private static hid_t m_v2_class_file = -1;
+
+        private static string m_v2_class_file_name;
 
         private hid_t m_v0_test_file = -1;
 
+        private string m_v0_test_file_name;
+
         private hid_t m_v2_test_file = -1;
+
+        private string m_v2_test_file_name;
 
         private static hid_t m_space_null = -1;
 

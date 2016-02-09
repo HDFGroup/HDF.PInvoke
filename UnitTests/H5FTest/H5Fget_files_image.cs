@@ -48,6 +48,7 @@ namespace UnitTests
             Assert.IsTrue(H5.free_memory(buf) >= 0);
             
             Assert.IsTrue(H5F.close(file) >= 0);
+            File.Delete(fname);
         }
 
         [TestMethod]
@@ -70,6 +71,7 @@ namespace UnitTests
             Marshal.FreeHGlobal(buf);
 
             Assert.IsTrue(H5F.close(file) >= 0);
+            File.Delete(fname);
         }
     }
 }

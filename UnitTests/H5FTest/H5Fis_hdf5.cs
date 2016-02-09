@@ -32,6 +32,7 @@ namespace UnitTests
             Assert.IsTrue(file >= 0);
             Assert.IsTrue(H5F.close(file) >= 0);
             Assert.IsTrue(H5F.is_hdf5(fname) > 0);
+            File.Delete(fname);
         }
 
         [TestMethod]
@@ -40,6 +41,7 @@ namespace UnitTests
             Assert.IsTrue(H5F.is_hdf5("") < 0);
             string fname = Path.GetTempFileName();
             Assert.IsTrue(H5F.is_hdf5(fname) == 0);
+            File.Delete(fname);
         }
     }
 }

@@ -39,6 +39,7 @@ namespace UnitTests
             file = H5F.open(fname, H5F.ACC_RDWR);
             Assert.IsTrue(file >= 0);
             Assert.IsTrue(H5F.close(file) >= 0);
+            File.Delete(fname);
         }
 
         [TestMethod]

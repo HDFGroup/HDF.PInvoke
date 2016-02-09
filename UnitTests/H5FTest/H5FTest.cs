@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -53,6 +54,8 @@ namespace UnitTests
             // close the test-local files
             Assert.IsTrue(H5F.close(m_v0_test_file) >= 0);
             Assert.IsTrue(H5F.close(m_v2_test_file) >= 0);
+            File.Delete(m_v0_test_file_name);
+            File.Delete(m_v2_test_file_name);
         }
 
         [ClassCleanup()]
@@ -61,6 +64,8 @@ namespace UnitTests
             // close the global test files
             Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
             Assert.IsTrue(H5F.close(m_v2_class_file) >= 0);
+            File.Delete(m_v0_class_file_name);
+            File.Delete(m_v2_class_file_name);
         }
 
         private static hid_t m_v0_class_file = -1;

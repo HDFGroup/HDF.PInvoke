@@ -36,6 +36,7 @@ namespace UnitTests
             file = H5F.create(fname, H5F.ACC_TRUNC);
             Assert.IsTrue(file >= 0);
             Assert.IsTrue(H5F.close(file) >= 0);
+            File.Delete(fname);
         }
     }
 }
