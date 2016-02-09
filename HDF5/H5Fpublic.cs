@@ -18,12 +18,14 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
+using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 using hssize_t = System.Int64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
+using uint32_t = System.UInt32;
 
 #if X86
 using ssize_t System.Int32;
@@ -60,13 +62,30 @@ namespace HDF.PInvoke
         /// </summary>
         public const uint ACC_EXCL = 0x0004u;
         /// <summary>
-        /// print debug info
-        /// </summary>
-        public const uint ACC_DEBUG = 0x0008u;
-        /// <summary>
         /// create non-existing files
         /// </summary>
         public const uint ACC_CREAT = 0x0010u;
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// indicate that this file is open for writing in a
+        /// single-writer/multi-reader (SWMR) scenario.  Note that the
+        /// process(es) opening the file for reading must open the file
+        /// with <code>RDONLY</code> access, and use the special
+        /// <code>SWMR_READ</code> access flag.
+        /// </summary>
+        public const uint ACC_SWMR_WRITE = 0x0020u;
+        /// <summary>
+        /// indicate that this file is open for reading in a 
+        /// single-writer/multi-reader (SWMR) scenario. Note that the
+        /// process(es) opening the file for SWMR reading must also
+        /// open the file with the <code>RDONLY</code> flag.
+        /// </summary>
+        public const uint ACC_SWMR_READ = 0x0040u;
+
+#endif
+
         /// <summary>
         /// Value passed to H5P.set_elink_acc_flags to cause flags to be taken
         /// from the parent file.
@@ -161,6 +180,62 @@ namespace HDF.PInvoke
         /// Current "global" information about a file
         /// (just size info currently)
         /// </summary>
+#if HDF5_VER1_10
+
+        public struct info_t
+        {
+            public super_t super;
+            public free_t free;
+            public sohm_t sohm;
+            public struct super_t
+            {
+                /// <summary>
+                /// Superblock version #
+                /// </summary>
+                public uint version;
+                /// <summary>
+                /// Superblock size
+                /// </summary>
+                public hsize_t super_size;
+                /// <summary>
+                /// Superblock extension size
+                /// </summary>
+                public hsize_t super_ext_size;
+            }
+            public struct free_t
+            {
+                /// <summary>
+                /// Version # of file free space management
+                /// </summary>
+                public uint version;
+                /// <summary>
+                /// Free space manager metadata size
+                /// </summary>
+                public hsize_t meta_size;
+                /// <summary>
+                /// Amount of free space in the file
+                /// </summary>
+                public hsize_t tot_space;
+            }
+            public struct sohm_t
+            {
+                /// <summary>
+                /// Version # of shared object header info
+                /// </summary>
+                public uint version;
+                /// <summary>
+                /// Shared object header message header size
+                /// </summary>
+                public hsize_t hdr_size;
+                /// <summary>
+                /// Shared object header message index & heap size
+                /// </summary>
+                public H5.ih_info_t msgs_info;
+            }
+        }
+
+#else
+
         public struct info_t
         {
             /// <summary>
@@ -180,6 +255,8 @@ namespace HDF.PInvoke
                 public H5.ih_info_t msgs_info;
             }
         }
+
+#endif
 
         /// <summary>
         ///  Types of allocation requests
@@ -226,6 +303,25 @@ namespace HDF.PInvoke
             NTYPES
         }
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Free space section information
+        /// </summary>
+        public struct sect_info_t
+        {
+            /// <summary>
+            /// Address of free space section
+            /// </summary>
+            public haddr_t addr;
+            /// <summary>
+            /// Size of free space section
+            /// </summary>
+            public hsize_t size;
+        }
+
+#endif
+
         /// <summary>
         /// Library's file format versions
         /// </summary>
@@ -240,6 +336,59 @@ namespace HDF.PInvoke
             /// </summary>
             LATEST
         }
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// File space handling strategy
+        /// </summary>
+        public enum file_space_type_t
+        {
+            /// <summary>
+            /// Default (or current) free space strategy setting
+            /// </summary>
+            DEFAULT = 0,
+            /// <summary>
+            /// Persistent free space managers, aggregators, virtual file
+            /// driver
+            /// </summary>
+            ALL_PERSIST = 1,
+            /// <summary>
+            /// Non-persistent free space managers, aggregators, virtual file
+            /// driver. This is the library default
+            /// </summary>
+            ALL = 2,
+            /// <summary>
+            /// Aggregators, Virtual file driver 
+            /// </summary>
+            AGGR_VFD = 3,
+            /// <summary>
+            /// Virtual file driver
+            /// </summary>
+            VFD = 4,
+            NTYPES
+        }
+
+        public const int NUM_METADATA_READ_RETRY_TYPES = 21;
+        /// <summary>
+        /// Data structure to report the collection of read retries for
+        /// metadata items with checksum. Used by public routine
+        /// <code>H5F.get_metadata_read_retry_info</code>
+        /// </summary>
+        public struct retry_info_t
+        {
+            public uint nbins;
+            public fixed uint32_t retries[NUM_METADATA_READ_RETRY_TYPES];
+        }
+
+        /// <summary>
+        /// Callback for <code>H5P.set_object_flush_cb</code> in a file access
+        /// property list
+        /// </summary>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate herr_t flush_cb_t(hid_t object_id, IntPtr udata);
+
+#endif
 
         /// <summary>
         /// Clears the external link open file cache.
@@ -302,6 +451,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t flush(hid_t object_id, scope_t scope);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fformat_convert_super",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t format_convert_super(hid_t fid);
+
+#endif
+
         /// <summary>
         /// Returns a file access property list identifier.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetAccessPlist
@@ -359,6 +518,29 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_filesize
             (hid_t file_id, ref hsize_t size);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves free-space section information for a file.
+        /// See
+        /// </summary>
+        /// <param name="file_id">Identifier of a currently-open HDF5
+        /// file</param>
+        /// <param name="type">The file memory allocation type.</param>
+        /// <param name="nsects">The number of free-space sections.</param>
+        /// <param name="sect_info">Array of instances of
+        /// <code>H5F.sect_info_t</code> in which the free-space section
+        /// information is to be returned.</param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_free_sections",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_free_sections
+            (hid_t file_id, mem_t type, size_t nsects,
+            [Out] sect_info_t[] sect_info);
+
+#endif
 
         /// <summary>
         /// Returns the amount of free space in a file.
@@ -435,6 +617,18 @@ namespace HDF.PInvoke
         public extern static herr_t get_mdc_hit_rate
             (hid_t file_id, ref double hit_rate_ptr);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fget_mdc_logging_status",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_mdc_logging_status
+            (hid_t file_id, ref hbool_t is_enabled,
+            ref hbool_t is_currently_logging);
+
+#endif
+
         /// <summary>
         /// Obtain current metadata cache size data for specified file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetMdcSize
@@ -461,6 +655,27 @@ namespace HDF.PInvoke
             (hid_t file_id, ref size_t max_size_ptr,
             ref size_t min_clean_size_ptr, ref size_t cur_size_ptr,
             ref int cur_num_entries_ptr);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves the collection of read retries for metadata entries with
+        /// checksum.
+        /// See
+        /// </summary>
+        /// <param name="file_id">Identifier for a currently opened HDF5 file.</param>
+        /// <param name="info">Struct containing the collection of read retries
+        /// for metadata entries with checksum.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fget_metadata_read_retry_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_metadata_read_retry_info
+            (hid_t file_id, ref retry_info_t info);
+
+#endif
 
         /// <summary>
         /// Retrieves name of file to which object belongs.
@@ -623,6 +838,48 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t set_mdc_config
             (hid_t file_id, ref H5AC.cache_config_t config_ptr);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Starts logging metadata cache events if logging was previously
+        /// enabled.
+        /// See
+        /// </summary>
+        /// <param name="file_id">Identifier of an open HDF5 file.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fstart_mdc_logging",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t start_mdc_logging(hid_t file_id);
+
+        /// <summary>
+        /// Enables SWMR writing mode for a file.
+        /// See 
+        /// </summary>
+        /// <param name="file_id">A file identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fstart_swmr_write",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t start_swmr_write(hid_t file_id);
+
+        /// <summary>
+        /// Stops logging metadata cache events if logging was previously
+        /// enabled and is currently ongoing.
+        /// See
+        /// </summary>
+        /// <param name="file_id">Identifier of an open HDF5 file.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fstop_mdc_logging",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t stop_mdc_logging(hid_t file_id);
+
+#endif
 
         /// <summary>
         /// Unmounts a file.
