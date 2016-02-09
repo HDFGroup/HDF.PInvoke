@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -21,6 +22,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using hid_t = System.Int32;
+using hsize_t = System.UInt64;
 
 namespace UnitTests
 {
@@ -62,25 +64,39 @@ namespace UnitTests
         [TestMethod]
         public void H5DwriteTest2()
         {
-            System.Collections.Generic.List<string> utf8strings
-                = new System.Collections.Generic.List<string>()
-                { "Ελληνικά", "日本語", "العربية" };
+            ArrayList utf8strings = new ArrayList()
+            { "Ελληνικά", "日本語", "العربية" };
 
-            hid_t dtype = H5T.create(H5T.class_t.STRING, new IntPtr(-1));
+            hid_t dtype = H5T.create(H5T.class_t.STRING, H5T.VARIABLE);
             Assert.IsTrue(H5T.set_cset(dtype, H5T.cset_t.UTF8) >= 0);
             Assert.IsTrue(H5T.set_strpad(dtype, H5T.str_t.SPACEPAD) >= 0);
 
-            //hid_t dspace = H5S.create_simple(1, new ulong[] { (ulong)utf8strings.Count }, null);
-            hid_t dspace = H5S.create_simple(1, new ulong[] { (ulong)1 }, null);
+            hid_t dspace = H5S.create_simple(1,
+                new hsize_t[] { (hsize_t)utf8strings.Count }, null);
 
             hid_t dset = H5D.create(m_v0_test_file, "dset", dtype, dspace);
             Assert.IsTrue(dset >= 0);
 
-            byte[] vlenStringBytes = Encoding.UTF8.GetBytes(utf8strings[0]);
+            GCHandle[] hnds = new GCHandle[utf8strings.Count];
+            IntPtr[] wdata = new IntPtr[utf8strings.Count];
 
-            GCHandle hnd = GCHandle.Alloc(vlenStringBytes, GCHandleType.Pinned);
-            Assert.IsTrue(H5D.write(dset, dtype, H5S.ALL, H5S.ALL, H5P.DEFAULT, hnd.AddrOfPinnedObject()) >= 0);
+            for (int i = 0; i < utf8strings.Count; ++i)
+            {
+                hnds[i] = GCHandle.Alloc(
+                    Encoding.UTF8.GetBytes((string)utf8strings[i]),
+                    GCHandleType.Pinned);
+                wdata[i] = hnds[i].AddrOfPinnedObject();
+            }
+
+            GCHandle hnd = GCHandle.Alloc(wdata, GCHandleType.Pinned);
+            Assert.IsTrue(H5D.write(dset, dtype, H5S.ALL, H5S.ALL, H5P.DEFAULT,
+                hnd.AddrOfPinnedObject()) >= 0);
             hnd.Free();
+
+            for (int i = 0; i < utf8strings.Count; ++i)
+            {
+                hnds[i].Free();
+            }
 
             Assert.IsTrue(H5D.close(dset) >= 0);
             Assert.IsTrue(H5S.close(dspace) >= 0);
