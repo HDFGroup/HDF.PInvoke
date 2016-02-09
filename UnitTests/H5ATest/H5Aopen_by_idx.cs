@@ -37,13 +37,13 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
-            att = H5A.open_by_idx(m_v2_test_file, ".", H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 0);
+            att = H5A.open_by_idx(m_v2_test_file, ".", H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 0);
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
             
-            att = H5A.open_by_idx(m_v2_test_file, ".", H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 1);
+            att = H5A.open_by_idx(m_v2_test_file, ".", H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 1);
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
@@ -52,8 +52,8 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
-            att = H5A.open_by_idx(m_v0_test_file, ".", H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 0);
+            att = H5A.open_by_idx(m_v0_test_file, ".", H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 0);
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
         }
@@ -63,11 +63,11 @@ namespace UnitTests
         {
             Assert.IsFalse(
                 H5A.open_by_idx(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 44) >= 0);
             Assert.IsFalse(
                 H5A.open_by_idx(m_v2_class_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 hsize_t.MaxValue) >= 0);
         }
     }

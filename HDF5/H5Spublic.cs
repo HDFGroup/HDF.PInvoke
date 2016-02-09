@@ -18,11 +18,16 @@ using System.Runtime.InteropServices;
 using System.Security;
 
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using hssize_t = System.Int64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -68,11 +73,11 @@ namespace HDF.PInvoke
             /// <summary>
             /// error
             /// </summary>
-            SELECT_NOOP = -1,
+            NOOP = -1,
             /// <summary>
             /// Select "set" operation
             /// </summary>
-            SELECT_SET = 0,
+            SET = 0,
             /// <summary>
             /// Binary "or" operation for hyperslabs
             /// (add new selection to existing selection)
@@ -80,7 +85,7 @@ namespace HDF.PInvoke
             /// New region:             BBBBBBBBBB
             /// A or B:           CCCCCCCCCCCCCCCC
             /// </summary>
-            SELECT_OR,
+            OR,
             /// <summary>
             /// Binary "and" operation for hyperslabs
             /// (only leave overlapped regions in selection)
@@ -88,7 +93,7 @@ namespace HDF.PInvoke
             /// New region:             BBBBBBBBBB
             /// A and B:                CCCC
             /// </summary>
-            SELECT_AND,
+            AND,
             /// <summary>
             /// Binary "xor" operation for hyperslabs
             /// (only leave non-overlapped regions in selection)
@@ -96,7 +101,7 @@ namespace HDF.PInvoke
             /// New region:             BBBBBBBBBB
             /// A xor B:          CCCCCC    CCCCCC
             /// </summary>
-            SELECT_XOR,
+            XOR,
             /// <summary>
             /// Binary "not" operation for hyperslabs
             /// (only leave non-overlapped regions in original selection)
@@ -104,7 +109,7 @@ namespace HDF.PInvoke
             /// New region:             BBBBBBBBBB
             /// A not B:          CCCCCC
             /// </summary>
-            SELECT_NOTB,
+            NOTB,
             /// <summary>
             /// Binary "not" operation for hyperslabs
             /// (only leave non-overlapped regions in new selection)
@@ -112,19 +117,19 @@ namespace HDF.PInvoke
             /// New region:             BBBBBBBBBB
             /// B not A:                    CCCCCC
             /// </summary>
-            SELECT_NOTA,
+            NOTA,
             /// <summary>
             /// Append elements to end of point selection
             /// </summary>
-            SELECT_APPEND,
+            APPEND,
             /// <summary>
             /// Prepend elements to beginning of point selection
             /// </summary>
-            SELECT_PREPEND,
+            PREPEND,
             /// <summary>
             /// Invalid upper bound on selection operations
             /// </summary>
-            SELECT_INVALID
+            INVALID
         }
 
         /// <summary>
@@ -135,24 +140,24 @@ namespace HDF.PInvoke
             /// <summary>
             /// Error
             /// </summary>
-            SEL_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// Nothing selected
             /// </summary>
-            SEL_NONE = 0,
+            NONE = 0,
             /// <summary>
             /// Sequence of points selected
             /// </summary>
-            SEL_POINTS = 1,
+            POINTS = 1,
             /// <summary>
             /// "New-style" hyperslab selection defined
             /// </summary>
-            SEL_HYPERSLABS = 2,
+            HYPERSLABS = 2,
             /// <summary>
             /// Entire extent selected
             /// </summary>
-            SEL_ALL = 3,
-            SEL_N
+            ALL = 3,
+            N
         }
 
         /// <summary>

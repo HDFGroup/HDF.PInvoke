@@ -20,13 +20,23 @@ using System.Text;
 
 using haddr_t = System.UInt64; 
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
 using time_t = System.UInt64;
 using uint64_t = System.UInt64;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -68,7 +78,6 @@ namespace HDF.PInvoke
         public const uint COPY_ALL = 0x007Fu;
 
         #endregion
-
 
         #region Flags for shared message indexes
         /* Pass these flags in using the mesg_type_flags parameter in
@@ -154,23 +163,23 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown object type [value = -1]
             /// </summary>
-            TYPE_UNKNOWN = -1,
+            UNKNOWN = -1,
             /// <summary>
             /// Object is a group [value = 0]
             /// </summary>
-            TYPE_GROUP,
+            GROUP,
             /// <summary>
             /// Object is a dataset [value = 1]
             /// </summary>
-            TYPE_DATASET,
+            DATASET,
             /// <summary>
             /// Object is a named data type [value = 2]
             /// </summary>
-            TYPE_NAMED_DATATYPE,
+            NAMED_DATATYPE,
             /// <summary>
             /// Number of different object types (must be last!) [value = 3]
             /// </summary>
-            TYPE_NTYPES
+            NTYPES
         }
 
         /// <summary>
@@ -313,17 +322,17 @@ namespace HDF.PInvoke
             /// <summary>
             /// Abort H5Ocopy [value = -1]
             /// </summary>
-            MCDT_SEARCH_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// Continue the global search of all committed datatypes in the
             /// destination file [value = 0]
             /// </summary>
-            MCDT_SEARCH_CONT,
+            CONT,
             /// <summary>
             /// Stop the search, but continue copying. The committed datatype
             /// will be copied but not merged. [value = 1]
             /// </summary>
-            MCDT_SEARCH_STOP
+            STOP
         }
 
         /// <summary>

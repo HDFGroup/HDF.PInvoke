@@ -27,7 +27,7 @@ namespace UnitTests
         public void H5Fset_mdc_configTest1()
         {
             H5AC.cache_config_t conf = new H5AC.cache_config_t(
-                H5AC.H5AC__CURR_CACHE_CONFIG_VERSION);
+                H5AC.CURR_CACHE_CONFIG_VERSION);
             // TODO: define sensible defaults for MDC config.
             //Assert.IsTrue(H5F.set_mdc_config(m_v0_class_file, ref conf) >= 0);
             //Assert.IsTrue(H5F.set_mdc_config(m_v2_class_file, ref conf) >= 0);
@@ -37,7 +37,7 @@ namespace UnitTests
         public void H5Fset_mdc_configTest2()
         {
             H5AC.cache_config_t conf = new H5AC.cache_config_t(
-                H5AC.H5AC__CURR_CACHE_CONFIG_VERSION);
+                H5AC.CURR_CACHE_CONFIG_VERSION);
             Assert.IsFalse(
                 H5F.set_mdc_config(Utilities.RandomInvalidHandle(),
                 ref conf) >= 0);

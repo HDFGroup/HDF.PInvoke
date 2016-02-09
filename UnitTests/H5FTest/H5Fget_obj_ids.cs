@@ -17,7 +17,17 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
 using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -30,10 +40,10 @@ namespace UnitTests
             
             Assert.IsTrue(
                 H5F.get_obj_ids(m_v0_class_file, H5F.OBJ_ALL, new IntPtr(10),
-                buf).ToInt32() > 0);
+                buf) > 0);
             Assert.IsTrue(
                 H5F.get_obj_ids(m_v2_class_file, H5F.OBJ_ALL, new IntPtr(10),
-                buf).ToInt32() > 0);
+                buf) > 0);
 
             Assert.IsTrue(H5.free_memory(buf) >= 0);
            
@@ -45,7 +55,7 @@ namespace UnitTests
             IntPtr buf = H5.allocate_memory(new IntPtr(10 * sizeof(hid_t)), 0);
             Assert.IsFalse(
                 H5F.get_obj_ids(Utilities.RandomInvalidHandle(),
-                H5F.OBJ_ALL, new IntPtr(10), buf).ToInt32() > 0);
+                H5F.OBJ_ALL, new IntPtr(10), buf) > 0);
             Assert.IsTrue(H5.free_memory(buf) >= 0);
         }
     }

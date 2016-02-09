@@ -20,11 +20,21 @@ using System.Text;
 
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -98,12 +108,16 @@ namespace HDF.PInvoke
             NTYPES
         }
 
+#if HDF5_VER1_10
+        public const int H5_SIZEOF_HID_T = sizeof(long);
+#else
         public const int H5_SIZEOF_HID_T = sizeof(int);
+#endif
 
         /// <summary>
         /// An invalid object ID. This is also negative for error return.
         /// </summary>
-        public const int H5I_INVALID_HID = -1;
+        public const hid_t H5I_INVALID_HID = -1;
 
         /// <summary>
         /// Function for freeing objects. This function will be called with an

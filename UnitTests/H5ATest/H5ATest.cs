@@ -33,7 +33,7 @@ namespace UnitTests
         {
             // create test files which persists across file tests
             m_v0_class_file = Utilities.H5TempFile(ref m_v0_class_file_name,
-                H5F.libver_t.LIBVER_EARLIEST);
+                H5F.libver_t.EARLIEST);
             Assert.IsTrue(m_v0_class_file >= 0);
             m_v2_class_file = Utilities.H5TempFile(ref m_v2_class_file_name);
             Assert.IsTrue(m_v2_class_file >= 0);
@@ -49,7 +49,7 @@ namespace UnitTests
         {
             // create test-local files
             m_v0_test_file = Utilities.H5TempFile(ref m_v0_test_file_name,
-                H5F.libver_t.LIBVER_EARLIEST);
+                H5F.libver_t.EARLIEST);
             Assert.IsTrue(m_v0_test_file >= 0);
 
             m_v2_test_file = Utilities.H5TempFile(ref m_v2_test_file_name);

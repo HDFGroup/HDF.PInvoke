@@ -17,7 +17,11 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
 using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -27,7 +31,7 @@ namespace UnitTests
         public void H5Fget_mdc_configTest1()
         {
             H5AC.cache_config_t conf = new H5AC.cache_config_t(
-                H5AC.H5AC__CURR_CACHE_CONFIG_VERSION);
+                H5AC.CURR_CACHE_CONFIG_VERSION);
             Assert.IsTrue(H5F.get_mdc_config(m_v0_class_file, ref conf) >= 0);
             Assert.IsTrue(H5F.get_mdc_config(m_v2_class_file, ref conf) >= 0);
         }

@@ -37,10 +37,10 @@ namespace UnitTests
             Assert.IsTrue(H5A.close(att) >= 0);
 
             Assert.IsTrue(H5A.get_info_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 0,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 0,
                 ref info) >= 0);
             Assert.IsTrue(H5A.get_info_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 1,
                 ref info) >= 0);
             
             att = H5A.create(m_v0_test_file, "A", H5T.IEEE_F64LE,
@@ -48,11 +48,11 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
             Assert.IsTrue(H5A.get_info_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 0,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 0,
                 ref info) >= 0);
 
             Assert.IsFalse(H5A.get_info_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 1,
                 ref info) >= 0);
         }
 
@@ -62,7 +62,7 @@ namespace UnitTests
             H5A.info_t info = new H5A.info_t();
             Assert.IsFalse(
                 H5A.get_info_by_idx(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1024,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 1024,
                 ref info) >= 0);
         }
     }

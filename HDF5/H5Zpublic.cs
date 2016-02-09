@@ -18,10 +18,15 @@ using System.Runtime.InteropServices;
 using System.Security;
 
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {

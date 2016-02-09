@@ -17,15 +17,28 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
+using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
-using size_t = System.IntPtr;
+using hssize_t = System.Int64;
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
     public unsafe sealed class H5
     {
+        public const hsize_t HSIZE_UNDEF = unchecked((hsize_t)(hssize_t)(-1));
+
+        public const hsize_t HADDR_UNDEF = unchecked((haddr_t)(Int64)(-1));
+
+        public const hsize_t HADDR_MAX = HADDR_UNDEF-1;
+
         /// <summary>
         /// Common iteration orders
         /// </summary>
@@ -34,23 +47,23 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown order [value = -1].
             /// </summary>
-            ITER_UNKNOWN = -1,
+            UNKNOWN = -1,
             /// <summary>
             /// Increasing order [value = 0].
             /// </summary>
-            ITER_INC,
+            INC,
             /// <summary>
             /// Decreasing order [value = 1].
             /// </summary>
-            ITER_DEC,
+            DEC,
             /// <summary>
             /// No particular order, whatever is fastest [value = 2].
             /// </summary>
-            ITER_NATIVE,
+            NATIVE,
             /// <summary>
             /// Number of iteration orders [value = 3].
             /// </summary>
-            ITER_N
+            N
         }
 
         ///<summary>
@@ -64,15 +77,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// Failure [value = -1].
             /// </summary>
-            ITER_FAILURE = -1,
+            FAILURE = -1,
             /// <summary>
             /// Success and continue [value = 0].
             /// </summary>
-            ITER_CONT = 0,
+            CONT = 0,
             /// <summary>
             /// Success and stop [value = 1].
             /// </summary>
-            ITER_STOP = 1
+            STOP = 1
         }
 
         /// <summary>
@@ -85,19 +98,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown index type [value = -1].
             /// </summary>
-            INDEX_UNKNOWN = -1,
+            UNKNOWN = -1,
             /// <summary>
             /// Index on names [value = 0].
             /// </summary>
-            INDEX_NAME,
+            NAME,
             /// <summary>
             /// Index on creation order [value = 1].
             /// </summary>
-            INDEX_CRT_ORDER,
+            CRT_ORDER,
             /// <summary>
             /// Number of indices defined [value = 2].
             /// </summary>
-            INDEX_N
+            N
         };
 
         /// <summary>

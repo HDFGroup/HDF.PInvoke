@@ -18,7 +18,6 @@ using System.Runtime.InteropServices;
 using System.Security;
 
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using size_t = System.IntPtr;
 
@@ -31,14 +30,14 @@ namespace HDF.PInvoke
         /// </summary>
         public enum file_image_op_t
         {
-            FILE_IMAGE_OP_NO_OP,
-            FILE_IMAGE_OP_PROPERTY_LIST_SET,
-            FILE_IMAGE_OP_PROPERTY_LIST_COPY,
-            FILE_IMAGE_OP_PROPERTY_LIST_GET,
-            FILE_IMAGE_OP_PROPERTY_LIST_CLOSE,
-            FILE_IMAGE_OP_FILE_OPEN,
-            FILE_IMAGE_OP_FILE_RESIZE,
-            FILE_IMAGE_OP_FILE_CLOSE
+            NO_OP,
+            PROPERTY_LIST_SET,
+            PROPERTY_LIST_COPY,
+            PROPERTY_LIST_GET,
+            PROPERTY_LIST_CLOSE,
+            FILE_OPEN,
+            FILE_RESIZE,
+            FILE_CLOSE
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

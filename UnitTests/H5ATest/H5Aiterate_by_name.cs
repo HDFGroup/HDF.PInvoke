@@ -52,7 +52,7 @@ namespace UnitTests
             // the callback is defined in H5ATest.cs
             H5A.operator_t cb = DelegateMethod;
             Assert.IsTrue(H5A.iterate_by_name(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, ref n, cb,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, ref n, cb,
                 op_data) >= 0);
             // we should have 3 elements in the array list
             Assert.IsTrue(al.Count == 3);
@@ -75,7 +75,7 @@ namespace UnitTests
             al.Clear();
             n = 0;
             Assert.IsTrue(H5A.iterate_by_name(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, ref n, cb,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, ref n, cb,
                 op_data) >= 0);
             // we should have 3 elements in the array list
             Assert.IsTrue(al.Count == 3);
@@ -95,7 +95,7 @@ namespace UnitTests
 
             Assert.IsFalse(
                 H5A.iterate_by_name(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, ref n,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, ref n,
                 cb, op_data) >= 0);
 
             hnd.Free();

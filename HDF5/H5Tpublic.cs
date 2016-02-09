@@ -20,10 +20,15 @@ using System.Text;
 
 using hbool_t = System.Int32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -378,15 +383,15 @@ namespace HDF.PInvoke
             /// <summary>
             /// wild card
             /// </summary>
-            H5T_PERS_DONTCARE = -1,
+            DONTCARE = -1,
             /// <summary>
             /// hard conversion function
             /// </summary>
-            H5T_PERS_HARD = 0,
+            HARD = 0,
             /// <summary>
             /// soft conversion function
             /// </summary>
-            H5T_PERS_SOFT = 1
+            SOFT = 1
         }
 
         /// <summary>

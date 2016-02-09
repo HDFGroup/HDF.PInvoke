@@ -20,11 +20,21 @@ using System.Text;
 
 using haddr_t = System.UInt64;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
 using uint32_t = System.UInt32;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -38,19 +48,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// invalid Reference Type
             /// </summary>
-            H5R_BADTYPE = -1,
+            BADTYPE = -1,
             /// <summary>
             /// Object reference
             /// </summary>
-            H5R_OBJECT,
+            OBJECT,
             /// <summary>
             /// Dataset Region Reference
             /// </summary>
-            H5R_DATASET_REGION,
+            DATASET_REGION,
             /// <summary>
             /// highest type (Invalid as true type)
             /// </summary>
-            H5R_MAXTYPE
+            MAXTYPE
         }
 
         public const int OBJ_REF_BUF_SIZE = sizeof(haddr_t);

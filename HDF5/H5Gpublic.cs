@@ -19,8 +19,13 @@ using System.Security;
 
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -34,21 +39,21 @@ namespace HDF.PInvoke
             /// <summary>
             /// Unknown link storage type [value = -1].
             /// </summary>
-            H5G_STORAGE_TYPE_UNKNOWN = -1,
+            UNKNOWN = -1,
             /// <summary>
             /// Links in group are stored with a "symbol table"
             /// (this is sometimes called "old-style" groups) [value = 0].
             /// </summary>
-            H5G_STORAGE_TYPE_SYMBOL_TABLE,
+            SYMBOL_TABLE,
             /// <summary>
             /// Links are stored in object header [value = 1].
             /// </summary>
-            H5G_STORAGE_TYPE_COMPACT,
+            COMPACT,
             /// <summary>
             /// Links are stored in fractal heap & indexed with v2 B-tree
             /// [value = 2].
             /// </summary>
-            H5G_STORAGE_TYPE_DENSE
+            DENSE
         }
 
         /// <summary>

@@ -51,20 +51,20 @@ namespace UnitTests
 
             // we have two attributes, delete the one in first position twice
             Assert.IsTrue(H5A.delete_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 0) >= 0);
+                H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 0) >= 0);
             Assert.IsTrue(H5A.delete_by_idx(m_v0_test_file, ".",
-                H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 0) >= 0);
+                H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 0) >= 0);
 
             // we have two attributes, first delete the one in second position
             // then the one in first position
             Assert.IsTrue(H5A.delete_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 1) >= 0);
+                H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 1) >= 0);
             Assert.IsTrue(H5A.delete_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME,
-                H5.iter_order_t.ITER_NATIVE, 0) >= 0);
+                H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, 0) >= 0);
         }
 
         [TestMethod]
@@ -72,11 +72,11 @@ namespace UnitTests
         {
             Assert.IsFalse(
                 H5A.delete_by_idx(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 10)
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 10)
                 >= 0);
             Assert.IsFalse(
                 H5A.delete_by_idx(m_v0_class_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE, 1024)
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 1024)
                 >= 0);
         }
     }

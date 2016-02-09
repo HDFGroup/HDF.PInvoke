@@ -17,14 +17,25 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using hssize_t = System.Int64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -109,11 +120,11 @@ namespace HDF.PInvoke
             /// <summary>
             /// specified file handle only [value = 0].
             /// </summary>
-            SCOPE_LOCAL = 0,
+            LOCAL = 0,
             /// <summary>
             /// entire virtual file [value = 1].
             /// </summary>
-            SCOPE_GLOBAL = 1
+            GLOBAL = 1
         }
 
 
@@ -130,20 +141,20 @@ namespace HDF.PInvoke
             /// <summary>
             /// Use the degree pre-defined by underlining VFL [value = 0].
             /// </summary>
-            CLOSE_DEFAULT = 0,
+            DEFAULT = 0,
             /// <summary>
             /// file closes only after all opened objects are closed [value = 1].
             /// </summary>
-            CLOSE_WEAK = 1,
+            WEAK = 1,
             /// <summary>
             /// if no opened objects, file is close; otherwise, file close
             /// fails [value = 2].
             /// </summary>
-            CLOSE_SEMI = 2,
+            SEMI = 2,
             /// if there are opened objects, close them first, then close file
             /// [value = 3].
             /// </summary>
-            CLOSE_STRONG = 3
+            STRONG = 3
         }
 
         /// <summary>
@@ -178,41 +189,41 @@ namespace HDF.PInvoke
             /// <summary>
             /// Data should not appear in the free list. [value = -1].
             /// </summary>
-            H5FD_MEM_NOLIST = -1,
+            NOLIST = -1,
             /// <summary>
             /// Value not yet set.  Can also be the datatype set in a larger
             /// allocation that will be suballocated by the library.
             /// Must be zero. [value = 0].
             /// </summary>
-            H5FD_MEM_DEFAULT = 0,
+            DEFAULT = 0,
             /// <summary>
             /// Superblock data [value = 1].
             /// </summary>
-            H5FD_MEM_SUPER = 1,
+            SUPER = 1,
             /// <summary>
             /// B-tree data [value = 2].
             /// </summary>
-            H5FD_MEM_BTREE = 2,
+            BTREE = 2,
             /// <summary>
             /// Raw data (content of datasets, etc.) [value = 3].
             /// </summary>
-            H5FD_MEM_DRAW = 3,
+            DRAW = 3,
             /// <summary>
             /// Global heap data [value = 4].
             /// </summary>
-            H5FD_MEM_GHEAP = 4,
+            GHEAP = 4,
             /// <summary>
             /// Local heap data [value = 5].
             /// </summary>
-            H5FD_MEM_LHEAP = 5,
+            LHEAP = 5,
             /// <summary>
             /// Object header data [value = 6].
             /// </summary>
-            H5FD_MEM_OHDR = 6,
+            OHDR = 6,
             /// <summary>
             /// Sentinel value [value = 7].
             /// </summary>
-            H5FD_MEM_NTYPES
+            NTYPES
         }
 
         /// <summary>
@@ -223,11 +234,11 @@ namespace HDF.PInvoke
             /// <summary>
             /// Use the earliest possible format for storing objects
             /// </summary>
-            LIBVER_EARLIEST,
+            EARLIEST,
             /// <summary>
             /// Use the latest possible format available for storing objects
             /// </summary>
-            LIBVER_LATEST
+            LATEST
         }
 
         /// <summary>

@@ -21,12 +21,22 @@ using System.Text;
 using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using off_t = System.IntPtr;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 using prp_create_func_t = HDF.PInvoke.H5P.prp_cb1_t;
 using prp_set_func_t = HDF.PInvoke.H5P.prp_cb2_t;
@@ -2357,8 +2367,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_libver_bounds
             (hid_t plist,
-            H5F.libver_t low = H5F.libver_t.LIBVER_EARLIEST,
-            H5F.libver_t high = H5F.libver_t.LIBVER_LATEST);
+            H5F.libver_t low = H5F.libver_t.EARLIEST,
+            H5F.libver_t high = H5F.libver_t.LATEST);
 
         /// <summary>
         /// Sets creation order tracking and indexing for links in a group.

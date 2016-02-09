@@ -17,14 +17,26 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+
 using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
+
 
 namespace HDF.PInvoke
 {
@@ -60,33 +72,33 @@ namespace HDF.PInvoke
             /// <summary>
             /// Invalid link type id [value = -1]
             /// </summary>
-            TYPE_ERROR = (-1),
+            ERROR = (-1),
             /// <summary>
             /// Hard link id [value = 0]
             /// </summary>
-            TYPE_HARD = 0,
+            HARD = 0,
             /// <summary>
             /// Soft link id [value = 1]
             /// </summary>
-            TYPE_SOFT = 1,
+            SOFT = 1,
             /// <summary>
             /// External link id [value = 64]
             /// </summary>
-            TYPE_EXTERNAL = 64,
+            EXTERNAL = 64,
             /// <summary>
             /// Maximum link type id [value = 255]
             /// </summary>
-            TYPE_MAX = 255
+            MAX = 255
         }
 
         /// <summary>
         /// Maximum value link value for "built-in" link types
         /// </summary>
-        public const type_t TYPE_BUILTIN_MAX = type_t.TYPE_SOFT;
+        public const type_t TYPE_BUILTIN_MAX = type_t.SOFT;
         /// <summary>
         /// Link ids at or above this value are "user-defined" link types.
         /// </summary>
-        public const type_t TYPE_UD_MIN = type_t.TYPE_EXTERNAL;
+        public const type_t TYPE_UD_MIN = type_t.EXTERNAL;
 
         /// <summary>
         /// Information struct for link (for H5Lget_info/H5Lget_info_by_idx)

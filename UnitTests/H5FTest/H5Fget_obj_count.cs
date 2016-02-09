@@ -17,7 +17,17 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
 using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -27,67 +37,67 @@ namespace UnitTests
         public void H5Fget_obj_countTest1()
         {
             Assert.IsTrue(
-                H5F.get_obj_count(m_v0_class_file, H5F.OBJ_ALL).ToInt32() > 0);
+                H5F.get_obj_count(m_v0_class_file, H5F.OBJ_ALL) > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_DATASET).ToInt32() >= 0);
+                H5F.OBJ_DATASET) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_GROUP).ToInt32() >= 0);
+                H5F.OBJ_GROUP) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_DATATYPE).ToInt32() >= 0);
+                H5F.OBJ_DATATYPE) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_ATTR).ToInt32() >= 0);
+                H5F.OBJ_ATTR) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_ALL).ToInt32() >  0);
+                H5F.OBJ_ALL) >  0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v0_class_file,
-                H5F.OBJ_LOCAL).ToInt32() < 0);
+                H5F.OBJ_LOCAL) < 0);
 
             Assert.IsTrue(
-                H5F.get_obj_count(m_v2_class_file, H5F.OBJ_ALL).ToInt32() > 0);
+                H5F.get_obj_count(m_v2_class_file, H5F.OBJ_ALL) > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_DATASET).ToInt32() >= 0);
+                H5F.OBJ_DATASET) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_GROUP).ToInt32() >= 0);
+                H5F.OBJ_GROUP) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_DATATYPE).ToInt32() >= 0);
+                H5F.OBJ_DATATYPE) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_ATTR).ToInt32() >= 0);
+                H5F.OBJ_ATTR) >= 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_ALL).ToInt32() > 0);
+                H5F.OBJ_ALL) > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_class_file,
-                H5F.OBJ_LOCAL).ToInt32() < 0);
+                H5F.OBJ_LOCAL) < 0);
 
             Assert.IsTrue(
-                H5F.get_obj_count(m_v2_test_file, H5F.OBJ_ALL).ToInt32() > 0);
+                H5F.get_obj_count(m_v2_test_file, H5F.OBJ_ALL) > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_DATASET).ToInt32() == 0);
+                H5F.OBJ_DATASET) == 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_GROUP).ToInt32() == 0);
+                H5F.OBJ_GROUP) == 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_DATATYPE).ToInt32() == 0);
+                H5F.OBJ_DATATYPE) == 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_ATTR).ToInt32() == 0);
+                H5F.OBJ_ATTR) == 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_ALL).ToInt32() > 0);
+                H5F.OBJ_ALL) > 0);
             Assert.IsTrue(
                 H5F.get_obj_count(m_v2_test_file,
-                H5F.OBJ_LOCAL).ToInt32() < 0);
+                H5F.OBJ_LOCAL) < 0);
         }
 
         [TestMethod]
@@ -95,7 +105,7 @@ namespace UnitTests
         {
             Assert.IsFalse(
                 H5F.get_obj_count(Utilities.RandomInvalidHandle(),
-                H5F.OBJ_ALL).ToInt32() >= 0);
+                H5F.OBJ_ALL) >= 0);
         }
     }
 }

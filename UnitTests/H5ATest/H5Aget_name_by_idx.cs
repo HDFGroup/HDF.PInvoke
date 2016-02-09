@@ -15,13 +15,23 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-using hid_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
-using System.Text;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -39,22 +49,23 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
             Assert.IsTrue(H5A.close(att) >= 0);
 
-            size_t buf_size = IntPtr.Zero, size = IntPtr.Zero;
+            size_t buf_size = IntPtr.Zero;
+            ssize_t size = 0;
             StringBuilder nameBuilder = new StringBuilder(19);
             buf_size = new IntPtr(19);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 0, nameBuilder, buf_size);
-            Assert.IsTrue(size.ToInt32() == 11);
+            Assert.IsTrue(size == 11);
             string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name", name);
 
             nameBuilder.Clear();
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 1, nameBuilder, buf_size);
-            Assert.IsTrue(size.ToInt32() == 18);
+            Assert.IsTrue(size == 18);
             name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name_by_idx", name);
@@ -63,9 +74,9 @@ namespace UnitTests
             buf_size = new IntPtr(3);
             nameBuilder = new StringBuilder(3);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
-                H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
+                H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 1, nameBuilder, buf_size);
-            Assert.IsTrue(size.ToInt32() == 18);
+            Assert.IsTrue(size == 18);
             name = nameBuilder.ToString();
             // names won't match
             Assert.AreNotEqual("H5Aget_name_by_idx", name);
@@ -76,8 +87,8 @@ namespace UnitTests
         public void H5Aget_name_by_idxTest2()
         {
             Assert.IsFalse(H5A.get_name_by_idx(Utilities.RandomInvalidHandle(),
-                ".", H5.index_t.INDEX_NAME, H5.iter_order_t.ITER_NATIVE,
-                0, null, IntPtr.Zero).ToInt32() >= 0);
+                ".", H5.index_t.NAME, H5.iter_order_t.NATIVE,
+                0, null, IntPtr.Zero) >= 0);
         }
     }
 }

@@ -20,11 +20,21 @@ using System.Security;
 using haddr_t = System.UInt64;
 using hbool_t = System.UInt32;
 using herr_t = System.Int32;
-using hid_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace HDF.PInvoke
 {
@@ -58,11 +68,11 @@ namespace HDF.PInvoke
         /// </summary>
         public enum alloc_time_t
         {
-            ALLOC_TIME_ERROR = -1,
-            ALLOC_TIME_DEFAULT = 0,
-            ALLOC_TIME_EARLY = 1,
-            ALLOC_TIME_LATE = 2,
-            ALLOC_TIME_INCR = 3
+            ERROR = -1,
+            DEFAULT = 0,
+            EARLY = 1,
+            LATE = 2,
+            INCR = 3
         }
 
         /// <summary>
@@ -70,10 +80,10 @@ namespace HDF.PInvoke
         /// </summary>
         public enum space_status_t
         {
-            H5D_SPACE_STATUS_ERROR = -1,
-            H5D_SPACE_STATUS_NOT_ALLOCATED = 0,
-            H5D_SPACE_STATUS_PART_ALLOCATED = 1,
-            H5D_SPACE_STATUS_ALLOCATED = 2
+            ERROR = -1,
+            NOT_ALLOCATED = 0,
+            PART_ALLOCATED = 1,
+            ALLOCATED = 2
         }
 
         /// <summary>
@@ -81,10 +91,10 @@ namespace HDF.PInvoke
         /// </summary>
         public enum fill_time_t
         {
-            FILL_TIME_ERROR = -1,
-            FILL_TIME_ALLOC = 0,
-            FILL_TIME_NEVER = 1,
-            FILL_TIME_IFSET = 2
+            ERROR = -1,
+            ALLOC = 0,
+            NEVER = 1,
+            IFSET = 2
         }
 
         /// <summary>
@@ -92,10 +102,10 @@ namespace HDF.PInvoke
         /// </summary>
         public enum fill_value_t
         {
-            FILL_VALUE_ERROR = -1,
-            FILL_VALUE_UNDEFINED = 0,
-            FILL_VALUE_DEFAULT = 1,
-            FILL_VALUE_USER_DEFINED = 2
+            ERROR = -1,
+            UNDEFINED = 0,
+            DEFAULT = 1,
+            USER_DEFINED = 2
         }
 
         /// <summary>

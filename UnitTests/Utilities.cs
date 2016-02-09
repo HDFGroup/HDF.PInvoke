@@ -28,7 +28,7 @@ namespace UnitTests
         /// Create a temporary HDF5 file IN MEMORY and return a file handle.
         /// </summary>
         public static hid_t H5TempFile(H5F.libver_t version =
-            H5F.libver_t.LIBVER_LATEST)
+            H5F.libver_t.LATEST)
         {
             hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             if (fapl < 0)
@@ -62,7 +62,7 @@ namespace UnitTests
         /// a file handle.
         /// </summary>
         public static hid_t H5TempFile(ref string fileName,
-            H5F.libver_t version = H5F.libver_t.LIBVER_LATEST)
+            H5F.libver_t version = H5F.libver_t.LATEST)
         {
             hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             if (fapl < 0)

@@ -15,13 +15,23 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-using hid_t = System.Int32;
 using size_t = System.IntPtr;
-using ssize_t = System.IntPtr;
-using System.Text;
+
+#if X86
+using ssize_t System.Int32;
+#else
+using ssize_t = System.Int64;
+#endif
+
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
+using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -30,18 +40,19 @@ namespace UnitTests
         [TestMethod]
         public void H5Aget_nameTest1()
         {
-            size_t buf_size = IntPtr.Zero, size = IntPtr.Zero;
+            size_t buf_size = IntPtr.Zero;
+            ssize_t size = 0;
             hid_t att = H5A.create(m_v2_test_file, "H5Aget_name",
                 H5T.IEEE_F64LE, m_space_scalar);
             Assert.IsTrue(att >= 0);
 
             // pretend we don't know the size
             size = H5A.get_name(att, buf_size, null);
-            Assert.IsTrue(size.ToInt32() == 11);
-            buf_size = new IntPtr(size.ToInt32() + 1);
+            Assert.IsTrue(size == 11);
+            buf_size = new IntPtr(size + 1);
             StringBuilder nameBuilder = new StringBuilder(buf_size.ToInt32());
             size = H5A.get_name(att, buf_size, nameBuilder);
-            Assert.IsTrue(size.ToInt32() == 11);
+            Assert.IsTrue(size == 11);
             string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name", name);
@@ -50,7 +61,7 @@ namespace UnitTests
             buf_size = new IntPtr(3);
             nameBuilder = new StringBuilder(3);
             size = H5A.get_name(att, buf_size, nameBuilder);
-            Assert.IsTrue(size.ToInt32() == 11);
+            Assert.IsTrue(size == 11);
             name = nameBuilder.ToString();
             // names won't match
             Assert.AreNotEqual("H5Aget_name", name);
@@ -63,7 +74,7 @@ namespace UnitTests
         public void H5Aget_nameTest2()
         {
             Assert.IsFalse(H5A.get_name(Utilities.RandomInvalidHandle(),
-                IntPtr.Zero, null).ToInt32() >= 0);
+                IntPtr.Zero, null) >= 0);
         }
     }
 }

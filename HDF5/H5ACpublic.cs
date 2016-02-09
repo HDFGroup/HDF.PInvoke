@@ -22,14 +22,14 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5AC
     {
-        public const int H5AC__CURR_CACHE_CONFIG_VERSION = 1;
+        public const int CURR_CACHE_CONFIG_VERSION = 1;
 
-        public const int H5AC__MAX_TRACE_FILE_NAME_LEN = 1024;
+        public const int MAX_TRACE_FILE_NAME_LEN = 1024;
 
         public enum metadata_write_strategy_t : int
         {
-            H5AC_METADATA_WRITE_STRATEGY__PROCESS_0_ONLY = 0,
-            H5AC_METADATA_WRITE_STRATEGY__DISTRIBUTED = 1
+            PROCESS_0_ONLY = 0,
+            DISTRIBUTED = 1
         }
 
 
@@ -45,7 +45,7 @@ namespace HDF.PInvoke
 
             hbool_t    open_trace_file;
             hbool_t    close_trace_file;
-            fixed char trace_file_name[H5AC__MAX_TRACE_FILE_NAME_LEN + 1];
+            fixed char trace_file_name[MAX_TRACE_FILE_NAME_LEN + 1];
 
             hbool_t evictions_enabled;
             
@@ -114,7 +114,7 @@ namespace HDF.PInvoke
 
                 epoch_length = 0;
 
-                incr_mode = H5C.cache_incr_mode.H5C_incr__off;
+                incr_mode = H5C.cache_incr_mode.OFF;
 
                 lower_hr_threshold = 0.0;
 
@@ -123,11 +123,11 @@ namespace HDF.PInvoke
                 apply_max_increment = 0;
                 max_increment = IntPtr.Zero;
 
-                flash_incr_mode = H5C.cache_flash_incr_mode.H5C_flash_incr__off;
+                flash_incr_mode = H5C.cache_flash_incr_mode.OFF;
                 flash_multiple = 0.0;
                 flash_threshold = 0.0;
 
-                decr_mode = H5C.cache_decr_mode.H5C_decr__off;
+                decr_mode = H5C.cache_decr_mode.OFF;
 
                 upper_hr_threshold = 0.0;
 
