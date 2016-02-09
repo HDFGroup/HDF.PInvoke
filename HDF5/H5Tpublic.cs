@@ -446,14 +446,16 @@ namespace HDF.PInvoke
             public IntPtr p;
         }
 
-        /* Indicate that a string is variable length (null-terminated in C,
-         * instead of fixed length) */
-        //public IntPtr H5T_VARIABLE   = ((size_t)(-1)) 
+        /// <summary>
+        /// Indicate that a string is variable length (null-terminated in C,
+        /// instead of fixed length)
+        /// </summary>
+        public static IntPtr VARIABLE = new IntPtr(-1); 
         
         /// <summary>
         /// Maximum length of an opaque tag
         /// </summary>
-        public const int H5T_OPAQUE_TAG_MAX = 256;
+        public const int OPAQUE_TAG_MAX = 256;
       
         /// <summary>
         /// Exception handler.  If an exception like overflow happenes during

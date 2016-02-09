@@ -164,6 +164,8 @@
     <Compile Include="H5Test\H5is_library_threadsafe.cs" />
     <Compile Include="H5Test\H5resize_memory.cs" />
     <Compile Include="H5Test\H5set_free_list_limits.cs" />
+    <Compile Include="H5TTest\H5Tcreate.cs" />
+    <Compile Include="H5TTest\H5TTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="H5FTest\H5FTest.cs" />
     <Compile Include="Utilities.cs" />
