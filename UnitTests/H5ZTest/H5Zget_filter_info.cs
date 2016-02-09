@@ -14,24 +14,23 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
-using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-using hid_t = System.Int32;
+using herr_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5Test
+    public partial class H5ZTest
     {
         [TestMethod]
-        public void H5set_free_list_limitsTest1()
+        public void H5Zget_filter_infoTest1()
         {
-            Assert.IsTrue(
-                H5.set_free_list_limits(-1, -1, -1, -1, -1, -1) >= 0);
-
-            Assert.IsTrue(
-                H5.set_free_list_limits(1024, -1, 4096, -1, -1, 1024) >= 0);
+            uint filter_config = 0;
+            Assert.IsTrue(H5Z.get_filter_info(H5Z.filter_t.DEFLATE,
+                ref filter_config) >= 0);
+            Assert.IsTrue((filter_config & H5Z.CONFIG_ENCODE_ENABLED) == 1);
+            Assert.IsTrue((filter_config & H5Z.CONFIG_DECODE_ENABLED) == 2);
         }
     }
 }

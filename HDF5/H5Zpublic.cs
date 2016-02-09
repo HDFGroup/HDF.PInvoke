@@ -35,43 +35,43 @@ namespace HDF.PInvoke
             /// <summary>
             /// no filter [value = -1]
             /// </summary>
-            FILTER_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// reserved indefinitely [value = 0]
             /// </summary>
-            FILTER_NONE = 0,
+            NONE = 0,
             /// <summary>
             /// deflation like gzip ]value = 1]
             /// </summary>
-            FILTER_DEFLATE = 1,
+            DEFLATE = 1,
             /// <summary>
             /// shuffle the data [value = 2]
             /// </summary>
-            FILTER_SHUFFLE = 2,
+            SHUFFLE = 2,
             /// <summary>
             /// fletcher32 checksum of EDC [value = 3]
             /// </summary>
-            FILTER_FLETCHER32 = 3,
+            FLETCHER32 = 3,
             /// <summary>
             /// szip compression [value = 4]
             /// </summary>
-            FILTER_SZIP = 4,
+            SZIP = 4,
             /// <summary>
             /// nbit compression [value = 5]
             /// </summary>
-            FILTER_NBIT = 5,
+            NBIT = 5,
             /// <summary>
             /// scale+offset compression [value = 6]
             /// </summary>
-            FILTER_SCALEOFFSET = 6,
+            SCALEOFFSET = 6,
             /// <summary>
             /// filter ids below this value are reserved for library use [value = 256]
             /// </summary>
-            FILTER_RESERVED = 256,
+            RESERVED = 256,
             /// <summary>
             /// maximum filter id [value = 65535]
             /// </summary>
-            FILTER_MAX = 65535
+            MAX = 65535
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace HDF.PInvoke
         /// </summary>
         public enum SO_scale_type_t
         {
-            SO_FLOAT_DSCALE = 0,
-            SO_FLOAT_ESCALE = 1,
-            SO_INT = 2
+            FLOAT_DSCALE = 0,
+            FLOAT_ESCALE = 1,
+            INT = 2
         }
 
         /// <summary>
@@ -92,27 +92,31 @@ namespace HDF.PInvoke
             /// <summary>
             /// error value
             /// </summary>
-            H5Z_ERROR_EDC = -1,
-            H5Z_DISABLE_EDC = 0,
-            H5Z_ENABLE_EDC = 1,
-            H5Z_NO_EDC = 2
+            ERROR = -1,
+            DISABLE = 0,
+            ENABLE = 1,
+            NO = 2
         }
+
+        public const uint CONFIG_ENCODE_ENABLED = 0x0001u;
+
+        public const uint CONFIG_DECODE_ENABLED = 0x0002u;
 
         /// <summary>
         /// Return values for filter callback function
         /// </summary>
         public enum cb_return_t
         {
-            H5Z_CB_ERROR = -1,
+            ERROR = -1,
             /// <summary>
             /// I/O should fail if filter fails.
             /// </summary>
-            H5Z_CB_FAIL = 0,
+            FAIL = 0,
             /// <summary>
             /// I/O continues if filter fails.
             /// </summary>
-            H5Z_CB_CONT = 1,
-            H5Z_CB_NO = 2
+            CONT = 1,
+            NO = 2
         }
 
         /// <summary>

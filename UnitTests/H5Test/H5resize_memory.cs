@@ -22,7 +22,7 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5GTest
+    public partial class H5Test
     {
         [TestMethod]
         public void H5resize_memoryTest1()

@@ -14,24 +14,33 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
-using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HDF.PInvoke;
 
 using hid_t = System.Int32;
 
 namespace UnitTests
 {
+    [TestClass]
     public partial class H5Test
     {
-        [TestMethod]
-        public void H5set_free_list_limitsTest1()
+        [ClassInitialize()]
+        public static void ClassInit(TestContext testContext)
         {
-            Assert.IsTrue(
-                H5.set_free_list_limits(-1, -1, -1, -1, -1, -1) >= 0);
+        }
 
-            Assert.IsTrue(
-                H5.set_free_list_limits(1024, -1, 4096, -1, -1, 1024) >= 0);
+        [TestInitialize()]
+        public void Init()
+        {
+        }
+
+        [TestCleanup()]
+        public void Cleanup()
+        {
+        }
+
+        [ClassCleanup()]
+        public static void ClassCleanup()
+        {
         }
     }
 }

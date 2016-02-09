@@ -14,7 +14,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
-using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -22,16 +21,13 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5Test
+    public partial class H5ZTest
     {
         [TestMethod]
-        public void H5set_free_list_limitsTest1()
+        public void H5Zfilter_availTest1()
         {
-            Assert.IsTrue(
-                H5.set_free_list_limits(-1, -1, -1, -1, -1, -1) >= 0);
-
-            Assert.IsTrue(
-                H5.set_free_list_limits(1024, -1, 4096, -1, -1, 1024) >= 0);
+            Assert.IsTrue(H5Z.filter_avail(H5Z.filter_t.DEFLATE) >= 0);
+            Assert.IsFalse(H5Z.filter_avail(H5Z.filter_t.ERROR) >= 0);
         }
     }
 }
