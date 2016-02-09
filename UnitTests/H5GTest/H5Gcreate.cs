@@ -53,5 +53,20 @@ namespace UnitTests
             hid_t gid = H5G.create(file, "A");
             Assert.IsTrue(gid < 0);
         }
+
+        [TestMethod]
+        public void H5GcreateTest3()
+        {
+            hid_t lcpl = H5P.create(H5P.LINK_CREATE);
+            Assert.IsTrue(lcpl >= 0);
+            Assert.IsTrue(H5P.set_create_intermediate_group(lcpl, 1) >= 0);
+            hid_t gid = H5G.create(m_v0_test_file, "A/B/C/D/E/F/G/H", lcpl);
+            Assert.IsTrue(gid > 0);
+            Assert.IsTrue(H5G.close(gid) >= 0);
+            hid_t gid1 = H5G.create(m_v2_test_file, "A/B/C/D/E/F/G/H", lcpl);
+            Assert.IsTrue(gid1 > 0);
+            Assert.IsTrue(H5G.close(gid1) >= 0);
+            Assert.IsTrue(H5P.close(lcpl) >= 0);
+        }
     }
 }
