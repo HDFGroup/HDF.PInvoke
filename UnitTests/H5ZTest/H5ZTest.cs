@@ -16,8 +16,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using hid_t = System.Int32;
-
 namespace UnitTests
 {
     [TestClass]
