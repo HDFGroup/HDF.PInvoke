@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -80,6 +81,46 @@ namespace UnitTests
             hnd.Free();
 
             Assert.IsTrue(H5T.close(mem_type) >= 0);
+
+            // create UTF-8 encoded test datasets
+
+            hid_t dtype = H5T.create(H5T.class_t.STRING, H5T.VARIABLE);
+            Assert.IsTrue(H5T.set_cset(dtype, H5T.cset_t.UTF8) >= 0);
+            Assert.IsTrue(H5T.set_strpad(dtype, H5T.str_t.SPACEPAD) >= 0);
+
+            hid_t dspace = H5S.create_simple(1,
+                new hsize_t[] { (hsize_t)m_utf8strings.Count }, null);
+
+            m_v0_utf8_dset = H5D.create(m_v0_class_file, "UTF-8", dtype, dspace);
+            Assert.IsTrue(m_v0_utf8_dset >= 0);
+            m_v2_utf8_dset = H5D.create(m_v2_class_file, "UTF-8", dtype, dspace);
+            Assert.IsTrue(m_v2_utf8_dset >= 0);
+
+            GCHandle[] hnds = new GCHandle[m_utf8strings.Count];
+            IntPtr[] wdata1 = new IntPtr[m_utf8strings.Count];
+
+            for (int i = 0; i < m_utf8strings.Count; ++i)
+            {
+                hnds[i] = GCHandle.Alloc(
+                    Encoding.UTF8.GetBytes((string)m_utf8strings[i]),
+                    GCHandleType.Pinned);
+                wdata1[i] = hnds[i].AddrOfPinnedObject();
+            }
+
+            hnd = GCHandle.Alloc(wdata1, GCHandleType.Pinned);
+            Assert.IsTrue(H5D.write(m_v0_utf8_dset, dtype, H5S.ALL, H5S.ALL,
+                H5P.DEFAULT, hnd.AddrOfPinnedObject()) >= 0);
+            Assert.IsTrue(H5D.write(m_v2_utf8_dset, dtype, H5S.ALL, H5S.ALL,
+                H5P.DEFAULT, hnd.AddrOfPinnedObject()) >= 0);
+            hnd.Free();
+
+            for (int i = 0; i < m_utf8strings.Count; ++i)
+            {
+                hnds[i].Free();
+            }
+
+            Assert.IsTrue(H5S.close(dspace) >= 0);
+            Assert.IsTrue(H5T.close(dtype) >= 0);
         }
 
         [TestInitialize()]
@@ -110,6 +151,8 @@ namespace UnitTests
             // close the sample datasets
             Assert.IsTrue(H5D.close(m_v2_ascii_dset) >= 0);
             Assert.IsTrue(H5D.close(m_v0_ascii_dset) >= 0);
+            Assert.IsTrue(H5D.close(m_v2_utf8_dset) >= 0);
+            Assert.IsTrue(H5D.close(m_v0_utf8_dset) >= 0);
 
             // close the global test files
             Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
@@ -144,5 +187,12 @@ namespace UnitTests
         private static hid_t m_v0_ascii_dset = -1;
 
         private static hid_t m_v2_ascii_dset = -1;
+
+        private static ArrayList m_utf8strings = new ArrayList()
+        { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
+
+        private static hid_t m_v0_utf8_dset = -1;
+
+        private static hid_t m_v2_utf8_dset = -1;
     }
 }
