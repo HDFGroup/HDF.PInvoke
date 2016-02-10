@@ -27,7 +27,7 @@ using time_t = System.UInt64;
 using uint64_t = System.UInt64;
 
 #if X86
-using ssize_t System.Int32;
+using ssize_t = System.Int32;
 #else
 using ssize_t = System.Int64;
 #endif

@@ -27,7 +27,7 @@ using size_t = System.IntPtr;
 using H5O_msg_crt_idx_t = System.UInt32;
 
 #if X86
-using ssize_t System.Int32;
+using ssize_t = System.Int32;
 #else
 using ssize_t = System.Int64;
 #endif
