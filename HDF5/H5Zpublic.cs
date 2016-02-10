@@ -158,35 +158,35 @@ namespace HDF.PInvoke
             /// <summary>
             /// Version number of the <code>class_t</code> struct
             /// </summary>
-            int version;
+            public int version;
             /// <summary>
             /// Filter ID number
             /// </summary>
-            filter_t id;
+            public filter_t id;
             /// <summary>
             /// Does this filter have an encoder?
             /// </summary>
-            uint encoder_present;
+            public uint encoder_present;
             /// <summary>
             /// Does this filter have a decoder?
             /// </summary>
-            uint decoder_present;
+            public uint decoder_present;
             /// <summary>
             /// Comment for debugging
             /// </summary>
-            byte* name;
+            public byte* name;
             /// <summary>
             /// The "can apply" callback for a filter
             /// </summary>
-            can_apply_func_t can_apply;
+            public can_apply_func_t can_apply;
             /// <summary>
             /// The "set local" callback for a filter
             /// </summary>
-            set_local_func_t set_local;
+            public set_local_func_t set_local;
             /// <summary>
             /// The actual filter function
             /// </summary>
-            func_t filter;
+            public func_t filter;
         }
 
         /// <summary>

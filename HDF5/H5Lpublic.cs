@@ -226,39 +226,39 @@ namespace HDF.PInvoke
             /// <summary>
             /// Version number of this struct
             /// </summary>
-            int version;
+            public int version;
             /// <summary>
             /// Link type ID
             /// </summary>
-            type_t id;
+            public type_t id;
             /// <summary>
             /// Comment for debugging
             /// </summary>
-            string comment;
+            public string comment;
             /// <summary>
             /// Callback during link creation
             /// </summary>
-            create_func_t create_func;
+            public create_func_t create_func;
             /// <summary>
             /// Callback after moving link
             /// </summary>
-            move_func_t move_func;
+            public move_func_t move_func;
             /// <summary>
             /// Callback after copying link
             /// </summary>
-            copy_func_t copy_func;
+            public copy_func_t copy_func;
             /// <summary>
             /// Callback during link traversal
             /// </summary>
-            traverse_func_t trav_func;
+            public traverse_func_t trav_func;
             /// <summary>
             /// Callback for link deletion
             /// </summary>
-            delete_func_t del_func;
+            public delete_func_t del_func;
             /// <summary>
             /// Callback for queries
             /// </summary>
-            query_func_t query_func;
+            public query_func_t query_func;
         }
 
         /// <summary>

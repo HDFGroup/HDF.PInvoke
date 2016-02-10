@@ -360,19 +360,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// what should the conversion function do?
             /// </summary>
-            cmd_t command;
+            public cmd_t command;
             /// <summary>
             /// is the background buffer needed?
             /// </summary>
-            bkg_t need_bkg;
+            public bkg_t need_bkg;
             /// <summary>
             /// recalculate private data
             /// </summary>
-            hbool_t recalc;
+            public hbool_t recalc;
             /// <summary>
             /// private data
             /// </summary>
-            IntPtr priv;
+            public IntPtr priv;
         }
 
         /// <summary>

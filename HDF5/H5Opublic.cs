@@ -232,11 +232,11 @@ namespace HDF.PInvoke
                 /// <summary>
                 /// Flags to indicate presence of message type in header
                 /// </summary>
-                uint64_t present;
+                public uint64_t present;
                 /// <summary>
                 /// Flags to indicate message type is shared in header
                 /// </summary>
-                uint64_t shared;
+                public uint64_t shared;
             };
         }
 

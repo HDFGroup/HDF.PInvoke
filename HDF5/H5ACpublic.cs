@@ -39,59 +39,59 @@ namespace HDF.PInvoke
         public struct cache_config_t
         {
             /* general configuration fields: */
-            int version;
+            public int version;
 
-            hbool_t rpt_fcn_enabled;
+            public hbool_t rpt_fcn_enabled;
 
-            hbool_t    open_trace_file;
-            hbool_t    close_trace_file;
-            fixed char trace_file_name[MAX_TRACE_FILE_NAME_LEN + 1];
+            public hbool_t open_trace_file;
+            public hbool_t close_trace_file;
+            public fixed char trace_file_name[MAX_TRACE_FILE_NAME_LEN + 1];
 
-            hbool_t evictions_enabled;
-            
-            hbool_t set_initial_size;
-            size_t  initial_size;
-            
-            double min_clean_fraction;
-            
-            size_t max_size;
-            size_t min_size;
-            
-            long epoch_length;
+            public hbool_t evictions_enabled;
+
+            public hbool_t set_initial_size;
+            public size_t initial_size;
+
+            public double min_clean_fraction;
+
+            public size_t max_size;
+            public size_t min_size;
+
+            public long epoch_length;
 
             /* size increase control fields: */
-            H5C.cache_incr_mode incr_mode;
+            public H5C.cache_incr_mode incr_mode;
 
-            double lower_hr_threshold;
+            public double lower_hr_threshold;
 
-            double increment;
+            public double increment;
 
-            hbool_t apply_max_increment;
-            size_t  max_increment;
+            public hbool_t apply_max_increment;
+            public size_t max_increment;
 
-            H5C.cache_flash_incr_mode flash_incr_mode;
-            double                    flash_multiple;
-            double                    flash_threshold;
+            public H5C.cache_flash_incr_mode flash_incr_mode;
+            public double flash_multiple;
+            public double flash_threshold;
 
             /* size decrease control fields: */
-            H5C.cache_decr_mode decr_mode;
-            
-            double upper_hr_threshold;
-            
-            double decrement;
+            public H5C.cache_decr_mode decr_mode;
 
-            hbool_t apply_max_decrement;
-            size_t  max_decrement;
+            public double upper_hr_threshold;
 
-            int epochs_before_eviction;
+            public double decrement;
 
-            hbool_t apply_empty_reserve;
-            double  empty_reserve;
+            public hbool_t apply_max_decrement;
+            public size_t max_decrement;
+
+            public int epochs_before_eviction;
+
+            public hbool_t apply_empty_reserve;
+            public double empty_reserve;
 
 
             /* parallel configuration fields: */
-            int dirty_bytes_threshold;
-            int metadata_write_strategy;
+            public int dirty_bytes_threshold;
+            public int metadata_write_strategy;
 
             public cache_config_t(int cache_config_version)
             {

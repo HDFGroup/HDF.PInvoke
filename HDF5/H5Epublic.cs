@@ -436,40 +436,40 @@ namespace HDF.PInvoke
             /// <summary>
             /// class ID
             /// </summary>
-            hid_t cls_id;
+            public hid_t cls_id;
 
             /// <summary>
             /// major error ID
             /// </summary>
-            hid_t maj_num;
+            public hid_t maj_num;
 
             /// <summary>
             /// minor error ID
             /// </summary>
-            hid_t min_num;
+            public hid_t min_num;
 
             /// <summary>
             /// line in file where error occurs
             /// </summary>
-            uint line;
+            public uint line;
 
             /// <summary>
             /// function in which error occurred
             /// </summary>
             [MarshalAs(UnmanagedType.LPStr)]
-            string func_name;
+            public string func_name;
 
             /// <summary>
             /// file in which error occurred
             /// </summary>
             [MarshalAs(UnmanagedType.LPStr)]
-            string file_name;
+            public string file_name;
 
             /// <summary>
             /// optional supplied description
             /// </summary>
             [MarshalAs(UnmanagedType.LPStr)]
-            string desc;
+            public string desc;
         };
 
         /// <summary>
