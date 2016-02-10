@@ -23,7 +23,7 @@ using hsize_t = System.UInt64;
 using size_t = System.IntPtr;
 
 #if X86
-using ssize_t System.Int32;
+using ssize_t = System.Int32;
 #else
 using ssize_t = System.Int64;
 #endif

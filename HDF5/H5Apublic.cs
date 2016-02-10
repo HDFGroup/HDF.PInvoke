@@ -27,7 +27,7 @@ using size_t = System.IntPtr;
 using H5O_msg_crt_idx_t = System.UInt32;
 
 #if X86
-using ssize_t System.Int32;
+using ssize_t = System.Int32;
 #else
 using ssize_t = System.Int64;
 #endif
@@ -51,19 +51,19 @@ namespace HDF.PInvoke
             /// <summary>
             /// Indicate if creation order is valid
             /// </summary>
-            hbool_t corder_valid;
+            public hbool_t corder_valid;
             /// <summary>
             /// Creation order
             /// </summary>
-            H5O_msg_crt_idx_t corder;
+            public H5O_msg_crt_idx_t corder;
             /// <summary>
             /// Character set of attribute name
             /// </summary>
-            H5T.cset_t cset;
+            public H5T.cset_t cset;
             /// <summary>
             /// Size of raw data
             /// </summary>
-            hsize_t data_size;
+            public hsize_t data_size;
         };
 
         /// <summary>
