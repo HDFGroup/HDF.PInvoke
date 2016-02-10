@@ -463,7 +463,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dset_extent",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t set_extent(hid_t dset_id, hsize_t* size);
+        public static extern herr_t set_extent(hid_t dset_id, hsize_t[] size);
 
         /// <summary>
         /// Determines the number of bytes required to store variable-length

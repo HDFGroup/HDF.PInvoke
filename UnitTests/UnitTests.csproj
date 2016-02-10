@@ -116,6 +116,7 @@
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
+    <Compile Include="H5DTest\H5Dset_extent.cs" />
     <Compile Include="H5DTest\H5Dfill.cs" />
     <Compile Include="H5DTest\H5Dclose.cs" />
     <Compile Include="H5DTest\H5Dcreate_anon.cs" />
