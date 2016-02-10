@@ -18,7 +18,11 @@ using System.IO;
 
 using HDF.PInvoke;
 
+#if HDF5_VER1_10
+using hid_t = System.Int64;
+#else
 using hid_t = System.Int32;
+#endif
 
 namespace UnitTests
 {
@@ -97,7 +101,7 @@ namespace UnitTests
         public static hid_t RandomInvalidHandle()
         {
             Random r = new Random();
-            return r.Next(System.Int32.MinValue, -1);
+            return r.Next(hid_t.MinValue, -1);
         }
     }
 }

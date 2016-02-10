@@ -35,7 +35,7 @@ namespace UnitTests
     public partial class H5DTest
     {
         [TestMethod]
-        public void H5Dget_spaceTest1()
+        public void H5Dget_typeTest1()
         {
             hsize_t[] dims = {1024, 2048};
             hid_t space = H5S.create_simple(3, dims, null);
@@ -43,28 +43,28 @@ namespace UnitTests
             hid_t dset = H5D.create(m_v0_test_file, "dset", H5T.STD_I16LE,
                 space);
             Assert.IsTrue(dset >= 0);
-            hid_t space1 = H5D.get_space(dset);
-            Assert.IsTrue(space1 >= 0);
-            Assert.IsTrue(H5S.extent_equal(space, space1) > 0);
-            Assert.IsTrue(H5S.close(space1) >= 0);
+            hid_t type = H5D.get_type(dset);
+            Assert.IsTrue(type >= 0);
+            Assert.IsTrue(H5T.equal(type, H5T.STD_I16LE) > 0);
+            Assert.IsTrue(H5T.close(type) >= 0);
             Assert.IsTrue(H5D.close(dset) >= 0);
 
             dset = H5D.create(m_v2_test_file, "dset", H5T.STD_I16LE,
                 space);
             Assert.IsTrue(dset >= 0);
-            space1 = H5D.get_space(dset);
-            Assert.IsTrue(space1 >= 0);
-            Assert.IsTrue(H5S.extent_equal(space, space1) > 0);
-            Assert.IsTrue(H5S.close(space1) >= 0);
+            type = H5D.get_type(dset);
+            Assert.IsTrue(type >= 0);
+            Assert.IsTrue(H5T.equal(type, H5T.STD_I16LE) > 0);
+            Assert.IsTrue(H5T.close(type) >= 0);
             Assert.IsTrue(H5D.close(dset) >= 0);
 
             Assert.IsTrue(H5S.close(space) >= 0);
         }
 
         [TestMethod]
-        public void H5Dget_spaceTest2()
+        public void H5Dget_typeTest2()
         {
-            Assert.IsFalse(H5D.get_space(Utilities.RandomInvalidHandle()) >= 0);
+            Assert.IsFalse(H5D.get_type(Utilities.RandomInvalidHandle()) >= 0);
         }
     }
 }
