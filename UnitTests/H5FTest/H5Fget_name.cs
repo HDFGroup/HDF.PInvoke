@@ -19,11 +19,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -42,7 +38,7 @@ namespace UnitTests
 
             Assert.IsTrue(
                 H5F.get_name(m_v0_test_file, nameBuilder,
-                new IntPtr(nameBuilder.Capacity)) >= 0);
+                new IntPtr(nameBuilder.Capacity)).ToInt32() >= 0);
 
             string name = nameBuilder.ToString();
             // names should match
@@ -50,7 +46,7 @@ namespace UnitTests
 
             Assert.IsTrue(
                 H5F.get_name(m_v2_test_file, nameBuilder,
-                new IntPtr(nameBuilder.Capacity)) >= 0);
+                new IntPtr(nameBuilder.Capacity)).ToInt32() >= 0);
 
             name = nameBuilder.ToString();
             // names should match
@@ -64,7 +60,7 @@ namespace UnitTests
 
             Assert.IsTrue(
                 H5F.get_name(Utilities.RandomInvalidHandle(), nameBuilder,
-                new IntPtr(nameBuilder.Capacity)) < 0);
+                new IntPtr(nameBuilder.Capacity)).ToInt32() < 0);
         }
     }
 }

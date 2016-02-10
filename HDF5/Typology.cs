@@ -51,11 +51,7 @@ using herr_t = System.Int32;
 using hbool_t = System.UInt32;
 using htri_t = System.Int32;
 
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 /*
  * The sizes of file objects have their own types defined here, use a 64-bit

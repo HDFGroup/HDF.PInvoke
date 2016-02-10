@@ -21,12 +21,7 @@ using HDF.PInvoke;
 
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
-
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -47,13 +42,13 @@ namespace UnitTests
 
             IntPtr buf_len = new IntPtr();
             ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
-            Assert.IsTrue(size > 0);
+            Assert.IsTrue(size.ToInt32() > 0);
 
-            IntPtr buf = H5.allocate_memory(new IntPtr(size), 1);
+            IntPtr buf = H5.allocate_memory(new IntPtr(size.ToInt32()), 1);
             Assert.IsTrue(buf != IntPtr.Zero);
 
             Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
-                ref buf_len) > 0);
+                ref buf_len).ToInt32() > 0);
 
             Assert.IsTrue(H5.free_memory(buf) >= 0);
             
@@ -70,13 +65,13 @@ namespace UnitTests
 
             IntPtr buf_len = new IntPtr();
             ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
-            Assert.IsTrue(size > 0);
+            Assert.IsTrue(size.ToInt32() > 0);
 
             IntPtr buf = Marshal.AllocHGlobal((int) size);
             Assert.IsTrue(buf != IntPtr.Zero);
 
             Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
-                ref buf_len) > 0);
+                ref buf_len).ToInt32() > 0);
 
             Marshal.FreeHGlobal(buf);
 

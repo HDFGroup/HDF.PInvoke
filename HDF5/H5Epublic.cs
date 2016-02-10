@@ -22,11 +22,7 @@ using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 using size_t = System.IntPtr;
 
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;

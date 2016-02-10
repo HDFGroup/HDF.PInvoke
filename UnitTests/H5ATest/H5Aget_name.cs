@@ -20,12 +20,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using size_t = System.IntPtr;
-
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -41,18 +36,18 @@ namespace UnitTests
         public void H5Aget_nameTest1()
         {
             size_t buf_size = IntPtr.Zero;
-            ssize_t size = 0;
+            ssize_t size = IntPtr.Zero;
             hid_t att = H5A.create(m_v2_test_file, "H5Aget_name",
                 H5T.IEEE_F64LE, m_space_scalar);
             Assert.IsTrue(att >= 0);
 
             // pretend we don't know the size
             size = H5A.get_name(att, buf_size, null);
-            Assert.IsTrue(size == 11);
-            buf_size = new IntPtr(size + 1);
+            Assert.IsTrue(size.ToInt32() == 11);
+            buf_size = new IntPtr(size.ToInt32() + 1);
             StringBuilder nameBuilder = new StringBuilder(buf_size.ToInt32());
             size = H5A.get_name(att, buf_size, nameBuilder);
-            Assert.IsTrue(size == 11);
+            Assert.IsTrue(size.ToInt32() == 11);
             string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name", name);
@@ -61,7 +56,7 @@ namespace UnitTests
             buf_size = new IntPtr(3);
             nameBuilder = new StringBuilder(3);
             size = H5A.get_name(att, buf_size, nameBuilder);
-            Assert.IsTrue(size == 11);
+            Assert.IsTrue(size.ToInt32() == 11);
             name = nameBuilder.ToString();
             // names won't match
             Assert.AreNotEqual("H5Aget_name", name);
@@ -74,7 +69,7 @@ namespace UnitTests
         public void H5Aget_nameTest2()
         {
             Assert.IsFalse(H5A.get_name(Utilities.RandomInvalidHandle(),
-                IntPtr.Zero, null) >= 0);
+                IntPtr.Zero, null).ToInt32() >= 0);
         }
     }
 }

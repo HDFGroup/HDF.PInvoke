@@ -20,12 +20,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using size_t = System.IntPtr;
-
-#if X86
-using ssize_t = System.Int32;
-#else
-using ssize_t = System.Int64;
-#endif
+using ssize_t = System.IntPtr;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -50,13 +45,13 @@ namespace UnitTests
             Assert.IsTrue(H5A.close(att) >= 0);
 
             size_t buf_size = IntPtr.Zero;
-            ssize_t size = 0;
+            ssize_t size = IntPtr.Zero;
             StringBuilder nameBuilder = new StringBuilder(19);
             buf_size = new IntPtr(19);
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 0, nameBuilder, buf_size);
-            Assert.IsTrue(size == 11);
+            Assert.IsTrue(size.ToInt32() == 11);
             string name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name", name);
@@ -65,7 +60,7 @@ namespace UnitTests
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 1, nameBuilder, buf_size);
-            Assert.IsTrue(size == 18);
+            Assert.IsTrue(size.ToInt32() == 18);
             name = nameBuilder.ToString();
             // names should match
             Assert.AreEqual("H5Aget_name_by_idx", name);
@@ -76,7 +71,7 @@ namespace UnitTests
             size = H5A.get_name_by_idx(m_v2_test_file, ".",
                 H5.index_t.NAME, H5.iter_order_t.NATIVE,
                 1, nameBuilder, buf_size);
-            Assert.IsTrue(size == 18);
+            Assert.IsTrue(size.ToInt32() == 18);
             name = nameBuilder.ToString();
             // names won't match
             Assert.AreNotEqual("H5Aget_name_by_idx", name);
@@ -88,7 +83,7 @@ namespace UnitTests
         {
             Assert.IsFalse(H5A.get_name_by_idx(Utilities.RandomInvalidHandle(),
                 ".", H5.index_t.NAME, H5.iter_order_t.NATIVE,
-                0, null, IntPtr.Zero) >= 0);
+                0, null, IntPtr.Zero).ToInt32() >= 0);
         }
     }
 }
