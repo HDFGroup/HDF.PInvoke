@@ -1770,7 +1770,7 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="plist_id">Dataset creation property list identifier.</param>
         /// <param name="ndims">The number of dimensions of each chunk.</param>
-        /// <param name="dim">An array defining the size, in dataset elements,
+        /// <param name="dims">An array defining the size, in dataset elements,
         /// of each chunk.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
@@ -1778,7 +1778,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_chunk
-            (hid_t plist_id, int ndims, hsize_t* dim);
+            (hid_t plist_id, int ndims,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]hsize_t[] dims);
 
         /// <summary>
         /// Sets the raw data chunk cache parameters.

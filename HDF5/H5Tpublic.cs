@@ -625,7 +625,8 @@ namespace HDF.PInvoke
                 if (!H5T_IEEE_F32BE_g.HasValue)
                 {
                     hid_t val = -1;
-                    if (m_importer.GetValue<hid_t>(Constants.DLLFileName, "H5T_IEEE_F32BE_g", ref val, Marshal.ReadInt32))
+                    if (m_importer.GetValue<hid_t>(Constants.DLLFileName,
+                        "H5T_IEEE_F32BE_g", ref val, Marshal.ReadInt32))
                     {
                         H5T_IEEE_F32BE_g = val;
                     }

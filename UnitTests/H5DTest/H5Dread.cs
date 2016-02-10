@@ -22,7 +22,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
 using herr_t = System.Int32;
-using hsize_t = System.Int64;
+using hssize_t = System.Int64;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -73,7 +73,7 @@ namespace UnitTests
             hid_t fspace = H5D.get_space(m_v0_utf8_dset);
             Assert.IsTrue(fspace >= 0);
 
-            hsize_t count = H5S.get_simple_extent_npoints(fspace);
+            hssize_t count = H5S.get_simple_extent_npoints(fspace);
             Assert.IsTrue(count > 0);
             Assert.IsTrue(H5S.close(fspace) >= 0);
 
