@@ -1779,7 +1779,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_chunk
             (hid_t plist_id, int ndims,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]hsize_t[] dims);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]hsize_t[] dims);
 
         /// <summary>
         /// Sets the raw data chunk cache parameters.
