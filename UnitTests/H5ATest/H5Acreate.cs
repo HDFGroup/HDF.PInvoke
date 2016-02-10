@@ -64,5 +64,26 @@ namespace UnitTests
                 H5A.create(m_v2_test_file, "A",
                 H5T.IEEE_F32BE, Utilities.RandomInvalidHandle()) >= 0);
         }
+
+        [TestMethod]
+        public void H5AcreateTest3()
+        {
+            hid_t otype = H5T.create(H5T.class_t.OPAQUE,
+                new IntPtr(1024 * 1024));
+            Assert.IsTrue(otype >= 0);
+
+            // the 1.8 version of the file format supports large attributes
+            hid_t att = H5A.create(m_v2_test_file, "large attribute", otype,
+                m_space_scalar);
+            Assert.IsTrue(att >= 0);
+            Assert.IsTrue(H5A.close(att) >= 0);
+
+            // the older version does not
+            att = H5A.create(m_v0_test_file, "large attribute", otype,
+                m_space_scalar);
+            Assert.IsFalse(att >= 0);
+
+            Assert.IsTrue(H5T.close(otype) >= 0);
+        }
     }
 }
