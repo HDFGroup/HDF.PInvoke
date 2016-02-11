@@ -35,20 +35,19 @@ namespace HDF.PInvoke
     {
         static H5()
         {
-            const string DLL32bitPath = "x86";
-            const string DLL64bitPath = "x64";
-
             string aPath = Environment.GetEnvironmentVariable("PATH");
-            string myPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string myPath = System.IO.Path.GetDirectoryName(
+                System.Reflection.Assembly.GetExecutingAssembly().Location);
             if (Environment.Is64BitProcess)
             {
-                myPath = System.IO.Path.Combine(myPath, DLL64bitPath);
+                myPath = System.IO.Path.Combine(myPath, Constants.DLL64bitPath);
             }
             else
             {
-                myPath = System.IO.Path.Combine(myPath, DLL32bitPath);
+                myPath = System.IO.Path.Combine(myPath, Constants.DLL32bitPath);
             }
-            Environment.SetEnvironmentVariable("PATH", string.Format("{0};{1}", aPath, myPath));
+            Environment.SetEnvironmentVariable("PATH", string.Format("{0};{1}",
+                aPath, myPath));
         }
 
         public const hsize_t HSIZE_UNDEF = unchecked((hsize_t)(hssize_t)(-1));

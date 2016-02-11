@@ -22,6 +22,8 @@ namespace HDF.PInvoke
     {
         public const string DLLFileName = "hdf5.dll";
 
-        public const hid_t H5P_DEFAULT = 0;
+        public const string DLL32bitPath = "x86";
+        
+        public const string DLL64bitPath = "x64";
     }
 }
