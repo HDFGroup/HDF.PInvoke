@@ -4,9 +4,9 @@ Currently, the bindings are tested and developed with HDF5 1.8.16. Once we've co
 
 ### Dependencies
 
-HDF5 binaries can be obtained from [here](https://www.hdfgroup.org/HDF5/release/obtain5.html). The ``HDF.PInvoke.dll`` assemblies, located in ``bin\[x86,x64]\[Debug,Release]``, depend on ``hdf5.dll``, ``szip.dll``, and ``zlib.dll`` for the corresponding processor architecture. In order to prevent stray copies in your ``PATH`` being picked up at runtime, we recommend that you place them in those same directories alongside the assemblies.
+HDF5 binaries can be obtained from [here](https://www.hdfgroup.org/HDF5/release/obtain5.html). The ``HDF.PInvoke.dll`` managed assemblies, located in ``bin\[Debug,Release]``, depend on the unmanaged DLLs ``hdf5.dll``, ``szip.dll``, and ``zlib.dll`` for the corresponding processor architecture. When loaded, the ``HDF.PInvoke.dll`` assembly detects the processor architecture (``x86`` or ``x64``) of the hosting process and expects the unmanaged DLLs in ``x86`` or ``x64`` subdirectories relative to its own location. For example, if ``HDF.PInvoke.dll`` lives in ``C:\bin``, it expects the unmanaged DLLs in ``C:\bin\x86`` and ``C:\bin\x64``.
 
-The assemblies for the unit tests are located in ``UnitTests\bin\[x86,x64]\[Debug,Release]``. Save yourself some headaches and place the unmanaged DLLs there as well!
+The assemblies for the unit tests are located in ``UnitTests\bin\[Debug,Release]``. Save yourself some headaches and place the unmanaged DLLs into ``UnitTests\bin\[Debug,Release]\[x86,x64]`` as well!
 
 ### Structure
 
