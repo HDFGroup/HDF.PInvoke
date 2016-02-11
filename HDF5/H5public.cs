@@ -33,6 +33,25 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5
     {
+        static H5()
+        {
+            const string DLL32bitPath = "x86";
+            const string DLL64bitPath = "x64";
+
+            string aPath = Environment.ExpandEnvironmentVariables("%PATH%");
+            string myPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (Environment.Is64BitProcess)
+            {
+                myPath = System.IO.Path.Combine(myPath, DLL64bitPath);
+            }
+            else
+            {
+                myPath = System.IO.Path.Combine(myPath, DLL32bitPath);
+            }
+            Environment.SetEnvironmentVariable("PATH", string.Format("{0};{1}", aPath, myPath));
+            aPath = Environment.ExpandEnvironmentVariables("%PATH%");
+        }
+
         public const hsize_t HSIZE_UNDEF = unchecked((hsize_t)(hssize_t)(-1));
 
         public const hsize_t HADDR_UNDEF = unchecked((haddr_t)(Int64)(-1));
