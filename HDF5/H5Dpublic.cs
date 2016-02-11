@@ -145,11 +145,12 @@ namespace HDF.PInvoke
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t operator_t
         (
-        IntPtr      elem,
-        hid_t       type_id,
-        uint        ndim,
-        ref hsize_t point,
-        IntPtr      op_data
+        IntPtr elem,
+        hid_t  type_id,
+        uint   ndim,
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
+        hsize_t[] point,
+        IntPtr op_data
         );
 
         /// <summary>
@@ -379,7 +380,7 @@ namespace HDF.PInvoke
         /// <param name="space_id">Dataspace identifier for <code>buf</code></param>
         /// <param name="op">Function pointer to the routine to be called for
         /// each element in buf iterated over</param>
-        /// <param name="operator_data">Pointer to any user-defined data
+        /// <param name="op_data">Pointer to any user-defined data
         /// associated with the operation</param>
         /// <returns>Returns the return value of the last operator if it was
         /// non-zero, or zero if all elements have been processed. Otherwise
@@ -388,8 +389,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t iterate
-            (IntPtr buf, hid_t type_id, hid_t space_id, operator_t op,
-            object operator_data);
+            (IntPtr buf, hid_t type_id, hid_t space_id,
+            operator_t op, IntPtr op_data);
 
         /// <summary>
         /// Opens an existing dataset.
