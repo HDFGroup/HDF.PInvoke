@@ -33,6 +33,9 @@ namespace UnitTests
             Assert.IsTrue(
                 H5L.create_external(m_v0_class_file_name, "/", m_v0_test_file,
                 "A/B/C", m_lcpl) >= 0);
+            Assert.IsTrue(
+                H5L.create_external(m_v2_class_file_name, "/", m_v2_test_file,
+                "A/B/C", m_lcpl) >= 0);
         }
     }
 }

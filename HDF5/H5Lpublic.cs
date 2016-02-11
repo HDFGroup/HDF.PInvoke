@@ -98,41 +98,40 @@ namespace HDF.PInvoke
         /// <summary>
         /// Information struct for link (for H5Lget_info/H5Lget_info_by_idx)
         /// </summary>
-        [StructLayout(LayoutKind.Explicit, Size=28)]
+        [StructLayout(LayoutKind.Sequential)]
         public struct info_t
         {
             /// <summary>
             /// Type of link
             /// </summary>
-            [FieldOffset(0)]
             public type_t type;
             /// <summary>
             /// Indicate if creation order is valid
             /// </summary>
-            [FieldOffset(4)]
             public hbool_t corder_valid;
             /// <summary>
             /// Creation order
             /// </summary>
-            [FieldOffset(8)]
             public Int64 corder;
             /// <summary>
             /// Character set of link name
             /// </summary>
-            [FieldOffset(16)]
             public H5T.cset_t cset;
+            /// <summary>
+            /// Address to which hard link points or
+            /// size of a soft link or UD link value
+            /// </summary>
+            public u_t u;
 
             /* union -> same field offset, see H5Lpublic.h */
-            /// <summary>
-            /// Address hard link points to
-            /// </summary>
-            [FieldOffset(20)]
-            public haddr_t address;
-            /// <summary>
-            /// Size of a soft link or UD link value
-            /// </summary>
-            [FieldOffset(20)]
-            public size_t val_size;
+            [StructLayout(LayoutKind.Explicit)]
+            public struct u_t
+            {
+                [FieldOffset(0)]
+                public haddr_t address;
+                [FieldOffset(0)]
+                public size_t val_size;
+            }
         }
 
         /// <summary>
