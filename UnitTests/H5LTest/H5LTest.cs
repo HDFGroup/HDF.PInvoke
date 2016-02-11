@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Collections;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
@@ -94,5 +95,7 @@ namespace UnitTests
         private hid_t m_v2_test_file = -1;
 
         private string m_v2_test_file_name;
+
+        private static ArrayList m_utf8strings = new ArrayList() { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
     }
 }

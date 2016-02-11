@@ -155,6 +155,9 @@ namespace HDF.PInvoke
             /// </summary>
             UTF8 = 1,
             // reserved for later use [values = 2-15]
+            [System.ComponentModel.Browsable(false)]
+            [System.ComponentModel.EditorBrowsable(
+                System.ComponentModel.EditorBrowsableState.Never)]
             RESERVED_2 = 2,
             RESERVED_3 = 3,
             RESERVED_4 = 4,

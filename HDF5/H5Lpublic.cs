@@ -346,7 +346,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t create_hard
-            (hid_t cur_loc, string cur_name, hid_t dst_loc, string dst_name,
+            (hid_t cur_loc, byte[] cur_name, hid_t dst_loc, byte[] dst_name,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
