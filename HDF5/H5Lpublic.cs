@@ -299,7 +299,8 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint="H5Lcopy",
-            CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t copy
             (hid_t src_loc, string src_name, hid_t dst_loc, string dst_name,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);

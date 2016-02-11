@@ -169,6 +169,14 @@
     <Compile Include="H5GTest\H5Gget_info_by_idx.cs" />
     <Compile Include="H5GTest\H5Gget_info_by_name.cs" />
     <Compile Include="H5GTest\H5Gopen.cs" />
+    <Compile Include="H5LTest\H5Lexists.cs" />
+    <Compile Include="H5LTest\H5Ldelete_by_index.cs" />
+    <Compile Include="H5LTest\H5Ldelete.cs" />
+    <Compile Include="H5LTest\H5Lcreate_soft.cs" />
+    <Compile Include="H5LTest\H5Lcreate_hard.cs" />
+    <Compile Include="H5LTest\H5Lcreate_external.cs" />
+    <Compile Include="H5LTest\H5Lcopy.cs" />
+    <Compile Include="H5LTest\H5LTest.cs" />
     <Compile Include="H5STest\H5Sget_simple_extent_dims.cs" />
     <Compile Include="H5STest\H5STest.cs" />
     <Compile Include="H5STest\H5Screate_simple.cs" />
