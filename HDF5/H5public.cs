@@ -38,7 +38,7 @@ namespace HDF.PInvoke
             const string DLL32bitPath = "x86";
             const string DLL64bitPath = "x64";
 
-            string aPath = Environment.ExpandEnvironmentVariables("%PATH%");
+            string aPath = Environment.GetEnvironmentVariable("PATH");
             string myPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             if (Environment.Is64BitProcess)
             {
@@ -49,7 +49,6 @@ namespace HDF.PInvoke
                 myPath = System.IO.Path.Combine(myPath, DLL32bitPath);
             }
             Environment.SetEnvironmentVariable("PATH", string.Format("{0};{1}", aPath, myPath));
-            aPath = Environment.ExpandEnvironmentVariables("%PATH%");
         }
 
         public const hsize_t HSIZE_UNDEF = unchecked((hsize_t)(hssize_t)(-1));
