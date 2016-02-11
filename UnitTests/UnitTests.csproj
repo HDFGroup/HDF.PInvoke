@@ -116,6 +116,11 @@
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
+    <Compile Include="H5DTest\H5Dvlen_reclaim.cs" />
+    <Compile Include="H5DTest\H5Dopen.cs" />
+    <Compile Include="H5DTest\H5Dget_offset.cs" />
+    <Compile Include="H5DTest\H5Dget_create_plist.cs" />
+    <Compile Include="H5DTest\H5Dget_access_plist.cs" />
     <Compile Include="H5DTest\H5Diterate.cs" />
     <Compile Include="H5DTest\H5Dget_type.cs" />
     <Compile Include="H5DTest\H5Dget_storage_size.cs" />
