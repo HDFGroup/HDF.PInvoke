@@ -145,6 +145,22 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t create_func_t
+            (byte[] link_name, hid_t loc_group, IntPtr lnkdata,
+            size_t lnkdata_size, hid_t lcpl_id);
+
+        /// <summary>
+        /// Link creation callback
+        /// </summary>
+        /// <param name="link_name"></param>
+        /// <param name="loc_group"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <param name="lcpl_id"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t create_func_ascii_t
             (string link_name, hid_t loc_group, IntPtr lnkdata,
             size_t lnkdata_size, hid_t lcpl_id);
 
@@ -158,6 +174,20 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t move_func_t
+        (byte[] new_name, hid_t new_loc, IntPtr lnkdata, size_t lnkdata_size);
+
+        /// <summary>
+        /// Callback for when the link is moved
+        /// </summary>
+        /// <param name="new_name"></param>
+        /// <param name="new_loc"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t move_func_ascii_t
         (string new_name, hid_t new_loc, IntPtr lnkdata, size_t lnkdata_size);
 
         /// <summary>
@@ -170,6 +200,20 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t copy_func_t
+        (byte[] new_name, hid_t new_loc, IntPtr lnkdata, size_t lnkdata_size);
+
+        /// <summary>
+        /// Callback for when the link is copied
+        /// </summary>
+        /// <param name="new_name"></param>
+        /// <param name="new_loc"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t copy_func_ascii_t
         (string new_name, hid_t new_loc, IntPtr lnkdata, size_t lnkdata_size);
 
         /// <summary>
@@ -183,6 +227,22 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t traverse_func_t
+        (byte[] link_name, hid_t cur_group, IntPtr lnkdata,
+        size_t lnkdata_size, hid_t lapl_id);
+
+        /// <summary>
+        /// Callback during link traversal
+        /// </summary>
+        /// <param name="link_name"></param>
+        /// <param name="cur_group"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <param name="lapl_id"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t traverse_func_ascii_t
         (string link_name, hid_t cur_group, IntPtr lnkdata,
         size_t lnkdata_size, hid_t lapl_id);
 
@@ -196,6 +256,20 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t delete_func_t
+        (byte[] link_name, hid_t file, IntPtr lnkdata, size_t lnkdata_size);
+
+        /// <summary>
+        /// Callback for when the link is deleted
+        /// </summary>
+        /// <param name="link_name"></param>
+        /// <param name="file"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t delete_func_ascii_t
         (string link_name, hid_t file, IntPtr lnkdata, size_t lnkdata_size);
 
         /// <summary>
@@ -209,8 +283,24 @@ namespace HDF.PInvoke
         /// <returns>Returns the size of the buffer needed</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate ssize_t query_func_t
+        (byte[] link_name, IntPtr lnkdata, size_t lnkdata_size,
+        [Out] IntPtr buf, size_t buf_size);
+
+        /// <summary>
+        /// Callback for querying the link
+        /// </summary>
+        /// <param name="link_name"></param>
+        /// <param name="lnkdata"></param>
+        /// <param name="lnkdata_size"></param>
+        /// <param name="buf"></param>
+        /// <param name="buf_size"></param>
+        /// <returns>Returns the size of the buffer needed</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate ssize_t query_func_ascii_t
         (string link_name, IntPtr lnkdata, size_t lnkdata_size,
-        IntPtr buf /*out*/, size_t buf_size);
+        [Out] IntPtr buf, size_t buf_size);
 
         /// <summary>
         /// User-defined link types
@@ -265,6 +355,20 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t iterate_t
+        (hid_t group, byte[] name, ref info_t info, IntPtr op_data);
+
+        /// <summary>
+        /// Prototype for H5Literate/H5Literate_by_name() operator
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="name"></param>
+        /// <param name="info"></param>
+        /// <param name="op_data"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t iterate_ascii_t
         (hid_t group, string name, ref info_t info, IntPtr op_data);
 
         /// <summary>
@@ -278,8 +382,29 @@ namespace HDF.PInvoke
         /// <param name="fapl_id"></param>
         /// <param name="op_data"></param>
         /// <returns></returns>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        /// <remarks>File names MUST be ASCII strings.</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
         public delegate herr_t elink_traverse_t
+        (string parent_file_name, byte[] parent_group_name,
+        string child_file_name, byte[] child_object_name,
+        ref uint acc_flags, hid_t fapl_id, IntPtr op_data);
+
+        /// <summary>
+        /// Callback for external link traversal
+        /// </summary>
+        /// <param name="parent_file_name"></param>
+        /// <param name="parent_group_name"></param>
+        /// <param name="child_file_name"></param>
+        /// <param name="child_object_name"></param>
+        /// <param name="acc_flags"></param>
+        /// <param name="fapl_id"></param>
+        /// <param name="op_data"></param>
+        /// <returns></returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t elink_traverse_ascii_t
         (string parent_file_name, string parent_group_name,
         string child_file_name, string child_object_name,
         ref uint acc_flags, hid_t fapl_id, IntPtr op_data);
@@ -301,6 +426,28 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t copy
+            (hid_t src_loc, byte[] src_name, hid_t dst_loc, byte[] dst_name,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Copies a link from one location to another.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Copy
+        /// </summary>
+        /// <param name="src_loc">Location identifier of the source link</param>
+        /// <param name="src_name">Name of the link to be copied</param>
+        /// <param name="dst_loc">Location identifier specifying the destination
+        /// of the copy</param>
+        /// <param name="dst_name">Name to be assigned to the new copy</param>
+        /// <param name="lcpl_id">Link creation property list identifier</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcopy",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t copy
             (hid_t src_loc, string src_name, hid_t dst_loc, string dst_name,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
@@ -320,6 +467,33 @@ namespace HDF.PInvoke
         /// <param name="lapl_id">Link access property list identifier</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>The <paramref name="file_name"/> must be an ASCII string!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_external",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t create_external
+            (string file_name, byte[] obj_name, hid_t link_loc_id,
+            byte[] link_name, hid_t lcpl_id = H5P.DEFAULT,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates an external link, a soft link to an object in a different file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-CreateExternal
+        /// </summary>
+        /// <param name="file_name">Name of the target file containing the
+        /// target object</param>
+        /// <param name="obj_name">Path within the target file to the target
+        /// object</param>
+        /// <param name="link_loc_id">File or group identifier where the new
+        /// link is to be created</param>
+        /// <param name="link_name">Name of the new link, relative to
+        /// <paramref name="link_loc_id"/></param>
+        /// <param name="lcpl_id">Link creation property list identifier</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_external",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -365,7 +539,8 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         /// <remarks>ASCII strings only!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_hard",
-            CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t create_hard
             (hid_t cur_loc, string cur_name, hid_t dst_loc, string dst_name,
@@ -388,6 +563,28 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t create_soft
+            (byte[] link_target, hid_t link_loc_id, byte[] link_name,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates a soft link to an object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-CreateSoft
+        /// </summary>
+        /// <param name="link_target">Path to the target object, which is not
+        /// required to exist.</param>
+        /// <param name="link_loc_id">The file or group identifier for the new
+        /// link.</param>
+        /// <param name="link_name">The name of the new link.</param>
+        /// <param name="lcpl_id">Link creation property list identifier.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_soft",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t create_soft
             (string link_target, hid_t link_loc_id, string link_name,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
@@ -408,6 +605,29 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t create_ud
+            (hid_t link_loc_id, byte[] link_name, type_t link_type,
+            IntPtr udata, size_t udata_size,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates a link of a user-defined type.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-CreateUD
+        /// </summary>
+        /// <param name="link_loc_id">Link location identifier</param>
+        /// <param name="link_name">Link name</param>
+        /// <param name="link_type">User-defined link class</param>
+        /// <param name="udata">User-supplied link information</param>
+        /// <param name="udata_size">Size of udata buffer</param>
+        /// <param name="lcpl_id">Link creation property list identifier</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_ud",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t create_ud
             (hid_t link_loc_id, string link_name, type_t link_type,
             IntPtr udata, size_t udata_size,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
@@ -424,6 +644,24 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Ldelete",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t delete(hid_t loc_id, byte[] name,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Removes a link from a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Delete
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group containing
+        /// the object.</param>
+        /// <param name="name">Name of the link to delete.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ldelete",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete(hid_t loc_id, string name,
             hid_t lapl_id = H5P.DEFAULT);
@@ -445,6 +683,28 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t delete_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Removes the n-th link in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-DeleteByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of subject group</param>
+        /// <param name="group_name">Name of subject group</param>
+        /// <param name="idx_type">Index or field which determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Link for which to retrieve information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ldelete_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t delete_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
 
@@ -459,6 +719,23 @@ namespace HDF.PInvoke
         /// value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lexists",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static htri_t exists(hid_t loc_id, byte[] name,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Determine whether a link with the specified name exists in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Exists
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to query.</param>
+        /// <param name="name">The name of the link to check.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns 1 or 0 if successful; otherwise returns a negative
+        /// value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lexists",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static htri_t exists(hid_t loc_id, string name,
             hid_t lapl_id = H5P.DEFAULT);
@@ -478,7 +755,27 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info
-            (hid_t loc_id, string name, ref info_t linfo /*out*/,
+            (hid_t loc_id, byte[] name, ref info_t linfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Returns information about a link.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-GetInfo
+        /// </summary>
+        /// <param name="loc_id">File or group identifier.</param>
+        /// <param name="name">Name of the link for which information is being
+        /// sought.</param>
+        /// <param name="linfo">Buffer in which link information is returned.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_info",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info
+            (hid_t loc_id, string name, ref info_t linfo,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -498,6 +795,31 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_info_by_idx",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, ref info_t linfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves metadata for a link in a group, according to the order
+        /// within a field or index.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-GetInfoByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of subject group</param>
+        /// <param name="group_name">Name of subject group</param>
+        /// <param name="idx_type">Index or field which determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Link for which to retrieve information</param>
+        /// <param name="linfo">Buffer in which link value is returned</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_info_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
@@ -524,8 +846,34 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, [Out] byte[] name, size_t size,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves name of the nth link in a group, according to the order
+        /// within a specified field or index.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-GetNameByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of subject group</param>
+        /// <param name="group_name">Name of subject group</param>
+        /// <param name="idx_type">Index or field which determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Link for which to retrieve information</param>
+        /// <param name="name">Buffer in which link value is returned</param>
+        /// <param name="size">Size in bytes of <paramref name="name"/></param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns the size of the link name if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_name_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_name_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, StringBuilder name, size_t size,
+            H5.iter_order_t order, hsize_t n, [Out] StringBuilder name, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -545,7 +893,29 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_val
-            (hid_t loc_id, string name, IntPtr buf/*out*/, size_t size,
+            (hid_t loc_id, byte[] name, [Out] IntPtr buf, size_t size,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Returns the value of a symbolic link.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-GetVal
+        /// </summary>
+        /// <param name="loc_id">File or group identifier.</param>
+        /// <param name="name">Link whose value is to be returned.</param>
+        /// <param name="buf">The buffer to hold the returned link value.</param>
+        /// <param name="size">Maximum number of characters of link value to be
+        /// returned.</param>
+        /// <param name="lapl_id">List access property list identifier.</param>
+        /// <returns>Returns a non-negative value, with the link value in
+        /// <paramref name="buf"/>, if successful. Otherwise returns a negative
+        /// value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_val",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_val
+            (hid_t loc_id, string name, [Out] IntPtr buf, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -568,8 +938,34 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_val_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, [Out] IntPtr buf, size_t size,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves value of the nth link in a group, according to the order
+        /// within an index.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-GetValByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of subject group</param>
+        /// <param name="group_name">Name of subject group</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Link for which to retrieve information</param>
+        /// <param name="buf">Pointer to buffer in which link value is returned</param>
+        /// <param name="size">Size in bytes of <paramref name="group_name"/></param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lget_val_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_val_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, IntPtr buf/*out*/, size_t size,
+            H5.iter_order_t order, hsize_t n, [Out] IntPtr buf, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -612,6 +1008,31 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Iterates through links in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Iterate
+        /// </summary>
+        /// <param name="grp_id">Identifier specifying subject group</param>
+        /// <param name="idx_type">Type of index which determines the order</param>
+        /// <param name="order">Order within index</param>
+        /// <param name="idx">Iteration position at which to start</param>
+        /// <param name="op">Callback function passing data regarding the link
+        /// to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the link</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Literate",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t iterate
+            (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
+            ref hsize_t idx, iterate_ascii_t op, IntPtr op_data);
+
+        /// <summary>
+        /// Iterates through links in a group.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-IterateByName
         /// </summary>
         /// <param name="loc_id">File or group identifier specifying location
@@ -631,8 +1052,35 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate_by_name
-            (hid_t loc_id, string group_name, H5.index_t idx_type,
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
             H5.iter_order_t order, ref hsize_t idx, iterate_t op,
+            IntPtr op_data, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Iterates through links in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-IterateByName
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of subject group</param>
+        /// <param name="group_name">Name of subject group</param>
+        /// <param name="idx_type">Type of index which determines the order</param>
+        /// <param name="order">Order within index</param>
+        /// <param name="idx">Iteration position at which to start</param>
+        /// <param name="op">Callback function passing data regarding the link
+        /// to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the link</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Literate_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t iterate_by_name
+            (hid_t loc_id, string group_name, H5.index_t idx_type,
+            H5.iter_order_t order, ref hsize_t idx, iterate_ascii_t op,
             IntPtr op_data, hid_t lapl_id = H5P.DEFAULT);
         
         /// <summary>
@@ -651,6 +1099,29 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lmove",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t move
+            (hid_t src_loc, byte[] src_name, hid_t dst_loc, byte[] dst_name,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Moves a link within an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Move
+        /// </summary>
+        /// <param name="src_loc">Original file or group identifier.</param>
+        /// <param name="src_name">Original link name.</param>
+        /// <param name="dst_loc">Destination file or group identifier.</param>
+        /// <param name="dst_name">New link name.</param>
+        /// <param name="lcpl_id">Link creation property list identifier to be
+        /// associated with the new link.</param>
+        /// <param name="lapl_id">Link access property list identifier to be
+        /// associated with the new link.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lmove",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t move
             (hid_t src_loc, string src_name, hid_t dst_loc, string dst_name,
@@ -687,8 +1158,31 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t unpack_elink_val
-            (IntPtr ext_linkval/*in*/, size_t link_size, int flags,
-            [Out]string filename/*out*/, [Out]string obj_path /*out*/);
+            (IntPtr ext_linkval, size_t link_size, int flags,
+            [Out] byte[] filename, [Out] byte[] obj_path);
+
+        /// <summary>
+        /// Decodes external link information.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-UnpackELinkVal
+        /// </summary>
+        /// <param name="ext_linkval">Buffer containing external link
+        /// information</param>
+        /// <param name="link_size">Size, in bytes, of the
+        /// <paramref name="ext_linkval"/> buffer</param>
+        /// <param name="flags">External link flags, packed as a bitmap</param>
+        /// <param name="filename">Returned filename</param>
+        /// <param name="obj_path">Returned object path, relative to
+        /// <paramref name="filename"/></param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lunpack_elink_val",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t unpack_elink_val
+            (IntPtr ext_linkval, size_t link_size, int flags,
+            [Out] string filename, [Out] string obj_path);
 
         /// <summary>
         /// Unregisters a class of user-defined links.
@@ -725,6 +1219,31 @@ namespace HDF.PInvoke
         public extern static herr_t visit
             (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
             iterate_t op, IntPtr op_data);
+
+        /// <summary>
+        /// Recursively visits all links starting from a specified group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Visit
+        /// </summary>
+        /// <param name="grp_id">Identifier of the group at which the recursive
+        /// iteration begins.</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the link
+        /// to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the link</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lvisit",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit
+            (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
+            iterate_ascii_t op, IntPtr op_data);
         
         /// <summary>
         /// Recursively visits all links starting from a specified group.
@@ -749,8 +1268,37 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
-            (hid_t loc_id, string group_name, H5.index_t idx_type,
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
             H5.iter_order_t order, iterate_t op, IntPtr op_data,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Recursively visits all links starting from a specified group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-VisitByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file or group</param>
+        /// <param name="group_name">Name of the group, generally relative to
+        /// <paramref name="loc_id"/>, that will serve as root of the iteration</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the link
+        /// to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the link</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lvisit_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit_by_name
+            (hid_t loc_id, string group_name, H5.index_t idx_type,
+            H5.iter_order_t order, iterate_ascii_t op, IntPtr op_data,
             hid_t lapl_id = H5P.DEFAULT);
     }
 }
