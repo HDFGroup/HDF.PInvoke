@@ -770,6 +770,30 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t commit
+            (hid_t loc_id, byte[] name, hid_t dtype_id,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t tcpl_id = H5P.DEFAULT,
+            hid_t tapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Commits a transient datatype, linking it into the file and creating
+        /// a new named datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Commit2
+        /// </summary>
+        /// <param name="loc_id">Location identifier</param>
+        /// <param name="name">Name given to committed datatype</param>
+        /// <param name="dtype_id">Identifier of datatype to be committed and,
+        /// upon function’s return, identifier for the committed datatype</param>
+        /// <param name="lcpl_id">Link creation property list</param>
+        /// <param name="tcpl_id">Datatype creation property list</param>
+        /// <param name="tapl_id">Datatype access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tcommit2",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t commit
             (hid_t loc_id, string name, hid_t dtype_id,
             hid_t lcpl_id = H5P.DEFAULT, hid_t tcpl_id = H5P.DEFAULT,
             hid_t tapl_id = H5P.DEFAULT);
@@ -932,8 +956,10 @@ namespace HDF.PInvoke
         /// <param name="value">Pointer to the value of the new member.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tenum_insert",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t enum_insert
             (hid_t dtype_id, string name, IntPtr value);
@@ -950,8 +976,10 @@ namespace HDF.PInvoke
         /// (characters).</param>
         /// <returns>Returns a non-negative value if successful. Otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tenum_nameof",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t enum_nameof
             (hid_t dtype_id, IntPtr value, StringBuilder name, size_t size);
@@ -967,8 +995,10 @@ namespace HDF.PInvoke
         /// enumeration datatype.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tenum_valueof",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t enum_valueof
             (hid_t dtype_id, string name, IntPtr value);
@@ -1137,8 +1167,10 @@ namespace HDF.PInvoke
         /// to be retrieved.</param>
         /// <returns>Returns a valid field or member index if successful;
         /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tget_member_index",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_member_index
             (hid_t dtype_id, string field_name);
@@ -1374,8 +1406,10 @@ namespace HDF.PInvoke
         /// <param name="field_id">Datatype identifier of the field to insert.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tinsert",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t insert
             (hid_t dtype_id, string name, size_t offset, hid_t field_id);
@@ -1418,6 +1452,24 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t open
+            (hid_t loc_id, byte[] name, hid_t tapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Opens a committed (named) datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-Open2
+        /// </summary>
+        /// <param name="loc_id">A file or group identifier.</param>
+        /// <param name="name">A datatype name, defined within the file or
+        /// group identified by <paramref name="loc_id"/>.</param>
+        /// <param name="tapl_id">Datatype access property list identifier.</param>
+        /// <returns>Returns a committed datatype identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Topen2",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t open
             (hid_t loc_id, string name, hid_t tapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -1444,8 +1496,10 @@ namespace HDF.PInvoke
         /// destination datatypes</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tregister",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t register(pers_t type, string name,
             hid_t src_id, hid_t dst_id, conv_t func);
@@ -1631,7 +1685,8 @@ namespace HDF.PInvoke
         /// description; the maximum size is hard-coded in the HDF5 Library as
         /// 256 bytes </remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tset_tag",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_tag( hid_t dtype_id, string tag);
 
@@ -1647,8 +1702,10 @@ namespace HDF.PInvoke
         /// destination datatypes.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Tunregister",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t unregister
             (pers_t type, string name, hid_t src_id, hid_t dst_id, conv_t func);
