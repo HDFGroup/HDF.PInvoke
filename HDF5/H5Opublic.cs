@@ -310,6 +310,19 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t iterate_t
+        (hid_t obj, byte[] name, ref info_t info, IntPtr op_data);
+
+        /// <summary>
+        /// Prototype for H5Ovisit/H5Ovisit_by_name() operator
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="name"></param>
+        /// <param name="info"></param>
+        /// <param name="op_data"></param>
+        /// <returns></returns>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
+        public delegate herr_t iterate_ascii_t
         (hid_t obj, string name, ref info_t info, IntPtr op_data);
 
         public enum mcdt_search_ret_t
@@ -372,6 +385,31 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t copy
+            (hid_t src_loc_id, byte[] src_name, hid_t dst_loc_id,
+            byte[] dst_name, hid_t ocpypl_id = H5P.DEFAULT,
+            hid_t lcpl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Copies an object in an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Copy
+        /// </summary>
+        /// <param name="src_loc_id">Object identifier indicating the location
+        /// of the source object to be copied</param>
+        /// <param name="src_name">Name of the source object to be copied</param>
+        /// <param name="dst_loc_id">Location identifier specifying the
+        /// destination</param>
+        /// <param name="dst_name">Name to be assigned to the new copy</param>
+        /// <param name="ocpypl_id">Object copy property list</param>
+        /// <param name="lcpl_id">Link creation property list for the new hard
+        /// link</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ocopy",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t copy
             (hid_t src_loc_id, string src_name, hid_t dst_loc_id,
             string dst_name, hid_t ocpypl_id = H5P.DEFAULT,
             hid_t lcpl_id = H5P.DEFAULT);
@@ -405,6 +443,23 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static htri_t exists_by_name
+            (hid_t loc_id, byte[] name, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Determines whether a link resolves to an actual object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-ExistsByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to query.</param>
+        /// <param name="name">The name of the link to check.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns 1 or 0 if successful; otherwise returns a negative
+        /// value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oexists_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static htri_t exists_by_name
             (hid_t loc_id, string name, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -419,7 +474,8 @@ namespace HDF.PInvoke
         /// (0) if the object has no comment. The value returned may be larger
         /// than <code>size</code>. Otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_comment
             (hid_t obj_id, StringBuilder comment, size_t size);
@@ -441,7 +497,33 @@ namespace HDF.PInvoke
         /// (0) if the object has no comment. The value returned may be larger
         /// than <paramref name="size"/>. Otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment_by_name",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static ssize_t get_comment_by_name
+            (hid_t loc_id, byte[] name, StringBuilder comment, size_t size,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves comment for specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetCommentByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file, group, dataset, or named
+        /// datatype.</param>
+        /// <param name="name">Name of the object whose comment is to be
+        /// retrieved, specified as a path relative to
+        /// <paramref name="loc_id"/>.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="size">Size of the <paramref name="comment"/> buffer.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Upon success, returns the number of characters in the
+        /// comment, not including the <code>NULL</code> terminator, or zero
+        /// (0) if the object has no comment. The value returned may be larger
+        /// than <paramref name="size"/>. Otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_comment_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_comment_by_name
             (hid_t loc_id, string name, StringBuilder comment, size_t size,
@@ -480,6 +562,31 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by an
+        /// index position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="group_name">Name of group in which object is located</param>
+        /// <param name="idx_type">Index or field that determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Object for which information is to be returned</param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, ref info_t oinfo,
             hid_t lapl_id = H5P.DEFAULT);
@@ -499,6 +606,28 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_name
+            (hid_t loc_id, byte[] name, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by
+        /// location and relative name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByName
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="name">Name of group, relative to
+        /// <paramref name="loc_id"/></param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
             (hid_t loc_id, string name, ref info_t oinfo,
@@ -536,6 +665,28 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t link
+            (hid_t obj_id, hid_t new_loc_id, byte[] new_name,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates a hard link to an object in an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Link
+        /// </summary>
+        /// <param name="obj_id">Object to be linked.</param>
+        /// <param name="new_loc_id">File or group identifier specifying
+        /// location at which object is to be linked.</param>
+        /// <param name="new_name">Name of link to be created, relative to
+        /// <paramref name="new_loc_id"/>.</param>
+        /// <param name="lcpl_id">Link creation property list identifier.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Olink",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t link
             (hid_t obj_id, hid_t new_loc_id, string new_name,
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
@@ -552,6 +703,25 @@ namespace HDF.PInvoke
         /// successful; otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oopen",
             CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t open
+            (hid_t loc_id, byte[] name, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Opens an object in an HDF5 file by location identifier and path name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Open
+        /// </summary>
+        /// <param name="loc_id">File or group identifier</param>
+        /// <param name="name">Path to the object, relative to
+        /// <paramref name="loc_id"/>.</param>
+        /// <param name="lapl_id">Access property list identifier for the link
+        /// pointing to the object</param>
+        /// <returns>Returns an object identifier for the opened object if
+        /// successful; otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oopen",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
             (hid_t loc_id, string name, hid_t lapl_id = H5P.DEFAULT);
@@ -586,7 +756,30 @@ namespace HDF.PInvoke
         /// <returns>Returns an object identifier for the opened object if
         /// successful; otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oopen_by_idx",
-            CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static hid_t open_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Open the n-th object in a group.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-OpenByIdx
+        /// </summary>
+        /// <param name="loc_id">A file or group identifier.</param>
+        /// <param name="group_name">Name of group, relative to
+        /// <paramref name="loc_id"/>, in which object is located</param>
+        /// <param name="idx_type">Type of index by which objects are ordered</param>
+        /// <param name="order">Order of iteration within index</param>
+        /// <param name="n">Object to open</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns an object identifier for the opened object if
+        /// successful; otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oopen_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
@@ -614,6 +807,31 @@ namespace HDF.PInvoke
         public extern static herr_t visit
             (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
             iterate_t op, IntPtr op_data);
+
+        /// <summary>
+        /// Recursively visits all objects accessible from a specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Visit
+        /// </summary>
+        /// <param name="obj_id">Identifier of the object at which the
+        /// recursive iteration begins.</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the
+        /// object to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the object</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit
+            (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
+            iterate_ascii_t op, IntPtr op_data);
         
         /// <summary>
         /// Recursively visits all objects starting from a specified object.
@@ -638,8 +856,36 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
-            (hid_t loc_id, string obj_name, H5.index_t idx_type,
+            (hid_t loc_id, byte[] obj_name, H5.index_t idx_type,
             H5.iter_order_t order, iterate_t op, object op_data,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Recursively visits all objects starting from a specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-VisitByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file or group</param>
+        /// <param name="obj_name">Name of the object, generally relative to
+        /// <paramref name="loc_id"/>, that will serve as root of the iteration</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the
+        /// object to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the object</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit_by_name
+            (hid_t loc_id, string obj_name, H5.index_t idx_type,
+            H5.iter_order_t order, iterate_ascii_t op, object op_data,
             hid_t lapl_id = H5P.DEFAULT);
     }
 }

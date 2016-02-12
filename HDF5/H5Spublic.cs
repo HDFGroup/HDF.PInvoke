@@ -243,7 +243,9 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t encode
-            (hid_t obj_id, [Out] byte[] buf, ref size_t nalloc);
+            (hid_t obj_id,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][In, Out]
+            byte[] buf, ref size_t nalloc);
 
         /// <summary>
         /// Copies the extent of a dataspace.
@@ -323,7 +325,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_elem_pointlist
             (hid_t space_id, hsize_t startpoint, hsize_t numpoints,
-            [Out] hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][Out]
+            hsize_t[] buf);
 
         /// <summary>
         /// Gets the list of hyperslab blocks currently selected.
@@ -340,7 +343,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_hyper_blocklist
             (hid_t space_id, hsize_t startblock, hsize_t numblocks,
-            [Out] hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][Out]
+            hsize_t[] buf);
 
         /// <summary>
         /// Get number of hyperslab blocks.
@@ -354,8 +358,7 @@ namespace HDF.PInvoke
             EntryPoint = "H5Sget_select_hyper_nblocks",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern hssize_t get_select_hyper_nblocks
-            (hid_t space_id);
+        public static extern hssize_t get_select_hyper_nblocks(hid_t space_id);
 
         /// <summary>
         /// Determines the number of elements in a dataspace selection.
@@ -473,7 +476,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t offset_simple
-            (hid_t space_id, hssize_t* offset);
+            (hid_t space_id,
+            [MarshalAs(UnmanagedType.LPArray)] hssize_t[] offset);
 
         /// <summary>
         /// Selects an entire dataspace.
@@ -525,8 +529,11 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t select_hyperslab
-            (hid_t space_id, seloper_t op, hsize_t* start, hsize_t* stride,
-            hsize_t* count, hsize_t* block);
+            (hid_t space_id, seloper_t op,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] start,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] stride,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] count,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] block);
 
         /// <summary>
         /// Resets the selection region to include no elements.
@@ -584,7 +591,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_extent_simple
-            (hid_t space_id, int rank, hsize_t* current_size,
-            hsize_t* maximum_size);
+            (hid_t space_id, int rank,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] current_size,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] maximum_size);
     }
 }
