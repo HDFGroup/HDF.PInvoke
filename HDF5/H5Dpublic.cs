@@ -203,6 +203,29 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create
+            (hid_t loc_id, byte[] name, hid_t type_id, hid_t space_id,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t dcpl_id = H5P.DEFAULT,
+            hid_t dapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Creates a new dataset and links it into the file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Create2
+        /// </summary>
+        /// <param name="loc_id">Location identifier</param>
+        /// <param name="name">Dataset name</param>
+        /// <param name="type_id">Datatype identifier</param>
+        /// <param name="space_id">Dataspace identifier</param>
+        /// <param name="lcpl_id">Link creation property list</param>
+        /// <param name="dcpl_id">Dataset creation property list</param>
+        /// <param name="dapl_id">Dataset access property list</param>
+        /// <returns>Returns a dataset identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dcreate2",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t create
             (hid_t loc_id, string name, hid_t type_id, hid_t space_id,
             hid_t lcpl_id = H5P.DEFAULT, hid_t dcpl_id = H5P.DEFAULT,
             hid_t dapl_id = H5P.DEFAULT);
@@ -405,6 +428,23 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t open
+            (hid_t file_id, byte[] name, hid_t dapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Opens an existing dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Open2
+        /// </summary>
+        /// <param name="file_id">Location identifier</param>
+        /// <param name="name">Dataset name</param>
+        /// <param name="dapl_id">Dataset access property list</param>
+        /// <returns>Returns a dataset identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dopen2",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t open
             (hid_t file_id, string name, hid_t dapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -426,7 +466,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t read
             (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
-            hid_t file_space_id, hid_t plist_id, IntPtr buf/*out*/);
+            hid_t file_space_id, hid_t plist_id, [Out] IntPtr buf);
 
         /// <summary>
         /// Scatters data into a selection within a memory buffer.
@@ -450,7 +490,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t scatter
             (scatter_func_t op, IntPtr op_data, hid_t type_id,
-            hid_t dst_space_id, IntPtr dst_buf);
+            hid_t dst_space_id, [Out] IntPtr dst_buf);
 
         /// <summary>
         /// Changes the sizes of a dataset’s dimensions.
