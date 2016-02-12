@@ -350,6 +350,28 @@ namespace HDF.PInvoke
             hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
+        /// Creates a hard link to an object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-CreateHard
+        /// </summary>
+        /// <param name="cur_loc">The file or group identifier for the target
+        /// object.</param>
+        /// <param name="cur_name">Name of the target object, which must
+        /// already exist.</param>
+        /// <param name="dst_loc">The file or group identifier for the new link.</param>
+        /// <param name="dst_name">The name of the new link.</param>
+        /// <param name="lcpl_id">Link creation property list identifier.</param>
+        /// <param name="lapl_id">Link access property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings only!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lcreate_hard",
+            CallingConvention = CallingConvention.Cdecl, CharSet=CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t create_hard
+            (hid_t cur_loc, string cur_name, hid_t dst_loc, string dst_name,
+            hid_t lcpl_id = H5P.DEFAULT, hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
         /// Creates a soft link to an object.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-CreateSoft
         /// </summary>

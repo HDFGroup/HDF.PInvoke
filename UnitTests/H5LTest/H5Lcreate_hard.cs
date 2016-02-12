@@ -33,15 +33,13 @@ namespace UnitTests
         {
             Assert.IsTrue(H5G.create(m_v0_test_file, "A/B/C/D", m_lcpl) >= 0);
             Assert.IsTrue(
-                H5L.create_hard(m_v0_test_file,
-                Encoding.ASCII.GetBytes("A/B/C/D"), m_v0_test_file,
-                Encoding.ASCII.GetBytes("shortcut")) >= 0);
+                H5L.create_hard(m_v0_test_file, "A/B/C/D", m_v0_test_file,
+                "shortcut") >= 0);
 
             Assert.IsTrue(H5G.create(m_v2_test_file, "A/B/C/D", m_lcpl) >= 0);
             Assert.IsTrue(
-                H5L.create_hard(m_v2_test_file,
-                Encoding.ASCII.GetBytes("A/B/C/D"), m_v2_test_file,
-                Encoding.ASCII.GetBytes("shortcut")) >= 0);
+                H5L.create_hard(m_v2_test_file, "A/B/C/D", m_v2_test_file,
+                "shortcut") >= 0);
         }
 
         [TestMethod]
