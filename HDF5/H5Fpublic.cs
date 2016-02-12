@@ -423,12 +423,13 @@ namespace HDF.PInvoke
         /// </param>
         /// <returns>Returns a file identifier if successful; otherwise returns
         /// a negative value.</returns>
+        /// <remarks><paramref name="filename"/> MUST be an ASCII string.</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fcreate",
             CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t create
-            ([MarshalAs(UnmanagedType.LPStr)]string filename, uint flags,
+            (string filename, uint flags,
             hid_t create_plist = H5P.DEFAULT, hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
@@ -683,7 +684,8 @@ namespace HDF.PInvoke
         /// <returns>Returns the length of the filename if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_name",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name
             (hid_t obj_id, StringBuilder name, size_t size);
@@ -746,12 +748,12 @@ namespace HDF.PInvoke
         /// <returns>When successful, returns a positive value, for TRUE,
         /// or 0 (zero), for FALSE. On any error, including the case that
         /// the file does not exist, returns a negative value.</returns>
+        /// <remarks><paramref name="filename"/> MUST be an ASCII string.</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fis_hdf5",
             CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static htri_t is_hdf5
-            ([MarshalAs(UnmanagedType.LPStr)]string filename);
+        public extern static htri_t is_hdf5(string filename);
 
         /// <summary>
         /// Mounts a file.
@@ -766,12 +768,30 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t mount
+            (hid_t loc, byte[] name, hid_t child, hid_t plist = H5P.DEFAULT);
+
+        /// <summary>
+        /// Mounts a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Mount
+        /// </summary>
+        /// <param name="loc_id">Identifier for of file or group in which name
+        /// is defined.</param>
+        /// <param name="name">Name of the group onto which the file specified
+        /// by <paramref name="child_id"/> is to be mounted.</param>
+        /// <param name="child_id">Identifier of the file to be mounted.</param>
+        /// <param name="fmpl_id">File mount property list identifier.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
             CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t mount
-            (hid_t loc, [MarshalAs(UnmanagedType.LPStr)]string name,
-            hid_t child, hid_t plist = H5P.DEFAULT);
+            (hid_t loc, string name, hid_t child, hid_t plist = H5P.DEFAULT);
 
         /// <summary>
         /// Opens an existing HDF5 file.
@@ -784,13 +804,13 @@ namespace HDF.PInvoke
         /// list.</param>
         /// <returns>Returns a file identifier if successful; otherwise returns
         /// a negative value.</returns>
+        /// <remarks><paramref name="filename"/> MUST be an ASCII string!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fopen",
             CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            ([MarshalAs(UnmanagedType.LPStr)]string filename, uint flags,
-            hid_t access_plist = H5P.DEFAULT);
+            (string filename, uint flags, hid_t access_plist = H5P.DEFAULT);
 
         /// <summary>
         /// Returns a new identifier for a previously-opened HDF5 file.
@@ -886,10 +906,24 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Funmount",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t unmount(hid_t loc, byte[] name);
+
+        /// <summary>
+        /// Unmounts a file.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Unmount
+        /// </summary>
+        /// <param name="loc_id">File or group identifier for the location at
+        /// which the specified file is to be unmounted.</param>
+        /// <param name="name">Name of the mount point.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Funmount",
             CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t unmount(hid_t loc,
-            [MarshalAs(UnmanagedType.LPStr)]string name);
+        public extern static herr_t unmount(hid_t loc, string name);
     }
 }
