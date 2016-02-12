@@ -42,7 +42,7 @@ namespace UnitTests
             Assert.IsTrue(att >= 0);
 
             // pretend we don't know the size
-            size = H5A.get_name(att, buf_size, null);
+            size = H5A.get_name(att, buf_size, (StringBuilder) null);
             Assert.IsTrue(size.ToInt32() == 11);
             buf_size = new IntPtr(size.ToInt32() + 1);
             StringBuilder nameBuilder = new StringBuilder(buf_size.ToInt32());
@@ -69,7 +69,10 @@ namespace UnitTests
         public void H5Aget_nameTest2()
         {
             Assert.IsFalse(H5A.get_name(Utilities.RandomInvalidHandle(),
-                IntPtr.Zero, null).ToInt32() >= 0);
+                IntPtr.Zero, (StringBuilder) null).ToInt32() >= 0);
+
+            Assert.IsFalse(H5A.get_name(Utilities.RandomInvalidHandle(),
+                IntPtr.Zero, (byte[]) null).ToInt32() >= 0);
         }
     }
 }

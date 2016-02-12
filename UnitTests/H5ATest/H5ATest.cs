@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -109,9 +110,23 @@ namespace UnitTests
         public herr_t DelegateMethod
             (
             hid_t          location_id,
-            string         attr_name,
+            byte[]         attr_name,
             ref H5A.info_t ainfo,
             IntPtr         op_data
+            )
+        {
+            GCHandle hnd = (GCHandle)op_data;
+            ArrayList al = (hnd.Target as ArrayList);
+            al.Add(Encoding.ASCII.GetString(attr_name));
+            return 0;
+        }
+
+        public herr_t DelegateMethodASCII
+            (
+            hid_t location_id,
+            string attr_name,
+            ref H5A.info_t ainfo,
+            IntPtr op_data
             )
         {
             GCHandle hnd = (GCHandle)op_data;
