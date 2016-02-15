@@ -81,6 +81,30 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t create
+            (IntPtr refer, hid_t loc_id, byte[] name, type_t ref_type,
+            hid_t space_id);
+
+        /// <summary>
+        /// Creates a reference.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5R.html#Reference-Create
+        /// </summary>
+        /// <param name="refer">Reference created by the function call.</param>
+        /// <param name="loc_id">Location identifier used to locate the object
+        /// being pointed to.</param>
+        /// <param name="name">Name of object at location
+        /// <paramref name="loc_id"/>.</param>
+        /// <param name="ref_type">Type of reference.</param>
+        /// <param name="space_id">Dataspace identifier with selection. Used
+        /// only for dataset region references; pass as -1 if reference is an
+        /// object reference.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Rcreate",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t create
             (IntPtr refer, hid_t loc_id, string name, type_t ref_type,
             hid_t space_id);
 
@@ -121,6 +145,31 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_name
+            (hid_t loc_id, type_t ref_type, IntPtr refer, [Out] byte[] name,
+            size_t size);
+
+        /// <summary>
+        /// Retrieves a name for a referenced object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5R.html#Reference-GetName
+        /// </summary>
+        /// <param name="loc_id">Identifier for the file containing the
+        /// reference or for any object in that file.</param>
+        /// <param name="ref_type">Type of reference.</param>
+        /// <param name="refer">An object or dataset region reference.</param>
+        /// <param name="name">A buffer to place the name of the referenced
+        /// object or dataset region. If <code>NULL</code>, then this call will
+        /// return the size in bytes of the name.</param>
+        /// <param name="size">The size of the <paramref name="name"/>
+        /// buffer.</param>
+        /// <returns>Returns the length of the name if successful, returning 0
+        /// (zero) if no name is associated with the identifier. Otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Rget_name",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_name
             (hid_t loc_id, type_t ref_type, IntPtr refer, StringBuilder name,
             size_t size);
 
@@ -139,7 +188,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_obj_type
-            (hid_t loc_id, type_t ref_type, IntPtr refer, H5O.type_t* obj_type);
+            (hid_t loc_id, type_t ref_type, IntPtr refer,
+            ref H5O.type_t obj_type);
 
         /// <summary>
         /// Sets up a dataspace and selection as specified by a region reference.
