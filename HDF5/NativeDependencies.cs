@@ -13,6 +13,8 @@ namespace HDF.PInvoke
 {    
     public static class NativeDependencies
     {
+        public const string NativePathSetting = "NativeDependenciesAbsolutePath";
+
         public static void ResolvePathToExternalDependencies()
         {
             string NativeDllPath;
@@ -26,14 +28,19 @@ namespace HDF.PInvoke
             } 
         }
 
-        public static bool GetDllPathFromAppConfig(out string aPath)
+        //----------------------------------------------------------------
+
+        private static bool GetDllPathFromAppConfig(out string aPath)
         {
-            aPath = String.Empty;
+            aPath = string.Empty;
             try
             {
-                string pathFromAppSettings = ConfigurationManager.AppSettings["NativeDependenciesAbsolutePath"].ToString();
-                if (String.IsNullOrEmpty(pathFromAppSettings)) return false;
-                if (!Path.GetInvalidPathChars().All(c => pathFromAppSettings.Contains(c))) return false;
+                string pathFromAppSettings = ConfigurationManager.
+                    AppSettings[NativePathSetting].ToString();
+                if (string.IsNullOrEmpty(pathFromAppSettings))
+                    return false;
+                if (Path.GetInvalidPathChars().Any(
+                    c => pathFromAppSettings.Contains(c))) return false;
 
                 aPath = pathFromAppSettings;
                 return true;
@@ -44,7 +51,7 @@ namespace HDF.PInvoke
             }
         }
 
-        public static string GetAssemblyName()
+        private static string GetAssemblyName()
         {
             string myPath = new Uri(System.Reflection.Assembly
                 .GetExecutingAssembly().CodeBase).AbsolutePath;
@@ -52,7 +59,7 @@ namespace HDF.PInvoke
             return myPath;
         }
 
-        public static void GetDllPathFromAssembly(out string aPath)
+        private static void GetDllPathFromAssembly(out string aPath)
         {
             if (Environment.Is64BitProcess)
             {
@@ -66,7 +73,7 @@ namespace HDF.PInvoke
             }
         }
 
-        public static void AddPathStringToEnvironment(string aPath)
+        private static void AddPathStringToEnvironment(string aPath)
         {
             try
             {
@@ -74,18 +81,19 @@ namespace HDF.PInvoke
                 if (EnvPath.Contains(aPath)) return;
                 
                 Environment.SetEnvironmentVariable
-                    ("PATH", String.Join(";", EnvPath, aPath));
+                    ("PATH", string.Join(";", EnvPath, aPath));
             }
             catch(SecurityException) 
             { }
         }
 
-        public static bool AddPathToNativeDllSearchPath(string aPath)
+        private static bool AddPathToNativeDllSearchPath(string aPath)
         {
             return SetDllDirectory(aPath);
         }
 
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        [DllImport("kernel32.dll", 
+            CallingConvention = CallingConvention.Winapi, SetLastError = true)]
         private static extern bool SetDllDirectory(string lpPathName);
     }
 }
