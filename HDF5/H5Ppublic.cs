@@ -117,11 +117,13 @@ namespace HDF.PInvoke
 
         /* Define property list callback function pointer types */
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet=CharSet.Ansi)]
         public delegate herr_t prp_cb1_t
         (string name, size_t size, IntPtr value);
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
         public delegate herr_t prp_cb2_t
         (hid_t prop_id, string name, size_t size, IntPtr value);
 
@@ -130,7 +132,8 @@ namespace HDF.PInvoke
         (IntPtr value1, IntPtr value2, size_t size);
 
         /* Define property list iteration function type */
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi)]
         public delegate herr_t iterate_t
             (hid_t id, string name, IntPtr iter_data);
 
@@ -187,6 +190,24 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Padd_merge_committed_dtype_path",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t add_merge_committed_dtype_path
+            (hid_t ocpypl_id, byte[] path);
+
+        /// <summary>
+        /// Adds a path to the list of paths that will be searched in the
+        /// destination file for a matching committed datatype.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-AddMergeCommittedDtypePath
+        /// </summary>
+        /// <param name="ocpypl_id">Object copy property list identifier.</param>
+        /// <param name="path">The path to be added.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Padd_merge_committed_dtype_path",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t add_merge_committed_dtype_path
@@ -254,7 +275,9 @@ namespace HDF.PInvoke
         /// <param name="name">Name of the property to copy</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pcopy_prop",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t copy_prop
@@ -293,7 +316,9 @@ namespace HDF.PInvoke
         /// to be passed along to class close callback</param>
         /// <returns>On success, returns a valid property list class identifier;
         /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pcreate_class",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t create_class
@@ -323,7 +348,9 @@ namespace HDF.PInvoke
         /// <returns>Returns 1 if the property exists in the property object;
         /// 0 if the property does not exist. Returns a negative value
         /// on error.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pexist",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern htri_t exist(hid_t id, string name);
@@ -367,7 +394,9 @@ namespace HDF.PInvoke
         /// value of of the property</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get
@@ -1335,7 +1364,9 @@ namespace HDF.PInvoke
         /// <param name="size">Size of property in bytes</param>
         /// <returns>Returns a non-negative value if successful.
         /// Otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_size",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_size
@@ -1492,7 +1523,9 @@ namespace HDF.PInvoke
         /// being closed and the property value will be disposed of</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pinsert2",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t insert
@@ -1577,7 +1610,9 @@ namespace HDF.PInvoke
         /// being closed and the property value will be disposed of</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pregister2",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t register
@@ -1594,7 +1629,9 @@ namespace HDF.PInvoke
         /// <param name="name">Name of property to remove</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Premove",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t remove(hid_t plid, string name);
@@ -1623,7 +1660,9 @@ namespace HDF.PInvoke
         /// <param name="value">Pointer to value to set the property to</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set
@@ -1856,7 +1895,9 @@ namespace HDF.PInvoke
         /// transform expression</param>
         /// <returns>Returns a non-negative valule if successful;
         /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_data_transform",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_data_transform
@@ -1981,7 +2022,9 @@ namespace HDF.PInvoke
         /// <param name="prefix">Prefix to be applied to external link paths</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_elink_prefix",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_elink_prefix
@@ -2015,7 +2058,9 @@ namespace HDF.PInvoke
         /// data.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_external",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_external
@@ -2094,7 +2139,9 @@ namespace HDF.PInvoke
         /// <param name="buf_size">The size of the logging buffers, in bytes.</param>
         /// <returns>Returns non-negative if successful. Otherwise returns
         /// negative.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_log",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_fapl_log
@@ -2126,7 +2173,9 @@ namespace HDF.PInvoke
         /// the raw data file.</param>
         /// <returns>Returns a non-negative value if successful. Otherwise
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_fapl_split",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_fapl_split
