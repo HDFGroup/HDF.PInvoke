@@ -16,8 +16,12 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
+
+using herr_t = System.Int32;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -104,5 +108,36 @@ namespace UnitTests
         private string m_v2_test_file_name;
 
         private static string [] m_utf8strings = new string[] { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
+
+        // Callback for H5L.iterate and H5L.iterate_by_name
+        // We expect an array list as op_data, add the attribute names to the
+        // array list as we go
+        public herr_t DelegateMethod
+            (
+            hid_t group,
+            byte[] name,
+            ref H5L.info_t info,
+            IntPtr op_data
+            )
+        {
+            GCHandle hnd = (GCHandle)op_data;
+            ArrayList al = (hnd.Target as ArrayList);
+            al.Add(Encoding.UTF8.GetString(name));
+            return 0;
+        }
+
+        public herr_t DelegateMethodASCII
+            (
+            hid_t group,
+            string name,
+            ref H5L.info_t ainfo,
+            IntPtr op_data
+            )
+        {
+            GCHandle hnd = (GCHandle)op_data;
+            ArrayList al = (hnd.Target as ArrayList);
+            al.Add(name);
+            return 0;
+        }
     }
 }

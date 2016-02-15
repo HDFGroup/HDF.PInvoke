@@ -117,7 +117,7 @@ namespace UnitTests
         {
             GCHandle hnd = (GCHandle)op_data;
             ArrayList al = (hnd.Target as ArrayList);
-            al.Add(Encoding.ASCII.GetString(attr_name));
+            al.Add(Encoding.UTF8.GetString(attr_name));
             return 0;
         }
 

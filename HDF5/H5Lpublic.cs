@@ -348,11 +348,18 @@ namespace HDF.PInvoke
         /// <summary>
         /// Prototype for H5Literate/H5Literate_by_name() operator
         /// </summary>
-        /// <param name="group"></param>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        /// <param name="op_data"></param>
-        /// <returns></returns>
+        /// <param name="group">Group that serves as root of the iteration</param>
+        /// <param name="name">Name of link, relative to <paramref name="group"/>,
+        /// being examined at current step of the iteration</param>
+        /// <param name="info"><code>H5L.info_t</code> struct containing
+        /// information regarding that link</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application in processing the link</param>
+        /// <returns>Zero causes the visit iterator to continue, returning zero
+        /// when all group members have been processed. A positive value causes
+        /// the visit iterator to immediately return that positive value,
+        /// indicating short-circuit success. A negative value causes the visit
+        /// iterator to immediately return that value, indicating failure.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t iterate_t
         (hid_t group, byte[] name, ref info_t info, IntPtr op_data);
@@ -360,11 +367,18 @@ namespace HDF.PInvoke
         /// <summary>
         /// Prototype for H5Literate/H5Literate_by_name() operator
         /// </summary>
-        /// <param name="group"></param>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        /// <param name="op_data"></param>
-        /// <returns></returns>
+        /// <param name="group">Group that serves as root of the iteration</param>
+        /// <param name="name">Name of link, relative to <paramref name="group"/>,
+        /// being examined at current step of the iteration</param>
+        /// <param name="info"><code>H5L.info_t</code> struct containing
+        /// information regarding that link</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application in processing the link</param>
+        /// <returns>Zero causes the visit iterator to continue, returning zero
+        /// when all group members have been processed. A positive value causes
+        /// the visit iterator to immediately return that positive value,
+        /// indicating short-circuit success. A negative value causes the visit
+        /// iterator to immediately return that value, indicating failure.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl,
             CharSet = CharSet.Ansi)]
