@@ -42,6 +42,10 @@ namespace UnitTests
 
             m_lcpl = H5P.create(H5P.LINK_CREATE);
             Assert.IsTrue(H5P.set_create_intermediate_group(m_lcpl, 1) >= 0);
+
+            m_lcpl_utf8 = H5P.copy(m_lcpl);
+            Assert.IsTrue(
+                H5P.set_char_encoding(m_lcpl_utf8, H5T.cset_t.UTF8) >= 0);
         }
 
         [TestInitialize()]
@@ -70,6 +74,7 @@ namespace UnitTests
         public static void ClassCleanup()
         {
             Assert.IsTrue(H5P.close(m_lcpl) >= 0);
+            Assert.IsTrue(H5P.close(m_lcpl_utf8) >= 0);
 
             // close the global test files
             Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
@@ -88,6 +93,8 @@ namespace UnitTests
 
         private static hid_t m_lcpl;
 
+        private static hid_t m_lcpl_utf8;
+
         private hid_t m_v0_test_file = -1;
 
         private string m_v0_test_file_name;
@@ -96,6 +103,6 @@ namespace UnitTests
 
         private string m_v2_test_file_name;
 
-        private static ArrayList m_utf8strings = new ArrayList() { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
+        private static string [] m_utf8strings = new string[] { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
     }
 }

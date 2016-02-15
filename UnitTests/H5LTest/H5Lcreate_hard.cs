@@ -45,20 +45,27 @@ namespace UnitTests
         [TestMethod]
         public void H5Lcreate_hardTest2()
         {
-            hid_t lcpl = H5P.copy(m_lcpl);
-            Assert.IsTrue(lcpl >= 0);
-            Assert.IsTrue(H5P.set_char_encoding(lcpl, H5T.cset_t.UTF8) >= 0);
+            Assert.IsTrue(
+                H5G.create(m_v0_test_file, "A/B/C/D", m_lcpl_utf8) >= 0);
 
-            Assert.IsTrue(H5G.create(m_v0_test_file, "A/B/C/D", m_lcpl) >= 0);
-
-            for (int i = 0; i < m_utf8strings.Count; ++i)
+            for (int i = 0; i < m_utf8strings.Length; ++i)
             {
                 Assert.IsTrue(
                     H5L.create_hard(m_v0_test_file,
                     Encoding.ASCII.GetBytes("A/B/C/D"), m_v0_test_file,
-                    Encoding.UTF8.GetBytes((string)m_utf8strings[i])) >= 0);
+                    Encoding.UTF8.GetBytes(m_utf8strings[i])) >= 0);
             }
-            Assert.IsTrue(H5P.close(lcpl) >= 0);
+
+            Assert.IsTrue(
+                H5G.create(m_v2_test_file, "A/B/C/D", m_lcpl_utf8) >= 0);
+
+            for (int i = 0; i < m_utf8strings.Length; ++i)
+            {
+                Assert.IsTrue(
+                    H5L.create_hard(m_v2_test_file,
+                    Encoding.ASCII.GetBytes("A/B/C/D"), m_v2_test_file,
+                    Encoding.UTF8.GetBytes(m_utf8strings[i])) >= 0);
+            }
         }
     }
 }

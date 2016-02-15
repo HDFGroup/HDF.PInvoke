@@ -86,14 +86,14 @@ namespace UnitTests
             Assert.IsTrue(lcpl >= 0);
             Assert.IsTrue(H5P.set_char_encoding(lcpl, H5T.cset_t.UTF8) >= 0);
 
-            for (int i = 0; i < m_utf8strings.Count; ++i)
+            for (int i = 0; i < m_utf8strings.Length; ++i)
             {
                 Assert.IsTrue(
                     H5L.create_external(m_v0_class_file_name, "/",
-                    m_v0_class_file, (string)m_utf8strings[i], lcpl) >= 0);
+                    m_v0_class_file, m_utf8strings[i], lcpl) >= 0);
             }
 
-            for (int i = 0; i < m_utf8strings.Count; ++i)
+            for (int i = 0; i < m_utf8strings.Length; ++i)
             {
                 size_t buf_size = IntPtr.Zero;
                 ssize_t size = H5L.get_name_by_idx(m_v0_test_file, ".",
