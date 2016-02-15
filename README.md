@@ -6,7 +6,9 @@ Currently, the bindings are tested and developed with HDF5 1.8.16. Once we've co
 
 HDF5 binaries can be obtained from [here](https://www.hdfgroup.org/HDF5/release/obtain5.html). The ``HDF.PInvoke.dll`` managed assemblies, located in ``bin\[Debug,Release]``, depend on the unmanaged DLLs ``hdf5.dll``, ``szip.dll``, and ``zlib.dll`` for the corresponding processor architecture.
 
-When the assembly ``HDF.PInvoke.dll`` is loaded, the configuration file ``HDF.PInvoke.dll.config`` is searched for the key ``NativeDependenciesAbsolutePath``, whose value, if found, is added to the ``PATH`` environment variable. If this key is not specified in ``HDF.PInvoke.dll.config``, then the ``HDF.PInvoke.dll`` assembly detects the processor architecture (32- or 64-bit) of the hosting process and expects the unmanaged DLLs in the ``bin32`` or ``bin64`` subdirectories relative to its own location. For example, if ``HDF.PInvoke.dll`` lives in ``C:\bin``, it expects the unmanaged DLLs in ``C:\bin\bin32`` and ``C:\bin\bin64``.
+When the assembly ``HDF.PInvoke.dll`` is loaded, the application's configuration file (eg. ``YourApplication.exe.config``) is searched for the key ``NativeDependenciesAbsolutePath``, whose value, if found, is added to the DLL-search path. If this key is not specified in the application's config-file, then the ``HDF.PInvoke.dll`` assembly detects the processor architecture (32- or 64-bit) of the hosting process and expects the unmanaged DLLs in the ``bin32`` or ``bin64`` subdirectories relative to its own location. For example, if ``HDF.PInvoke.dll`` lives in ``C:\bin``, it expects the unmanaged DLLs in ``C:\bin\bin32`` and ``C:\bin\bin64``.
+
+Changing the DLL-search path is done in two attempts: First, an attempt to set the DLL-Load directory directly is made. If that fails, an attempt to modify the running processes ``PATH`` environment is made. If both attempts fail, the native binaries will be loaded from their default places (as hopefully installed by the HDF5-Installer).
 
 ### Structure
 
