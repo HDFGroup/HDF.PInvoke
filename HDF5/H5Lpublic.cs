@@ -1172,31 +1172,8 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t unpack_elink_val
-            (IntPtr ext_linkval, size_t link_size, int flags,
-            [Out] byte[] filename, [Out] byte[] obj_path);
-
-        /// <summary>
-        /// Decodes external link information.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-UnpackELinkVal
-        /// </summary>
-        /// <param name="ext_linkval">Buffer containing external link
-        /// information</param>
-        /// <param name="link_size">Size, in bytes, of the
-        /// <paramref name="ext_linkval"/> buffer</param>
-        /// <param name="flags">External link flags, packed as a bitmap</param>
-        /// <param name="filename">Returned filename</param>
-        /// <param name="obj_path">Returned object path, relative to
-        /// <paramref name="filename"/></param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lunpack_elink_val",
-            CallingConvention = CallingConvention.Cdecl,
-            CharSet = CharSet.Ansi),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t unpack_elink_val
-            (IntPtr ext_linkval, size_t link_size, int flags,
-            [Out] string filename, [Out] string obj_path);
+            (IntPtr ext_linkval, size_t link_size, ref uint flags,
+            ref IntPtr filename, ref IntPtr obj_path);
 
         /// <summary>
         /// Unregisters a class of user-defined links.
