@@ -225,7 +225,7 @@ namespace HDF.PInvoke
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Sdecode",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern hid_t decode(byte* buf);
+        public static extern hid_t decode(byte[] buf);
 
         /// <summary>
         /// Encode a data space object description into a binary buffer.
@@ -244,7 +244,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t encode
             (hid_t obj_id,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][In, Out]
+            [MarshalAs(UnmanagedType.LPArray)][In, Out]
             byte[] buf, ref size_t nalloc);
 
         /// <summary>

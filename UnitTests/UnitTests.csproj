@@ -188,6 +188,11 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5STest\H5Sdecode.cs" />
+    <Compile Include="H5STest\H5Sencode.cs" />
+    <Compile Include="H5STest\H5Screate.cs" />
+    <Compile Include="H5STest\H5Scopy.cs" />
+    <Compile Include="H5STest\H5Sclose.cs" />
     <Compile Include="H5STest\H5Sget_simple_extent_dims.cs" />
     <Compile Include="H5STest\H5STest.cs" />
     <Compile Include="H5STest\H5Screate_simple.cs" />
