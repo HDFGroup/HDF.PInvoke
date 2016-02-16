@@ -296,12 +296,12 @@ namespace HDF.PInvoke
             (hid_t space_id, [Out] hsize_t[] start, [Out] hsize_t[] end);
 
         /// <summary>
-        /// Gets the number of element points in the current selection.
+        /// Gets the number of points in the current point selection.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectElemNPoints
         /// </summary>
         /// <param name="space_id">Identifier of dataspace to query.</param>
-        /// <returns>Returns the number of element points in the current
-        /// dataspace selection if successful. Otherwise returns a negative
+        /// <returns>Returns the number of points in the current dataspace
+        /// point selection if successful. Otherwise returns a negative
         /// value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Sget_select_elem_npoints",
@@ -310,7 +310,7 @@ namespace HDF.PInvoke
         public static extern hssize_t get_select_elem_npoints(hid_t space_id);
 
         /// <summary>
-        /// Gets the list of element points currently selected.
+        /// Gets the list of points in a point selection.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectElemPointList
         /// </summary>
         /// <param name="space_id">Dataspace identifier of selection to query.</param>
@@ -328,7 +328,7 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
 
         /// <summary>
-        /// Gets the list of hyperslab blocks currently selected.
+        /// Gets the list of hyperslab blocks in a hyperslab selection.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectHyperBlockList
         /// </summary>
         /// <param name="space_id">Dataspace identifier of selection to query.</param>
@@ -345,13 +345,12 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
 
         /// <summary>
-        /// Get number of hyperslab blocks.
+        /// Get number of hyperslab blocks in a hyperslab selection.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectHyperNBlocks
         /// </summary>
         /// <param name="space_id">Identifier of dataspace to query.</param>
-        /// <returns>Returns the number of hyperslab blocks in the current
-        /// dataspace selection if successful. Otherwise returns a negative
-        /// value.</returns>
+        /// <returns>Returns the number of hyperslab blocks in a hyperslab
+        /// selection if successful. Otherwise returns a negative value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Sget_select_hyper_nblocks",
             CallingConvention = CallingConvention.Cdecl),
