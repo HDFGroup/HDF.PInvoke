@@ -188,6 +188,14 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5STest\H5Sset_extent_simple.cs" />
+    <Compile Include="H5STest\H5Sset_extent_none.cs" />
+    <Compile Include="H5STest\H5Sselect_valid.cs" />
+    <Compile Include="H5STest\H5Sselect_none.cs" />
+    <Compile Include="H5STest\H5Sselect_hyperslab.cs" />
+    <Compile Include="H5STest\H5Sselect_elements.cs" />
+    <Compile Include="H5STest\H5Sselect_all.cs" />
+    <Compile Include="H5STest\H5Soffset_simple.cs" />
     <Compile Include="H5STest\H5Sget_select_type.cs" />
     <Compile Include="H5STest\H5Sget_select_npoints.cs" />
     <Compile Include="H5STest\H5Sget_select_hyper_block_list.cs" />
@@ -202,6 +210,10 @@
     <Compile Include="H5STest\H5Screate.cs" />
     <Compile Include="H5STest\H5Scopy.cs" />
     <Compile Include="H5STest\H5Sclose.cs" />
+    <Compile Include="H5STest\H5Sis_simple.cs" />
+    <Compile Include="H5STest\H5Sget_simple_extent_type.cs" />
+    <Compile Include="H5STest\H5Sget_simple_extent_npoints.cs" />
+    <Compile Include="H5STest\H5Sget_simple_extent_ndims.cs" />
     <Compile Include="H5STest\H5Sget_simple_extent_dims.cs" />
     <Compile Include="H5STest\H5STest.cs" />
     <Compile Include="H5STest\H5Screate_simple.cs" />

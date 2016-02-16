@@ -441,7 +441,7 @@ namespace HDF.PInvoke
             EntryPoint = "H5Sget_simple_extent_type",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern class_t H5Sget_simple_extent_type(hid_t space_id);
+        public static extern class_t get_simple_extent_type(hid_t space_id);
 
         /// <summary>
         /// Determines whether a dataspace is a simple dataspace.
