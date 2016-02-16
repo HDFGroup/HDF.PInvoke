@@ -188,6 +188,15 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5STest\H5Sget_select_type.cs" />
+    <Compile Include="H5STest\H5Sget_select_npoints.cs" />
+    <Compile Include="H5STest\H5Sget_select_hyper_block_list.cs" />
+    <Compile Include="H5STest\H5Sget_select_hyper_nblocks.cs" />
+    <Compile Include="H5STest\H5Sget_select_elem_pointlist.cs" />
+    <Compile Include="H5STest\H5Sget_select_elem_npoints.cs" />
+    <Compile Include="H5STest\H5Sget_select_bounds.cs" />
+    <Compile Include="H5STest\H5Sextent_equal.cs" />
+    <Compile Include="H5STest\H5Sextent_copy.cs" />
     <Compile Include="H5STest\H5Sdecode.cs" />
     <Compile Include="H5STest\H5Sencode.cs" />
     <Compile Include="H5STest\H5Screate.cs" />

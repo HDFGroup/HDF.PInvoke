@@ -244,8 +244,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t encode
             (hid_t obj_id,
-            [MarshalAs(UnmanagedType.LPArray)][In, Out]
-            byte[] buf, ref size_t nalloc);
+            [MarshalAs(UnmanagedType.LPArray)][In, Out] byte[] buf,
+            ref size_t nalloc);
 
         /// <summary>
         /// Copies the extent of a dataspace.
@@ -325,8 +325,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_elem_pointlist
             (hid_t space_id, hsize_t startpoint, hsize_t numpoints,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][Out]
-            hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
 
         /// <summary>
         /// Gets the list of hyperslab blocks currently selected.
@@ -343,8 +342,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_hyper_blocklist
             (hid_t space_id, hsize_t startblock, hsize_t numblocks,
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)][Out]
-            hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
 
         /// <summary>
         /// Get number of hyperslab blocks.
@@ -511,7 +509,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t select_elements
             (hid_t space_id, seloper_t op, size_t num_elements,
-            hsize_t* coord);
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] coord);
 
         /// <summary>
         /// Selects a hyperslab region to add to the current selected region.
