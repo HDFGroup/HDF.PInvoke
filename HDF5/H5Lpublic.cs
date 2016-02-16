@@ -362,28 +362,7 @@ namespace HDF.PInvoke
         /// iterator to immediately return that value, indicating failure.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t iterate_t
-        (hid_t group, byte[] name, ref info_t info, IntPtr op_data);
-
-        /// <summary>
-        /// Prototype for H5Literate/H5Literate_by_name() operator
-        /// </summary>
-        /// <param name="group">Group that serves as root of the iteration</param>
-        /// <param name="name">Name of link, relative to <paramref name="group"/>,
-        /// being examined at current step of the iteration</param>
-        /// <param name="info"><code>H5L.info_t</code> struct containing
-        /// information regarding that link</param>
-        /// <param name="op_data">User-defined pointer to data required by the
-        /// application in processing the link</param>
-        /// <returns>Zero causes the visit iterator to continue, returning zero
-        /// when all group members have been processed. A positive value causes
-        /// the visit iterator to immediately return that positive value,
-        /// indicating short-circuit success. A negative value causes the visit
-        /// iterator to immediately return that value, indicating failure.</returns>
-        /// <remarks>ASCII strings ONLY!</remarks>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
-            CharSet = CharSet.Ansi)]
-        public delegate herr_t iterate_ascii_t
-        (hid_t group, string name, ref info_t info, IntPtr op_data);
+        (hid_t group, IntPtr name, ref info_t info, IntPtr op_data);
 
         /// <summary>
         /// Callback for external link traversal
@@ -1022,31 +1001,6 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Iterates through links in a group.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Iterate
-        /// </summary>
-        /// <param name="grp_id">Identifier specifying subject group</param>
-        /// <param name="idx_type">Type of index which determines the order</param>
-        /// <param name="order">Order within index</param>
-        /// <param name="idx">Iteration position at which to start</param>
-        /// <param name="op">Callback function passing data regarding the link
-        /// to the calling application</param>
-        /// <param name="op_data">User-defined pointer to data required by the
-        /// application for its processing of the link</param>
-        /// <returns>On success, returns the return value of the first operator
-        /// that returns a positive value, or zero if all members were
-        /// processed with no operator returning non-zero. On failure, returns
-        /// a negative value if something goes wrong within the library, or the
-        /// first negative value returned by an operator.</returns>
-        /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Literate",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t iterate
-            (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t idx, iterate_ascii_t op, IntPtr op_data);
-
-        /// <summary>
-        /// Iterates through links in a group.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-IterateByName
         /// </summary>
         /// <param name="loc_id">File or group identifier specifying location
@@ -1089,12 +1043,12 @@ namespace HDF.PInvoke
         /// returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Literate_by_name",
-            CallingConvention = CallingConvention.Cdecl,
-            CharSet = CharSet.Ansi),
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate_by_name
             (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, ref hsize_t idx, iterate_ascii_t op,
+            H5.iter_order_t order, ref hsize_t idx, iterate_t op,
             IntPtr op_data, hid_t lapl_id = H5P.DEFAULT);
         
         /// <summary>
@@ -1210,31 +1164,6 @@ namespace HDF.PInvoke
         public extern static herr_t visit
             (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
             iterate_t op, IntPtr op_data);
-
-        /// <summary>
-        /// Recursively visits all links starting from a specified group.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5L.html#Link-Visit
-        /// </summary>
-        /// <param name="grp_id">Identifier of the group at which the recursive
-        /// iteration begins.</param>
-        /// <param name="idx_type">Type of index</param>
-        /// <param name="order">Order in which index is traversed</param>
-        /// <param name="op">Callback function passing data regarding the link
-        /// to the calling application</param>
-        /// <param name="op_data">User-defined pointer to data required by the
-        /// application for its processing of the link</param>
-        /// <returns>On success, returns the return value of the first operator
-        /// that returns a positive value, or zero if all members were
-        /// processed with no operator returning non-zero. On failure, returns
-        /// a negative value if something goes wrong within the library, or the
-        /// first negative value returned by an operator.</returns>
-        /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Lvisit",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t visit
-            (hid_t grp_id, H5.index_t idx_type, H5.iter_order_t order,
-            iterate_ascii_t op, IntPtr op_data);
         
         /// <summary>
         /// Recursively visits all links starting from a specified group.
@@ -1284,12 +1213,12 @@ namespace HDF.PInvoke
         /// first negative value returned by an operator.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Lvisit_by_name",
-            CallingConvention = CallingConvention.Cdecl,
-            CharSet = CharSet.Ansi),
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
             (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, iterate_ascii_t op, IntPtr op_data,
+            H5.iter_order_t order, iterate_t op, IntPtr op_data,
             hid_t lapl_id = H5P.DEFAULT);
     }
 }

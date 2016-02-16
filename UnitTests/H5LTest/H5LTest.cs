@@ -115,28 +115,18 @@ namespace UnitTests
         public herr_t DelegateMethod
             (
             hid_t group,
-            byte[] name,
+            IntPtr name,
             ref H5L.info_t info,
             IntPtr op_data
             )
         {
             GCHandle hnd = (GCHandle)op_data;
             ArrayList al = (hnd.Target as ArrayList);
-            al.Add(Encoding.UTF8.GetString(name));
-            return 0;
-        }
-
-        public herr_t DelegateMethodASCII
-            (
-            hid_t group,
-            string name,
-            ref H5L.info_t ainfo,
-            IntPtr op_data
-            )
-        {
-            GCHandle hnd = (GCHandle)op_data;
-            ArrayList al = (hnd.Target as ArrayList);
-            al.Add(name);
+            int len = 0;
+            while (Marshal.ReadByte(name, len) != 0) { ++len; }
+            byte[] name_buf = new byte[len];
+            Marshal.Copy(name, name_buf, 0, len);
+            al.Add(Encoding.UTF8.GetString(name_buf));
             return 0;
         }
     }

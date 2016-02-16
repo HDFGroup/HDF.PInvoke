@@ -48,7 +48,7 @@ namespace UnitTests
             IntPtr op_data = (IntPtr)hnd;
             hsize_t n = 0;
             // the callback is defined in H5LTest.cs
-            H5L.iterate_ascii_t cb = DelegateMethodASCII;
+            H5L.iterate_t cb = DelegateMethod;
             Assert.IsTrue(H5L.iterate(m_v0_test_file, H5.index_t.NAME,
                 H5.iter_order_t.NATIVE, ref n, cb, op_data) >= 0);
             // we should have 3 elements in the array list
@@ -78,7 +78,7 @@ namespace UnitTests
             IntPtr op_data = (IntPtr)hnd;
             hsize_t n = 0;
             // the callback is defined in H5ATest.cs
-            H5L.iterate_ascii_t cb = DelegateMethodASCII;
+            H5L.iterate_t cb = DelegateMethod;
 
             Assert.IsFalse(
                 H5L.iterate(Utilities.RandomInvalidHandle(),
