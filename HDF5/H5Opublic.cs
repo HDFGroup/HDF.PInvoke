@@ -310,20 +310,7 @@ namespace HDF.PInvoke
         /// <returns></returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t iterate_t
-        (hid_t obj, byte[] name, ref info_t info, IntPtr op_data);
-
-        /// <summary>
-        /// Prototype for H5Ovisit/H5Ovisit_by_name() operator
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        /// <param name="op_data"></param>
-        /// <returns></returns>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
-            CharSet = CharSet.Ansi)]
-        public delegate herr_t iterate_ascii_t
-        (hid_t obj, string name, ref info_t info, IntPtr op_data);
+        (hid_t obj, IntPtr name, ref info_t info, IntPtr op_data);
 
         public enum mcdt_search_ret_t
         {
@@ -809,31 +796,6 @@ namespace HDF.PInvoke
             iterate_t op, IntPtr op_data);
 
         /// <summary>
-        /// Recursively visits all objects accessible from a specified object.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Visit
-        /// </summary>
-        /// <param name="obj_id">Identifier of the object at which the
-        /// recursive iteration begins.</param>
-        /// <param name="idx_type">Type of index</param>
-        /// <param name="order">Order in which index is traversed</param>
-        /// <param name="op">Callback function passing data regarding the
-        /// object to the calling application</param>
-        /// <param name="op_data">User-defined pointer to data required by the
-        /// application for its processing of the object</param>
-        /// <returns>On success, returns the return value of the first operator
-        /// that returns a positive value, or zero if all members were
-        /// processed with no operator returning non-zero. On failure, returns
-        /// a negative value if something goes wrong within the library, or the
-        /// first negative value returned by an operator.</returns>
-        /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t visit
-            (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
-            iterate_ascii_t op, IntPtr op_data);
-        
-        /// <summary>
         /// Recursively visits all objects starting from a specified object.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-VisitByName
         /// </summary>
@@ -885,7 +847,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, iterate_ascii_t op, object op_data,
+            H5.iter_order_t order, iterate_t op, object op_data,
             hid_t lapl_id = H5P.DEFAULT);
     }
 }
