@@ -105,33 +105,23 @@ namespace UnitTests
         private static hid_t m_space_scalar = -1;
 
         // Callback for H5A.iterate and H5A.iterate_by_name
-        // We expect an array list as op_data, add the attribute names to the
+        // We expect an array list as op_data; add the attribute names to the
         // array list as we go
         public herr_t DelegateMethod
             (
             hid_t          location_id,
-            byte[]         attr_name,
+            IntPtr         attr_name,
             ref H5A.info_t ainfo,
             IntPtr         op_data
             )
         {
             GCHandle hnd = (GCHandle)op_data;
             ArrayList al = (hnd.Target as ArrayList);
-            al.Add(Encoding.UTF8.GetString(attr_name));
-            return 0;
-        }
-
-        public herr_t DelegateMethodASCII
-            (
-            hid_t location_id,
-            string attr_name,
-            ref H5A.info_t ainfo,
-            IntPtr op_data
-            )
-        {
-            GCHandle hnd = (GCHandle)op_data;
-            ArrayList al = (hnd.Target as ArrayList);
-            al.Add(attr_name);
+            int len = 0;
+            while (Marshal.ReadByte(attr_name, len) != 0) { ++len; }
+            byte[] buf = new byte[len];
+            Marshal.Copy(attr_name, buf, 0, len);
+            al.Add(Encoding.UTF8.GetString(buf));
             return 0;
         }
     }

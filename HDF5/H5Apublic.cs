@@ -84,32 +84,8 @@ namespace HDF.PInvoke
         /// of <code>n</code>.</returns>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate herr_t operator_t
-            (hid_t location_id, byte[] attr_name, ref info_t ainfo, IntPtr op_data);
-
-        /// <summary>
-        /// Delegate for H5A.iterate() callbacks
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Iterate2
-        /// </summary>
-        /// <param name="location_id">The location identifier for the group or
-        /// dataset being iterated over</param>
-        /// <param name="attr_name">The name of the current object attribute.</param>
-        /// <param name="ainfo">The attribute’s <code>info</code>struct</param>
-        /// <param name="op_data">A pointer referencing operator data passed
-        /// to <code>iterate</code></param>
-        /// <returns>Valid return values from an operator and the resulting
-        /// H5Aiterate2 and op behavior are as follows: Zero causes the iterator
-        /// to continue, returning zero when all attributes have been processed.
-        /// A positive value causes the iterator to immediately return that
-        /// positive value, indicating short-circuit success. The iterator can
-        /// be restarted at the next attribute, as indicated by the return
-        /// value of <code>n</code>. A negative value causes the iterator to
-        /// immediately return that value, indicating failure. The iterator can
-        /// be restarted at the next attribute, as indicated by the return value
-        /// of <code>n</code>.</returns>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl,
-            CharSet=CharSet.Ansi)]
-        public delegate herr_t operator_ascii_t
-            (hid_t location_id, string attr_name, ref info_t ainfo, IntPtr op_data);
+            (hid_t location_id, IntPtr attr_name, ref info_t ainfo,
+            IntPtr op_data);
 
         /// <summary>
         /// Closes the specified attribute.
@@ -663,31 +639,6 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Calls user-defined function for each attribute on an object.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-Iterate2
-        /// </summary>
-        /// <param name="obj_id">Identifier for object to which attributes are
-        /// attached; may be group, dataset, or named datatype.</param>
-        /// <param name="idx_type">Type of index</param>
-        /// <param name="order">Order in which to iterate over index</param>
-        /// <param name="n">Initial and returned offset within index</param>
-        /// <param name="op">User-defined function to pass each attribute to</param>
-        /// <param name="op_data">User data to pass through to and to be
-        /// returned by iterator operator function</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value. Further note that this function returns
-        /// the return value of the last operator if it was non-zero, which
-        /// can be a negative value, zero if all attributes were processed, or
-        /// a positive value indicating short-circuit success
-        /// </returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Aiterate2",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static herr_t iterate
-            (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_ascii_t op, IntPtr op_data);
-
-        /// <summary>
-        /// Calls user-defined function for each attribute on an object.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-IterateByName
         /// </summary>
         /// <param name="loc_id">Location or object identifier; may be dataset
@@ -739,7 +690,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t iterate_by_name(hid_t loc_id,
             string obj_name, H5.index_t idx_type, H5.iter_order_t order,
-            ref hsize_t n, operator_ascii_t op, IntPtr op_data,
+            ref hsize_t n, operator_t op, IntPtr op_data,
             hid_t lapd_id = H5P.DEFAULT);
 
         /// <summary>

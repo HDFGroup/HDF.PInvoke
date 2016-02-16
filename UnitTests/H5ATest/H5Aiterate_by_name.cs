@@ -55,7 +55,7 @@ namespace UnitTests
             IntPtr op_data = (IntPtr)hnd;
             hsize_t n = 0;
             // the callback is defined in H5ATest.cs
-            H5A.operator_ascii_t cb = DelegateMethodASCII;
+            H5A.operator_t cb = DelegateMethod;
             Assert.IsTrue(H5A.iterate_by_name(m_v2_test_file, ".",
                 H5.index_t.NAME, H5.iter_order_t.NATIVE, ref n, cb,
                 op_data) >= 0);
@@ -96,7 +96,7 @@ namespace UnitTests
             IntPtr op_data = (IntPtr)hnd;
             hsize_t n = 0;
             // the callback is defined in H5ATest.cs
-            H5A.operator_ascii_t cb = DelegateMethodASCII;
+            H5A.operator_t cb = DelegateMethod;
 
             Assert.IsFalse(
                 H5A.iterate_by_name(Utilities.RandomInvalidHandle(), ".",
