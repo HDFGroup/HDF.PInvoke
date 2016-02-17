@@ -74,5 +74,53 @@ namespace UnitTests
             Assert.IsFalse(H5A.get_name(Utilities.RandomInvalidHandle(),
                 IntPtr.Zero, (byte[]) null).ToInt32() >= 0);
         }
+
+        [TestMethod]
+        public void H5Aget_nameTest3()
+        {
+            byte[] name = Encoding.UTF8.GetBytes(
+                String.Join(":", m_utf8strings));
+            byte[] name_buf = new byte [name.Length + 1];
+            Array.Copy(name, name_buf, name.Length);
+            hid_t att = H5A.create(m_v0_test_file, name_buf, H5T.IEEE_F64BE,
+                m_space_scalar, m_acpl);
+            Assert.IsTrue(att >= 0);
+
+            ssize_t buf_size = H5A.get_name(att, IntPtr.Zero, (byte[])null)+1;
+            Assert.IsTrue(buf_size.ToInt32() > 1);
+            byte[] buf = new byte[buf_size.ToInt32()];
+            Assert.IsTrue(H5A.get_name(att, buf_size, buf).ToInt32() >= 0);
+
+            for (int i = 0; i < buf.Length; ++i)
+            {
+                Assert.IsTrue(name_buf[i] == buf[i]);
+            }
+
+            Assert.IsTrue(H5A.close(att) >= 0);
+        }
+
+        [TestMethod]
+        public void H5Aget_nameTest4()
+        {
+            byte[] name = Encoding.UTF8.GetBytes(
+                String.Join(":", m_utf8strings));
+            byte[] name_buf = new byte[name.Length + 1];
+            Array.Copy(name, name_buf, name.Length);
+            hid_t att = H5A.create(m_v2_test_file, name_buf, H5T.IEEE_F64BE,
+                m_space_scalar, m_acpl);
+            Assert.IsTrue(att >= 0);
+
+            ssize_t buf_size = H5A.get_name(att, IntPtr.Zero, (byte[])null) + 1;
+            Assert.IsTrue(buf_size.ToInt32() > 1);
+            byte[] buf = new byte[buf_size.ToInt32()];
+            Assert.IsTrue(H5A.get_name(att, buf_size, buf).ToInt32() >= 0);
+
+            for (int i = 0; i < buf.Length; ++i)
+            {
+                Assert.IsTrue(name_buf[i] == buf[i]);
+            }
+
+            Assert.IsTrue(H5A.close(att) >= 0);
+        }
     }
 }

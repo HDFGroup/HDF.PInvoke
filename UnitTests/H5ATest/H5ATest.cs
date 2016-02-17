@@ -48,6 +48,10 @@ namespace UnitTests
             Assert.IsTrue(m_space_null >= 0);
             m_space_scalar = H5S.create(H5S.class_t.SCALAR);
             Assert.IsTrue(m_space_scalar >= 0);
+
+            m_acpl = H5P.create(H5P.ATTRIBUTE_CREATE);
+            Assert.IsTrue(m_acpl >= 0);
+            Assert.IsTrue(H5P.set_char_encoding(m_acpl, H5T.cset_t.UTF8) >= 0);
         }
 
         [TestInitialize()]
@@ -75,6 +79,7 @@ namespace UnitTests
         [ClassCleanup()]
         public static void ClassCleanup()
         {
+            Assert.IsTrue(H5P.close(m_acpl) >= 0);
             // close the global test files
             Assert.IsTrue(H5F.close(m_v0_class_file) >= 0);
             Assert.IsTrue(H5F.close(m_v2_class_file) >= 0);
@@ -83,6 +88,8 @@ namespace UnitTests
             File.Delete(m_v0_class_file_name);
             File.Delete(m_v2_class_file_name);
         }
+
+        private static string[] m_utf8strings = new string[] { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
 
         private static hid_t m_v0_class_file = -1;
 
@@ -103,6 +110,8 @@ namespace UnitTests
         private static hid_t m_space_null = -1;
 
         private static hid_t m_space_scalar = -1;
+
+        private static hid_t m_acpl = -1;
 
         // Callback for H5A.iterate and H5A.iterate_by_name
         // We expect an array list as op_data; add the attribute names to the
