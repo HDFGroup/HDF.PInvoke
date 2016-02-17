@@ -188,6 +188,13 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5OTest\H5Oget_info.cs" />
+    <Compile Include="H5OTest\H5Oexists_by_name.cs" />
+    <Compile Include="H5OTest\H5Odecr_refcount.cs" />
+    <Compile Include="H5OTest\H5Ocopy.cs" />
+    <Compile Include="H5OTest\H5Oopen_by_idx.cs" />
+    <Compile Include="H5OTest\H5Oclose.cs" />
+    <Compile Include="H5OTest\H5OTest.cs" />
     <Compile Include="H5STest\H5Sset_extent_simple.cs" />
     <Compile Include="H5STest\H5Sset_extent_none.cs" />
     <Compile Include="H5STest\H5Sselect_valid.cs" />
