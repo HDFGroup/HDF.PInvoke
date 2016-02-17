@@ -17,8 +17,6 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
-using hsize_t = System.UInt64;
-
 #if HDF5_VER1_10
 using hid_t = System.Int64;
 #else
@@ -30,7 +28,7 @@ namespace UnitTests
     public partial class H5OTest
     {
         [TestMethod]
-        public void H5Oopen_by_idxTest1()
+        public void H5Oget_info_by_idxTest1()
         {
             Assert.IsTrue(
                 H5G.close(H5G.create(m_v0_test_file, "A")) >= 0);
@@ -39,17 +37,12 @@ namespace UnitTests
             Assert.IsTrue(
                 H5G.close(H5G.create(m_v0_test_file, "AAA")) >= 0);
             Assert.IsTrue(
-                H5G.close(H5G.create(m_v0_test_file, "AAAA")) >= 0);
+                H5G.close(H5G.create(m_v0_test_file, "AAAA")) >= 0);            
 
-            hid_t obj = H5O.open_by_idx(m_v0_test_file, ".", H5.index_t.NAME,
-                H5.iter_order_t.NATIVE, 0);
-            Assert.IsTrue(obj >= 0);
-            Assert.IsTrue(H5O.close(obj) >= 0);
-
-            obj = H5O.open_by_idx(m_v0_test_file, ".", H5.index_t.NAME,
-                H5.iter_order_t.NATIVE, 2);
-            Assert.IsTrue(obj >= 0);
-            Assert.IsTrue(H5O.close(obj) >= 0);
+            H5O.info_t info = new H5O.info_t();
+            Assert.IsTrue(H5O.get_info_by_idx(m_v0_test_file, ".",
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 2, ref info) >= 0);
+            Assert.IsTrue(info.type == H5O.type_t.GROUP);
 
             Assert.IsTrue(
                 H5G.close(H5G.create(m_v2_test_file, "A")) >= 0);
@@ -60,28 +53,19 @@ namespace UnitTests
             Assert.IsTrue(
                 H5G.close(H5G.create(m_v2_test_file, "AAAA")) >= 0);
 
-            obj = H5O.open_by_idx(m_v2_test_file, ".", H5.index_t.NAME,
-                H5.iter_order_t.NATIVE, 0);
-            Assert.IsTrue(obj >= 0);
-            Assert.IsTrue(H5O.close(obj) >= 0);
-
-            obj = H5O.open_by_idx(m_v2_test_file, ".", H5.index_t.NAME,
-                H5.iter_order_t.NATIVE, 2);
-            Assert.IsTrue(obj >= 0);
-            Assert.IsTrue(H5O.close(obj) >= 0);
+            info = new H5O.info_t();
+            Assert.IsTrue(H5O.get_info_by_idx(m_v2_test_file, ".",
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 2, ref info) >= 0);
+            Assert.IsTrue(info.type == H5O.type_t.GROUP);
         }
 
         [TestMethod]
-        public void H5Oopen_by_idxTest2()
+        public void H5Oget_info_by_idxTest2()
         {
+            H5O.info_t info = new H5O.info_t();
             Assert.IsFalse(
-                H5O.open_by_idx(Utilities.RandomInvalidHandle(), ".",
-                H5.index_t.NAME, H5.iter_order_t.NATIVE,
-                44) >= 0);
-            Assert.IsFalse(
-                H5O.open_by_idx(m_v2_class_file, ".",
-                H5.index_t.NAME, H5.iter_order_t.NATIVE,
-                hsize_t.MaxValue) >= 0);
+                H5O.get_info_by_idx(Utilities.RandomInvalidHandle(), "A",
+                H5.index_t.NAME, H5.iter_order_t.NATIVE, 44, ref info) >= 0);
         }
     }
 }

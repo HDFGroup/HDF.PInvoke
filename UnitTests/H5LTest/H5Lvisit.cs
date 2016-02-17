@@ -34,7 +34,7 @@ namespace UnitTests
     public partial class H5LTest
     {
         [TestMethod]
-        public void H5visit_by_nameTest1()
+        public void H5LvisitTest1()
         {
             Assert.IsTrue(H5G.create(m_v0_test_file, "A/B/C/D", m_lcpl) >= 0);
             Assert.IsTrue(
@@ -52,21 +52,21 @@ namespace UnitTests
             // the callback is defined in H5LTest.cs
             H5L.iterate_t cb = DelegateMethod;
 
-            Assert.IsTrue(H5L.visit_by_name(m_v0_test_file, "A",
-                H5.index_t.NAME, H5.iter_order_t.NATIVE, cb, op_data) >= 0);
-            // we should have 3 elements in the array list
-            Assert.IsTrue(al.Count == 3);
+            Assert.IsTrue(H5L.visit(m_v0_test_file, H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, cb, op_data) >= 0);
+            // we should have 5 elements in the array list
+            Assert.IsTrue(al.Count == 5);
 
-            Assert.IsTrue(H5L.visit_by_name(m_v2_test_file, "A",
-                H5.index_t.NAME, H5.iter_order_t.NATIVE, cb, op_data) >= 0);
-            // we should have 6 (3 + 3) elements in the array list
-            Assert.IsTrue(al.Count == 6);
+            Assert.IsTrue(H5L.visit(m_v2_test_file, H5.index_t.NAME,
+                H5.iter_order_t.NATIVE, cb, op_data) >= 0);
+            // we should have 10 (5 + 5) elements in the array list
+            Assert.IsTrue(al.Count == 10);
 
             hnd.Free();
         }
 
         [TestMethod]
-        public void H5visit_by_nameTest2()
+        public void H5LvisitTest2()
         {
             string path = String.Join("/", m_utf8strings);
             Assert.IsTrue(H5G.create(m_v0_test_file,
@@ -80,17 +80,15 @@ namespace UnitTests
             // the callback is defined in H5LTest.cs
             H5L.iterate_t cb = DelegateMethod;
 
-            Assert.IsTrue(H5L.visit_by_name(m_v0_test_file,
-                Encoding.UTF8.GetBytes(m_utf8strings[0]), H5.index_t.NAME,
+            Assert.IsTrue(H5L.visit(m_v0_test_file, H5.index_t.NAME,
                 H5.iter_order_t.NATIVE, cb, op_data) >= 0);
-            // we should have 4 elements in the array list
-            Assert.IsTrue(al.Count == 4);
+            // we should have 5 elements in the array list
+            Assert.IsTrue(al.Count == 5);
 
-            Assert.IsTrue(H5L.visit_by_name(m_v2_test_file,
-                Encoding.UTF8.GetBytes(m_utf8strings[0]), H5.index_t.NAME,
+            Assert.IsTrue(H5L.visit(m_v2_test_file, H5.index_t.NAME,
                 H5.iter_order_t.NATIVE, cb, op_data) >= 0);
-            // we should have 8 (4 + 4) elements in the array list
-            Assert.IsTrue(al.Count == 8);
+            // we should have 10 (5 + 5) elements in the array list
+            Assert.IsTrue(al.Count == 10);
 
             hnd.Free();
         }

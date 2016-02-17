@@ -585,7 +585,7 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="loc_id">File or group identifier specifying location
         /// of group in which object is located</param>
-        /// <param name="name">Name of group, relative to
+        /// <param name="name">Name of object, relative to
         /// <paramref name="loc_id"/></param>
         /// <param name="oinfo">Buffer in which to return object information</param>
         /// <param name="lapl_id">Link access property list</param>
@@ -819,7 +819,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
             (hid_t loc_id, byte[] obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, iterate_t op, object op_data,
+            H5.iter_order_t order, iterate_t op, IntPtr op_data,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -847,7 +847,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
-            H5.iter_order_t order, iterate_t op, object op_data,
+            H5.iter_order_t order, iterate_t op, IntPtr op_data,
             hid_t lapl_id = H5P.DEFAULT);
     }
 }

@@ -109,14 +109,14 @@ namespace UnitTests
 
         private static string [] m_utf8strings = new string[] { "Ελληνικά", "日本語", "العربية", "экземпляр", "סקרן" };
 
-        // Callback for H5L.iterate and H5L.iterate_by_name
+        // Callback for H5O.visit and H5O.visit_by_name
         // We expect an array list as op_data, add the attribute names to the
         // array list as we go
         public herr_t DelegateMethod
             (
-            hid_t group,
+            hid_t obj,
             IntPtr name,
-            ref H5L.info_t info,
+            ref H5O.info_t info,
             IntPtr op_data
             )
         {
