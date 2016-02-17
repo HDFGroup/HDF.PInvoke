@@ -169,6 +169,13 @@
     <Compile Include="H5GTest\H5Gget_info_by_idx.cs" />
     <Compile Include="H5GTest\H5Gget_info_by_name.cs" />
     <Compile Include="H5GTest\H5Gopen.cs" />
+    <Compile Include="H5Itest\H5Iis_valid.cs" />
+    <Compile Include="H5Itest\H5Iinc_ref.cs" />
+    <Compile Include="H5Itest\H5Iget_type.cs" />
+    <Compile Include="H5Itest\H5Iget_name.cs" />
+    <Compile Include="H5Itest\H5Iget_file_id.cs" />
+    <Compile Include="H5Itest\H5Idec_ref.cs" />
+    <Compile Include="H5Itest\H5ITest.cs" />
     <Compile Include="H5LTest\H5Lvisit_by_name.cs" />
     <Compile Include="H5LTest\H5Lvisit.cs" />
     <Compile Include="H5LTest\H5Lunpack_elink_val.cs" />

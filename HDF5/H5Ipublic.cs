@@ -207,7 +207,10 @@ namespace HDF.PInvoke
         /// <returns>Returns the length of the name if successful, returning 0
         /// (zero) if no name is associated with the identifier. Otherwise 
         /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY! This function does not work with UTF-8
+        /// encoded strings. See JIRA issue HDF5/HDFFV-9686.</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Iget_name",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name
