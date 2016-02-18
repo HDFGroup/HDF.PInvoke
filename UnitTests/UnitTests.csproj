@@ -222,6 +222,10 @@
     <Compile Include="H5OTest\H5Oopen_by_idx.cs" />
     <Compile Include="H5OTest\H5Oclose.cs" />
     <Compile Include="H5OTest\H5OTest.cs" />
+    <Compile Include="H5RTest\H5Rget_region.cs" />
+    <Compile Include="H5RTest\H5Rget_name.cs" />
+    <Compile Include="H5RTest\H5Rcreate.cs" />
+    <Compile Include="H5RTest\H5RTest.cs" />
     <Compile Include="H5STest\H5Sset_extent_simple.cs" />
     <Compile Include="H5STest\H5Sset_extent_none.cs" />
     <Compile Include="H5STest\H5Sselect_valid.cs" />
