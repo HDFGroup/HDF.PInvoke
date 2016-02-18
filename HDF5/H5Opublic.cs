@@ -132,7 +132,7 @@ namespace HDF.PInvoke
         /// </summary>
         public const uint HDR_ATTR_STORE_PHASE_CHANGE = 0x10;
         /// <summary>
-        /// Store access, modification, change & birth times for object
+        /// Store access, modification, change and birth times for object
         /// </summary>
         public const uint HDR_STORE_TIMES = 0x20;
 
@@ -238,12 +238,12 @@ namespace HDF.PInvoke
         public struct meta_size_t
         {
             /// <summary>
-            /// v1/v2 B-tree & local/fractal heap for groups, B-tree for
+            /// v1/v2 B-tree and local/fractal heap for groups, B-tree for
             /// chunked datasets
             /// </summary>
             public H5.ih_info_t obj;
             /// <summary>
-            /// v2 B-tree & heap for attributes
+            /// v2 B-tree and heap for attributes
             /// </summary>
             public H5.ih_info_t attr;
         }
@@ -295,7 +295,7 @@ namespace HDF.PInvoke
             /// </summary>
             public hdr_info_t hdr;
             /// <summary>
-            /// Extra metadata storage for obj & attributes
+            /// Extra metadata storage for object and attributes
             /// </summary>
             public meta_size_t meta_size;
         }

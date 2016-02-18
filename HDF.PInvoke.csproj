@@ -88,6 +88,8 @@
   <ItemGroup>
     <Compile Include="HDF5\Constants.cs" />
     <Compile Include="HDF5\H5ACpublic.cs" />
+    <Compile Include="HDF5\H5Eglobals.cs" />
+    <Compile Include="HDF5\H5Pglobals.cs" />
     <Compile Include="HDF5\H5Rpublic.cs" />
     <Compile Include="HDF5\H5PLpublic.cs" />
     <Compile Include="HDF5\H5Dpublic.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="HDF5\H5Epublic.cs" />
     <Compile Include="HDF5\H5Lpublic.cs" />
     <Compile Include="HDF5\H5FDpublic.cs" />
+    <Compile Include="HDF5\H5Tglobals.cs" />
     <Compile Include="HDF5\H5Zpublic.cs" />
     <Compile Include="HDF5\H5Spublic.cs" />
     <Compile Include="HDF5\H5Tpublic.cs" />
@@ -123,6 +126,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HDF5\H5Eglobals.txt" />
+    <Content Include="HDF5\H5Pglobals.txt" />
+    <Content Include="HDF5\H5Tglobals.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -50,7 +50,7 @@ namespace HDF.PInvoke
             /// </summary>
             COMPACT,
             /// <summary>
-            /// Links are stored in fractal heap & indexed with v2 B-tree
+            /// Links are stored in fractal heap and indexed with v2 B-tree
             /// [value = 2].
             /// </summary>
             DENSE

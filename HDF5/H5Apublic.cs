@@ -495,9 +495,9 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetName
         /// </summary>
         /// <param name="attr_id">Identifier of the attribute.</param>
-        /// <param name="buf_size">The size of the buffer to store the name
+        /// <param name="size">The size of the buffer to store the name
         /// in.</param>
-        /// <param name="buf">Buffer to store name in.</param>
+        /// <param name="name">Buffer to store name in.</param>
         /// <returns>Returns the length of the attribute's name, which may be
         /// longer than <code>buf_size</code>, if successful. Otherwise returns
         /// a negative value.</returns>
@@ -512,9 +512,9 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetName
         /// </summary>
         /// <param name="attr_id">Identifier of the attribute.</param>
-        /// <param name="buf_size">The size of the buffer to store the name
+        /// <param name="size">The size of the buffer to store the name
         /// in.</param>
-        /// <param name="buf">Buffer to store name in.</param>
+        /// <param name="name">Buffer to store name in.</param>
         /// <returns>Returns the length of the attribute's name, which may be
         /// longer than <code>buf_size</code>, if successful. Otherwise returns
         /// a negative value.</returns>

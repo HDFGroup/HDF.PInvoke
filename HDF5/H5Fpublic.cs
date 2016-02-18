@@ -165,6 +165,7 @@ namespace HDF.PInvoke
             /// fails [value = 2].
             /// </summary>
             SEMI = 2,
+            /// <summary>
             /// if there are opened objects, close them first, then close file
             /// [value = 3].
             /// </summary>
@@ -245,7 +246,7 @@ namespace HDF.PInvoke
                 /// </summary>
                 public hsize_t hdr_size;
                 /// <summary>
-                /// Shared object header message index & heap size
+                /// Shared object header message index and heap size
                 /// </summary>
                 public H5.ih_info_t msgs_info;
             }
@@ -488,9 +489,9 @@ namespace HDF.PInvoke
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFileImage
         /// </summary>
         /// <param name="file_id">Target file identifier</param>
-        /// <param name="bufptr">Pointer to the buffer into which the image of
+        /// <param name="buf_ptr">Pointer to the buffer into which the image of
         /// the HDF5 file is to be copied</param>
-        /// <param name="buflen">Size of the supplied buffer</param>
+        /// <param name="buf_len">Size of the supplied buffer</param>
         /// <returns>If successful, returns the size in bytes of the buffer
         /// required to store the file image if successful; otherwise returns
         /// a negative value.</returns>
@@ -759,12 +760,12 @@ namespace HDF.PInvoke
         /// Mounts a file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Mount
         /// </summary>
-        /// <param name="loc_id">Identifier for of file or group in which name
+        /// <param name="loc">Identifier for of file or group in which name
         /// is defined.</param>
         /// <param name="name">Name of the group onto which the file specified
-        /// by <paramref name="child_id"/> is to be mounted.</param>
-        /// <param name="child_id">Identifier of the file to be mounted.</param>
-        /// <param name="fmpl_id">File mount property list identifier.</param>
+        /// by <paramref name="child"/> is to be mounted.</param>
+        /// <param name="child">Identifier of the file to be mounted.</param>
+        /// <param name="plist">File mount property list identifier.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fmount",
@@ -777,12 +778,12 @@ namespace HDF.PInvoke
         /// Mounts a file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Mount
         /// </summary>
-        /// <param name="loc_id">Identifier for of file or group in which name
+        /// <param name="loc">Identifier for of file or group in which name
         /// is defined.</param>
         /// <param name="name">Name of the group onto which the file specified
-        /// by <paramref name="child_id"/> is to be mounted.</param>
-        /// <param name="child_id">Identifier of the file to be mounted.</param>
-        /// <param name="fmpl_id">File mount property list identifier.</param>
+        /// by <paramref name="child"/> is to be mounted.</param>
+        /// <param name="child">Identifier of the file to be mounted.</param>
+        /// <param name="plist">File mount property list identifier.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
@@ -797,10 +798,10 @@ namespace HDF.PInvoke
         /// Opens an existing HDF5 file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Open
         /// </summary>
-        /// <param name="name">Name of the file to be opened.</param>
+        /// <param name="filename">Name of the file to be opened.</param>
         /// <param name="flags">File access flags. (<code>H5F_ACC_RDWR</code>
         /// or <code>H5F_ACC_RDONLY</code>)</param>
-        /// <param name="fapl_id">Identifier for the file access properties
+        /// <param name="plist">Identifier for the file access properties
         /// list.</param>
         /// <returns>Returns a file identifier if successful; otherwise returns
         /// a negative value.</returns>
@@ -810,7 +811,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
-            (string filename, uint flags, hid_t access_plist = H5P.DEFAULT);
+            (string filename, uint flags, hid_t plist = H5P.DEFAULT);
 
         /// <summary>
         /// Returns a new identifier for a previously-opened HDF5 file.
@@ -900,7 +901,7 @@ namespace HDF.PInvoke
         /// Unmounts a file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Unmount
         /// </summary>
-        /// <param name="loc_id">File or group identifier for the location at
+        /// <param name="loc">File or group identifier for the location at
         /// which the specified file is to be unmounted.</param>
         /// <param name="name">Name of the mount point.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -914,7 +915,7 @@ namespace HDF.PInvoke
         /// Unmounts a file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-Unmount
         /// </summary>
-        /// <param name="loc_id">File or group identifier for the location at
+        /// <param name="loc">File or group identifier for the location at
         /// which the specified file is to be unmounted.</param>
         /// <param name="name">Name of the mount point.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

@@ -125,7 +125,7 @@ namespace HDF.PInvoke
         public delegate herr_t free_t(IntPtr obj);
 
         /// <summary>
-        /// Type of the function to compare objects & keys
+        /// Type of the function to compare objects and keys
         /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate int search_func_t(IntPtr obj, hid_t id, IntPtr key);

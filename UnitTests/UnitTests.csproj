@@ -266,6 +266,7 @@
     <Compile Include="H5Test\H5is_library_threadsafe.cs" />
     <Compile Include="H5Test\H5resize_memory.cs" />
     <Compile Include="H5Test\H5set_free_list_limits.cs" />
+    <Compile Include="H5TTest\H5Tget_tag.cs" />
     <Compile Include="H5TTest\H5Tcommit_anon.cs" />
     <Compile Include="H5TTest\H5Tcommit.cs" />
     <Compile Include="H5TTest\H5Tclose.cs" />
