@@ -52,5 +52,27 @@ namespace HDF.PInvoke
         public static extern herr_t write_chunk
             (hid_t dset_id, hid_t dxpl_id, uint32_t filter_mask,
             ref hsize_t offset, size_t data_size, IntPtr buf);
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Appends data to a dataset along a specified dimension.
+        /// </summary>
+        /// <param name="dset_id">Dataset identifier.</param>
+        /// <param name="dxpl_id">Dataset transfer property list identifier.</param>
+        /// <param name="axis">Dimension number (0-based).</param>
+        /// <param name="extension">Number of elements to add along the
+        /// dimension.</param>
+        /// <param name="memtype">Memory type identifier.</param>
+        /// <param name="buf">Data buffer.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5DOappend",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t H5DOappend
+            (hid_t dset_id, hid_t dxpl_id, uint axis,
+            size_t extension, hid_t memtype, IntPtr buf);
+#endif
+
     }
 }
