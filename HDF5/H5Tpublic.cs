@@ -456,7 +456,7 @@ namespace HDF.PInvoke
         /// Indicate that a string is variable length (null-terminated in C,
         /// instead of fixed length)
         /// </summary>
-        public static IntPtr VARIABLE = new IntPtr(-1); 
+        public static readonly IntPtr VARIABLE = new IntPtr(-1); 
         
         /// <summary>
         /// Maximum length of an opaque tag

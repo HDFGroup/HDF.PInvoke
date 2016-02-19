@@ -35,6 +35,26 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5D
     {
+        public readonly size_t CACHE_NSLOTS_DEFAULT = new IntPtr(-1);
+        public readonly size_t CACHE_NBYTES_DEFAULT = new IntPtr(-1);
+        public const float CACHE_W0_DEFAULT = -1.0f;
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Bit flags for the H5Pset_chunk_opts() and H5Pget_chunk_opts()
+        /// </summary>
+        public const uint DONT_FILTER_PARTIAL_CHUNKS = 0x0002u;
+#endif
+
+        public const string XFER_DIRECT_CHUNK_WRITE_FLAG_NAME =
+            "direct_chunk_flag";
+        public const string XFER_DIRECT_CHUNK_WRITE_FILTERS_NAME =
+            "direct_chunk_filters";
+        public const string XFER_DIRECT_CHUNK_WRITE_OFFSET_NAME =
+            "direct_chunk_offset";
+        public const string XFER_DIRECT_CHUNK_WRITE_DATASIZE_NAME =
+            "direct_chunk_datasize";
+
         /// <summary>
         /// Values for the H5D_LAYOUT property
         /// </summary>
@@ -44,7 +64,10 @@ namespace HDF.PInvoke
             COMPACT = 0,
             CONTIGUOUS = 1,
             CHUNKED = 2,
-            NLAYOUTS = 3
+#if HDF5_VER1_10
+            VIRTUAL = 3,
+#endif
+            NLAYOUTS
         }
 
         /// <summary>
@@ -55,7 +78,32 @@ namespace HDF.PInvoke
             /// <summary>
             /// v1 B-tree index [value = 0]
             /// </summary>
-            CHUNK_BTREE = 0
+            BTREE = 0,
+#if HDF5_VER1_10
+            /// <summary>
+            /// Single Chunk index (cur dims[]=max dims[]=chunk dims[];
+            /// filtered & non-filtered)
+            /// </summary>
+            SINGLE = 1,
+            /// <summary>
+            /// Implicit: No Index (H5D_ALLOC_TIME_EARLY, non-filtered,
+            /// fixed dims)
+            /// </summary>
+            NONE = 2,
+            /// <summary>
+            /// Fixed array (for 0 unlimited dims)
+            /// </summary>
+            FARRAY = 3,
+            /// <summary>
+            /// Extensible array (for 1 unlimited dim)
+            /// </summary>
+            EARRAY = 4,
+            /// <summary>
+            /// v2 B-tree index (for >1 unlimited dims)
+            /// </summary>
+            BT2 = 5,
+#endif
+            IDX_NTYPES
         }
 
         /// <summary>
@@ -102,6 +150,30 @@ namespace HDF.PInvoke
             DEFAULT = 1,
             USER_DEFINED = 2
         }
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Values for VDS bounds option
+        /// </summary>
+        public enum vds_view_t
+        {
+            ERROR = -1,
+            FIRST_MISSING = 0,
+            LAST_AVAILABLE = 1
+        }
+
+        /// <summary>
+        /// Callback for <code>H5P.set_append_flush</code> in a dataset access
+        /// property list
+        /// </summary>
+        /// <param name="dataset_id"></param>
+        /// <param name="cur_dims"></param>
+        /// <param name="op_data"></param>
+        /// <returns></returns>
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate herr_t append_cb_t
+        (hid_t dataset_id, hsize_t[] cur_dims, IntPtr op_data);
+#endif
 
         /// <summary>
         /// Delegate for H5Dgather() callback
@@ -272,6 +344,18 @@ namespace HDF.PInvoke
             (IntPtr fill, hid_t fill_type, IntPtr buf, hid_t buf_type,
             hid_t space);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dset_id"></param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dformat_convert",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t format_convert(hid_t dset_id);
+#endif
+
         /// <summary>
         /// Gathers data from a selection within a memory buffer.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-Gather
@@ -315,6 +399,20 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t get_access_plist(hid_t dset_id);
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="did"></param>
+        /// <param name="idx_type"></param>
+        /// <returns></returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_index_type",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_index_type
+            (hid_t did, ref chunk_index_t idx_type);
+#endif
 
         /// <summary>
         /// Returns an identifier for a copy of the dataset creation property
