@@ -1390,6 +1390,130 @@ namespace HDF.PInvoke
             (hid_t plist, ref uint super, ref uint freelist, ref uint stab,
             ref uint shhdr);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Gets the number of mappings for the virtual dataset.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="count">The number of mappings.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_virtual_count",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_virtual_count
+            (hid_t dcpl_id, ref size_t count);
+
+        /// <summary>
+        /// Gets the name of a source dataset used in the mapping.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <param name="name">A buffer containing the name of the source
+        /// dataset.</param>
+        /// <param name="size">The size, in bytes, of the name buffer.</param>
+        /// <returns>Returns the length of the dataset name if successful;
+        /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_dsetname",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_virtual_dsetname
+            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
+
+        /// <summary>
+        /// Gets the filename of a source dataset used in the mapping.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <param name="name">A buffer containing the name of the file
+        /// containing the source dataset.</param>
+        /// <param name="size">The size, in bytes, of the name buffer.</param>
+        /// <returns>Returns the length of the dataset name if successful;
+        /// otherwise returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_filename",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_virtual_filename
+            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
+
+        /// <summary>
+        /// Returns the maximum number of missing source files and/or datasets
+        /// with the printf-style names when getting the extent for an
+        /// unlimited virtual dataset.
+        /// </summary>
+        /// <param name="plist_id">Dataset access property list identifier for
+        /// the virtual dataset</param>
+        /// <param name="gap_size">Maximum number of the files and/or datasets
+        /// allowed to be missing for determining the extent of an unlimited
+        /// virtual dataset with printf-style mappings.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_printf_gap",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_virtual_printf_gap
+            (hid_t plist_id, ref hsize_t gap_size);
+
+        /// <summary>
+        /// Gets a dataspace identifier for the selection within the source
+        /// dataset used in the mapping.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <returns>Returns a valid dataspace identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_srcspace",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_virtual_srcspace
+            (hid_t dcpl_id, size_t index);
+
+        /// <summary>
+        /// Retrieves the view of a virtual dataset accessed with
+        /// <paramref name="dapl_id"/>.
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier for
+        /// the virtual dataset</param>
+        /// <param name="view">The flag specifying the view of the virtual
+        /// dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_virtual_view",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_virtual_view
+            (hid_t dapl_id, ref H5D.vds_view_t view);
+
+        /// <summary>
+        /// Gets a dataspace identifier for the selection within the virtual
+        /// dataset used in the mapping.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <returns>Returns a valid dataspace identifier if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_virtual_vspace",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_virtual_vspace
+            (hid_t dcpl_id, size_t index);
+
+#endif
+
         /// <summary>
         /// Gets the memory manager for variable-length datatype allocation in
         /// <code>H5D.read</code> and <code>H5D.vlen_reclaim</code>.
@@ -2658,6 +2782,70 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_userblock(hid_t plist, hsize_t size);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Sets the mapping between virtual and source datasets.
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the dataset creation
+        /// property list that will be used when creating the virtual dataset.</param>
+        /// <param name="vspace_id">The dataspace identifier with the selection
+        /// within the virtual dataset applied, possibly an unlimited
+        /// selection.</param>
+        /// <param name="src_file_name">The name of the HDF5 file where the
+        /// source dataset is or will be located.</param>
+        /// <param name="src_dset_name">The path to the HDF5 dataset in the
+        /// file specified by <paramref name="src_file_name"/>. </param>
+        /// <param name="src_space_id">The source dataset’s dataspace
+        /// identifier with a selection applied, possibly an unlimited
+        /// selection</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_virtual",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_virtual
+            (hid_t dcpl_id, hid_t vspace_id, string src_file_name,
+            string src_dset_name, hid_t src_space_id);
+
+        /// <summary>
+        /// Sets the maximum number of missing source files and/or datasets
+        /// with the printf-style names when getting the extent of an unlimited
+        /// virtual dataset.
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier for
+        /// the virtual dataset</param>
+        /// <param name="gap_size">Maximum number of files and/or datasets
+        /// allowed to be missing for determining the extent of an unlimited
+        /// virtual dataset with printf-style mappings</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_virtual_printf_gap",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_virtual_printf_gap
+            (hid_t dapl_id, hsize_t gap_size);
+
+        /// <summary>
+        /// Sets the view of the virtual dataset (VDS) to include or exclude
+        /// missing mapped elements.
+        /// </summary>
+        /// <param name="plist_id">Identifier of the virtual dataset access
+        /// property list.</param>
+        /// <param name="view">Flag specifying the extent of the data to be
+        /// included in the view.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_virtual_view",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_virtual_view
+            (hid_t plist_id, H5D.vds_view_t view);
+
+#endif
 
         /// <summary>
         /// Sets the memory manager for variable-length datatype allocation in
