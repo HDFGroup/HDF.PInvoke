@@ -277,6 +277,30 @@ namespace HDF.PInvoke
         public static extern htri_t extent_equal
             (hid_t space1_id, hid_t space2_id);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// Retrieves a regular hyperslab selection.
+        /// </summary>
+        /// <param name="space_id">The identifier of the dataspace.</param>
+        /// <param name="start">Offset of the start of the regular hyperslab.</param>
+        /// <param name="stride">Stride of the regular hyperslab.</param>
+        /// <param name="count">Number of blocks in the regular hyperslab.</param>
+        /// <param name="block">Size of a block in the regular hyperslab.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>If a hyperslab selection is originally regular, then
+        /// becomes irregular through selection operations, and then becomes
+        /// regular again, the final regular selection may be equivalent but
+        /// not identical to the original regular selection.</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_regular_hyperslab",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t H5Sget_regular_hyperslab
+            (hid_t space_id, hsize_t[] start, hsize_t[] stride,
+            hsize_t[] count, hsize_t[] block);
+#endif
+
         /// <summary>
         /// Gets the bounding box containing the current selection.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectBounds
@@ -442,6 +466,22 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern class_t get_simple_extent_type(hid_t space_id);
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Determines whether a hyperslab selection is regular.
+        /// </summary>
+        /// <param name="spaceid">The identifier of the dataspace.</param>
+        /// <returns>Returns <code>TRUE</code> or <code>FALSE</code> for
+        /// hyperslab selection if successful. Returns <code>FAIL</code>on
+        /// error or when querying other selection types such as point
+        /// selection.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sis_regular_hyperslab",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern htri_t is_regular_hyperslab(hid_t spaceid);
+#endif
 
         /// <summary>
         /// Determines whether a dataspace is a simple dataspace.
