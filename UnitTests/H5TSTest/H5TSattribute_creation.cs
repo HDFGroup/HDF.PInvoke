@@ -31,22 +31,21 @@ namespace UnitTests
 {
     public partial class H5TSTest
     {
-        private void DatasetCreateProcedure()
+        private void AttributeCreateProcedure()
         {
             string name = Thread.CurrentThread.Name;
-            hid_t space = H5S.create(H5S.class_t.SCALAR);
+            hid_t space = H5S.create(H5S.class_t.NULL);
             Assert.IsTrue(space >= 0);
-            
-            hid_t dset = H5D.create(m_shared_file_id, name, H5T.STD_I32BE,
-                space);
-            Assert.IsTrue(dset >= 0);
-            Assert.IsTrue(H5D.close(dset) >= 0);
+
+            Assert.IsTrue(
+                H5A.close(H5A.create(m_shared_file_id, name, H5T.STD_I32BE,
+                space)) >= 0);
 
             Assert.IsTrue(H5S.close(space) >= 0);
         }
 
         [TestMethod]
-        public void H5TSdataset_creationTest1()
+        public void H5TSattribute_creationTest1()
         {
             // run only if we have a thread-safe build of the library
             hbool_t flag = 0;
@@ -54,13 +53,13 @@ namespace UnitTests
             if (flag > 0)
             {
                 // Create the new Thread and use the FileCreateProcedure method
-                Thread1 = new Thread(new ThreadStart(DatasetCreateProcedure));
+                Thread1 = new Thread(new ThreadStart(AttributeCreateProcedure));
                 Thread1.Name = "Thread1";
-                Thread2 = new Thread(new ThreadStart(DatasetCreateProcedure));
+                Thread2 = new Thread(new ThreadStart(AttributeCreateProcedure));
                 Thread2.Name = "Thread2";
-                Thread3 = new Thread(new ThreadStart(DatasetCreateProcedure));
+                Thread3 = new Thread(new ThreadStart(AttributeCreateProcedure));
                 Thread3.Name = "Thread3";
-                Thread4 = new Thread(new ThreadStart(DatasetCreateProcedure));
+                Thread4 = new Thread(new ThreadStart(AttributeCreateProcedure));
                 Thread4.Name = "Thread4";
 
                 // Start running the thread
@@ -70,7 +69,7 @@ namespace UnitTests
                 Thread3.Start();
 
                 // Join the independent thread to this thread to wait until
-                // DatasetCreateProcedure ends
+                // AttributeCreateProcedure ends
                 Thread1.Join();
                 Thread2.Join();
                 Thread3.Join();
