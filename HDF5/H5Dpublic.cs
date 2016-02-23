@@ -345,15 +345,28 @@ namespace HDF.PInvoke
             hid_t space);
 
 #if HDF5_VER1_10
+
+        /// <summary>
+        /// Flushes all buffers associated with a dataset to disk.
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to be flushed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dflush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t flush(hid_t dset_id);
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dset_id"></param>
+        /// <param name="dset_id">Identifier of the dataset to be flushed.</param>
         /// <returns></returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Dformat_convert",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t format_convert(hid_t dset_id);
+
 #endif
 
         /// <summary>
@@ -565,6 +578,21 @@ namespace HDF.PInvoke
         public static extern herr_t read
             (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
             hid_t file_space_id, hid_t plist_id, [Out] IntPtr buf);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Refreshes all buffers associated with a dataset.
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to be refreshed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Drefresh",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t refresh(hid_t dset_id);
+
+#endif
 
         /// <summary>
         /// Scatters data into a selection within a memory buffer.

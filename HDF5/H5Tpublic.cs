@@ -797,6 +797,22 @@ namespace HDF.PInvoke
         public static extern conv_t find
             (hid_t src_id, hid_t dst_id, ref cdata_t pcdata);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Flushes all buffers associated with a committed datatype to disk.
+        /// </summary>
+        /// <param name="type_id">Identifier of the committed datatype to be
+        /// flushed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Tflush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t flush(hid_t type_id);
+
+#endif
+
         /// <summary>
         /// Retrieves sizes of array dimensions.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5T.html#Datatype-GetArrayDims2
@@ -1246,6 +1262,22 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t pack(hid_t dtype_id);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Refreshes all buffers associated with a committed datatype.
+        /// </summary>
+        /// <param name="type_id">Identifier of the committed datatype to be
+        /// refreshed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Trefresh",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t H5Trefresh(hid_t type_id);
+
+#endif
 
         /// <summary>
         /// Registers a conversion function.

@@ -161,6 +161,21 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t get_create_plist(hid_t group_id);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Flushes all buffers associated with a group to disk.
+        /// </summary>
+        /// <param name="group_id">Identifier of the group to be flushed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Gflush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t flush(hid_t group_id);
+
+#endif
+
         /// <summary>
         /// Retrieves information about a group.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5G.html#Group-GetInfo
@@ -297,5 +312,22 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t open
             (hid_t loc_id, string name, hid_t gapl_id = H5P.DEFAULT);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Refreshes all buffers associated with a group.
+        /// </summary>
+        /// <param name="group_id">Identifier of the group to be refreshed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Grefresh",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t refresh(hid_t group_id);
+
+#endif
+
     }
 }

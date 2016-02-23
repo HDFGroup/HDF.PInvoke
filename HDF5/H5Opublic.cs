@@ -432,6 +432,21 @@ namespace HDF.PInvoke
         public extern static htri_t exists_by_name
             (hid_t loc_id, byte[] name, hid_t lapl_id = H5P.DEFAULT);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Flushes all buffers associated with an HDF5 object to disk.
+        /// </summary>
+        /// <param name="obj_id">Identifier of the object to be flushed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oflush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t flush(hid_t obj_id);
+
+#endif
+
         /// <summary>
         /// Determines whether a link resolves to an actual object.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-ExistsByName
@@ -748,6 +763,21 @@ namespace HDF.PInvoke
         public extern static hid_t open_by_idx
             (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Refreshes all buffers associated with an HDF5 object.
+        /// </summary>
+        /// <param name="oid">Identifier of the object to be refreshed.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Orefresh",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t refresh(hid_t oid);
+
+#endif
 
         /// <summary>
         /// Open the n-th object in a group.

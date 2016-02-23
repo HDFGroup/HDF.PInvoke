@@ -883,6 +883,27 @@ namespace HDF.PInvoke
         public static extern herr_t get_file_image_callbacks
             (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves the file space management strategy and/or free-space
+        /// section threshold for an HDF5 file.
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The current file space management strategy
+        /// in use for the file.</param>
+        /// <param name="threshold">The current free-space section threshold.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_file_space",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_file_space
+            (hid_t fcpl, ref H5F.file_space_type_t strategy,
+            ref hsize_t threshold);
+
+#endif
+
         /// <summary>
         /// Retrieves the time when fill value are written to a dataset.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFillTime
@@ -1146,6 +1167,25 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_meta_block_size
             (hid_t fapl_id, ref hsize_t size);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves the number of read attempts from a file access property
+        /// list.
+        /// </summary>
+        /// <param name="fapl">Identifier for a file access property list.</param>
+        /// <param name="attempts"> The number of read attempts.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_metadata_read_attempts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_metadata_read_attempts
+            (hid_t fapl, ref uint attempts);
+
+#endif
 
         /// <summary>
         /// Returns the number of filters in the pipeline.
@@ -2292,6 +2332,27 @@ namespace HDF.PInvoke
         public static extern herr_t set_file_image_callbacks
             (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
 
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Sets the file space management strategy and/or free-space section
+        /// threshold for an HDF5 file.
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The strategy for file space management.</param>
+        /// <param name="threshold">The free-space section threshold.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_file_space",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_space
+            (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold);
+
+#endif
+
+
         /// <summary>
         /// Sets the time when fill values are written to a dataset.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFillTime
@@ -2553,6 +2614,25 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_meta_block_size
             (hid_t fapl_id, hsize_t size);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves the number of read attempts from a file access property
+        /// list.
+        /// </summary>
+        /// <param name="fapl">Identifier for a file access property list.</param>
+        /// <param name="attempts">The number of read attempts.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_metadata_read_attempts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_metadata_read_attempts
+            (hid_t fapl, uint attempts);
+
+#endif
 
         /// <summary>
         /// Sets up the use of the N-Bit filter.
