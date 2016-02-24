@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>HDF.PInvoke</id>
+        <version>1.8.16.2</version>
+        <title>.NET Interop with Native HDF5 Libraries</title>
+        <authors>The HDF Group</authors>
+        <owners>The HDF Group</owners>
+        <licenseUrl>https://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</licenseUrl>
+        <projectUrl>https://github.com/HDFGroup/HDF.PInvoke</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This package contains PInvoke declarations for the HDF5 C-API. For documenation, see  https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html .</description>
+        <copyright>2016 The HDF Group</copyright>
+        <language>en-US</language>
+        <tags>HDF5</tags>
+    </metadata>
+    <files>
+        <file src="C:\bin\bin32\hdf5.dll" target="bin32\hdf5.dll" />
+        <file src="C:\bin\bin32\szip.dll" target="bin32\szip.dll" />
+        <file src="C:\bin\bin32\zlib.dll" target="bin32\zlib.dll" />
+        <file src="C:\bin\bin64\hdf5.dll" target="bin64\hdf5.dll" />
+        <file src="C:\bin\bin64\szip.dll" target="bin64\szip.dll" />
+        <file src="C:\bin\bin64\zlib.dll" target="bin64\zlib.dll" />
+        <file src="C:\lib\HDF.PInvoke.dll" target="lib\HDF.PInvoke.dll" />
+        <file src="C:\lib\HDF.PInvoke.XML" target="lib\HDF.PInvoke.XML" />
+    </files>
+</package>
