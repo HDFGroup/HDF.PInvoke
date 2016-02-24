@@ -1,6 +1,20 @@
 # Getting started with HDF.PInvoke
 
-Currently, the bindings are tested and developed with HDF5 1.8.16. Once we've covered the 1.8 API, we'll incorporate the new HDF5 1.10 features (March?).
+We have fairly complete coverage of the HDF5 1.8.16 API, and declarations for HDF5 1.10 are under development.
+The easiest way to get started with ``HDF.PInvoke`` is to use the [NuGet package](https://www.nuget.org/packages/HDF.PInvoke/):
+```
+Install-Package HDF.PInvoke
+```
+If you want to get your hands dirty, clone or fork the repo, and read on!
+
+### How you can help
+
+* Build it and run the tests
+* Submit issues
+* Submit pull requests addressing issues
+* Make suggestions on how to better organize, document, and maintain the software
+* Spread the word
+* ...
 
 ### Dependencies
 
@@ -15,12 +29,3 @@ Changing the DLL-search path is done in two attempts: First, an attempt to set t
 Currently, the Visual Studio Solution has two projects, ``HDF.PInvoke`` and ``UnitTests``, which should be fairly self-explanatory. For each API (H5, H5A, etc.) there is one file, which contains the corresponding PInvoke declarations. They follow closely the native C-headers. Finally, there's one folder for each API in the ``UnitTests`` project with one file (of ``TestMethod`` definitions) for each API call.
 
 ![Visual Studio Solution](/images/HDF.PInvoke.jpg)
-
-### How you can help
-
-* Build it and run the tests
-* Submit issues
-* Submit pull requests addressing issues
-* Make suggestions on how to better organize, document, and maintain the software
-* Spread the word
-* ...
