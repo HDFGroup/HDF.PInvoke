@@ -81,7 +81,7 @@ namespace HDF.PInvoke
                 if (EnvPath.Contains(aPath)) return;
                 
                 Environment.SetEnvironmentVariable
-                    ("PATH", string.Join(";", EnvPath, aPath));
+                    ("PATH", string.Join(";", aPath, EnvPath));
             }
             catch(SecurityException) 
             { }
