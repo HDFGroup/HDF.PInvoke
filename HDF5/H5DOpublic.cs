@@ -46,7 +46,7 @@ namespace HDF.PInvoke
         /// <param name="buf">Buffer containing data to be written to the file</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5DOwrite_chunk",
+        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5DOwrite_chunk",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t write_chunk
