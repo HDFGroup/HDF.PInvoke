@@ -2,18 +2,19 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>HDF.PInvoke</id>
-        <version>1.8.16.8</version>
-        <title>.NET Interop with Native HDF5 Libraries</title>
+        <version>1.8.16.9</version>
+        <summary>Raw HDF5 Power for .NET</summary>
         <authors>The HDF Group</authors>
         <owners>The HDF Group</owners>
         <licenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</licenseUrl>
         <iconUrl>https://raw.githubusercontent.com/HDFGroup/HDF.PInvoke/master/images/hdf.png</iconUrl>
         <projectUrl>https://github.com/HDFGroup/HDF.PInvoke</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>This package contains PInvoke declarations for the HDF5 C-API. For documenation, see  http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html .</description>
-        <copyright>2016 The HDF Group</copyright>
+	<description>This package contains PInvoke declarations for the (unmanaged) HDF5 1.8.x C-API. For documenation, see the "HDF5: API Specification Reference Manual" at http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html .</description>
+        <copyright>Copyright 2016</copyright>
         <language>en-US</language>
         <tags>HDF5</tags>
+	<releaseNotes>Git commit ec985ade96f1c1e898b5de363cf133cc6c6337a8</releaseNotes>
     </metadata>
     <files>
         <file src="C:\lib\HDF.PInvoke.dll" target="lib\Net45\HDF.PInvoke.dll" />
