@@ -22,10 +22,11 @@ namespace HDF.PInvoke
             {
                GetDllPathFromAssembly(out NativeDllPath);
             }
-            if (!AddPathToNativeDllSearchPath(NativeDllPath))
-            {
-                AddPathStringToEnvironment(NativeDllPath);
-            } 
+            // another call to SetDllPath *after* this could
+            // mess up the Dll loading, so set the native path
+            // *and* add the path to the PATH environment var.
+            AddPathToNativeDllSearchPath(NativeDllPath);
+            AddPathStringToEnvironment(NativeDllPath);
         }
 
         //----------------------------------------------------------------
