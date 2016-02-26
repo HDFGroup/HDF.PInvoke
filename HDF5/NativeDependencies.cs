@@ -22,10 +22,7 @@ namespace HDF.PInvoke
             {
                GetDllPathFromAssembly(out NativeDllPath);
             }
-            // another call to SetDllPath *after* this could
-            // mess up the Dll loading, so set the native path
-            // *and* add the path to the PATH environment var.
-            AddPathToNativeDllSearchPath(NativeDllPath);
+            
             AddPathStringToEnvironment(NativeDllPath);
         }
 
@@ -36,6 +33,7 @@ namespace HDF.PInvoke
             aPath = string.Empty;
             try
             {
+                if (ConfigurationManager.AppSettings.Count <= 0) return false;
                 string pathFromAppSettings = ConfigurationManager.
                     AppSettings[NativePathSetting].ToString();
                 if (string.IsNullOrEmpty(pathFromAppSettings))
@@ -83,18 +81,15 @@ namespace HDF.PInvoke
                 
                 Environment.SetEnvironmentVariable
                     ("PATH", string.Join(";", aPath, EnvPath));
+                    
+                System.Diagnostics.Trace.WriteLine(string.Format(
+                    "{0} added to Path.", aPath));
             }
             catch(SecurityException) 
-            { }
+            { 
+                System.Diagnostics.Trace.WriteLine(
+                    "Changing PATH not allowed");
+            }
         }
-
-        private static bool AddPathToNativeDllSearchPath(string aPath)
-        {
-            return SetDllDirectory(aPath);
-        }
-
-        [DllImport("kernel32.dll", 
-            CallingConvention = CallingConvention.Winapi, SetLastError = true)]
-        private static extern bool SetDllDirectory(string lpPathName);
     }
 }
