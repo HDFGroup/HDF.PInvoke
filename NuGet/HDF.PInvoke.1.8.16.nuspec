@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>HDF.PInvoke</id>
-        <version>1.8.16.10</version>
+        <version>1.8.16.11</version>
         <summary>Raw HDF5 Power for .NET</summary>
         <authors>The HDF Group</authors>
         <owners>The HDF Group</owners>
@@ -14,7 +14,7 @@
         <copyright>Copyright 2016</copyright>
         <language>en-US</language>
         <tags>HDF5</tags>
-	<releaseNotes>Git commit 0b2daccd57c45d0449e6b99dbf01b10765ac020f</releaseNotes>
+	<releaseNotes>Git commit aa43bd4dce89fd783c5ec8ca6b2f5926293cff13</releaseNotes>
     </metadata>
     <files>
         <file src="C:\lib\HDF.PInvoke.dll" target="lib\Net45\HDF.PInvoke.dll" />
