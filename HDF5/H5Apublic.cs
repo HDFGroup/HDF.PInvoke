@@ -38,6 +38,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5A
     {
+        static H5A() { H5.open(); }
+
         /// <summary>
         /// Information struct for attribute
         /// (for H5Aget_info/H5Aget_info_by_idx)

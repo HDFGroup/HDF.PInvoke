@@ -22,12 +22,12 @@ namespace UnitTests
     [TestClass]
     public class _AssemblySpecific
     {
-        [AssemblyInitialize()]
-        public static void AssemblyInit(TestContext context)
-        {
-            // open the HDF5 library
-            Assert.IsTrue(H5.open() >= 0);
-        }
+        //[AssemblyInitialize()]
+        //public static void AssemblyInit(TestContext context)
+        //{
+        //    // open the HDF5 library
+        //    Assert.IsTrue(H5.open() >= 0);
+        //}
 
         [AssemblyCleanup()]
         public static void AssemblyCleanup()

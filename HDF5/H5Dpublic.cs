@@ -35,6 +35,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5D
     {
+        static H5D() { H5.open(); }
+
         public readonly size_t CACHE_NSLOTS_DEFAULT = new IntPtr(-1);
         public readonly size_t CACHE_NBYTES_DEFAULT = new IntPtr(-1);
         public const float CACHE_W0_DEFAULT = -1.0f;

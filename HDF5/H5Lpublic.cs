@@ -37,6 +37,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5L
     {
+        static H5L() { H5.open(); }
+
         /// <summary>
         /// Maximum length of a link's name
         /// (encoded in a 32-bit unsigned integer: 4GB - 1)

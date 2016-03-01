@@ -23,6 +23,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5PL
     {
+        static H5PL() { H5.open(); }
+
         public const int FILTER_PLUGIN = 0x0001;
 
         public const int ALL_PLUGIN = 0xffff;

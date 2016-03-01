@@ -38,6 +38,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5F
     {
+        static H5F() { H5.open(); }
+
         // Flags for H5F.open() and H5F.create() calls
 
         /// <summary>

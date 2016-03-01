@@ -22,6 +22,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5AC
     {
+        static H5AC() { H5.open(); }
+
         public const int CURR_CACHE_CONFIG_VERSION = 1;
 
         public const int MAX_TRACE_FILE_NAME_LEN = 1024;

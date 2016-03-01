@@ -35,6 +35,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5R
     {
+        static H5R() { H5.open(); }
+
         /// <summary>
         /// Reference types allowed.
         /// </summary>

@@ -37,6 +37,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5O
     {
+        static H5O() { H5.open(); }
+
         #region Flags for object copy (H5Ocopy)
 
         /// <summary>
