@@ -35,6 +35,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5I
     {
+        static H5I() { H5.open(); }
+
         public enum type_t
         {
             /// <summary>

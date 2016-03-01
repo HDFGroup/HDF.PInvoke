@@ -46,6 +46,7 @@ namespace HDF.PInvoke
     {
         static H5P()
         {
+            H5.open();
             m_importer = H5DLLImporter.Create();
         }
 

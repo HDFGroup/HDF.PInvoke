@@ -33,6 +33,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5S
     {
+        static H5S() { H5.open(); }
+
         // Define atomic datatypes
         public const int ALL = 0;
         public const hsize_t UNLIMITED = unchecked((hsize_t)(-1));

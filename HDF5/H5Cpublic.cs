@@ -17,6 +17,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5C
     {
+        static H5C() { H5.open(); }
+
         public enum cache_incr_mode
         {
             OFF,

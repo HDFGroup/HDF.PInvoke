@@ -32,6 +32,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5Z
     {
+        static H5Z() { H5.open(); }
+
         /// <summary>
         /// Filter IDs
         /// </summary>

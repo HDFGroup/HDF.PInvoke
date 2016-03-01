@@ -32,6 +32,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5DO
     {
+        static H5DO() { H5.open(); }
+
         /// <summary>
         /// Writes a raw data chunk from a buffer directly to a dataset.
         /// See https://www.hdfgroup.org/HDF5/doc/HL/RM_HDF5Optimized.html

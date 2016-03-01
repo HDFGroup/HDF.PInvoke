@@ -31,6 +31,8 @@ namespace HDF.PInvoke
 {
     public unsafe sealed class H5G
     {
+        static H5G() { H5.open(); }
+
         /// <summary>
         /// Types of link storage for groups
         /// </summary>
