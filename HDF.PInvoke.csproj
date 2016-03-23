@@ -122,15 +122,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="HDF5\H5Eglobals.csv" />
+    <None Include="HDF5\H5Pglobals.csv" />
+    <None Include="HDF5\H5Tglobals.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="HDF5\H5Eglobals.txt" />
-    <Content Include="HDF5\H5Pglobals.txt" />
-    <Content Include="HDF5\H5Tglobals.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

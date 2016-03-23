@@ -1,4 +1,5 @@
-﻿DATASET,"Dataset"
+﻿ERR_CLS,"HDF5 error class"
+DATASET,"Dataset"
 FUNC,"Function entry/exit"
 STORAGE,"Data storage"
 FILE,"File accessibilty"
