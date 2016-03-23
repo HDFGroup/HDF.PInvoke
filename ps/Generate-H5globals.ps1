@@ -1,9 +1,20 @@
 ################################################################################
-# Expect a CSV file name as input. We care ONLY about the first column, which
-# we assume contains the paroperty names.
+# Create a partial class for the unmanaged global variables from a list of
+# variable names. Write the class definition to standard output.
+# Expect the API name [H5E, H5P, H5T] and a CSV file name as input. We care
+# ONLY about the first column of the CSV file, which we assume contains the
+# property names.
+#
+# Example:
+#
+#   .\Generate-H5globals.ps1 H5T ..\HDF5\H5Tglobals.csv > ..\HDF5\H5Tglobals.cs
+#
 ################################################################################
 
-param ([Parameter(Mandatory=$true)][string] $fileName)
+param (
+    [Parameter(Mandatory=$true)][ValidateSet('H5E','H5P','H5T')][string] $api,
+    [Parameter(Mandatory=$true)][string] $fileName
+)
 
 ################################################################################
 # The copyright notice
@@ -51,7 +62,7 @@ using hid_t = System.Int32;
 
 namespace HDF.PInvoke
 {
-    public unsafe sealed partial class H5T
+    public unsafe sealed partial class API
     {
         static H5DLLImporter m_importer;
 "@
@@ -71,17 +82,17 @@ $suffix = @"
 
 $template = @"
 
-        static hid_t? PROPERTY_g;
+        static hid_t? @INTERNAL@;
 
-        public static hid_t PROPERTY 
+        public static hid_t @PROPERTY@ 
         {
             get
             {
-                if (!PROPERTY_g.HasValue)
+                if (!@INTERNAL@.HasValue)
                 {
                     hid_t val = -1;
                     if (m_importer.GetValue<hid_t>(Constants.DLLFileName,
-                        "PROPERTY_g", ref val,
+                        "@SYMBOL@", ref val,
 #if HDF5_VER1_10
                         Marshal.ReadInt64
 #else
@@ -89,18 +100,37 @@ $template = @"
 #endif
                         ))
                     {
-                        PROPERTY_g = val;
+                        @INTERNAL@ = val;
                     }
                 }
-                return PROPERTY_g.GetValueOrDefault();
+                return @INTERNAL@.GetValueOrDefault();
             }
         }
 "@
 
 function Make-Property
 {
-  param ([Parameter(Mandatory=$true)][string] $propertyName)
-  $template -replace 'PROPERTY',$propertyName
+  param (
+      [Parameter(Mandatory=$true)][string] $propertyName)
+
+    $property = $propertyName
+    $internal = "$($api)_$($propertyName)_g"
+    $symbol = "$($api)_$($propertyName)_g"
+
+    if ($api -eq 'H5P')
+    {
+        if ($propertyName.StartsWith("CLS"))
+        {
+            $property = $propertyName.Substring(4)
+        }
+        $symbol = "$($api)_$($propertyName)_ID_g"
+    }
+
+    ($template -replace 'API',$api) `
+        -replace '@PROPERTY@',$property `
+        -replace '@INTERNAL@',$internal `
+        -replace '@SYMBOL@',$symbol
+  
 }
 
 ################################################################################
@@ -109,7 +139,7 @@ function Make-Property
 
 $copyright
 
-$prefix
+$prefix -replace 'API',$api
 
 $props = Get-Content $fileName
 
