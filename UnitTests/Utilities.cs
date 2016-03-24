@@ -101,7 +101,7 @@ namespace UnitTests
         public static hid_t RandomInvalidHandle()
         {
             Random r = new Random();
-            return r.Next(hid_t.MinValue, -44);
+            return (hid_t) r.Next(Int32.MinValue, -44);
         }
     }
 }

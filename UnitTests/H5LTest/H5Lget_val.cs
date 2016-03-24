@@ -61,7 +61,7 @@ namespace UnitTests
                 hnd.AddrOfPinnedObject(), new IntPtr(buf.Length)) >= 0);
             hnd.Free();
 
-            for (int i = m_v0_class_file; i < buf.Length-1; ++i)
+            for (int i = 0; i < buf.Length-1; ++i)
             {
                 Assert.IsTrue(buf[i] == bytes[i]);
             }
@@ -89,7 +89,7 @@ namespace UnitTests
                 hnd.AddrOfPinnedObject(), new IntPtr(buf.Length)) >= 0);
             hnd.Free();
 
-            for (int i = m_v0_class_file; i < buf.Length - 1; ++i)
+            for (int i = 0; i < buf.Length - 1; ++i)
             {
                 Assert.IsTrue(buf[i] == bytes[i]);
             }

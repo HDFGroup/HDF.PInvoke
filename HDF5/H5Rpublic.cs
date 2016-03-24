@@ -110,6 +110,24 @@ namespace HDF.PInvoke
             (IntPtr refer, hid_t loc_id, string name, type_t ref_type,
             hid_t space_id);
 
+        #if HDF5_VER1_10
+        /// <summary>
+        /// Opens the HDF5 object referenced.
+        /// </summary>
+        /// <param name="obj_id">Valid identifier for the file containing the
+        /// referenced object or any object in that file.</param>
+        /// <param name="oapl_id"></param>
+        /// <param name="ref_type">The reference type of
+        /// <paramref name="refer"/>.</param>
+        /// <param name="refer">Reference to open.</param>
+        /// <returns>Returns identifier of referenced object if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Rdereference2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t dereference
+            (hid_t obj_id, hid_t oapl_id, type_t ref_type, IntPtr refer);
+        #else
         /// <summary>
         /// Opens the HDF5 object referenced.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5R.html#Reference-Dereference
@@ -126,6 +144,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t dereference
             (hid_t obj_id, type_t ref_type, IntPtr refer);
+        #endif
 
         /// <summary>
         /// Retrieves a name for a referenced object.

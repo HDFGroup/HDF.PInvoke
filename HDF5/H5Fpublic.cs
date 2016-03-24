@@ -564,9 +564,15 @@ namespace HDF.PInvoke
         /// information.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
+        #if HDF5_VER1_10
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_info2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        #else
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_info",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        #endif
         public extern static herr_t get_info
             (hid_t obj_id, ref H5F.info_t bh_info);
 

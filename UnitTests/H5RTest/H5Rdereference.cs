@@ -56,8 +56,13 @@ namespace UnitTests
                 H5R.create(hnd.AddrOfPinnedObject(), m_v0_test_file, name,
                 H5R.type_t.OBJECT, -1) >= 0);
 
+            #if HDF5_VER1_10
+            gid = H5R.dereference(m_v0_test_file, H5P.DEFAULT,
+                H5R.type_t.OBJECT, hnd.AddrOfPinnedObject());
+            #else
             gid = H5R.dereference(m_v0_test_file, H5R.type_t.OBJECT,
                 hnd.AddrOfPinnedObject());
+            #endif
             Assert.IsTrue(gid >= 0);
 
             hnd.Free();
@@ -90,8 +95,13 @@ namespace UnitTests
                 H5R.create(hnd.AddrOfPinnedObject(), m_v2_test_file, name,
                 H5R.type_t.OBJECT, -1) >= 0);
 
-            gid = H5R.dereference(m_v2_test_file, H5R.type_t.OBJECT,
+            #if HDF5_VER1_10
+            gid = H5R.dereference(m_v2_test_file, H5P.DEFAULT,
+                H5R.type_t.OBJECT, hnd.AddrOfPinnedObject());
+            #else
+            gid = H5R.dereference(m_v2_test_file, H5P.DEFAULT,
                 hnd.AddrOfPinnedObject());
+            #endif
             Assert.IsTrue(gid >= 0);
 
             hnd.Free();
@@ -135,9 +145,14 @@ namespace UnitTests
             Assert.IsTrue(
                 H5R.create(hnd.AddrOfPinnedObject(), m_v0_test_file, name,
                 H5R.type_t.DATASET_REGION, space) >= 0);
-
+            
+            #if HDF5_VER1_10
+            dset = H5R.dereference(m_v0_test_file, H5P.DEFAULT,
+                H5R.type_t.DATASET_REGION, hnd.AddrOfPinnedObject());
+            #else
             dset = H5R.dereference(m_v0_test_file, H5R.type_t.DATASET_REGION,
                  hnd.AddrOfPinnedObject());
+            #endif
             Assert.IsTrue(dset >= 0);
 
             hnd.Free();
@@ -184,8 +199,13 @@ namespace UnitTests
                 H5R.create(hnd.AddrOfPinnedObject(), m_v2_test_file, name,
                 H5R.type_t.DATASET_REGION, space) >= 0);
 
+            #if HDF5_VER1_10
+            dset = H5R.dereference(m_v2_test_file, H5P.DEFAULT,
+                H5R.type_t.DATASET_REGION, hnd.AddrOfPinnedObject());
+            #else
             dset = H5R.dereference(m_v2_test_file, H5R.type_t.DATASET_REGION,
                  hnd.AddrOfPinnedObject());
+            #endif
             Assert.IsTrue(dset >= 0);
 
             hnd.Free();
