@@ -503,6 +503,16 @@ namespace HDF.PInvoke
             (hid_t dapl_id, ref size_t rdcc_nslots, ref size_t rdcc_nbytes,
             ref double rdcc_w0);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_opts
+            (hid_t plist_id, ref uint opts);
+
+#endif
+
         /// <summary>
         /// Returns the property list class identifier for a property list.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetClass
@@ -647,6 +657,16 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern H5Z.EDC_t get_edc_check(hid_t plist);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_efile_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_efile_prefix
+            (hid_t dapl_id, byte[] prefix, size_t size);
+
+#endif
 
         /// <summary>
         /// Retrieves the external link traversal file access flag from the
@@ -1945,6 +1965,16 @@ namespace HDF.PInvoke
             (hid_t plist_id, int ndims,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]hsize_t[] dims);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk_opts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_chunk_opts
+            (hid_t plist_id, uint opts);
+
+#endif
+
         /// <summary>
         /// Sets the raw data chunk cache parameters.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetChunkCache
@@ -2073,6 +2103,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_edc_check
             (hid_t plist, H5Z.EDC_t check);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_efile_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_efile_prefix
+            (hid_t dapl_id, byte[] prefix);
+
+#endif
 
         /// <summary>
         /// Sets the external link traversal file access flag in a link access
