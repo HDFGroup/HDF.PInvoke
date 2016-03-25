@@ -18,7 +18,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-using haddr_t = System.UInt64; 
+using haddr_t = System.UInt64;
+using hbool_t = System.Int32; 
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
@@ -341,6 +342,17 @@ namespace HDF.PInvoke
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate mcdt_search_ret_t mcdt_search_cb_t(IntPtr op_data);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Oare_mdc_flushes_disabled",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t are_mdc_flushes_disabled
+            (hid_t object_id, ref hbool_t are_disabled);
+
+#endif
+
         /// <summary>
         /// Closes an object in an HDF5 file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Close
@@ -418,6 +430,20 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t decr_refcount(hid_t object_id);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Odisable_mdc_flushes",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t disable_mdc_flushes(hid_t object_id);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oenable_mdc_flushes",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t enable_mdc_flushes(hid_t object_id);
+
+#endif
 
         /// <summary>
         /// Determines whether a link resolves to an actual object.
