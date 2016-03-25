@@ -53,7 +53,7 @@ namespace UnitTests
         [TestMethod]
         public void H5Gcreate_anonTest2()
         {
-            int file = Utilities.RandomInvalidHandle();
+            hid_t file = Utilities.RandomInvalidHandle();
             hid_t gid = H5G.create_anon(file);
             Assert.IsTrue(gid < 0);
         }
