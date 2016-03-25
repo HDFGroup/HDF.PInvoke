@@ -1166,6 +1166,17 @@ namespace HDF.PInvoke
         public static extern herr_t get_mdc_config
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_mdc_log_options",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_mdc_log_options
+            (hid_t plist_id, ref hbool_t is_enabled, byte[] location,
+            ref size_t location_size, ref hbool_t start_on_access);
+
+#endif
+
         /// <summary>
         /// Returns the current metadata block size setting.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetMetaBlockSize
@@ -1264,7 +1275,6 @@ namespace HDF.PInvoke
             (hid_t plist_id, H5F.flush_cb_t func, ref IntPtr udata);
 
 #endif
-
 
         /// <summary>
         /// Retrieves the configuration settings for a shared message index.
@@ -2634,6 +2644,17 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_mdc_config
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_log_options",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_mdc_log_options
+            (hid_t plist_id, hbool_t is_enabled, byte[] location,
+            hbool_t start_on_access);
+
+#endif
 
         /// <summary>
         /// Sets the minimum metadata block size.
