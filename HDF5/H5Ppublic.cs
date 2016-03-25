@@ -1255,6 +1255,17 @@ namespace HDF.PInvoke
         public static extern herr_t get_obj_track_times
             (hid_t ocpl_id, ref hbool_t track_times);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_object_flush_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_object_flush_cb
+            (hid_t plist_id, H5F.flush_cb_t func, ref IntPtr udata);
+
+#endif
+
+
         /// <summary>
         /// Retrieves the configuration settings for a shared message index.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetSharedMesgIndex
@@ -2699,6 +2710,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_obj_track_times
             (hid_t ocpl_id, hbool_t track_times);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_object_flush_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_object_flush_cb
+            (hid_t plist_id, H5F.flush_cb_t func, IntPtr udata);
+
+#endif
 
         /// <summary>
         /// Sets up the use of the scale-offset filter.
