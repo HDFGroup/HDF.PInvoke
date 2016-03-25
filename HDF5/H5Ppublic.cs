@@ -349,6 +349,18 @@ namespace HDF.PInvoke
         public static extern herr_t get_alloc_time
             (hid_t plist_id, ref H5D.alloc_time_t alloc_time);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_append_flush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_append_flush
+            (hid_t plist_id, uint dims,
+            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
+            H5D.append_cb_t func, ref IntPtr udata);
+
+#endif
+
         /// <summary>
         /// Retrieves tracking and indexing settings for attribute creation order.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetAttrCreationOrder
@@ -1776,6 +1788,18 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_alloc_time
             (hid_t plist_id, H5D.alloc_time_t alloc_time);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_append_flush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_append_flush
+            (hid_t plist_id, uint ndims,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
+            H5D.append_cb_t func, IntPtr udata);
+
+#endif
 
         /// <summary>
         /// Sets tracking and indexing of attribute creation order.
