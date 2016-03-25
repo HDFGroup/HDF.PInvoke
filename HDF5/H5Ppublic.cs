@@ -349,6 +349,18 @@ namespace HDF.PInvoke
         public static extern herr_t get_alloc_time
             (hid_t plist_id, ref H5D.alloc_time_t alloc_time);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_append_flush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_append_flush
+            (hid_t plist_id, uint dims,
+            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
+            H5D.append_cb_t func, ref IntPtr udata);
+
+#endif
+
         /// <summary>
         /// Retrieves tracking and indexing settings for attribute creation order.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetAttrCreationOrder
@@ -490,6 +502,16 @@ namespace HDF.PInvoke
         public static extern herr_t get_chunk_cache
             (hid_t dapl_id, ref size_t rdcc_nslots, ref size_t rdcc_nbytes,
             ref double rdcc_w0);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_opts
+            (hid_t plist_id, ref uint opts);
+
+#endif
 
         /// <summary>
         /// Returns the property list class identifier for a property list.
@@ -635,6 +657,16 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern H5Z.EDC_t get_edc_check(hid_t plist);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_efile_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_efile_prefix
+            (hid_t dapl_id, byte[] prefix, size_t size);
+
+#endif
 
         /// <summary>
         /// Retrieves the external link traversal file access flag from the
@@ -1154,6 +1186,17 @@ namespace HDF.PInvoke
         public static extern herr_t get_mdc_config
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_mdc_log_options",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_mdc_log_options
+            (hid_t plist_id, ref hbool_t is_enabled, byte[] location,
+            ref size_t location_size, ref hbool_t start_on_access);
+
+#endif
+
         /// <summary>
         /// Returns the current metadata block size setting.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetMetaBlockSize
@@ -1242,6 +1285,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_obj_track_times
             (hid_t ocpl_id, ref hbool_t track_times);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_object_flush_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_object_flush_cb
+            (hid_t plist_id, H5F.flush_cb_t func, ref IntPtr udata);
+
+#endif
 
         /// <summary>
         /// Retrieves the configuration settings for a shared message index.
@@ -1777,6 +1830,18 @@ namespace HDF.PInvoke
         public static extern herr_t set_alloc_time
             (hid_t plist_id, H5D.alloc_time_t alloc_time);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_append_flush",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_append_flush
+            (hid_t plist_id, uint ndims,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
+            H5D.append_cb_t func, IntPtr udata);
+
+#endif
+
         /// <summary>
         /// Sets tracking and indexing of attribute creation order.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetAttrCreationOrder
@@ -1899,6 +1964,16 @@ namespace HDF.PInvoke
         public static extern herr_t set_chunk
             (hid_t plist_id, int ndims,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]hsize_t[] dims);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk_opts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_chunk_opts
+            (hid_t plist_id, uint opts);
+
+#endif
 
         /// <summary>
         /// Sets the raw data chunk cache parameters.
@@ -2028,6 +2103,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_edc_check
             (hid_t plist, H5Z.EDC_t check);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_efile_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_efile_prefix
+            (hid_t dapl_id, byte[] prefix);
+
+#endif
 
         /// <summary>
         /// Sets the external link traversal file access flag in a link access
@@ -2600,6 +2685,17 @@ namespace HDF.PInvoke
         public static extern herr_t set_mdc_config
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
 
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_log_options",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_mdc_log_options
+            (hid_t plist_id, hbool_t is_enabled, byte[] location,
+            hbool_t start_on_access);
+
+#endif
+
         /// <summary>
         /// Sets the minimum metadata block size.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetMetaBlockSize
@@ -2675,6 +2771,16 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_obj_track_times
             (hid_t ocpl_id, hbool_t track_times);
+
+#if HDF5_VER1_10
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_object_flush_cb",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_object_flush_cb
+            (hid_t plist_id, H5F.flush_cb_t func, IntPtr udata);
+
+#endif
 
         /// <summary>
         /// Sets up the use of the scale-offset filter.
