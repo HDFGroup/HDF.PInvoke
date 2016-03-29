@@ -7,6 +7,8 @@ Install-Package HDF.PInvoke
 ```
 If you want to get your hands dirty, clone or fork the repo, and read on!
 
+Don't forget to check out the [Cookbook](https://github.com/HDFGroup/HDF.PInvoke/wiki/Cookbook) for a few examples.
+
 ### How you can help
 
 * Build it and run the tests
