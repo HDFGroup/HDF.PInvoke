@@ -522,7 +522,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Retrieves free-space section information for a file.
-        /// See
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Fget_free_sections.htm
         /// </summary>
         /// <param name="file_id">Identifier of a currently-open HDF5
         /// file</param>

@@ -951,6 +951,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the file space management strategy and/or free-space
         /// section threshold for an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Pget_file_space.htm
         /// </summary>
         /// <param name="fcpl">The file creation property list identifier.</param>
         /// <param name="strategy">The current file space management strategy
@@ -2506,6 +2507,29 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_file_image
             (hid_t fapl_id, IntPtr buf_ptr, size_t buf_len);
+
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Sets the file space management strategy and/or free-space section
+        /// threshold for an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Pset_file_space.htm
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The strategy for file space management.</param>
+        /// <param name="threshold">The free-space section threshold. The
+        /// library default is 1, which is to track all free-space sections.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_file_space",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_space
+            (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold = 1);
+
+#endif
+
 
         /// <summary>
         /// Sets the callbacks for working with file images.
