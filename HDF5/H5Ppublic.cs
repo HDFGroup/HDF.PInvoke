@@ -373,6 +373,22 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
             H5D.append_cb_t func, ref IntPtr udata);
 
+
+        /// <summary>
+        /// Retrieves the edge chunk option setting from a dataset creation
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pget_chunk_opts.htm
+        /// </summary>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="opts">Edge chunk option flag.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_opts
+            (hid_t dcpl_id, ref uint opts);
+
 #endif
 
         /// <summary>
@@ -2048,11 +2064,19 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets the edge chunk option in a dataset creation property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pset_chunk_opts.htm
+        /// </summary>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="opts">Edge chunk option flag.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk_opts",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_chunk_opts
-            (hid_t plist_id, uint opts);
+            (hid_t dcpl_id, uint opts);
 
 #endif
 
