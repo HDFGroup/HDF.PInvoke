@@ -373,22 +373,6 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
             H5D.append_cb_t func, ref IntPtr udata);
 
-
-        /// <summary>
-        /// Retrieves the edge chunk option setting from a dataset creation
-        /// property list.
-        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pget_chunk_opts.htm
-        /// </summary>
-        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
-        /// <param name="opts">Edge chunk option flag.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t get_chunk_opts
-            (hid_t dcpl_id, ref uint opts);
-
 #endif
 
         /// <summary>
@@ -535,11 +519,20 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the edge chunk option setting from a dataset creation
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pget_chunk_opts.htm
+        /// </summary>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="opts">Edge chunk option flag.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_chunk_opts
-            (hid_t plist_id, ref uint opts);
+            (hid_t dcpl_id, ref uint opts);
 
 #endif
 
@@ -2508,6 +2501,21 @@ namespace HDF.PInvoke
         public static extern herr_t set_file_image
             (hid_t fapl_id, IntPtr buf_ptr, size_t buf_len);
 
+        /// <summary>
+        /// Sets the callbacks for working with file images.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileImageCallbacks
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="callbacks_ptr">Pointer to an instance of the
+        /// <code>H5FD.file_image_callbacks_t</code> structure.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_file_image_callbacks",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_image_callbacks
+            (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
 
 #if HDF5_VER1_10
 
@@ -2529,44 +2537,6 @@ namespace HDF.PInvoke
             (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold = 1);
 
 #endif
-
-
-        /// <summary>
-        /// Sets the callbacks for working with file images.
-        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileImageCallbacks
-        /// </summary>
-        /// <param name="fapl_id">File access property list identifier</param>
-        /// <param name="callbacks_ptr">Pointer to an instance of the
-        /// <code>H5FD.file_image_callbacks_t</code> structure.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName,
-            EntryPoint = "H5Pset_file_image_callbacks",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t set_file_image_callbacks
-            (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
-
-
-#if HDF5_VER1_10
-
-        /// <summary>
-        /// Sets the file space management strategy and/or free-space section
-        /// threshold for an HDF5 file.
-        /// </summary>
-        /// <param name="fcpl">The file creation property list identifier.</param>
-        /// <param name="strategy">The strategy for file space management.</param>
-        /// <param name="threshold">The free-space section threshold.</param>
-        /// <returns>Returns a non-negative value if successful; otherwise
-        /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_file_space",
-            CallingConvention = CallingConvention.Cdecl),
-        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t set_file_space
-            (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold);
-
-#endif
-
 
         /// <summary>
         /// Sets the time when fill values are written to a dataset.
