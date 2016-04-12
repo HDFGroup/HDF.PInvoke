@@ -1488,6 +1488,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the number of mappings for the virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_count.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1502,13 +1503,35 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the name of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_dsetname.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
         /// <param name="index">Mapping index.</param>
         /// <param name="name">A buffer containing the name of the source
         /// dataset.</param>
-        /// <param name="size">The size, in bytes, of the name buffer.</param>
+        /// <param name="size">The size, in bytes, of the <paramref name="name"/>
+        /// buffer.</param>
+        /// <returns>Returns the length of the dataset name if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_dsetname",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_virtual_dsetname
+            (hid_t dcpl_id, size_t index, [Out] byte[] name, size_t size);
+
+        /// <summary>
+        /// Gets the name of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_dsetname.htm
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <param name="name">A buffer containing the name of the source
+        /// dataset.</param>
+        /// <param name="size">The size, in bytes, of the <paramref name="name"/>
+        /// buffer.</param>
         /// <returns>Returns the length of the dataset name if successful;
         /// otherwise returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
@@ -1522,6 +1545,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the filename of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_filename.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1544,6 +1568,7 @@ namespace HDF.PInvoke
         /// Returns the maximum number of missing source files and/or datasets
         /// with the printf-style names when getting the extent for an
         /// unlimited virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_printf_gap.htm
         /// </summary>
         /// <param name="plist_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -1562,6 +1587,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Gets a dataspace identifier for the selection within the source
         /// dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_srcspace.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1578,6 +1604,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the view of a virtual dataset accessed with
         /// <paramref name="dapl_id"/>.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_view.htm
         /// </summary>
         /// <param name="dapl_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -1594,6 +1621,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Gets a dataspace identifier for the selection within the virtual
         /// dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_vspace.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -2974,6 +3002,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Sets the mapping between virtual and source datasets.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the dataset creation
         /// property list that will be used when creating the virtual dataset.</param>
@@ -3001,6 +3030,7 @@ namespace HDF.PInvoke
         /// Sets the maximum number of missing source files and/or datasets
         /// with the printf-style names when getting the extent of an unlimited
         /// virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual_printf_gap.htm
         /// </summary>
         /// <param name="dapl_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -3019,6 +3049,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Sets the view of the virtual dataset (VDS) to include or exclude
         /// missing mapped elements.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual_view.htm
         /// </summary>
         /// <param name="plist_id">Identifier of the virtual dataset access
         /// property list.</param>
