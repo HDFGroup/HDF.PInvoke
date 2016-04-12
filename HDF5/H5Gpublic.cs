@@ -167,6 +167,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Flushes all buffers associated with a group to disk.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Gflush.htm
         /// </summary>
         /// <param name="group_id">Identifier of the group to be flushed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -319,6 +320,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Refreshes all buffers associated with a group.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Grefresh.htm
         /// </summary>
         /// <param name="group_id">Identifier of the group to be refreshed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

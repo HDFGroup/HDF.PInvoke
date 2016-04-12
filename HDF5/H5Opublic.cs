@@ -491,6 +491,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Flushes all buffers associated with an HDF5 object to disk.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Oflush.htm
         /// </summary>
         /// <param name="obj_id">Identifier of the object to be flushed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -823,6 +824,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Refreshes all buffers associated with an HDF5 object.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Orefresh.htm
         /// </summary>
         /// <param name="oid">Identifier of the object to be refreshed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

@@ -1202,11 +1202,25 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Gets metadata cache logging options.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pget_mdc_log_options.htm
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="is_enabled">Whether logging is enabled.</param>
+        /// <param name="location">Log file location.</param>
+        /// <param name="location_size">Size in bytes of the location string.</param>
+        /// <param name="start_on_access">Whether the logging begins as soon as
+        /// the file is opened or created.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_mdc_log_options",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_log_options
-            (hid_t plist_id, ref hbool_t is_enabled, byte[] location,
+            (hid_t fapl_id, ref hbool_t is_enabled, StringBuilder location,
             ref size_t location_size, ref hbool_t start_on_access);
 
 #endif
@@ -1231,6 +1245,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the number of read attempts from a file access property
         /// list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pget_metadata_read_attempts.htm
         /// </summary>
         /// <param name="fapl">Identifier for a file access property list.</param>
         /// <param name="attempts"> The number of read attempts.</param>
@@ -2753,11 +2768,24 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets metadata cache logging options.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pset_mdc_log_options.htm
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="is_enabled">Whether logging is enabled.</param>
+        /// <param name="location">Log file name.</param>
+        /// <param name="start_on_access">Whether the logging will begin as
+        /// soon as the file is opened or created.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_log_options",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_mdc_log_options
-            (hid_t plist_id, hbool_t is_enabled, byte[] location,
+            (hid_t fapl_id, hbool_t is_enabled, string location,
             hbool_t start_on_access);
 
 #endif
@@ -2783,6 +2811,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the number of read attempts from a file access property
         /// list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pset_metadata_read_attempts.htm
         /// </summary>
         /// <param name="fapl">Identifier for a file access property list.</param>
         /// <param name="attempts">The number of read attempts.</param>
