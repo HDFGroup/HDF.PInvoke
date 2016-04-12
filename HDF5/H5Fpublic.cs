@@ -880,7 +880,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Enables SWMR writing mode for a file.
-        /// See 
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Fstart_swmr_write.htm
         /// </summary>
         /// <param name="file_id">A file identifier.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

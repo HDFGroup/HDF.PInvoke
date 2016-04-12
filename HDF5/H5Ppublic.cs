@@ -351,11 +351,25 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the values of the append property that is set up in the
+        /// dataset access property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pget_append_flush.htm
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="ndims">The number of elements for
+        /// <paramref name="boundary"/>.</param>
+        /// <param name="boundary">The dimension sizes used to determine the
+        /// boundary.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_append_flush",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_append_flush
-            (hid_t plist_id, uint dims,
+            (hid_t dapl_id, uint ndims,
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
             H5D.append_cb_t func, ref IntPtr udata);
 
@@ -1288,11 +1302,22 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the object flush property values from the file access
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pget_object_flush_cb.htm
+        /// </summary>
+        /// <param name="fapl_id">Identifier for a file access property list.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_object_flush_cb",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_object_flush_cb
-            (hid_t plist_id, H5F.flush_cb_t func, ref IntPtr udata);
+            (hid_t fapl_id, H5F.flush_cb_t func, ref IntPtr udata);
 
 #endif
 
@@ -1860,11 +1885,24 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets two actions to perform when the size of a dataset’s dimension
+        /// being appended reaches a specified boundary.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pset_append_flush.htm
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="ndims">The number of elements for boundary.</param>
+        /// <param name="boundary">The dimension sizes used to determine the
+        /// boundary.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_append_flush",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_append_flush
-            (hid_t plist_id, uint ndims,
+            (hid_t dapl_id, uint ndims,
             [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
             H5D.append_cb_t func, IntPtr udata);
 
@@ -2802,6 +2840,17 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets a callback function to invoke when an object flush occurs in
+        /// the file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pset_object_flush_cb.htm
+        /// </summary>
+        /// <param name="fapl_id">Identifier for a file access property list.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_object_flush_cb",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
