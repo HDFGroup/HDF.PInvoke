@@ -282,6 +282,7 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
         /// <summary>
         /// Retrieves a regular hyperslab selection.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Sget_regular_hyperslab.htm
         /// </summary>
         /// <param name="space_id">The identifier of the dataspace.</param>
         /// <param name="start">Offset of the start of the regular hyperslab.</param>
@@ -472,6 +473,7 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
         /// <summary>
         /// Determines whether a hyperslab selection is regular.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Sis_regular_hyperslab.htm
         /// </summary>
         /// <param name="spaceid">The identifier of the dataspace.</param>
         /// <returns>Returns <code>TRUE</code> or <code>FALSE</code> for

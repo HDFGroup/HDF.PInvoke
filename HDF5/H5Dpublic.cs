@@ -350,6 +350,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Flushes all buffers associated with a dataset to disk.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Dflush.htm
         /// </summary>
         /// <param name="dset_id">Identifier of the dataset to be flushed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -585,6 +586,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Refreshes all buffers associated with a dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Drefresh.htm
         /// </summary>
         /// <param name="dset_id">Identifier of the dataset to be refreshed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

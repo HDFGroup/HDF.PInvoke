@@ -58,6 +58,7 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
         /// <summary>
         /// Appends data to a dataset along a specified dimension.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5DOappend.htm
         /// </summary>
         /// <param name="dset_id">Dataset identifier.</param>
         /// <param name="dxpl_id">Dataset transfer property list identifier.</param>

@@ -351,11 +351,25 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the values of the append property that is set up in the
+        /// dataset access property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pget_append_flush.htm
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="ndims">The number of elements for
+        /// <paramref name="boundary"/>.</param>
+        /// <param name="boundary">The dimension sizes used to determine the
+        /// boundary.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_append_flush",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_append_flush
-            (hid_t plist_id, uint dims,
+            (hid_t dapl_id, uint ndims,
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
             H5D.append_cb_t func, ref IntPtr udata);
 
@@ -505,11 +519,20 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the edge chunk option setting from a dataset creation
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pget_chunk_opts.htm
+        /// </summary>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="opts">Edge chunk option flag.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_chunk_opts",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_chunk_opts
-            (hid_t plist_id, ref uint opts);
+            (hid_t dcpl_id, ref uint opts);
 
 #endif
 
@@ -921,6 +944,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the file space management strategy and/or free-space
         /// section threshold for an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Pget_file_space.htm
         /// </summary>
         /// <param name="fcpl">The file creation property list identifier.</param>
         /// <param name="strategy">The current file space management strategy
@@ -1188,11 +1212,25 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Gets metadata cache logging options.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pget_mdc_log_options.htm
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="is_enabled">Whether logging is enabled.</param>
+        /// <param name="location">Log file location.</param>
+        /// <param name="location_size">Size in bytes of the location string.</param>
+        /// <param name="start_on_access">Whether the logging begins as soon as
+        /// the file is opened or created.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_mdc_log_options",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_log_options
-            (hid_t plist_id, ref hbool_t is_enabled, byte[] location,
+            (hid_t fapl_id, ref hbool_t is_enabled, StringBuilder location,
             ref size_t location_size, ref hbool_t start_on_access);
 
 #endif
@@ -1217,6 +1255,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the number of read attempts from a file access property
         /// list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pget_metadata_read_attempts.htm
         /// </summary>
         /// <param name="fapl">Identifier for a file access property list.</param>
         /// <param name="attempts"> The number of read attempts.</param>
@@ -1288,11 +1327,22 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Retrieves the object flush property values from the file access
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pget_object_flush_cb.htm
+        /// </summary>
+        /// <param name="fapl_id">Identifier for a file access property list.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_object_flush_cb",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_object_flush_cb
-            (hid_t plist_id, H5F.flush_cb_t func, ref IntPtr udata);
+            (hid_t fapl_id, H5F.flush_cb_t func, ref IntPtr udata);
 
 #endif
 
@@ -1488,6 +1538,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the number of mappings for the virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_count.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1502,13 +1553,35 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the name of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_dsetname.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
         /// <param name="index">Mapping index.</param>
         /// <param name="name">A buffer containing the name of the source
         /// dataset.</param>
-        /// <param name="size">The size, in bytes, of the name buffer.</param>
+        /// <param name="size">The size, in bytes, of the <paramref name="name"/>
+        /// buffer.</param>
+        /// <returns>Returns the length of the dataset name if successful;
+        /// otherwise returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_virtual_dsetname",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_virtual_dsetname
+            (hid_t dcpl_id, size_t index, [Out] byte[] name, size_t size);
+
+        /// <summary>
+        /// Gets the name of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_dsetname.htm
+        /// </summary>
+        /// <param name="dcpl_id">The identifier of the virtual dataset
+        /// creation property list.</param>
+        /// <param name="index">Mapping index.</param>
+        /// <param name="name">A buffer containing the name of the source
+        /// dataset.</param>
+        /// <param name="size">The size, in bytes, of the <paramref name="name"/>
+        /// buffer.</param>
         /// <returns>Returns the length of the dataset name if successful;
         /// otherwise returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
@@ -1522,6 +1595,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Gets the filename of a source dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_filename.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1544,6 +1618,7 @@ namespace HDF.PInvoke
         /// Returns the maximum number of missing source files and/or datasets
         /// with the printf-style names when getting the extent for an
         /// unlimited virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_printf_gap.htm
         /// </summary>
         /// <param name="plist_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -1562,6 +1637,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Gets a dataspace identifier for the selection within the source
         /// dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_srcspace.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1578,6 +1654,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the view of a virtual dataset accessed with
         /// <paramref name="dapl_id"/>.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_view.htm
         /// </summary>
         /// <param name="dapl_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -1594,6 +1671,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Gets a dataspace identifier for the selection within the virtual
         /// dataset used in the mapping.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pget_virtual_vspace.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the virtual dataset
         /// creation property list.</param>
@@ -1832,11 +1910,24 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets two actions to perform when the size of a dataset’s dimension
+        /// being appended reaches a specified boundary.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pset_append_flush.htm
+        /// </summary>
+        /// <param name="dapl_id">Dataset access property list identifier.</param>
+        /// <param name="ndims">The number of elements for boundary.</param>
+        /// <param name="boundary">The dimension sizes used to determine the
+        /// boundary.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_append_flush",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_append_flush
-            (hid_t plist_id, uint ndims,
+            (hid_t dapl_id, uint ndims,
             [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
             H5D.append_cb_t func, IntPtr udata);
 
@@ -1967,11 +2058,19 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets the edge chunk option in a dataset creation property list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/PartialEdgeChunks/H5Pset_chunk_opts.htm
+        /// </summary>
+        /// <param name="dcpl_id">Dataset creation property list identifier.</param>
+        /// <param name="opts">Edge chunk option flag.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk_opts",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_chunk_opts
-            (hid_t plist_id, uint opts);
+            (hid_t dcpl_id, uint opts);
 
 #endif
 
@@ -2418,26 +2517,26 @@ namespace HDF.PInvoke
         public static extern herr_t set_file_image_callbacks
             (hid_t fapl_id, ref H5FD.file_image_callbacks_t callbacks_ptr);
 
-
 #if HDF5_VER1_10
 
         /// <summary>
         /// Sets the file space management strategy and/or free-space section
         /// threshold for an HDF5 file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Pset_file_space.htm
         /// </summary>
         /// <param name="fcpl">The file creation property list identifier.</param>
         /// <param name="strategy">The strategy for file space management.</param>
-        /// <param name="threshold">The free-space section threshold.</param>
+        /// <param name="threshold">The free-space section threshold. The
+        /// library default is 1, which is to track all free-space sections.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_file_space",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_file_space
-            (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold);
+            (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold = 1);
 
 #endif
-
 
         /// <summary>
         /// Sets the time when fill values are written to a dataset.
@@ -2687,11 +2786,24 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets metadata cache logging options.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pset_mdc_log_options.htm
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier.</param>
+        /// <param name="is_enabled">Whether logging is enabled.</param>
+        /// <param name="location">Log file name.</param>
+        /// <param name="start_on_access">Whether the logging will begin as
+        /// soon as the file is opened or created.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_log_options",
-            CallingConvention = CallingConvention.Cdecl),
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_mdc_log_options
-            (hid_t plist_id, hbool_t is_enabled, byte[] location,
+            (hid_t fapl_id, hbool_t is_enabled, string location,
             hbool_t start_on_access);
 
 #endif
@@ -2717,6 +2829,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the number of read attempts from a file access property
         /// list.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Pset_metadata_read_attempts.htm
         /// </summary>
         /// <param name="fapl">Identifier for a file access property list.</param>
         /// <param name="attempts">The number of read attempts.</param>
@@ -2774,6 +2887,17 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Sets a callback function to invoke when an object flush occurs in
+        /// the file.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pset_object_flush_cb.htm
+        /// </summary>
+        /// <param name="fapl_id">Identifier for a file access property list.</param>
+        /// <param name="func">The user-defined callback function.</param>
+        /// <param name="udata">The user-defined input data for the callback
+        /// function.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_object_flush_cb",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -2974,6 +3098,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Sets the mapping between virtual and source datasets.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual.htm
         /// </summary>
         /// <param name="dcpl_id">The identifier of the dataset creation
         /// property list that will be used when creating the virtual dataset.</param>
@@ -3001,6 +3126,7 @@ namespace HDF.PInvoke
         /// Sets the maximum number of missing source files and/or datasets
         /// with the printf-style names when getting the extent of an unlimited
         /// virtual dataset.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual_printf_gap.htm
         /// </summary>
         /// <param name="dapl_id">Dataset access property list identifier for
         /// the virtual dataset</param>
@@ -3019,6 +3145,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Sets the view of the virtual dataset (VDS) to include or exclude
         /// missing mapped elements.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/VDS/H5Pset_virtual_view.htm
         /// </summary>
         /// <param name="plist_id">Identifier of the virtual dataset access
         /// property list.</param>

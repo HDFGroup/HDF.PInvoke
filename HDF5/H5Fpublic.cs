@@ -522,7 +522,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Retrieves free-space section information for a file.
-        /// See
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FileSpace/H5Fget_free_sections.htm
         /// </summary>
         /// <param name="file_id">Identifier of a currently-open HDF5
         /// file</param>
@@ -624,6 +624,16 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Gets the current metadata cache logging status.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Fget_mdc_logging_status.htm
+        /// </summary>
+        /// <param name="file_id">Identifier of an open HDF5 file.</param>
+        /// <param name="is_enabled">Whether logging is enabled.</param>
+        /// <param name="is_currently_logging">Whether events are currently
+        /// being logged.</param>
+        /// <returns>Returns a non-negative value if successful. Otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Fget_mdc_logging_status",
             CallingConvention = CallingConvention.Cdecl),
@@ -666,7 +676,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Retrieves the collection of read retries for metadata entries with
         /// checksum.
-        /// See
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Fget_metadata_read_retry_info.htm
         /// </summary>
         /// <param name="file_id">Identifier for a currently opened HDF5 file.</param>
         /// <param name="info">Struct containing the collection of read retries
@@ -868,7 +878,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Starts logging metadata cache events if logging was previously
         /// enabled.
-        /// See
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Fstart_mdc_logging.htm
         /// </summary>
         /// <param name="file_id">Identifier of an open HDF5 file.</param>
         /// <returns>Returns a non-negative value if successful. Otherwise
@@ -880,7 +890,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Enables SWMR writing mode for a file.
-        /// See 
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Fstart_swmr_write.htm
         /// </summary>
         /// <param name="file_id">A file identifier.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -893,7 +903,7 @@ namespace HDF.PInvoke
         /// <summary>
         /// Stops logging metadata cache events if logging was previously
         /// enabled and is currently ongoing.
-        /// See
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Fstop_mdc_logging.htm
         /// </summary>
         /// <param name="file_id">Identifier of an open HDF5 file.</param>
         /// <returns>Returns a non-negative value if successful. Otherwise

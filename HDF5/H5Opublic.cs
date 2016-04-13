@@ -344,6 +344,15 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Determines if an HDF5 object (dataset, group, committed datatype)
+        /// has had flushes of metadata entries disabled.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Oare_mdc_flushes_disabled.htm
+        /// </summary>
+        /// <param name="object_id">Identifier of an object in the cache.</param>
+        /// <param name="are_disabled">Flushes enabled/disabled.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName,
             EntryPoint = "H5Oare_mdc_flushes_disabled",
             CallingConvention = CallingConvention.Cdecl),
@@ -433,11 +442,29 @@ namespace HDF.PInvoke
 
 #if HDF5_VER1_10
 
+        /// <summary>
+        /// Prevents metadata entries for an HDF5 object from being flushed
+        /// from the metadata cache to storage.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Odisable_mdc_flushes.htm
+        /// </summary>
+        /// <param name="object_id">Identifier of the object that will have
+        /// flushes disabled.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Odisable_mdc_flushes",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t disable_mdc_flushes(hid_t object_id);
 
+        /// <summary>
+        /// Allow metadata entries for an HDF5 object to be flushed
+        /// from the metadata cache to storage.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Oenable_mdc_flushes.htm
+        /// </summary>
+        /// <param name="object_id">Identifier of the object that will have
+        /// flushes (re-)enabled.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Oenable_mdc_flushes",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -464,6 +491,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Flushes all buffers associated with an HDF5 object to disk.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Oflush.htm
         /// </summary>
         /// <param name="obj_id">Identifier of the object to be flushed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
@@ -796,6 +824,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Refreshes all buffers associated with an HDF5 object.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Orefresh.htm
         /// </summary>
         /// <param name="oid">Identifier of the object to be refreshed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise

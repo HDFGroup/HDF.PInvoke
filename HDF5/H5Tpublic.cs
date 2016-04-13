@@ -802,6 +802,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Flushes all buffers associated with a committed datatype to disk.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Tflush.htm
         /// </summary>
         /// <param name="type_id">Identifier of the committed datatype to be
         /// flushed.</param>
@@ -1268,6 +1269,7 @@ namespace HDF.PInvoke
 
         /// <summary>
         /// Refreshes all buffers associated with a committed datatype.
+        /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Trefresh.htm
         /// </summary>
         /// <param name="type_id">Identifier of the committed datatype to be
         /// refreshed.</param>
