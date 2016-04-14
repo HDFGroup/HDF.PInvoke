@@ -66,7 +66,8 @@ namespace UnitTests
         /// a file handle.
         /// </summary>
         public static hid_t H5TempFile(ref string fileName,
-            H5F.libver_t version = H5F.libver_t.LATEST)
+            H5F.libver_t version = H5F.libver_t.LATEST,
+            bool backing_store = false)
         {
             hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             if (fapl < 0)
@@ -78,7 +79,8 @@ namespace UnitTests
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
             }
             // use the core VFD, 64K increments, no backing store
-            if (H5P.set_fapl_core(fapl, new IntPtr(65536), 0) < 0)
+            if (H5P.set_fapl_core(fapl, new IntPtr(65536),
+                (uint) (backing_store ? 1 : 0)) < 0)
             {
                 throw new ApplicationException("H5P.set_fapl_core failed.");
             }
