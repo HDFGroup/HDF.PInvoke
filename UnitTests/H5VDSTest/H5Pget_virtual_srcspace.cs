@@ -22,10 +22,8 @@ using herr_t = System.Int32;
 using size_t = System.IntPtr;
 
 #if HDF5_VER1_10
+
 using hid_t = System.Int64;
-#else
-using hid_t = System.Int32;
-#endif
 
 namespace UnitTests
 {
@@ -61,3 +59,5 @@ namespace UnitTests
         }
     }
 }
+
+#endif
