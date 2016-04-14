@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -280,6 +280,13 @@
     <Compile Include="H5TTest\H5Tarray_create.cs" />
     <Compile Include="H5TTest\H5Tcreate.cs" />
     <Compile Include="H5TTest\H5TTest.cs" />
+    <Compile Include="H5VDSTest\H5Pget_virtual_dsetname.cs" />
+    <Compile Include="H5VDSTest\H5Pget_virtual_srcspace.cs" />
+    <Compile Include="H5VDSTest\H5Pget_virtual_filename.cs" />
+    <Compile Include="H5VDSTest\H5Pget_virtual_vspace.cs" />
+    <Compile Include="H5VDSTest\H5Pget_virtual_count.cs" />
+    <Compile Include="H5VDSTest\H5Pget_layout.cs" />
+    <Compile Include="H5VDSTest\H5VDSTest.cs" />
     <Compile Include="H5ZTest\H5Zget_filter_info.cs" />
     <Compile Include="H5ZTest\H5ZTest.cs" />
     <Compile Include="H5ZTest\H5Zfilter_avail.cs" />
@@ -299,6 +306,7 @@
       <Link>app.config</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
