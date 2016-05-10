@@ -43,9 +43,10 @@ namespace HDF.PInvoke
                 case PlatformID.Win32Windows:
                 case PlatformID.WinCE:
                     return new H5WindowsDLLImporter();
-                case PlatformID.Xbox:
-                case PlatformID.MacOSX:
-                case PlatformID.Unix:
+			case PlatformID.Xbox:
+			case PlatformID.MacOSX:
+			case PlatformID.Unix:
+				return new H5UnixDllImporter ();
                     break;
                 default:
                     break;
@@ -104,4 +105,67 @@ namespace HDF.PInvoke
         }
     }
     #endregion
+
+	internal class H5UnixDllImporter : H5DLLImporter{
+
+		[DllImport("libdl.so")]
+		protected static extern IntPtr dlopen(string filename, int flags);
+
+		[DllImport("libdl.so")]
+		protected static extern IntPtr dlsym(IntPtr handle, string symbol);
+
+		[DllImport("libdl.so")]
+		protected static extern IntPtr dlerror ();
+
+		const int RTLD_NOW = 2; // for dlopen's flags
+		internal override bool GetValue<T>(string libname, string varName, ref T value, Func<IntPtr, T> converter)
+		{
+			if (libname == "hdf5.dll") {
+				libname = "/usr/lib/libhdf5.so";
+
+			}
+			if (libname == "hdf5_hd.dll") {
+				libname = "/usr/lib/libhdf5_hl.so";
+			}
+				
+
+
+			try
+			{
+				IntPtr handle = dlopen(libname, RTLD_NOW);
+				if (handle==IntPtr.Zero)
+				{
+					throw new ArgumentException(
+						String.Format(
+							"Unable to load unmanaged module \"{0}\"",
+							libname));
+				}
+
+				if (handle != IntPtr.Zero)
+				{
+					IntPtr address = dlsym(handle, varName);
+					IntPtr errPtr = dlerror();
+					if(errPtr != IntPtr.Zero){
+						throw new Exception("dlsym: " + Marshal.PtrToStringAnsi(errPtr));
+					}
+
+					if (address != IntPtr.Zero)
+					{
+						value = converter(address);
+						return true;
+					}
+				}
+			}
+			catch (Exception ex) 
+			{
+				System.Diagnostics.Trace.TraceError (
+					String.Format (
+						"Error fetching imported variable '{0}' from DLL '{1}':",
+						varName, libname));
+				System.Diagnostics.Trace.TraceError (ex.ToString ());
+			
+			}
+			return false;
+		}
+	}
 }
