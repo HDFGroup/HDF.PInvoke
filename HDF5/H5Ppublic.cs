@@ -681,15 +681,23 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern H5Z.EDC_t get_edc_check(hid_t plist);
 
-#if HDF5_VER1_10
-
+        /// <summary>
+        /// Retrieves the prefix for external raw data storage files as set in
+        /// the dataset access property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetEfilePrefix
+        /// </summary>
+        /// <param name="dapl">Dataset access property list identifier.</param>
+        /// <param name="prefix">Dataset external storage prefix.</param>
+        /// <param name="size">Size of prefix buffer in bytes.</param>
+        /// <returns>Returns the size of <paramref name="prefix"/> and the
+        /// prefix string will be stored in <paramref name="prefix"/> if
+        /// successful. Otherwise returns a negative value and the contents of
+        /// <paramref name="prefix"/> will be undefined.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_efile_prefix",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_efile_prefix
-            (hid_t dapl_id, byte[] prefix, size_t size);
-
-#endif
+            (hid_t dapl, [Out] byte[] prefix, size_t size);
 
         /// <summary>
         /// Retrieves the external link traversal file access flag from the
@@ -2203,15 +2211,22 @@ namespace HDF.PInvoke
         public static extern herr_t set_edc_check
             (hid_t plist, H5Z.EDC_t check);
 
-#if HDF5_VER1_10
-
+        /// <summary>
+        /// Sets the external dataset storage file prefix in the dataset access
+        /// property list.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetEfilePrefix
+        /// </summary>
+        /// <param name="dapl">Dataset access property list identifier.</param>
+        /// <param name="prefix">Dataset external storage prefix.</param>
+        /// <returns>Returns a non-negative value if successful;
+        /// otherwise returns a negative value.</returns>
+        /// /// <remarks>ASCII strings ONLY!</remarks>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_efile_prefix",
+            CharSet = CharSet.Ansi,
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_efile_prefix
-            (hid_t dapl_id, byte[] prefix);
-
-#endif
+            (hid_t dapl, string prefix);
 
         /// <summary>
         /// Sets the external link traversal file access flag in a link access
