@@ -14,6 +14,7 @@
         <copyright>Copyright 2016</copyright>
         <language>en-US</language>
         <tags>HDF5</tags>
+	<releaseNotes>First package w/ HDF5 1.8.17</releaseNotes>
     </metadata>
     <files>
         <file src="C:\lib\hdf5-1.8.17\HDF.PInvoke.dll" target="lib\Net45\HDF.PInvoke.dll" />

@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="UnitTests.H5SWMRTest.H5Pget_intentTestSWMR1" /><Add Test="UnitTests.H5SWMRTest.H5Fstart_swmr_writeTestSWMR1" /><Add Test="UnitTests.H5SWMRTest.H5Fget_intentTestSWMR1" /><Add Test="UnitTests.H5SWMRTest.H5Fstart_swmr_writeTestSWMR2" /></Playlist>
