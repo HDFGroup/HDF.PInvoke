@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-using hbool_t = System.Int32;
+using hbool_t = System.UInt32;
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 using htri_t = System.Int32;
