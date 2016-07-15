@@ -118,12 +118,11 @@ namespace UnitTests
         // array list as we go
         public herr_t DelegateMethod
             (
-            hid_t          location_id,
-            IntPtr         attr_name,
+            hid_t location_id,
+            IntPtr attr_name,
             ref H5A.info_t ainfo,
-            IntPtr         op_data
-            )
-        {
+            IntPtr op_data
+            ) {
             GCHandle hnd = (GCHandle)op_data;
             ArrayList al = (hnd.Target as ArrayList);
             int len = 0;
