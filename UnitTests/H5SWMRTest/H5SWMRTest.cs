@@ -141,6 +141,33 @@ namespace UnitTests
 
         private string m_v3_test_file_name_swmr;
 
+        // Two simple callbacks for H5Pset_append_flush and
+        // H5Pset_object_flush_cb. We assume that a pointer to a counter in
+        // unmanaged memory is passed as user data (op_data).
+
+        public herr_t append_func
+            (
+            hid_t dset_id,
+            hsize_t[] cur_dims,
+            IntPtr op_data
+            )
+        {
+            int append_ct = Marshal.ReadInt32(op_data);
+            Marshal.WriteInt32(op_data, ++append_ct);
+            return 0;
+        }
+
+
+        public herr_t flush_func
+            (
+            hid_t obj_id,
+            IntPtr op_data
+            )
+        {
+            int flush_ct = Marshal.ReadInt32(op_data);
+            Marshal.WriteInt32(op_data, ++flush_ct);
+            return 0;
+        }
 #endif
     }
 }

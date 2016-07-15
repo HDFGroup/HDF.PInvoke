@@ -371,7 +371,7 @@ namespace HDF.PInvoke
         public static extern herr_t get_append_flush
             (hid_t dapl_id, uint ndims,
             [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
-            H5D.append_cb_t func, ref IntPtr udata);
+            ref H5D.append_cb_t func, ref IntPtr udata);
 
 #endif
 
@@ -1350,7 +1350,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_object_flush_cb
-            (hid_t fapl_id, H5F.flush_cb_t func, ref IntPtr udata);
+            (hid_t fapl_id, ref H5F.flush_cb_t func, ref IntPtr udata);
 
 #endif
 
