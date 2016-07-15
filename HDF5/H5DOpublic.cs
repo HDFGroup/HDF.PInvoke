@@ -69,10 +69,10 @@ namespace HDF.PInvoke
         /// <param name="buf">Data buffer.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5DOappend",
+        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5DOappend",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public static extern herr_t H5DOappend
+        public static extern herr_t append
             (hid_t dset_id, hid_t dxpl_id, uint axis,
             size_t extension, hid_t memtype, IntPtr buf);
 #endif

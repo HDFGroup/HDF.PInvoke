@@ -14,8 +14,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
-using System.Collections;
-using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
@@ -24,34 +22,16 @@ using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 
 #if HDF5_VER1_10
+
 using hid_t = System.Int64;
-#else
-using hid_t = System.Int32;
-#endif
 
 namespace UnitTests
 {
-    [TestClass]
     public partial class H5SWMRTest
     {
-        [ClassInitialize()]
-        public static void ClassInit(TestContext testContext)
+        [TestMethod]
+        public void H5DflushTestSWMR1()
         {
-#if HDF5_VER1_10
-
-            // create test files which persists across file tests
-            m_v3_class_file = Utilities.H5TempFileSWMR(ref m_v3_class_file_name);
-            Assert.IsTrue(m_v3_class_file >= 0);
-
-            m_lcpl = H5P.create(H5P.LINK_CREATE);
-            Assert.IsTrue(H5P.set_create_intermediate_group(m_lcpl, 1) >= 0);
-
-            m_lcpl_utf8 = H5P.copy(m_lcpl);
-            Assert.IsTrue(
-                H5P.set_char_encoding(m_lcpl_utf8, H5T.cset_t.UTF8) >= 0);
-
-            // create a sample dataset
-
             hsize_t[] dims = { 6, 6 };
             hsize_t[] maxdims = { 6, H5S.UNLIMITED };
             hsize_t[] chunk_dims = { 2, 5 };
@@ -64,7 +44,7 @@ namespace UnitTests
             Assert.IsTrue(dcpl >= 0);
             Assert.IsTrue(H5P.set_chunk(dcpl, 2, chunk_dims) >= 0);
 
-            hid_t dst = H5D.create(m_v3_class_file, "int6x6",
+            hid_t dst = H5D.create(m_v3_test_file_no_swmr, "dset",
                 H5T.NATIVE_INT, dsp, H5P.DEFAULT, dcpl);
             Assert.IsTrue(dst >= 0);
 
@@ -80,67 +60,41 @@ namespace UnitTests
             Assert.IsTrue(H5D.close(dst) >= 0);
             Assert.IsTrue(H5P.close(dcpl) >= 0);
             Assert.IsTrue(H5S.close(dsp) >= 0);
-
-#endif      
         }
 
-        [TestInitialize()]
-        public void Init()
+        [TestMethod]
+        public void H5DflushTestSWMR2()
         {
-#if HDF5_VER1_10
-            m_v3_test_file_no_swmr =
-                Utilities.H5TempFileNoSWMR(ref m_v3_test_file_name_no_swmr);
-            Assert.IsTrue(m_v3_test_file_no_swmr >= 0);
+            hsize_t[] dims = { 6, 6 };
+            hsize_t[] maxdims = { 6, H5S.UNLIMITED };
+            hsize_t[] chunk_dims = { 2, 5 };
+            int[] cbuf = new int[36];
 
-            m_v3_test_file_swmr =
-                Utilities.H5TempFileSWMR(ref m_v3_test_file_name_swmr);
-            Assert.IsTrue(m_v3_test_file_swmr >= 0);
-#endif
+            hid_t dsp = H5S.create_simple(2, dims, maxdims);
+            Assert.IsTrue(dsp >= 0);
+
+            hid_t dcpl = H5P.create(H5P.DATASET_CREATE);
+            Assert.IsTrue(dcpl >= 0);
+            Assert.IsTrue(H5P.set_chunk(dcpl, 2, chunk_dims) >= 0);
+
+            hid_t dst = H5D.create(m_v3_test_file_swmr, "dset",
+                H5T.NATIVE_INT, dsp, H5P.DEFAULT, dcpl);
+            Assert.IsTrue(dst >= 0);
+
+            GCHandle hnd = GCHandle.Alloc(cbuf, GCHandleType.Pinned);
+
+            Assert.IsTrue(H5D.write(dst, H5T.NATIVE_INT, H5S.ALL, H5S.ALL,
+                H5P.DEFAULT, hnd.AddrOfPinnedObject()) >= 0);
+
+            hnd.Free();
+
+            Assert.IsTrue(H5D.flush(dst) >= 0);
+
+            Assert.IsTrue(H5D.close(dst) >= 0);
+            Assert.IsTrue(H5P.close(dcpl) >= 0);
+            Assert.IsTrue(H5S.close(dsp) >= 0);
         }
-
-        [TestCleanup()]
-        public void Cleanup()
-        {
-#if HDF5_VER1_10
-            // close the test-local files
-            Assert.IsTrue(H5F.close(m_v3_test_file_no_swmr) >= 0);
-            File.Delete(m_v3_test_file_name_no_swmr);
-            Assert.IsTrue(H5F.close(m_v3_test_file_swmr) >= 0);
-            File.Delete(m_v3_test_file_name_swmr);
-#endif
-        }
-
-        [ClassCleanup()]
-        public static void ClassCleanup()
-        {
-#if HDF5_VER1_10
-            Assert.IsTrue(H5P.close(m_lcpl) >= 0);
-            Assert.IsTrue(H5P.close(m_lcpl_utf8) >= 0);
-
-            // close the global test files
-            Assert.IsTrue(H5F.close(m_v3_class_file) >= 0);
-            File.Delete(m_v3_class_file_name);
-#endif      
-        }
-
-#if HDF5_VER1_10
-        
-        private static hid_t m_v3_class_file = -1;
-
-        private static string m_v3_class_file_name;
-
-        private static hid_t m_lcpl;
-
-        private static hid_t m_lcpl_utf8;
-
-        private hid_t m_v3_test_file_no_swmr = -1;
-
-        private string m_v3_test_file_name_no_swmr;
-
-        private hid_t m_v3_test_file_swmr = -1;
-
-        private string m_v3_test_file_name_swmr;
-
-#endif
     }
 }
+
+#endif
