@@ -260,8 +260,12 @@
     <Compile Include="H5STest\H5STest.cs" />
     <Compile Include="H5STest\H5Screate_simple.cs" />
     <Compile Include="H5SWMRTest\H5Dflush.cs" />
-    <Compile Include="H5SWMRTest\H5DOappend.cs" />
     <Compile Include="H5SWMRTest\H5Drefresh.cs" />
+    <Compile Include="H5SWMRTest\H5Fstart_mdc_logging.cs" />
+    <Compile Include="H5SWMRTest\H5Pget_mdc_log_options.cs" />
+    <Compile Include="H5SWMRTest\H5Pset_mdc_log_options.cs" />
+    <Compile Include="H5SWMRTest\H5Pset_metadata_read_attempts.cs" />
+    <Compile Include="H5SWMRTest\H5Pget_metadata_read_attempts.cs" />
     <Compile Include="H5SWMRTest\H5Fget_intent.cs" />
     <Compile Include="H5SWMRTest\H5Fstart_swmr_write.cs" />
     <Compile Include="H5SWMRTest\H5Odisable_mdc_flushes.cs" />
