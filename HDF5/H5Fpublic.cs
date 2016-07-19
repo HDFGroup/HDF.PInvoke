@@ -373,10 +373,38 @@ namespace HDF.PInvoke
         /// metadata items with checksum. Used by public routine
         /// <code>H5F.get_metadata_read_retry_info</code>
         /// </summary>
+        /*
+         * 
+         * typedef struct H5F_retry_info_t {
+         *    unsigned nbins;
+         *    uint32_t *retries[H5F_NUM_METADATA_READ_RETRY_TYPES];
+         * } H5F_retry_info_t;
+         * 
+         */
         public struct retry_info_t
         {
             public uint nbins;
-            public fixed uint32_t retries[NUM_METADATA_READ_RETRY_TYPES];
+            public IntPtr retries0;
+            public IntPtr retries1;
+            public IntPtr retries2;
+            public IntPtr retries3;
+            public IntPtr retries4;
+            public IntPtr retries5;
+            public IntPtr retries6;
+            public IntPtr retries7;
+            public IntPtr retries8;
+            public IntPtr retries9;
+            public IntPtr retries10;
+            public IntPtr retries11;
+            public IntPtr retries12;
+            public IntPtr retries13;
+            public IntPtr retries14;
+            public IntPtr retries15;
+            public IntPtr retries16;
+            public IntPtr retries17;
+            public IntPtr retries18;
+            public IntPtr retries19;
+            public IntPtr retries20;
         }
 
         /// <summary>

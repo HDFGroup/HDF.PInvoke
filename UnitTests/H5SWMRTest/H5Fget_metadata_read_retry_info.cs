@@ -32,9 +32,17 @@ namespace UnitTests
         public void H5Fget_metadata_read_retry_infoTestSWMR1()
         {
             H5F.retry_info_t info = new H5F.retry_info_t();
+
             Assert.IsTrue(
                 H5F.get_metadata_read_retry_info(m_v3_test_file_swmr,
                 ref info) >= 0);
+
+            Assert.IsTrue(info.nbins == 2);
+
+            Assert.IsTrue(info.retries0 == IntPtr.Zero);
+            Assert.IsTrue(info.retries6 == IntPtr.Zero);
+            Assert.IsTrue(info.retries14 == IntPtr.Zero);
+            Assert.IsTrue(info.retries20 == IntPtr.Zero);
         }
     }
 }
