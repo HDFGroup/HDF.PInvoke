@@ -18,7 +18,7 @@ signatures for the 1.8 and 1.10 families of the [HDF5 C-API](https://www.hdfgrou
 It's practically *code-free*, which means we can blame all the bugs on Microsoft or The HDF Group :smile:
 
 It is **not** a high-level .NET interface for HDF5. "It's the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)
-of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple)."
+of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple)." :bowtie:
 
 # Prerequisites
 
