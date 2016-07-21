@@ -11,20 +11,13 @@ To install the latest HDF.PInvoke 1.10, run the following command in the
     Install-Package HDF.PInvoke -Pre
 ```
 
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [License](#license)
-- [Supporting HDF.Pinvoke](#supporting-hdf.pinvoke)
-
 # Introduction
 
 HDF.Pinvoke is a collection of [PInvoke](https://en.wikipedia.org/wiki/Platform_Invocation_Services)
 signatures for the 1.8 and 1.10 families of the [HDF5 C-API](https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html).
 It's practically *code-free*, which means we can blame all the bugs on Microsoft or The HDF Group :smile:
 
-# Prerequsites
+# Prerequisites
 
 The prerequisites are included in the [NuGet packages](https://www.nuget.org/packages/HDF.PInvoke).
 
