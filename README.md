@@ -35,9 +35,8 @@ the unmanaged DLLs in the ``bin32`` or ``bin64`` subdirectories relative to its
 location. For example, if ``HDF.PInvoke.dll`` lives in ``C:\bin``, it expects
 the unmanaged DLLs in ``C:\bin\bin32`` and ``C:\bin\bin64``.
 
-The the DLL-search path is changed using the ``PATH`` variable of the running
-process. An attempt is made to modify the running processes' ``PATH`` environment.
-If that fails, the native binaries will be loaded from their default places
+The the DLL-search path is updated using the ``PATH`` environment variable of the running
+process. If that attempt fails, the native binaries will be loaded from their default places
 (such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/)).
 
 # License
