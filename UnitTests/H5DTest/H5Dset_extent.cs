@@ -78,13 +78,13 @@ namespace UnitTests
             hid_t dset = H5D.create_anon(m_v0_test_file, H5T.IEEE_F32BE,
                 space, dcpl);
             Assert.IsTrue(dset >= 0);
-            Assert.IsFalse(H5D.set_extent(dset, null) >= 0);
+            Assert.IsFalse(H5D.set_extent(dset, (ulong[])null) >= 0);
             Assert.IsTrue(H5D.close(dset) >= 0);
 
             dset = H5D.create_anon(m_v2_test_file, H5T.IEEE_F32BE,
                 space, dcpl);
             Assert.IsTrue(dset >= 0);
-            Assert.IsFalse(H5D.set_extent(dset, null) >= 0);
+            Assert.IsFalse(H5D.set_extent(dset, (ulong[])null) >= 0);
             Assert.IsTrue(H5D.close(dset) >= 0);
 
             Assert.IsTrue(H5P.close(dcpl) >= 0);

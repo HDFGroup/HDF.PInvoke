@@ -40,7 +40,7 @@ namespace UnitTests
 
             space = H5S.create_simple(dims.Length, dims, dims);
             Assert.IsTrue(
-                H5S.get_simple_extent_dims(space, null, null) == 3);
+                H5S.get_simple_extent_dims(space, (ulong[])null, null) == 3);
 
             Assert.IsTrue(
                 H5S.get_simple_extent_dims(space, dims_out, null) == 3);
@@ -66,7 +66,7 @@ namespace UnitTests
 
             space = H5S.create_simple(dims.Length, dims, max_dims);
             Assert.IsTrue(
-            H5S.get_simple_extent_dims(space, null, null) == 3);
+            H5S.get_simple_extent_dims(space, (ulong[])null, null) == 3);
 
             Assert.IsTrue(
                 H5S.get_simple_extent_dims(space, dims_out, null) == 3);
