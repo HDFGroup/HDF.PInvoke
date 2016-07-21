@@ -637,6 +637,20 @@ namespace HDF.PInvoke
         public static extern herr_t set_extent(hid_t dset_id, hsize_t[] size);
 
         /// <summary>
+        /// Changes the sizes of a dataset’s dimensions.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-SetExtent
+        /// </summary>
+        /// <param name="dset_id">Dataset identifier</param>
+        /// <param name="size">Array containing the new magnitude of each
+        /// dimension of the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dset_extent",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_extent(hid_t dset_id, hsize_t* size);
+
+        /// <summary>
         /// Determines the number of bytes required to store variable-length
         /// (VL) data.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-VLGetBuf
