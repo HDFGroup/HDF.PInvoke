@@ -217,6 +217,21 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)]hsize_t[] maxdims);
 
         /// <summary>
+        /// Creates a new simple dataspace and opens it for access.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-CreateSimple
+        /// </summary>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">Array specifying the size of each dimension.</param>
+        /// <param name="maxdims">Array specifying the maximum size of each
+        /// dimension.</param>
+        /// <returns>Returns a dataspace identifier if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Screate_simple",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t create_simple(int rank, hsize_t* dims, hsize_t* maxdims);
+
+        /// <summary>
         /// Decode a binary object description of data space and return a new
         /// object handle.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-Decode
@@ -431,6 +446,24 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)]hsize_t[] dims, 
             [MarshalAs(UnmanagedType.LPArray)]hsize_t[] maxdims);
 
+
+        /// <summary>
+        /// Retrieves dataspace dimension size and maximum size.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentDims
+        /// </summary>
+        /// <param name="space_id">Identifier of the dataspace object to query</param>
+        /// <param name="dims">Pointer to array to store the size of each dimension.</param>
+        /// <param name="maxdims">Pointer to array to store the maximum size of each dimension.</param>
+        /// <returns>Returns the number of dimensions in the dataspace if
+        /// successful; otherwise returns a negative value.</returns>
+        /// <remarks>Either or both of <paramref name="dims"/> and
+        /// <paramref name="maxdims"/> may be <code>NULL</code>.</remarks>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Sget_simple_extent_dims",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern int get_simple_extent_dims (hid_t space_id, hsize_t* dims, hsize_t* maxdims);
+
         /// <summary>
         /// Determines the dimensionality of a dataspace.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-ExtentNdims
@@ -575,6 +608,23 @@ namespace HDF.PInvoke
             [MarshalAs(UnmanagedType.LPArray)] hsize_t[] stride,
             [MarshalAs(UnmanagedType.LPArray)] hsize_t[] count,
             [MarshalAs(UnmanagedType.LPArray)] hsize_t[] block);
+
+        /// <summary>
+        /// Selects a hyperslab region to add to the current selected region.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5S.html#Dataspace-SelectHyperslab
+        /// </summary>
+        /// <param name="space_id">Identifier of dataspace selection to modify</param>
+        /// <param name="op">Operation to perform on current selection.</param>
+        /// <param name="start">Offset of start of hyperslab</param>
+        /// <param name="stride">Number of blocks included in hyperslab.</param>
+        /// <param name="count">Hyperslab stride.</param>
+        /// <param name="block">Size of block in hyperslab.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sselect_hyperslab",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t select_hyperslab(hid_t space_id, seloper_t op, hsize_t* start, hsize_t* stride, hsize_t* count, hsize_t* block);
 
         /// <summary>
         /// Resets the selection region to include no elements.

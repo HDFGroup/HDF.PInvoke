@@ -1028,6 +1028,32 @@ namespace HDF.PInvoke
             [Out] uint[] cd_values, size_t namelen, [Out] byte[] name,
             ref uint filter_config);
 
+
+        /// <summary>
+        /// Returns information about a filter in a pipeline.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFilter2
+        /// </summary>
+        /// <param name="plist_id">Dataset or group creation property list 
+        /// identifier.</param>
+        /// <param name="idx">Sequence number within the filter pipeline of the
+        /// filter for which information is sought.</param>
+        /// <param name="flags">Bit vector specifying certain general
+        /// properties of the filter.</param>
+        /// <param name="cd_nelmts">Number of elements in
+        /// <paramref name="cd_values"/>.</param>
+        /// <param name="cd_values">Auxiliary data for the filter.</param>
+        /// <param name="namelen">Anticipated number of characters in
+        /// <paramref name="name"/>.</param>
+        /// <param name="name">Name of the filter.</param>
+        /// <param name="filter_config">Bit field.</param>
+        /// <returns>Returns the filter identifier if successful. Otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_filter2",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern H5Z.filter_t get_filter2(hid_t plist_id, uint filter, ref uint flags, ref hsize_t cd_nelmts, uint* cd_values, size_t namelen, string name, ref uint filter_config);
+        
+
         /// <summary>
         /// Returns information about the specified filter.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFilterById2
@@ -2063,6 +2089,21 @@ namespace HDF.PInvoke
         public static extern herr_t set_chunk
             (hid_t plist_id, int ndims,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]hsize_t[] dims);
+
+        /// <summary>
+        /// Sets the size of the chunks used to store a chunked layout dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetChunk
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier.</param>
+        /// <param name="ndims">The number of dimensions of each chunk.</param>
+        /// <param name="dims">An array defining the size, in dataset elements,
+        /// of each chunk.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_chunk",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_chunk(hid_t plist_id, int ndims, hsize_t* dims);
 
 #if HDF5_VER1_10
 

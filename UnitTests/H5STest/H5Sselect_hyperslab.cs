@@ -61,7 +61,7 @@ namespace UnitTests
         {
             Assert.IsFalse(
                 H5S.select_hyperslab(Utilities.RandomInvalidHandle(),
-                H5S.seloper_t.SET, null, null, null, null) >= 0);
+                H5S.seloper_t.SET, (ulong[])null, null, null, null) >= 0);
         }
     }
 }
