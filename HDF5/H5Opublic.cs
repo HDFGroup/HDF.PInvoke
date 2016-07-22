@@ -536,7 +536,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_comment
-            (hid_t obj_id, StringBuilder comment, size_t size);
+            (hid_t obj_id, [Out] StringBuilder comment, size_t size);
 
         /// <summary>
         /// Retrieves comment for specified object.
@@ -559,7 +559,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_comment_by_name
-            (hid_t loc_id, byte[] name, StringBuilder comment, size_t size,
+            (hid_t loc_id, byte[] name, [Out] StringBuilder comment, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -584,7 +584,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_comment_by_name
-            (hid_t loc_id, string name, StringBuilder comment, size_t size,
+            (hid_t loc_id, string name, [Out] StringBuilder comment, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>

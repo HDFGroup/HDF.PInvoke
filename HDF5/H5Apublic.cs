@@ -507,7 +507,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name(
-            hid_t attr_id, size_t size, [Out] byte[] name);
+            hid_t attr_id, size_t size, byte[] name);
 
         /// <summary>
         /// Gets an attribute name.
@@ -526,7 +526,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name(
-            hid_t attr_id, size_t size, StringBuilder name);
+            hid_t attr_id, size_t size, [Out] StringBuilder name);
 
         /// <summary>
         /// Gets an attribute name, by attribute index position.
@@ -550,7 +550,7 @@ namespace HDF.PInvoke
         public extern static ssize_t get_name_by_idx
             (hid_t loc_id, byte[] obj_name,
             H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
-            [Out] byte[] name, size_t size, hid_t lapl_id = H5P.DEFAULT);
+            byte[] name, size_t size, hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
         /// Gets an attribute name, by attribute index position.
