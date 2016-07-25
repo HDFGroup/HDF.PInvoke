@@ -735,7 +735,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name
-            (hid_t obj_id, [Out] StringBuilder name, size_t size);
+            (hid_t obj_id, StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns the number of open object identifiers for an open file.

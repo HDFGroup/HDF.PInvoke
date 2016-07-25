@@ -191,7 +191,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_name
-            (hid_t loc_id, type_t ref_type, IntPtr refer, [Out] StringBuilder name,
+            (hid_t loc_id, type_t ref_type, IntPtr refer, StringBuilder name,
             size_t size);
 
         /// <summary>

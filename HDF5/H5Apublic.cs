@@ -526,7 +526,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name(
-            hid_t attr_id, size_t size, [Out] StringBuilder name);
+            hid_t attr_id, size_t size, StringBuilder name);
 
         /// <summary>
         /// Gets an attribute name, by attribute index position.

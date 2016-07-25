@@ -637,7 +637,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_data_transform
-            (hid_t plist_id, [Out] StringBuilder expression, size_t size);
+            (hid_t plist_id, StringBuilder expression, size_t size);
 
         /// <summary>
         /// Returns low-lever driver identifier.
@@ -1264,7 +1264,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_log_options
-            (hid_t fapl_id, ref hbool_t is_enabled, [Out] StringBuilder location,
+            (hid_t fapl_id, ref hbool_t is_enabled, StringBuilder location,
             ref size_t location_size, ref hbool_t start_on_access);
 
 #endif
@@ -1625,7 +1625,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_dsetname
-            (hid_t dcpl_id, size_t index, [Out] StringBuilder name, size_t size);
+            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
 
         /// <summary>
         /// Gets the filename of a source dataset used in the mapping.
@@ -1646,7 +1646,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_filename
-            (hid_t dcpl_id, size_t index, [Out] StringBuilder name, size_t size);
+            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns the maximum number of missing source files and/or datasets

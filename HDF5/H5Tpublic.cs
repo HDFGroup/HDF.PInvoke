@@ -746,7 +746,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t enum_nameof
-            (hid_t dtype_id, IntPtr value, [Out] StringBuilder name, size_t size);
+            (hid_t dtype_id, IntPtr value, StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns the value corresponding to a specified member of an

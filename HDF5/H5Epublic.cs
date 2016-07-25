@@ -290,7 +290,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_msg(
-            hid_t msg_id, ref type_t msg_type, [Out] StringBuilder msg, size_t size);
+            hid_t msg_id, ref type_t msg_type, StringBuilder msg, size_t size);
 
         /// <summary>
         /// Retrieves the number of error messages in an error stack.
