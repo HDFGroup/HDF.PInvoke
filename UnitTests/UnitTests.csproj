@@ -263,7 +263,9 @@
     <Compile Include="H5SWMRTest\H5Drefresh.cs" />
     <Compile Include="H5SWMRTest\H5Fget_metadata_read_retry_info.cs" />
     <Compile Include="H5SWMRTest\H5Fstart_mdc_logging.cs" />
+    <Compile Include="H5SWMRTest\H5Pget_chunk_opts.cs" />
     <Compile Include="H5SWMRTest\H5Pget_mdc_log_options.cs" />
+    <Compile Include="H5SWMRTest\H5Pset_chunk_opts.cs" />
     <Compile Include="H5SWMRTest\H5Pset_mdc_log_options.cs" />
     <Compile Include="H5SWMRTest\H5Pset_metadata_read_attempts.cs" />
     <Compile Include="H5SWMRTest\H5Pget_metadata_read_attempts.cs" />

@@ -565,7 +565,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_free_sections
             (hid_t file_id, mem_t type, size_t nsects,
-            [Out] sect_info_t[] sect_info);
+            sect_info_t[] sect_info);
 
 #endif
 

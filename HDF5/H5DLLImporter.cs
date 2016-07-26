@@ -47,7 +47,6 @@ namespace HDF.PInvoke
 			case PlatformID.MacOSX:
 			case PlatformID.Unix:
 				return new H5UnixDllImporter ();
-                    break;
                 default:
                     break;
             }

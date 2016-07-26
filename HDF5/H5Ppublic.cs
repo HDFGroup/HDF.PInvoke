@@ -370,7 +370,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_append_flush
             (hid_t dapl_id, uint ndims,
-            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] boundary,
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
             ref H5D.append_cb_t func, ref IntPtr udata);
 
 #endif
@@ -496,7 +496,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_chunk
-            (hid_t plist_id, int max_ndims, [Out] hsize_t[] dims);
+            (hid_t plist_id, int max_ndims, hsize_t[] dims);
 
         /// <summary>
         /// Retrieves the raw data chunk cache parameters.
@@ -697,7 +697,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_efile_prefix
-            (hid_t dapl, [Out] byte[] prefix, size_t size);
+            (hid_t dapl, byte[] prefix, size_t size);
 
         /// <summary>
         /// Retrieves the external link traversal file access flag from the
@@ -776,7 +776,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_elink_prefix
-            (hid_t lapl_id, [Out] byte[] prefix, size_t size);
+            (hid_t lapl_id, byte[] prefix, size_t size);
 
         /// <summary>
         /// Queries data required to estimate required local heap or object
@@ -815,7 +815,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_external
-            (hid_t plist, uint idx, size_t name_size, [Out] byte[] name,
+            (hid_t plist, uint idx, size_t name_size, byte[] name,
             ref off_t offset, ref hsize_t size);
 
         /// <summary>
@@ -1025,7 +1025,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern H5Z.filter_t get_filter
             (hid_t plist_id, uint idx, ref uint flags, ref size_t cd_nelmts,
-            [Out] uint[] cd_values, size_t namelen, [Out] byte[] name,
+            uint[] cd_values, size_t namelen, byte[] name,
             ref uint filter_config);
 
 
@@ -1077,8 +1077,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_filter_by_id
             (hid_t plist_id, H5Z.filter_t filter_id, ref uint flags,
-            ref size_t cd_nelmts, [Out] uint[] cd_values, size_t namelen,
-            [Out] byte[] name, ref uint filter_config);
+            ref size_t cd_nelmts, uint[] cd_values, size_t namelen,
+            byte[] name, ref uint filter_config);
 
         /// <summary>
         /// Returns garbage collecting references setting.
@@ -1603,7 +1603,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_dsetname
-            (hid_t dcpl_id, size_t index, [Out] byte[] name, size_t size);
+            (hid_t dcpl_id, size_t index, byte[] name, size_t size);
 
         /// <summary>
         /// Gets the name of a source dataset used in the mapping.

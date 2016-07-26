@@ -335,7 +335,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_bounds
-            (hid_t space_id, [Out] hsize_t[] start, [Out] hsize_t[] end);
+            (hid_t space_id, hsize_t[] start, hsize_t[] end);
 
         /// <summary>
         /// Gets the number of points in the current point selection.
@@ -367,7 +367,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_elem_pointlist
             (hid_t space_id, hsize_t startpoint, hsize_t numpoints,
-            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] buf);
 
         /// <summary>
         /// Gets the list of hyperslab blocks in a hyperslab selection.
@@ -384,7 +384,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_select_hyper_blocklist
             (hid_t space_id, hsize_t startblock, hsize_t numblocks,
-            [MarshalAs(UnmanagedType.LPArray)][Out] hsize_t[] buf);
+            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] buf);
 
         /// <summary>
         /// Get number of hyperslab blocks in a hyperslab selection.

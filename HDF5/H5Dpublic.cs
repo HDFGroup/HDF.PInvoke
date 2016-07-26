@@ -580,7 +580,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t read
             (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
-            hid_t file_space_id, hid_t plist_id, [Out] IntPtr buf);
+            hid_t file_space_id, hid_t plist_id, IntPtr buf);
 
 #if HDF5_VER1_10
 
@@ -620,7 +620,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t scatter
             (scatter_func_t op, IntPtr op_data, hid_t type_id,
-            hid_t dst_space_id, [Out] IntPtr dst_buf);
+            hid_t dst_space_id, IntPtr dst_buf);
 
         /// <summary>
         /// Changes the sizes of a dataset’s dimensions.
