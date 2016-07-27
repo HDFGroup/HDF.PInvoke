@@ -114,6 +114,10 @@ namespace UnitTests
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
             }
+            if (H5P.set_fclose_degree(fapl, H5F.close_degree_t.STRONG) < 0)
+            {
+                throw new ApplicationException("H5P.set_fclose_degree failed.");
+            }
             fileName = Path.GetTempFileName();
             hid_t file = H5F.create(fileName, H5F.ACC_TRUNC, H5P.DEFAULT, fapl);
             if (file < 0)
@@ -141,6 +145,10 @@ namespace UnitTests
             if (H5P.set_libver_bounds(fapl, H5F.libver_t.LATEST) < 0)
             {
                 throw new ApplicationException("H5P.set_libver_bounds failed.");
+            }
+            if (H5P.set_fclose_degree(fapl, H5F.close_degree_t.STRONG) < 0)
+            {
+                throw new ApplicationException("H5P.set_fclose_degree failed.");
             }
             fileName = Path.GetTempFileName();
             hid_t file = H5F.create(fileName, H5F.ACC_TRUNC|H5F.ACC_SWMR_WRITE,
