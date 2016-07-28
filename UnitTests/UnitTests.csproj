@@ -260,6 +260,7 @@
     <Compile Include="H5STest\H5STest.cs" />
     <Compile Include="H5STest\H5Screate_simple.cs" />
     <Compile Include="H5SWMRTest\H5Dflush.cs" />
+    <Compile Include="H5SWMRTest\H5DOappend.cs" />
     <Compile Include="H5SWMRTest\H5Drefresh.cs" />
     <Compile Include="H5SWMRTest\H5Fget_metadata_read_retry_info.cs" />
     <Compile Include="H5SWMRTest\H5Fstart_mdc_logging.cs" />

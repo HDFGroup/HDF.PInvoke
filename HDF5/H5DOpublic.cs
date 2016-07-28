@@ -63,7 +63,7 @@ namespace HDF.PInvoke
         /// <param name="dset_id">Dataset identifier.</param>
         /// <param name="dxpl_id">Dataset transfer property list identifier.</param>
         /// <param name="axis">Dimension number (0-based).</param>
-        /// <param name="extension">Number of elements to add along the
+        /// <param name="num_elem">Number of elements to add along the
         /// dimension.</param>
         /// <param name="memtype">Memory type identifier.</param>
         /// <param name="buf">Data buffer.</param>
@@ -74,7 +74,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t append
             (hid_t dset_id, hid_t dxpl_id, uint axis,
-            size_t extension, hid_t memtype, IntPtr buf);
+            size_t num_elem, hid_t memtype, IntPtr buf);
 #endif
 
     }

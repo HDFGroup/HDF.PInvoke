@@ -50,15 +50,15 @@ namespace UnitTests
             Assert.IsTrue(H5G.close(grp) >= 0);
         }
 
-        /*
         [TestMethod]
         public void H5Odisable_mdc_flushesTestSWMR3()
         {
-            hid_t grp = H5G.create(m_v3_test_file_no_swmr, "/A/B/C", m_lcpl);
+            hid_t grp = H5G.create(m_v3_test_file_swmr, "/A/B/C", m_lcpl);
             Assert.IsTrue(grp >= 0);
 
-            hbool_t flag = 4711;
+            hbool_t flag = 11;
             Assert.IsTrue(H5O.are_mdc_flushes_disabled(grp, ref flag) >= 0);
+            Console.WriteLine(flag);
             Assert.IsTrue(flag == 0);
 
             Assert.IsTrue(H5O.disable_mdc_flushes(grp) >= 0);
@@ -70,27 +70,6 @@ namespace UnitTests
 
             Assert.IsTrue(H5G.close(grp) >= 0);
         }
-        
-                [TestMethod]
-                public void H5Odisable_mdc_flushesTestSWMR4()
-                {
-                    hid_t grp = H5G.create(m_v3_test_file_swmr, "/A/B/C", m_lcpl);
-                    Assert.IsTrue(grp >= 0);
-
-                    hbool_t flag = 4711;
-                    Assert.IsTrue(H5O.are_mdc_flushes_disabled(grp, ref flag) >= 0);
-                    Assert.IsTrue(flag == 0);
-
-                    Assert.IsTrue(H5O.disable_mdc_flushes(grp) >= 0);
-
-                    Assert.IsTrue(H5O.are_mdc_flushes_disabled(grp, ref flag) >= 0);
-                    Assert.IsTrue(flag > 0);
-
-                    Assert.IsTrue(H5G.flush(grp) >= 0);
-
-                    Assert.IsTrue(H5G.close(grp) >= 0);
-                }
-        */
     }
 }
 
