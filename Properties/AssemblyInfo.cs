@@ -38,8 +38,8 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 #if HDF5_VER1_10
 [assembly: AssemblyVersion("1.10.0.0")]
-[assembly: AssemblyFileVersion("1.10.0-pre4")]
+[assembly: AssemblyFileVersion("1.10.0.1")]
 #else
 [assembly: AssemblyVersion("1.8.17.0")]
-[assembly: AssemblyFileVersion("1.8.17.2")]
+[assembly: AssemblyFileVersion("1.8.17.4")]
 #endif
