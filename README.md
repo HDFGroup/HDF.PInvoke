@@ -1,4 +1,4 @@
-**Quick Install:**
+## Quick Install:
 
 To install the latest HDF.PInvoke 1.8, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
@@ -11,11 +11,11 @@ To install the latest HDF.PInvoke 1.10, run the following command in the
     Install-Package HDF.PInvoke -Pre
 ```
 
-# Introduction
+# What it is (not)
 
 HDF.PInvoke is a collection of [PInvoke](https://en.wikipedia.org/wiki/Platform_Invocation_Services)
-signatures for the 1.8 and 1.10 families of the [HDF5 C-API](https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html).
-It's practically *code-free*, which means we can blame all the bugs on Microsoft or The HDF Group :smile:
+signatures for the [HDF5 C-API](https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html).
+It's practically *code-free*, which means we can blame all the bugs on Microsoft or [The HDF Group](https://www.hdfgroup.org/) :smile:
 
 It is **not** a high-level .NET interface for HDF5. "It's the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)
 of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple)." :bowtie:
@@ -42,6 +42,9 @@ The the DLL-search path is updated using the ``PATH`` environment variable of th
 process. If that attempt fails, the native binaries will be loaded from their default locations
 (such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/)).
 
+# Two Major HDF5 Versions for the Price of One (Free)
+
+The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is configured to build an `HDF.PInvoke.dll` .NET assembly for the HDF5 1.8.x API. To build a .NET assembly for the HDF5 1.10.x API the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects must be modified to include the `HDF5_VER1_10` conditional compilation symbol. 
 # License
 
 HDF.PInvoke is part of [HDF5](https://www.hdfgroup.org/HDF5/). It is subject to
