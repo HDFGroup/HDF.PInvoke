@@ -157,7 +157,6 @@ namespace UnitTests
             return 0;
         }
 
-
         public herr_t flush_func
             (
             hid_t obj_id,

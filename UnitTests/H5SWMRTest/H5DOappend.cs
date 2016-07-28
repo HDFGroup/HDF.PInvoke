@@ -29,6 +29,13 @@ namespace UnitTests
 {
     public partial class H5SWMRTest
     {
+        public herr_t DOappend_func
+            (hid_t dataset_id, hsize_t[] cur_dims, IntPtr op_data)
+        {
+            Assert.IsTrue(op_data.ToInt32() == 99);
+            return 0;
+        }
+
         [TestMethod]
         public void H5DOappendTestSWMR1()
         {
@@ -44,8 +51,16 @@ namespace UnitTests
             Assert.IsTrue(dcpl >= 0);
             Assert.IsTrue(H5P.set_chunk(dcpl, 2, chunk_dims) >= 0);
 
-            hid_t dst = H5D.create(m_v3_test_file_no_swmr, "dset",
-                H5T.NATIVE_INT, dsp, H5P.DEFAULT, dcpl);
+            hsize_t[] boundary = { 0, 1 };
+
+            hid_t dapl = H5P.create(H5P.DATASET_ACCESS);
+            Assert.IsTrue(dapl >= 0);
+            H5D.append_cb_t cb = DOappend_func;
+            Assert.IsTrue(
+                H5P.set_append_flush(dapl, 2, boundary, cb, new IntPtr(99)) >= 0);
+
+            hid_t dst = H5D.create(m_v3_test_file_swmr, "dset",
+                H5T.NATIVE_INT, dsp, H5P.DEFAULT, dcpl, dapl);
             Assert.IsTrue(dst >= 0);
 
             GCHandle hnd = GCHandle.Alloc(cbuf, GCHandleType.Pinned);
@@ -55,16 +70,15 @@ namespace UnitTests
                 for(int j = 0; j < 6; ++j) {
                     cbuf[j] = ((i * 6) + (j + 1)) * -1;
                 }
-                /*
                 Assert.IsTrue(
                     H5DO.append(dst, H5P.DEFAULT, 1, new IntPtr(1),
                     H5T.NATIVE_INT, hnd.AddrOfPinnedObject()) >= 0);
-                */
             }
 
             hnd.Free();
 
             Assert.IsTrue(H5D.close(dst) >= 0);
+            Assert.IsTrue(H5P.close(dapl) >= 0);
             Assert.IsTrue(H5P.close(dcpl) >= 0);
             Assert.IsTrue(H5S.close(dsp) >= 0);
         }

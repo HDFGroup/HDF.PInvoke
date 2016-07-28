@@ -370,7 +370,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_append_flush
             (hid_t dapl_id, uint ndims,
-            [MarshalAs(UnmanagedType.LPArray)] hsize_t[] boundary,
+            [In][Out]hsize_t[] boundary,
             ref H5D.append_cb_t func, ref IntPtr udata);
 
 #endif
@@ -496,7 +496,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern int get_chunk
-            (hid_t plist_id, int max_ndims, hsize_t[] dims);
+            (hid_t plist_id, int max_ndims, [In][Out]hsize_t[] dims);
 
         /// <summary>
         /// Retrieves the raw data chunk cache parameters.
@@ -637,7 +637,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_data_transform
-            (hid_t plist_id, StringBuilder expression, size_t size);
+            (hid_t plist_id, [In][Out]StringBuilder expression, size_t size);
 
         /// <summary>
         /// Returns low-lever driver identifier.
@@ -697,7 +697,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_efile_prefix
-            (hid_t dapl, byte[] prefix, size_t size);
+            (hid_t dapl, [In][Out]byte[] prefix, size_t size);
 
         /// <summary>
         /// Retrieves the external link traversal file access flag from the
@@ -815,7 +815,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_external
-            (hid_t plist, uint idx, size_t name_size, byte[] name,
+            (hid_t plist, uint idx, size_t name_size, [In][Out]byte[] name,
             ref off_t offset, ref hsize_t size);
 
         /// <summary>
@@ -1025,7 +1025,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern H5Z.filter_t get_filter
             (hid_t plist_id, uint idx, ref uint flags, ref size_t cd_nelmts,
-            uint[] cd_values, size_t namelen, byte[] name,
+            uint[] cd_values, size_t namelen, [In][Out]byte[] name,
             ref uint filter_config);
 
 
@@ -1077,8 +1077,8 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_filter_by_id
             (hid_t plist_id, H5Z.filter_t filter_id, ref uint flags,
-            ref size_t cd_nelmts, uint[] cd_values, size_t namelen,
-            byte[] name, ref uint filter_config);
+            ref size_t cd_nelmts, [In][Out]uint[] cd_values, size_t namelen,
+            [In][Out]byte[] name, ref uint filter_config);
 
         /// <summary>
         /// Returns garbage collecting references setting.
@@ -1264,7 +1264,7 @@ namespace HDF.PInvoke
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_log_options
-            (hid_t fapl_id, ref hbool_t is_enabled, StringBuilder location,
+            (hid_t fapl_id, ref hbool_t is_enabled, [In][Out]StringBuilder location,
             ref size_t location_size, ref hbool_t start_on_access);
 
 #endif
@@ -1625,7 +1625,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_dsetname
-            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
+            (hid_t dcpl_id, size_t index, [In][Out]StringBuilder name, size_t size);
 
         /// <summary>
         /// Gets the filename of a source dataset used in the mapping.
@@ -1646,7 +1646,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_filename
-            (hid_t dcpl_id, size_t index, StringBuilder name, size_t size);
+            (hid_t dcpl_id, size_t index, [In][Out]StringBuilder name, size_t size);
 
         /// <summary>
         /// Returns the maximum number of missing source files and/or datasets

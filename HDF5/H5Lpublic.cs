@@ -842,7 +842,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name_by_idx
             (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, byte[] name, size_t size,
+            H5.iter_order_t order, hsize_t n, [In][Out]byte[] name, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -868,7 +868,7 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_name_by_idx
             (hid_t loc_id, string group_name, H5.index_t idx_type,
-            H5.iter_order_t order, hsize_t n, StringBuilder name, size_t size,
+            H5.iter_order_t order, hsize_t n, [In][Out]StringBuilder name, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
         /// <summary>
@@ -892,7 +892,9 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl,
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        public extern static ssize_t get_name_by_idx(hid_t loc_id, string group_name, H5.index_t idx_type, H5.iter_order_t order, hsize_t n, IntPtr name /*out*/, size_t size, hid_t lapl_id);        
+        public extern static ssize_t get_name_by_idx(hid_t loc_id, string group_name,
+            H5.index_t idx_type, H5.iter_order_t order, hsize_t n,
+            IntPtr name /*out*/, size_t size, hid_t lapl_id);        
 
         /// <summary>
         /// Returns the value of a symbolic link.
