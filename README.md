@@ -7,6 +7,8 @@
 | [1.8.17](https://www.hdfgroup.org/HDF5/release/obtain5.html)           | 1.8.17.0         | [1.8.17.4](https://www.nuget.org/packages/HDF.PInvoke/1.8.17.4) |
 | [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5110.html) | 1.10.0.0         | [1.10.0.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.1) |
 
+[How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
+
 ## Quick Install:
 
 To install the latest HDF.PInvoke 1.8, run the following command in the
