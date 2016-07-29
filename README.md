@@ -1,9 +1,9 @@
 ## Current Release Version(s)
 
-| HDF5 Release Version                                                   | Assembly Version | Assembly File Version                                                                                   |
-| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- |
-| [1.8.17](https://www.hdfgroup.org/HDF5/release/obtain5.html)           | 1.8.17.0         | [1.8.17.4](https://www.nuget.org/packages/HDF.PInvoke/1.8.17.4) |
-| [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5110.html) | 1.10.0.0         | [1.10.0.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.1) |
+| HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
+| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- | ------- |
+| [1.8.17](https://www.hdfgroup.org/HDF5/release/obtain5.html)           | 1.8.17.0         | [1.8.17.4](https://www.nuget.org/packages/HDF.PInvoke/1.8.17.4) | v1.8.17.4  |
+| [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5110.html) | 1.10.0.0         | [1.10.0.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.1) | v1.10.0.1 |
 
 [How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
 
