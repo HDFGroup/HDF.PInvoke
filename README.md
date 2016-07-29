@@ -67,4 +67,6 @@ The best way to support HDF.Pinvoke is to contribute to it either by reporting
 bugs, writing documentation (e.g., the [cookbook](https://github.com/HDFGroup/HDF.PInvoke/wiki/Cookbook)),
 or sending pull requests.
 
+***
+
 ![The HDF Group logo](https://github.com/HDFGroup/HDF.PInvoke/blob/master/images/The%20HDF%20Group.jpg)
