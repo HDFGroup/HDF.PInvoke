@@ -34,7 +34,7 @@ The prerequisites are included in the [NuGet packages](https://www.nuget.org/pac
 The ``HDF.PInvoke.dll`` managed assemblies, located in ``bin\[Debug,Release]``,
 depend on the unmanaged DLLs ``hdf5.dll``, ``hdf5_hl.dll``, ``szip.dll``, and
 ``zlib.dll`` for the corresponding processor architecture, which can be obtained
-[here](https://www.hdfgroup.org/HDF5/release/obtain5.html).
+[here](https://www.hdfgroup.org/HDF5).
 
 On the first call to an ``H5*`` function, the application's configuration file
 (e.g., ``YourApplication.exe.config``) is searched for the key ``NativeDependenciesAbsolutePath``,
