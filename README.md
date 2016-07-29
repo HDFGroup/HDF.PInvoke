@@ -1,4 +1,6 @@
-## Current Release Version
+![alt text](https://github.com/HDFGroup/HDF.PInvoke/blob/master/images/The%20HDF%20Group.jpg)
+
+## Current Release Version(s)
 
 | HDF5 Release Version                                                   | Assembly Version | Assembly File Version                                                                                   |
 | ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- |
