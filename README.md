@@ -1,9 +1,9 @@
-## Current Version
+## Current Release Version
 
-| HDF5 Release Version | HDF.PInvoke Assembly Version | HDF.PInvoke Assembly File Version |
-| -------------------- | ---------------------------- | --------------------------------- |
-| 1.8.17               | 1.8.17.0                     | 1.8.17.4                          |
-| 1.10.0-patch1        | 1.10.0.0                     | 1.10.0.1                          |
+| HDF5 Release Version | Assembly Version | Assembly File Version |
+| -------------------- | ---------------- | --------------------- |
+| 1.8.17               | 1.8.17.0         | 1.8.17.4              |
+| 1.10.0-patch1        | 1.10.0.0         | 1.10.0.1              |
 
 ## Quick Install:
 
