@@ -1,3 +1,10 @@
+## Current Version
+
+| HDF5 Release Version | HDF.PInvoke Assembly Version | HDF.PInvoke Assembly File Version |
+| -------------------- | ---------------------------- | --------------------------------- |
+| 1.8.17               | 1.8.17.0                     | 1.8.17.4                          |
+| 1.10.0-patch1        | 1.10.0.0                     | 1.10.0.1                          |
+
 ## Quick Install:
 
 To install the latest HDF.PInvoke 1.8, run the following command in the
@@ -8,7 +15,7 @@ To install the latest HDF.PInvoke 1.8, run the following command in the
 To install the latest HDF.PInvoke 1.10, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ```
-    Install-Package HDF.PInvoke
+    Install-Package HDF.PInvoke -Version 1.10.0.1
 ```
 
 # What it is (not)
