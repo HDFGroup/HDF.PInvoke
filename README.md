@@ -39,7 +39,8 @@ The ``HDF.PInvoke.dll`` managed assembly depends on the following native DLLs (3
 - The C-runtime of the Visual Studio version used to build the former, e.g., ``msvcr120.dll`` for Visual Studio 2013
 
 All native dependencies are included in the NuGet packages, **except** the Visual Studio C-runtime,
-which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2013](https://www.microsoft.com/en-us/download/details.aspx?id=40784).
+which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2013](https://www.microsoft.com/en-us/download/details.aspx?id=40784). In the unlikely event that
+they aren't already installed on your system, go get 'em!
 (See [this link](https://msdn.microsoft.com/en-us/library/ms235299.aspx) for the rationale behind not
 distributing the Visual Studio C-runtime in the NuGet package.)
 
