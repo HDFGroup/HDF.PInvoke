@@ -162,7 +162,6 @@ namespace HDF.PInvoke
 						"Error fetching imported variable '{0}' from DLL '{1}':",
 						varName, libname));
 				System.Diagnostics.Trace.TraceError (ex.ToString ());
-			
 			}
 			return false;
 		}
