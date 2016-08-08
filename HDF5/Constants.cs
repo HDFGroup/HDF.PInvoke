@@ -27,5 +27,13 @@ namespace HDF.PInvoke
         public const string DLL32bitPath = "bin32";
         
         public const string DLL64bitPath = "bin64";
+
+        public const string MSVCRDllName = "msvcr120.dll";
+
+        public const string MSVCRNotFoundErrorString =
+            "This application requires the Visual C++ 2013 '{0}'" + 
+            " Runtime to be installed on this computer." +
+            " Please download and install it from" +
+            " https://www.microsoft.com/en-US/download/details.aspx?id=40784"; 
     }
 }
