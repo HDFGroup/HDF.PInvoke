@@ -24,8 +24,6 @@ namespace HDF.PInvoke
             }
             
             AddPathStringToEnvironment(NativeDllPath);
-
-            AssertVcppDependencies();
         }
 
         //----------------------------------------------------------------
@@ -91,30 +89,6 @@ namespace HDF.PInvoke
             { 
                 System.Diagnostics.Trace.WriteLine(
                     "Changing PATH not allowed");
-            }
-        }
-
-        private static void AssertVcppDependencies()
-        {
-            var system32Path =
-                Environment.GetFolderPath(Environment.SpecialFolder.SystemX86);
-            var system64Path =
-                Environment.GetFolderPath(Environment.SpecialFolder.System);
-
-            string platform = Environment.Is64BitProcess ? "x64 and x86" : "x86";
-            bool success = File.Exists(
-                Path.Combine(system32Path, Constants.MSVCRDllName));
-
-            if (Environment.Is64BitProcess)
-            {
-                success &= File.Exists(
-                    Path.Combine(system64Path, Constants.MSVCRDllName));
-            }
-
-            if (!success)
-            {
-                throw new InvalidOperationException(
-                    String.Format(Constants.MSVCRNotFoundErrorString, platform));
             }
         }
     }
