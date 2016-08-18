@@ -63,7 +63,8 @@ such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/).
 
 # Two Major HDF5 Versions for the Price of One (Free)
 
-The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is configured to build an `HDF.PInvoke.dll` .NET assembly for the HDF5 1.8.x API. To build a .NET assembly for the HDF5 1.10.x API the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects must be modified to include the `HDF5_VER1_10` conditional compilation symbol. 
+The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects. 
+
 # License
 
 HDF.PInvoke is part of [HDF5](https://www.hdfgroup.org/HDF5/). It is subject to
