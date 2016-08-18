@@ -1,0 +1,17 @@
+version: 1.0.{build}
+image: Visual Studio 2013
+configuration:
+- HDF5 1.8 Debug
+- HDF5 1.8 Release
+- HDF5 1.10 Debug
+- HDF5 1.10 Release
+platform: Any CPU
+build:
+  project: HDF.PInvoke.sln
+  parallel: true
+  verbosity: minimal
+test:
+  assemblies: UnitTests.dll
+  categories:
+    except:
+    - NapVeyor
