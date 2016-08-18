@@ -9,18 +9,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		HDF5 1.10 Debug|Any CPU = HDF5 1.10 Debug|Any CPU
+		HDF5 1.10 Release|Any CPU = HDF5 1.10 Release|Any CPU
+		HDF5 1.8 Debug|Any CPU = HDF5 1.8 Debug|Any CPU
+		HDF5 1.8 Release|Any CPU = HDF5 1.8 Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4450F800-93E2-4D4A-B224-966E2338CDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4450F800-93E2-4D4A-B224-966E2338CDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4450F800-93E2-4D4A-B224-966E2338CDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4450F800-93E2-4D4A-B224-966E2338CDED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.10 Debug|Any CPU.ActiveCfg = HDF5 1.10 Debug|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.10 Debug|Any CPU.Build.0 = HDF5 1.10 Debug|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.10 Release|Any CPU.ActiveCfg = HDF5 1.10 Release|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.10 Release|Any CPU.Build.0 = HDF5 1.10 Release|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.8 Debug|Any CPU.ActiveCfg = HDF5 1.8 Debug|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.8 Debug|Any CPU.Build.0 = HDF5 1.8 Debug|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.8 Release|Any CPU.ActiveCfg = HDF5 1.8 Release|Any CPU
+		{4450F800-93E2-4D4A-B224-966E2338CDED}.HDF5 1.8 Release|Any CPU.Build.0 = HDF5 1.8 Release|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.10 Debug|Any CPU.ActiveCfg = HDF5 1.10 Debug|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.10 Debug|Any CPU.Build.0 = HDF5 1.10 Debug|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.10 Release|Any CPU.ActiveCfg = HDF5 1.10 Release|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.10 Release|Any CPU.Build.0 = HDF5 1.10 Release|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.8 Debug|Any CPU.ActiveCfg = HDF5 1.8 Debug|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.8 Debug|Any CPU.Build.0 = HDF5 1.8 Debug|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.8 Release|Any CPU.ActiveCfg = HDF5 1.8 Release|Any CPU
+		{5A77D1AD-A2D6-4313-B29B-3A708281FED0}.HDF5 1.8 Release|Any CPU.Build.0 = HDF5 1.8 Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
