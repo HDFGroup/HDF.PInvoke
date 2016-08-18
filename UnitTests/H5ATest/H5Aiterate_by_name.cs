@@ -34,7 +34,7 @@ namespace UnitTests
 {
     public partial class H5ATest
     {
-        [TestMethod]
+        [TestMethod, TestCategory("NapVeyor")]
         public void H5Aiterate_by_nameTest1()
         {
             hid_t att = H5A.create(m_v2_test_file, "IEEE_F32BE",

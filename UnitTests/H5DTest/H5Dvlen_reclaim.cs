@@ -34,7 +34,7 @@ namespace UnitTests
 {
     public partial class H5DTest
     {
-        [TestMethod]
+        [TestMethod, TestCategory("NapVeyor")]
         public void H5Dvlen_reclaimTest1()
         {
             // write a VLEN dataset
