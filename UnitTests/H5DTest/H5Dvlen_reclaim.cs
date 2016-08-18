@@ -51,9 +51,9 @@ namespace UnitTests
             hid_t dset1 = H5D.create(m_v2_test_file, "vlen", vlen, space);
             Assert.IsTrue(space >= 0);
 
-            H5T.hvl_t[] wdata = new H5T.hvl_t [dims.Length];
+            H5T.hvl_t[] wdata = new H5T.hvl_t [dims[0]];
             GCHandle[] whndl = new GCHandle [wdata.Length];
-            int[][] jagged = new int [dims.Length][];
+            int[][] jagged = new int[wdata.Length][];
             for (int i = 0; i < wdata.Length; ++i)
             {
                 jagged[i] = new int [i+1];
@@ -76,7 +76,7 @@ namespace UnitTests
 
             // read it back
 
-            H5T.hvl_t[] rdata = new H5T.hvl_t[dims.Length];
+            H5T.hvl_t[] rdata = new H5T.hvl_t[dims[0]];
             GCHandle rdata_hndl = GCHandle.Alloc(rdata, GCHandleType.Pinned);
 
             Assert.IsTrue(H5D.read(dset, vlen, H5S.ALL, H5S.ALL, H5P.DEFAULT,
