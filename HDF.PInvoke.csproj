@@ -111,6 +111,7 @@
     <None Include="HDF5\H5Eglobals.csv" />
     <None Include="HDF5\H5Pglobals.csv" />
     <None Include="HDF5\H5Tglobals.csv" />
+    <None Include="HDF5\H5Tglobal_aliases.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

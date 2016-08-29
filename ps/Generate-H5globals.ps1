@@ -7,13 +7,14 @@
 #
 # Example:
 #
-#   .\Generate-H5globals.ps1 H5T ..\HDF5\H5Tglobals.csv > ..\HDF5\H5Tglobals.cs
+#   .\Generate-H5globals.ps1 H5T ..\HDF5\H5Tglobals.csv ..\HDF5\H5Tgobal_aliases.csv > ..\HDF5\H5Tglobals.cs
 #
 ################################################################################
 
 param (
     [Parameter(Mandatory=$true)][ValidateSet('H5E','H5P','H5T')][string] $api,
-    [Parameter(Mandatory=$true)][string] $fileName
+    [Parameter(Mandatory=$true)][string] $fileName,
+    [Parameter(Mandatory=$true)][string] $aliasName
 )
 
 ################################################################################
@@ -133,6 +134,49 @@ function Make-Property
   
 }
 
+$alias_template = @"
+
+        public static hid_t @PROPERTY@ 
+        {
+            get
+            {
+                if (!@INTERNAL@.HasValue)
+                {
+                    hid_t val = -1;
+                    if (m_importer.GetValue<hid_t>(Constants.DLLFileName,
+                        "@SYMBOL@", ref val,
+#if HDF5_VER1_10
+                        Marshal.ReadInt64
+#else
+                        Marshal.ReadInt32
+#endif
+                        ))
+                    {
+                        @INTERNAL@ = val;
+                    }
+                }
+                return @INTERNAL@.GetValueOrDefault();
+            }
+        }
+"@
+
+function Make-Alias
+{
+  param (
+      [Parameter(Mandatory=$true)][string] $aliasName,
+      [Parameter(Mandatory=$true)][string] $propertyName)
+
+    $internal = "$($api)_$($propertyName)_g"
+    $symbol = "$($api)_$($propertyName)_g"
+    $alias = $aliasName
+
+    ($alias_template -replace 'API',$api) `
+        -replace '@PROPERTY@',$alias `
+        -replace '@INTERNAL@',$internal `
+        -replace '@SYMBOL@',$symbol
+  
+}
+
 ################################################################################
 # print the file to stdout
 ################################################################################
@@ -145,6 +189,13 @@ $props = Get-Content $fileName
 
 foreach ($item in $props) {
     Make-Property $item.split(',')[0]
+}
+
+$aliases = Get-Content $aliasName
+
+foreach ($item in $aliases) {
+    $a = $item.split(',')
+    Make-Alias $a[0] $a[1]
 }
 
 $suffix
