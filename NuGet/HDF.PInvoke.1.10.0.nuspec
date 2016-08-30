@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>HDF.PInvoke</id>
-        <version>1.10.0.3</version>
+        <version>1.10.0.4</version>
         <summary>Raw HDF5 Power for .NET</summary>
         <authors>The HDF Group</authors>
         <owners>The HDF Group</owners>
@@ -14,17 +14,24 @@
         <copyright>Copyright 2016</copyright>
         <language>en-US</language>
         <tags>HDF5</tags>
-	<releaseNotes>Git commit 9b11ba15d9e1409957516ffa57fc910976bd7e53</releaseNotes>
+	      <releaseNotes>
+          1. Added missing predefined datatypes (INTEL, MIPS, VAX)
+          2. Added the CMake configuration files for building the native dependnecies
+          3. The native dependencies included were built as RelWithDebugInfo (PDBs are included)</releaseNotes>
     </metadata>
     <files>
         <file src="D:\lib\hdf5-1.10.0\HDF.PInvoke.dll" target="lib\Net45\HDF.PInvoke.dll" />
         <file src="D:\lib\hdf5-1.10.0\HDF.PInvoke.XML" target="lib\Net45\HDF.PInvoke.XML" />
         <file src="D:\bin\bin32\hdf5-1.10.0\hdf5.dll" target="lib\native\bin32\hdf5.dll" />
+        <file src="D:\bin\bin32\hdf5-1.10.0\hdf5.pdb" target="lib\native\bin32\hdf5.pdb" />
         <file src="D:\bin\bin32\hdf5-1.10.0\hdf5_hl.dll" target="lib\native\bin32\hdf5_hl.dll" />
+        <file src="D:\bin\bin32\hdf5-1.10.0\hdf5_hl.pdb" target="lib\native\bin32\hdf5_hl.pdb" />
         <file src="D:\bin\bin32\hdf5-1.10.0\szip.dll" target="lib\native\bin32\szip.dll" />
         <file src="D:\bin\bin32\hdf5-1.10.0\zlib.dll" target="lib\native\bin32\zlib.dll" />
         <file src="D:\bin\bin64\hdf5-1.10.0\hdf5.dll" target="lib\native\bin64\hdf5.dll" />
+        <file src="D:\bin\bin64\hdf5-1.10.0\hdf5.pdb" target="lib\native\bin64\hdf5.pdb" />
         <file src="D:\bin\bin64\hdf5-1.10.0\hdf5_hl.dll" target="lib\native\bin64\hdf5_hl.dll" />
+        <file src="D:\bin\bin64\hdf5-1.10.0\hdf5_hl.pdb" target="lib\native\bin64\hdf5_hl.pdb" />
         <file src="D:\bin\bin64\hdf5-1.10.0\szip.dll" target="lib\native\bin64\szip.dll" />
         <file src="D:\bin\bin64\hdf5-1.10.0\zlib.dll" target="lib\native\bin64\zlib.dll" />
         <file src=".\tools\GetHDFPostBuildCmd.ps1" target="tools\GetHDFPostBuildCmd.ps1" />
