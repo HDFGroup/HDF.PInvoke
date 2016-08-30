@@ -54,6 +54,16 @@ namespace UnitTests
 
             m_v2_test_file = Utilities.H5TempFile(ref m_v2_test_file_name);
             Assert.IsTrue(m_v2_test_file >= 0);
+
+            // Test a few datatype aliases
+            Assert.IsTrue(H5T.INTEL_I8 > 0);
+            Assert.IsTrue(H5T.INTEL_I8 == H5T.STD_I8LE);
+
+            Assert.IsTrue(H5T.MIPS_B16 > 0);
+            Assert.IsTrue(H5T.MIPS_B16 == H5T.STD_B16BE);
+
+            Assert.IsTrue(H5T.ALPHA_F32 > 0);
+            Assert.IsTrue(H5T.ALPHA_F32 == H5T.IEEE_F32LE);
         }
 
         [TestCleanup()]
