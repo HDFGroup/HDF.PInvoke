@@ -78,7 +78,7 @@ namespace HDF.PInvoke
                 string EnvPath = Environment.GetEnvironmentVariable("PATH");
                 if (EnvPath.Contains(aPath)) return;
                 
-                Environment.SetEnvironmentVariable("PATH", $"{aPath};{EnvPath}");
+                Environment.SetEnvironmentVariable("PATH", aPath + ";" + EnvPath);
 
 
                 System.Diagnostics.Trace.WriteLine(string.Format(
