@@ -25,6 +25,8 @@ using hid_t = System.Int32;
 
 namespace HDF.PInvoke
 {
+    internal delegate T Converter<T>( IntPtr address );
+
     /// <summary>
     /// Helper class used to fetch public variables (e.g. native type values)
     /// exported by the HDF5 DLL
