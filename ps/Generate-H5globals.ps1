@@ -65,7 +65,6 @@ namespace HDF.PInvoke
 {
     public unsafe sealed partial class API
     {
-        static H5DLLImporter m_importer;
 "@
 
 ################################################################################
@@ -83,30 +82,9 @@ $suffix = @"
 
 $template = @"
 
-        static hid_t? @INTERNAL@;
+        static readonly hid_t @INTERNAL@ = H5DLLImporter.Instance.GetHid("@SYMBOL@");
 
-        public static hid_t @PROPERTY@ 
-        {
-            get
-            {
-                if (!@INTERNAL@.HasValue)
-                {
-                    hid_t val = -1;
-                    if (m_importer.GetValue<hid_t>(Constants.DLLFileName,
-                        "@SYMBOL@", ref val,
-#if HDF5_VER1_10
-                        Marshal.ReadInt64
-#else
-                        Marshal.ReadInt32
-#endif
-                        ))
-                    {
-                        @INTERNAL@ = val;
-                    }
-                }
-                return @INTERNAL@.GetValueOrDefault();
-            }
-        }
+        public static hid_t @PROPERTY@ => @INTERNAL@;
 "@
 
 function Make-Property
@@ -136,28 +114,7 @@ function Make-Property
 
 $alias_template = @"
 
-        public static hid_t @PROPERTY@ 
-        {
-            get
-            {
-                if (!@INTERNAL@.HasValue)
-                {
-                    hid_t val = -1;
-                    if (m_importer.GetValue<hid_t>(Constants.DLLFileName,
-                        "@SYMBOL@", ref val,
-#if HDF5_VER1_10
-                        Marshal.ReadInt64
-#else
-                        Marshal.ReadInt32
-#endif
-                        ))
-                    {
-                        @INTERNAL@ = val;
-                    }
-                }
-                return @INTERNAL@.GetValueOrDefault();
-            }
-        }
+        public static hid_t @PROPERTY@ => @INTERNAL@;
 "@
 
 function Make-Alias
