@@ -61,7 +61,7 @@ namespace HDF.PInvoke
         {
             var address = _GetAddress(varName);
             if (address == IntPtr.Zero)
-                throw new Exception("unkown libname or varName");
+                throw new Exception(string.Format("The export with name \"{0}\" doesn't exist.", varName));
             return address;
         }
 
@@ -114,7 +114,16 @@ namespace HDF.PInvoke
             {
                 hLib = LoadLibrary(libName);
                 if (hLib == IntPtr.Zero)
-                    Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
+                {
+                    try
+                    {
+                        Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(string.Format("Couldn't load library \"{0}\"", libName), e);
+                    }
+                }
             }
         }
 
