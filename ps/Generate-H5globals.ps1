@@ -84,7 +84,7 @@ $template = @"
 
         static readonly hid_t @INTERNAL@ = H5DLLImporter.Instance.GetHid("@SYMBOL@");
 
-        public static hid_t @PROPERTY@ => @INTERNAL@;
+        public static hid_t @PROPERTY@ { get { return @INTERNAL@; } }
 "@
 
 function Make-Property
@@ -114,7 +114,7 @@ function Make-Property
 
 $alias_template = @"
 
-        public static hid_t @PROPERTY@ => @INTERNAL@;
+        public static hid_t @PROPERTY@ { get { return @INTERNAL@; } }
 "@
 
 function Make-Alias
