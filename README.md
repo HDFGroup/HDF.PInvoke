@@ -1,5 +1,6 @@
 ![AppVeyor Project status badge](https://ci.appveyor.com/api/projects/status/github/HDFGroup/HDF.PInvoke?branch=master&svg=true)
 [![Gitter](https://badges.gitter.im/HDFGroup/HDF.PInvoke.svg)](https://gitter.im/HDFGroup/HDF.PInvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Google Group](https://groups.google.com/forum/my-groups-color.png)](https://groups.google.com/forum/#!forum/sharp-hdf5)
 
 # What it is (not)
 
