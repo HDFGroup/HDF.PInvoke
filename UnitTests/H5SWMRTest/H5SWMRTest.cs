@@ -88,6 +88,8 @@ namespace UnitTests
         public void Init()
         {
 #if HDF5_VER1_10
+            Utilities.DisableErrorPrinting();
+
             m_v3_test_file_no_swmr =
                 Utilities.H5TempFileNoSWMR(ref m_v3_test_file_name_no_swmr);
             Assert.IsTrue(m_v3_test_file_no_swmr >= 0);

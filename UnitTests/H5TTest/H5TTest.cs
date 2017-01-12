@@ -47,6 +47,8 @@ namespace UnitTests
         [TestInitialize()]
         public void Init()
         {
+            Utilities.DisableErrorPrinting();
+
             // create test-local files
             m_v0_test_file = Utilities.H5TempFile(ref m_v0_test_file_name,
                 H5F.libver_t.EARLIEST);
