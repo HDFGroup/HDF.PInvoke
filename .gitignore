@@ -196,3 +196,5 @@ FakesAssemblies/
 
 .paket
 .fake
+**/temp/
+paket.template

@@ -25,6 +25,3 @@ using System.Runtime.InteropServices;
 #else
 [assembly: Guid("161e6943-58a3-4643-bf68-113ee2b2df92")]
 #endif
-
-// Updated by build.fsx:
-[assembly: AssemblyVersion("1.10.0.4")]

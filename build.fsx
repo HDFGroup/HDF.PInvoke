@@ -33,11 +33,13 @@ Target "Clean" (fun _ ->
     CleanDirs ["bin"; "obj"; "temp"]
 )
 
+(*
 Target "UpdateAssemblyInfo" (fun _ ->
     UpdateAttributes
         "Properties/AssemblyInfo.cs"
         [Attribute.Version releaseNotes.AssemblyVersion]
 )
+*)
 
 Target "Build" (fun _ ->
     "HDF.PInvoke.sln"
@@ -48,7 +50,8 @@ Target "Build" (fun _ ->
             Targets = ["Build"]
             Properties =
                 ["Configuration", slnConfiguration
-                 "WarningLevel", "0"]
+                 "WarningLevel", "0"
+                 "AssemblyVersion", releaseNotes.AssemblyVersion]
         })
 )
 
@@ -90,8 +93,9 @@ Target "GenTemplate" (fun _ ->
             Files =
                 [
                 // https://docs.nuget.org/ndocs/create-packages/creating-a-package#from-a-convention-based-working-directory
-                Include ("build/**/*.*", "build")
-                Include ("../../bin" </> slnConfiguration </> "*.*", "lib")
+                Include ("native" </> name </> "**/*.*", "build")
+                Include ("bin" </> slnConfiguration </> "*.*", "lib")
+                Exclude ("bin" </> slnConfiguration </> "*.pdb")
                 ]
         })
 )
@@ -110,7 +114,7 @@ Target "Deploy" (fun _ ->
     Paket.Push (fun p ->
         {p with
             EndPoint = "https://www.nuget.org/"
-            ApiKey = ""
+            //ApiKey = ""
         })
 )
 
@@ -123,8 +127,8 @@ Target "Rebuild" DoNothing
 
 "Clean" =?> ("Build", hasBuildParam "Clean")
     
-"UpdateAssemblyInfo"
- ==> "Build"
+//"UpdateAssemblyInfo" ==>
+"Build"
  ==> "RunTests"
  ==> "GenTemplate"
  ==> "NuGet"
