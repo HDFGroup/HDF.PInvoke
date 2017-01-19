@@ -61,7 +61,6 @@ Target "RunTests" (fun _ ->
     |> MSTest.MSTest (fun p ->
         {p with
             TimeOut = TimeSpan.FromMinutes 5.
-            ResultsDir = "TestResults"
             NoIsolation = true
         })
 )
