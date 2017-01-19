@@ -56,7 +56,7 @@ Target "Build" (fun _ ->
         })
 )
 
-Target "RunTests" (fun _ ->
+Target "Test" (fun _ ->
     !! ("UnitTests/bin" </> slnConfiguration </> "UnitTests.dll" )
     |> MSTest.MSTest (fun p ->
         {p with
@@ -129,10 +129,10 @@ Target "Rebuild" DoNothing
     
 //"UpdateAssemblyInfo" ==>
 "Build"
- ==> "RunTests"
+ ==> "Test"
  ==> "GenTemplate"
  ==> "NuGet"
  ==> "Deploy"
 
-RunTargetOrDefault "RunTests"
+RunTargetOrDefault "Test"
 
