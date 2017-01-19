@@ -50,6 +50,7 @@ Target "Build" (fun _ ->
             Targets = ["Build"]
             Properties =
                 ["Configuration", slnConfiguration
+                 "Platform", "Any CPU"
                  "WarningLevel", "0"
                  "AssemblyVersion", releaseNotes.AssemblyVersion]
         })
