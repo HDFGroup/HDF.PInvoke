@@ -28,6 +28,11 @@ namespace UnitTests
 {
     class Utilities
     {
+        public static void DisableErrorPrinting()
+        {
+            H5E.set_auto( H5E.DEFAULT, null, IntPtr.Zero );
+        }
+
         /// <summary>
         /// Create a temporary HDF5 file IN MEMORY and return a file handle.
         /// </summary>

@@ -29,6 +29,7 @@ namespace UnitTests
         [TestInitialize()]
         public void Init()
         {
+            Utilities.DisableErrorPrinting();
         }
 
         [TestCleanup()]

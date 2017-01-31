@@ -193,3 +193,8 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+.paket
+.fake
+**/temp/
+paket.template
