@@ -47,7 +47,6 @@ namespace HDF.PInvoke
         static H5P()
         {
             H5.open();
-            m_importer = H5DLLImporter.Create();
         }
 
         /* Common creation order flags (for links in groups and attributes on
