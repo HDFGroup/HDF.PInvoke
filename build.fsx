@@ -16,7 +16,7 @@ let VER =
         let ver =
             let sv = (Seq.head allReleaseNotes).SemVer
             sprintf "%i.%i" sv.Major sv.Minor
-        tracefn "Auto choosed version: %s" ver
+        tracefn "Using version: %s" ver
         ver
 
 let name = sprintf "HDF5 %s" VER
@@ -136,3 +136,4 @@ Target "Rebuild" DoNothing
 
 RunTargetOrDefault "Test"
 
+logfn "RELEASE NOTES VERSION: %s" releaseNotes.NugetVersion
