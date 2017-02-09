@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HDF.PInvoke</RootNamespace>
     <AssemblyName>HDF.PInvoke</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -68,12 +69,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HDF5\Constants.cs" />
@@ -109,10 +104,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="HDF.PInvoke.snk" />
-    <None Include="HDF5\H5Eglobals.csv" />
-    <None Include="HDF5\H5Pglobals.csv" />
-    <None Include="HDF5\H5Tglobals.csv" />
-    <None Include="HDF5\H5Tglobal_aliases.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">

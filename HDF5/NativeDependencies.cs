@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HDF.PInvoke
 {    
@@ -38,8 +32,12 @@ namespace HDF.PInvoke
                     AppSettings[NativePathSetting].ToString();
                 if (string.IsNullOrEmpty(pathFromAppSettings))
                     return false;
-                if (Path.GetInvalidPathChars().Any(
-                    c => pathFromAppSettings.Contains(c))) return false;
+
+                foreach (var c in Path.GetInvalidPathChars())
+                {
+                    if (pathFromAppSettings.Contains( new string(c, 1) ))
+                        return false;
+                }
 
                 aPath = pathFromAppSettings;
                 return true;
@@ -60,15 +58,16 @@ namespace HDF.PInvoke
 
         private static void GetDllPathFromAssembly(out string aPath)
         {
-            if (Environment.Is64BitProcess)
+            switch (IntPtr.Size)
             {
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName())
-                    , Constants.DLL64bitPath);
-            }
-            else
-            {
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName())
-                    , Constants.DLL32bitPath);
+            case 8:
+                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL64bitPath);
+                break;
+            case 4:
+                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL32bitPath);
+                break;
+            default:
+                throw new NotImplementedException();
             }
         }
 
@@ -79,9 +78,9 @@ namespace HDF.PInvoke
                 string EnvPath = Environment.GetEnvironmentVariable("PATH");
                 if (EnvPath.Contains(aPath)) return;
                 
-                Environment.SetEnvironmentVariable
-                    ("PATH", string.Join(";", aPath, EnvPath));
-                    
+                Environment.SetEnvironmentVariable("PATH", aPath + ";" + EnvPath);
+
+
                 System.Diagnostics.Trace.WriteLine(string.Format(
                     "{0} added to Path.", aPath));
             }
