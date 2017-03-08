@@ -14,10 +14,11 @@ namespace HDF.PInvoke
             string NativeDllPath;
             if (!GetDllPathFromAppConfig(out NativeDllPath))
             {
-               GetDllPathFromAssembly(out NativeDllPath);
+                NativeDllPath = GetDllPathFromAssembly();
             }
             
             AddPathStringToEnvironment(NativeDllPath);
+            AddPathStringToEnvironment(GetPlattformSpecificPath(NativeDllPath));
         }
 
         //----------------------------------------------------------------
@@ -56,16 +57,19 @@ namespace HDF.PInvoke
             return myPath;
         }
 
-        private static void GetDllPathFromAssembly(out string aPath)
+        private static string GetDllPathFromAssembly()
+        {
+            return Path.GetDirectoryName(GetAssemblyName());
+        }
+
+        private static string GetPlattformSpecificPath(string aPath)
         {
             switch (IntPtr.Size)
             {
             case 8:
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL64bitPath);
-                break;
+                return Path.Combine(aPath, Constants.DLL64bitPath);
             case 4:
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL32bitPath);
-                break;
+                return Path.Combine(aPath, Constants.DLL32bitPath);
             default:
                 throw new NotImplementedException();
             }
