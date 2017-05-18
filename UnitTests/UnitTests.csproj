@@ -202,6 +202,7 @@
     <Compile Include="H5OTest\H5Oopen_by_idx.cs" />
     <Compile Include="H5OTest\H5Oclose.cs" />
     <Compile Include="H5OTest\H5OTest.cs" />
+    <Compile Include="H5PTest\H5Pset_evict_on_close.cs" />
     <Compile Include="H5PTest\H5Pset_userblock.cs" />
     <Compile Include="H5PTest\H5PTest.cs" />
     <Compile Include="H5RTest\H5Rget_obj_type.cs" />

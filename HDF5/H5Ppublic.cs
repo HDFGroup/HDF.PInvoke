@@ -2365,6 +2365,23 @@ namespace HDF.PInvoke
         public static extern herr_t set_est_link_info
             (hid_t gcpl_id, uint est_num_entries, uint est_name_len);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// Controls the library's behavior of evicting metadata associated with a closed object.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetEvictOnClose
+        /// </summary>
+        /// <param name="plist">Identifier of a file access property list.</param>
+        /// <param name="evict_on_close">Boolean flag, whether the HDF5 object
+        /// should be evicted on close.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_evict_on_close",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_evict_on_close
+            (hid_t plist, hbool_t evict_on_close);
+#endif
+
         /// <summary>
         /// Adds an external file to the list of external files.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetExternal
