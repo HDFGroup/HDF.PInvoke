@@ -14,7 +14,7 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 ## Current Release Version(s)
 
 | HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
-| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- | ------- |
+| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- |
 | [1.8.18](https://www.hdfgroup.org/HDF5/release/obtain5.html)           | 1.8.18.0         | [1.8.18.0](https://www.nuget.org/packages/HDF.PInvoke/1.8.18.0) | v1.8.18.0  |
 | [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5110.html) | 1.10.0.0         | [1.10.0.4](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.4) | v1.10.0.4 |
 
@@ -64,7 +64,7 @@ such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/).
 
 # Two Major HDF5 Versions for the Price of One (Free)
 
-The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects. 
+The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects.
 
 # License
 
