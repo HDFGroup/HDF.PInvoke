@@ -147,5 +147,30 @@ namespace HDF.PInvoke
                 metadata_write_strategy = 0;
             }
         }
+
+        public const int CURR_CACHE_IMAGE_CONFIG_VERSION = 1;
+
+        /// <summary>
+        /// Cache image configuration struct used by
+        /// H5F.[get,set]_mdc_image_config()
+        /// </summary>
+        public struct cache_image_config_t
+        {
+            public int version;
+
+            public hbool_t generate_image;
+
+            public hbool_t save_resize_status;
+
+            public int entry_ageout;
+
+            public cache_image_config_t(int cache_image_config_version)
+            {
+                version = cache_image_config_version;
+                generate_image = 1;
+                save_resize_status = 0;
+                entry_ageout = 0;
+            }
+        }
     }
 }
