@@ -431,6 +431,21 @@ namespace HDF.PInvoke
 #endif
 
         /// <summary>
+        /// Determines the storage size (in bytes) of a chunk.
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// /// <param name="offset">Logical position of the chunk’s first
+        /// element in the dataspace</param>
+        /// <param name="chunk_bytes">The chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_storage_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_storage_size
+            (hid_t dset_id, ref hsize_t offset, ref hsize_t chunk_bytes);
+
+        /// <summary>
         /// Returns an identifier for a copy of the dataset creation property
         /// list for a dataset.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5D.html#Dataset-GetCreatePlist
