@@ -16,8 +16,11 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
 
 using herr_t = System.Int32;
+using ssize_t = System.IntPtr;
+using uint32_t = System.UInt32;
 
 namespace HDF.PInvoke
 {
@@ -28,6 +31,17 @@ namespace HDF.PInvoke
         public const int FILTER_PLUGIN = 0x0001;
 
         public const int ALL_PLUGIN = 0xffff;
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLappend",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t append(string plugin_path);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLget",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get(uint32_t index,
+            StringBuilder pathname, IntPtr size);
 
         /// <summary>
         /// Query state of the loading of dynamic plugins.
@@ -42,6 +56,28 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_loading_state(ref int plugin_flags);
 
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLinsert",
+           CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t insert(string plugin_path,
+            uint32_t index);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLprepend",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t prepend(string plugin_path);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLremove",
+           CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t remove(uint32_t index);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLreplace",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t replace(string plugin_path,
+            uint32_t index);
+
         /// <summary>
         /// Control the loading of dynamic plugins.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5PL.html
@@ -54,5 +90,10 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_loading_state(int plugin_flags);
+
+        [DllImport(Constants.DLLFileName, EntryPoint = " H5PLsize",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t size(ref uint32_t listsize);
     }
 }
