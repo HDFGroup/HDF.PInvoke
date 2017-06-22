@@ -28,6 +28,13 @@ namespace HDF.PInvoke
     {
         static H5PL() { H5.open(); }
 
+        public enum type_t
+        {
+            TYPE_ERROR = -1,
+            TYPE_FILTER = 0,
+            TYPE_NONE = 1
+        };
+
         public const int FILTER_PLUGIN = 0x0001;
 
         public const int ALL_PLUGIN = 0xffff;
@@ -145,7 +152,7 @@ namespace HDF.PInvoke
         /// paths.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = " H5PLsize",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5PLsize",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t size(ref uint32_t listsize);
