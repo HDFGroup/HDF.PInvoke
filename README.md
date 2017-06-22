@@ -70,7 +70,7 @@ The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and 
 
 HDF.PInvoke is part of [HDF5](https://www.hdfgroup.org/HDF5/). It is subject to
 the *same* terms and conditions as HDF5. Please review [COPYING](COPYING) or
-[http://www.hdfgroup.org/HDF5/doc/Copyright.html](http://www.hdfgroup.org/HDF5/doc/Copyright.html)
+[https://support.hdfgroup.org/ftp/HDF5/releases/COPYING](https://support.hdfgroup.org/ftp/HDF5/releases/COPYING)
 for the details. If you have any questions, please [contact us](http://www.hdfgroup.org/about/contact.html).
 
 # Supporting HDF.PInvoke
