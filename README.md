@@ -42,7 +42,7 @@ The ``HDF.PInvoke.dll`` managed assembly depends on the following native DLLs (3
 - Szip compression, ``szip.dll``
 - The C-runtime of the Visual Studio version used to build the former, e.g., ``msvcr120.dll`` for Visual Studio 2013
 
-All native dependencies, built with [thread-safety enabled](https://www.hdfgroup.org/hdf5-quest.html#tsafe),
+All native dependencies, built with [thread-safety enabled](https://support.hdfgroup.org/HDF5/faq/threadsafe.html),
 are included in the NuGet packages,
 **except** the Visual Studio C-runtime, which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2013](https://www.microsoft.com/en-us/download/details.aspx?id=40784). In the unlikely event that
 they aren't already installed on your system, go get 'em!
