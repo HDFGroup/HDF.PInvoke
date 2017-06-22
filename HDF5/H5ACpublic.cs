@@ -150,6 +150,10 @@ namespace HDF.PInvoke
 
         public const int CURR_CACHE_IMAGE_CONFIG_VERSION = 1;
 
+        public const int CACHE_IMAGE__ENTRY_AGEOUT__NONE = -1;
+
+        public const int CACHE_IMAGE__ENTRY_AGEOUT__MAX = 100;
+
         /// <summary>
         /// Cache image configuration struct used by
         /// H5F.[get,set]_mdc_image_config()
@@ -169,7 +173,7 @@ namespace HDF.PInvoke
                 version = cache_image_config_version;
                 generate_image = 1;
                 save_resize_status = 0;
-                entry_ageout = 0;
+                entry_ageout = CACHE_IMAGE__ENTRY_AGEOUT__MAX;
             }
         }
     }

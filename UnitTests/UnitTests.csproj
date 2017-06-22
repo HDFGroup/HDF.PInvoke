@@ -130,6 +130,7 @@
     <Compile Include="H5ETest\H5ETest.cs" />
     <Compile Include="H5FTest\H5Fclear_elink_file_cache.cs" />
     <Compile Include="H5FTest\H5Fget_access_plist.cs" />
+    <Compile Include="H5FTest\H5Fget_mdc_image_info.cs" />
     <Compile Include="H5FTest\H5Freopen.cs" />
     <Compile Include="H5FTest\H5Freset_mdc_hit_rate_stats.cs" />
     <Compile Include="H5FTest\H5Fset_mdc_config.cs" />
@@ -202,7 +203,13 @@
     <Compile Include="H5OTest\H5Oopen_by_idx.cs" />
     <Compile Include="H5OTest\H5Oclose.cs" />
     <Compile Include="H5OTest\H5OTest.cs" />
+    <Compile Include="H5PLTest\H5PLget.cs" />
+    <Compile Include="H5PLTest\H5PLappend.cs" />
+    <Compile Include="H5PLTest\H5PLTest.cs" />
+    <Compile Include="H5PLTest\H5PLsize.cs" />
+    <Compile Include="H5PTest\H5Pget_mdc_image_config.cs" />
     <Compile Include="H5PTest\H5Pset_evict_on_close.cs" />
+    <Compile Include="H5PTest\H5Pset_mdc_image_config.cs" />
     <Compile Include="H5PTest\H5Pset_userblock.cs" />
     <Compile Include="H5PTest\H5PTest.cs" />
     <Compile Include="H5RTest\H5Rget_obj_type.cs" />
