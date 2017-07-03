@@ -14,9 +14,9 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 ## Current Release Version(s)
 
 | HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
-| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- | ------- |
-| [1.8.18](https://www.hdfgroup.org/HDF5/release/obtain5.html)           | 1.8.18.0         | [1.8.18.0](https://www.nuget.org/packages/HDF.PInvoke/1.8.18.0) | v1.8.18.0  |
-| [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5110.html) | 1.10.0.0         | [1.10.0.4](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.4) | v1.10.0.4 |
+| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- |
+| [1.8.19](https://support.hdfgroup.org/HDF5/release/obtain518.html)  | 1.8.19.0         | [1.8.19.0](https://www.nuget.org/packages/HDF.PInvoke/1.8.18.0) | v1.8.18.0  |
+| [1.10.0-patch1](https://www.hdfgroup.org/HDF5/release/obtain5.html) | 1.10.0.0         | [1.10.0.4](https://www.nuget.org/packages/HDF.PInvoke/1.10.0.4) | v1.10.0.4 |
 
 [How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
 
@@ -25,7 +25,7 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 To install the latest HDF.PInvoke 1.8, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ```
-    Install-Package HDF.PInvoke -Version 1.8.18.0
+    Install-Package HDF.PInvoke -Version 1.8.19.0
 ```
 To install the latest HDF.PInvoke 1.10, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
@@ -42,7 +42,7 @@ The ``HDF.PInvoke.dll`` managed assembly depends on the following native DLLs (3
 - Szip compression, ``szip.dll``
 - The C-runtime of the Visual Studio version used to build the former, e.g., ``msvcr120.dll`` for Visual Studio 2013
 
-All native dependencies, built with [thread-safety enabled](https://www.hdfgroup.org/hdf5-quest.html#tsafe),
+All native dependencies, built with [thread-safety enabled](https://support.hdfgroup.org/HDF5/faq/threadsafe.html),
 are included in the NuGet packages,
 **except** the Visual Studio C-runtime, which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2013](https://www.microsoft.com/en-us/download/details.aspx?id=40784). In the unlikely event that
 they aren't already installed on your system, go get 'em!
@@ -64,13 +64,13 @@ such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/).
 
 # Two Major HDF5 Versions for the Price of One (Free)
 
-The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects. 
+The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects.
 
 # License
 
 HDF.PInvoke is part of [HDF5](https://www.hdfgroup.org/HDF5/). It is subject to
 the *same* terms and conditions as HDF5. Please review [COPYING](COPYING) or
-[http://www.hdfgroup.org/HDF5/doc/Copyright.html](http://www.hdfgroup.org/HDF5/doc/Copyright.html)
+[https://support.hdfgroup.org/ftp/HDF5/releases/COPYING](https://support.hdfgroup.org/ftp/HDF5/releases/COPYING)
 for the details. If you have any questions, please [contact us](http://www.hdfgroup.org/about/contact.html).
 
 # Supporting HDF.PInvoke

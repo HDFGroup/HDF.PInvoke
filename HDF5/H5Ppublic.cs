@@ -1242,8 +1242,25 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_config
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
-
+  
 #if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves the metadata cache image configuration values for a file
+        /// access property list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetMDCImageConfig
+        /// </summary>
+        /// <param name="fapl_id">Identifier of the file access property list.</param>
+        /// <param name="config_ptr">Reference to the instance of
+        /// <code>H5AC.cache_image_config_t</code> in which the current metadata
+        /// cache image configuration is to be reported.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_mdc_image_config",
+           CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_mdc_image_config
+            (hid_t fapl_id, ref H5AC.cache_image_config_t config_ptr);
 
         /// <summary>
         /// Gets metadata cache logging options.
@@ -2365,6 +2382,23 @@ namespace HDF.PInvoke
         public static extern herr_t set_est_link_info
             (hid_t gcpl_id, uint est_num_entries, uint est_name_len);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// Controls the library's behavior of evicting metadata associated with a closed object.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetEvictOnClose
+        /// </summary>
+        /// <param name="plist">Identifier of a file access property list.</param>
+        /// <param name="evict_on_close">Boolean flag, whether the HDF5 object
+        /// should be evicted on close.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_evict_on_close",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_evict_on_close
+            (hid_t plist, hbool_t evict_on_close);
+#endif
+
         /// <summary>
         /// Adds an external file to the list of external files.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetExternal
@@ -2840,6 +2874,22 @@ namespace HDF.PInvoke
             (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
 
 #if HDF5_VER1_10
+
+         /// <summary>
+        /// Sets the metadata cache image option for a file access property list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetMDCImageConfig
+        /// </summary>
+        /// <param name="fapl_id">Identifier of the file access property list.</param>
+        /// <param name="config_ptr">Pointer to the instance of
+        /// <code>H5AC.cache_image_config_t</code> containing the desired
+        /// configuration.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_mdc_image_config",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_mdc_image_config
+            (hid_t fapl_id, ref H5AC.cache_image_config_t config_ptr);
 
         /// <summary>
         /// Sets metadata cache logging options.

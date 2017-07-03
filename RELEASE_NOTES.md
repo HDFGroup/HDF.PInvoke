@@ -1,3 +1,9 @@
+##### 1.8.19.0
+* Updated native dependencies (HDF5 1.8.19) 
+* New H5PL functions
+* H5DOread_chunk
+* H5Dget_chunk_storage_size
+
 ##### 1.8.18.0
 * Updated native dependencies (HDF5 1.8.18) 
 

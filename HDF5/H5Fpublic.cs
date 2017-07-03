@@ -653,6 +653,23 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
 
         /// <summary>
+        /// Obtain information about a cache image if it exists.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetMdcImageInfo
+        /// </summary>
+        /// <param name="file_id">Identifier of the target file.</param>
+        /// <param name="image_addr">Offset of the cache image if it exists,
+        /// or <code>HADDR_UNDEF</code> if it does not.
+        /// <param name="image_len">Length of the cache image if it exists,
+        /// or 0 if it does not.
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_mdc_image_info",
+           CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_mdc_image_info
+            (hid_t file_id, ref haddr_t image_addr, ref haddr_t image_len);
+
+        /// <summary>
         /// Gets the current metadata cache logging status.
         /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Fget_mdc_logging_status.htm
         /// </summary>
