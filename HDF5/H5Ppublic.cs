@@ -1433,6 +1433,28 @@ namespace HDF.PInvoke
         public static extern herr_t get_object_flush_cb
             (hid_t fapl_id, ref H5F.flush_cb_t func, ref IntPtr udata);
 
+        /// <summary>
+        /// Retrieves the maximum size for the page buffer and the minimum
+        /// percentage for metadata and raw data pages.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetPageBufferSize
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="buf_size">Maximum size, in bytes, of the page buffer</param>
+        /// <param name="min_meta_prec">Minimum metadata percentage to keep in
+        /// the page buffer before allowing pages containing metadata to be
+        /// evicted</param>
+        /// <param name="min_raw_perc">Minimum raw data percentage to keep in
+        /// the page buffer before allowing pages containing raw data to be
+        /// evicted</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_page_buffer_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_page_buffer_size
+            (hid_t fapl_id, ref IntPtr buf_size, ref uint min_meta_perc,
+            ref uint min_raw_perc);
+
 #endif
 
         /// <summary>
@@ -3085,6 +3107,28 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_object_flush_cb
             (hid_t plist_id, H5F.flush_cb_t func, IntPtr udata);
+
+        /// <summary>
+        /// Sets the maximum size for the page buffer and the minimum
+        /// percentage for metadata and raw data pages.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetPageBufferSize
+        /// </summary>
+        /// <param name="fapl_id">File access property list identifier</param>
+        /// <param name="buf_size">Maximum size, in bytes, of the page buffer</param>
+        /// <param name="min_meta_prec">Minimum metadata percentage to keep in
+        /// the page buffer before allowing pages containing metadata to be
+        /// evicted</param>
+        /// <param name="min_raw_perc">Minimum raw data percentage to keep in
+        /// the page buffer before allowing pages containing raw data to be
+        /// evicted</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_page_buffer_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_page_buffer_size
+            (hid_t fapl_id, IntPtr buf_size, uint min_meta_perc,
+            uint min_raw_perc);
 
 #endif
 
