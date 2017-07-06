@@ -966,6 +966,45 @@ namespace HDF.PInvoke
             (hid_t fcpl, ref H5F.file_space_type_t strategy,
             ref hsize_t threshold);
 
+        /// <summary>
+        /// Retrieves the file space page size for a file creation property
+        /// list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFileSpacePageSize
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The current file space management strategy
+        /// in use for the file.</param>
+        /// <param name="fsp_size">File space page size</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_file_space_page_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_file_space_page_size
+            (hid_t fcpl, ref hsize_t fsp_size);
+
+        /// <summary>
+        /// Retrieves the file space handling strategy, persisting free-space
+        /// condition and threshold value for a file creation property list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFileSpaceStrategy
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The current file space management strategy
+        /// in use for the file.</param>
+        /// <param name="persist">The boolean value indicating whether free
+        /// space is persistent or not.</param>
+        /// <param name="threshold">The free-space section size threshold value.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_file_space_strategy",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_file_space_strategy(hid_t fcpl,
+            ref H5F.fspace_strategy_t strategy, ref hbool_t persist,
+            ref hsize_t threshold);
+
 #endif
 
         /// <summary>
@@ -2624,6 +2663,44 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_file_space
             (hid_t fcpl, H5F.file_space_type_t strategy, hsize_t threshold = 1);
+
+        /// <summary>
+        /// Sets the file space page size for a file creation property list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileSpacePageSize
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The current file space management strategy
+        /// in use for the file.</param>
+        /// <param name="fsp_size">File space page size</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_file_space_page_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_space_page_size
+            (hid_t fcpl, hsize_t fsp_size);
+        
+        /// <summary>
+        /// Sets the file space handling strategy and persisting free-space
+        /// values for a file creation property list.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileSpaceStrategy
+        /// </summary>
+        /// <param name="fcpl">The file creation property list identifier.</param>
+        /// <param name="strategy">The file space handling strategy to be used.</param>
+        /// <param name="persist">A boolean value to indicate whether free
+        /// space should be persistent or not.</param>
+        /// <param name="threshold">The smallest free-space section size that
+        /// the free space manager will track.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_file_space_strategy",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_file_space_strategy(hid_t fcpl,
+            H5F.fspace_strategy_t strategy, hbool_t persist,
+            hsize_t threshold);
 
 #endif
 

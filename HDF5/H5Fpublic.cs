@@ -340,6 +340,34 @@ namespace HDF.PInvoke
         /// <summary>
         /// File space handling strategy
         /// </summary>
+        public enum fspace_strategy_t
+        {
+            /// <summary>
+            /// Mechanisms: free-space managers, aggregators, and virtual
+            /// file drivers. This is the library default when not set.
+            /// </summary>
+            FSM_AGGR = 0,
+            /// <summary>
+            /// Mechanisms: free-space managers with embedded paged
+            /// aggregation and virtual file drivers
+            /// </summary>
+            PAGE = 1,
+            /// <summary>
+            /// Mechanisms: aggregators and virtual file drivers
+            /// </summary>
+            AGGR = 2,
+            /// <summary>
+            /// Mechanisms: virtual file drivers 
+            /// </summary>
+            AGGR_NONE = 3,
+            NTYPES
+        }
+
+        /// <summary>
+        /// Deprecated: File space handling strategy for release 1.10.0
+        /// They are mapped to H5F_fspace_strategy_t as defined above from
+        /// release 1.10.1 onwards
+        /// </summary>
         public enum file_space_type_t
         {
             /// <summary>
