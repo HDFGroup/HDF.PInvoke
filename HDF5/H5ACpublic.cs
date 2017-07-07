@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 
 using hbool_t = System.UInt32;
 using size_t = System.IntPtr;

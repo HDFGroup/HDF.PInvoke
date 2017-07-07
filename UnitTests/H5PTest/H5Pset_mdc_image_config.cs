@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
 
@@ -31,14 +32,17 @@ namespace UnitTests
         [TestMethod]
         public void H5Pset_mdc_image_configTest1()
         {
-            /*
             hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             Assert.IsTrue(fapl >= 0);
-            H5AC.cache_image_config_t conf = new H5AC.cache_image_config_t(1);
-            
-            Assert.IsTrue(H5P.set_mdc_image_config(fapl, ref conf) >= 0);
+            H5AC.cache_image_config_t conf =
+                new H5AC.cache_image_config_t(0);
+            int sz = Marshal.SizeOf(conf.GetType());
+            IntPtr config_ptr = Marshal.AllocHGlobal(sz);
+            Marshal.StructureToPtr((H5AC.cache_image_config_t)conf,
+                config_ptr, false);
+            //Assert.IsTrue(H5P.set_mdc_image_config(fapl, config_ptr) >= 0);
             Assert.IsTrue(H5P.close(fapl) >= 0);
-             * */
+            Marshal.FreeHGlobal(config_ptr);
         }
     }
 }

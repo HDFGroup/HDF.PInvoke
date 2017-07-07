@@ -1280,7 +1280,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_config
-            (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
+            (hid_t plist_id, IntPtr config_ptr);
   
 #if HDF5_VER1_10
 
@@ -1299,7 +1299,7 @@ namespace HDF.PInvoke
            CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_mdc_image_config
-            (hid_t fapl_id, ref H5AC.cache_image_config_t config_ptr);
+            (hid_t fapl_id, IntPtr config_ptr);
 
         /// <summary>
         /// Gets metadata cache logging options.
@@ -2970,7 +2970,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_mdc_config
-            (hid_t plist_id, ref H5AC.cache_config_t config_ptr);
+            (hid_t plist_id, IntPtr config_ptr);
 
 #if HDF5_VER1_10
 
@@ -2988,7 +2988,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_mdc_image_config
-            (hid_t fapl_id, ref H5AC.cache_image_config_t config_ptr);
+            (hid_t fapl_id, IntPtr config_ptr);
 
         /// <summary>
         /// Sets metadata cache logging options.
