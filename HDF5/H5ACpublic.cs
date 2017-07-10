@@ -14,6 +14,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
+using System.Runtime.InteropServices;
 
 using hbool_t = System.UInt32;
 using size_t = System.IntPtr;
@@ -168,10 +169,10 @@ namespace HDF.PInvoke
 
             public int entry_ageout;
 
-            public cache_image_config_t(int cache_image_config_version)
+            public cache_image_config_t(hbool_t generate_image_flg)
             {
-                version = cache_image_config_version;
-                generate_image = 1;
+                version = CURR_CACHE_IMAGE_CONFIG_VERSION;
+                generate_image = generate_image_flg;
                 save_resize_status = 0;
                 entry_ageout = CACHE_IMAGE__ENTRY_AGEOUT__MAX;
             }

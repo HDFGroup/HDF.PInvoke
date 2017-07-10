@@ -340,6 +340,34 @@ namespace HDF.PInvoke
         /// <summary>
         /// File space handling strategy
         /// </summary>
+        public enum fspace_strategy_t
+        {
+            /// <summary>
+            /// Mechanisms: free-space managers, aggregators, and virtual
+            /// file drivers. This is the library default when not set.
+            /// </summary>
+            FSM_AGGR = 0,
+            /// <summary>
+            /// Mechanisms: free-space managers with embedded paged
+            /// aggregation and virtual file drivers
+            /// </summary>
+            PAGE = 1,
+            /// <summary>
+            /// Mechanisms: aggregators and virtual file drivers
+            /// </summary>
+            AGGR = 2,
+            /// <summary>
+            /// Mechanisms: virtual file drivers 
+            /// </summary>
+            AGGR_NONE = 3,
+            NTYPES
+        }
+
+        /// <summary>
+        /// Deprecated: File space handling strategy for release 1.10.0
+        /// They are mapped to H5F_fspace_strategy_t as defined above from
+        /// release 1.10.1 onwards
+        /// </summary>
         public enum file_space_type_t
         {
             /// <summary>
@@ -789,6 +817,39 @@ namespace HDF.PInvoke
         public extern static ssize_t get_obj_ids
             (hid_t file_id, uint types, size_t max_objs, IntPtr obj_id_list);
 
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Retrieves statistics about page access when it is enabled.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetPBStats
+        /// </summary>
+        /// <param name="file_id">File identifier</param>
+        /// <param name="accesses">Two integer array for the number of metadata
+        /// and raw data accesses to the page buffer</param>
+        /// <param name="hits">Two integer array for the number of metadata
+        /// and raw data hits in the page buffer</param>
+        /// <param name="misses">Two integer array for the number of metadata
+        /// and raw data misses in the page buffer</param>
+        /// <param name="evictions">Two integer array for the number of
+        /// metadata and raw data evictions from the page buffer</param>
+        /// <param name="bypasses">Two integer array for the number of metadata
+        /// and raw data accesses that bypass the page buffer</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fget_page_buffering_stats",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_page_buffering_stats
+            (hid_t file_id,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] int accesses,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] int hits,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] int misses,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] int evictions,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] int bypasses);
+
+#endif
+
         /// <summary>
         /// Returns pointer to the file handle from the virtual file driver.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetVfdHandle
@@ -901,6 +962,23 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t reset_mdc_hit_rate_stats(hid_t file_id);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Resets the page buffer statistics.
+        /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-ResetPBStats
+        /// </summary>
+        /// <param name="file_id">File identifier</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Freset_page_buffering_stats",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t reset_page_buffering_stats(hid_t file_id);
+
+#endif
 
         /// <summary>
         /// Attempt to configure metadata cache of target file.
