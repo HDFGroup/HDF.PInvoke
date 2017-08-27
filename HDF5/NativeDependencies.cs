@@ -25,6 +25,9 @@ namespace HDF.PInvoke
         private static bool GetDllPathFromAppConfig(out string aPath)
         {
             aPath = string.Empty;
+#if NET_STANDARD            
+            return false;
+#else
             try
             {
                 if (ConfigurationManager.AppSettings.Count <= 0) return false;
@@ -46,6 +49,7 @@ namespace HDF.PInvoke
             {
                 return false;
             }
+#endif            
         }
 
         private static string GetAssemblyName()
