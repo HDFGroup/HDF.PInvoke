@@ -17,7 +17,7 @@ namespace HDF.PInvoke
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) 
             {
                 // In .NET Core on Linux native libraries for DllImport are always loaded 
-                // from the application directory and neither PATH nor LD_LIBRARY_PATH are 
+                // from the library assembly directory and neither PATH nor LD_LIBRARY_PATH are 
                 // taken into account. Thus modifying them makes no sense.
                 updatePath = false;
             } 
