@@ -266,7 +266,8 @@
   <ItemGroup>
     <ProjectReference Include="..\HDF.PInvoke.csproj" />
   </ItemGroup>
-  <!-- Conditional target selection: -->
-  <Import Condition="$(Configuration.StartsWith('HDF5_1.8'))" Project="../native/HDF5_1.8/hdf5.targets" />
-  <Import Condition="$(Configuration.StartsWith('HDF5_1.10'))" Project="../native/HDF5_1.10/hdf5.targets" />  
+  <!-- Conditional target selection: 
+  <Import Condition="$(Configuration.StartsWith('HDF5_1.8'))" Project="../native/HDF5_1.8/HDF.PInvoke.targets" />
+  <Import Condition="$(Configuration.StartsWith('HDF5_1.10'))" Project="../native/HDF5_1.10/HDF.PInvoke.targets" />  
+  -->
 </Project>

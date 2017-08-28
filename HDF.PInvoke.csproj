@@ -66,6 +66,90 @@
     <Compile Include="Properties/AssemblyInfo.cs" />
     <Compile Include="Properties/AssemblyInfo.gen.cs" />
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.8_Debug' Or '$(Configuration)' == 'HDF5_1.8_Release'">  
+    <None Include="native/HDF5_1.8/bin32/hdf5.dll">
+      <Link>bin32/hdf5.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.8/bin32/hdf5_hl.dll">
+      <Link>bin32/hdf5_hl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.8/bin32/szip.dll">
+      <Link>bin32/szip.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>         
+    <None Include="native/HDF5_1.8/bin32/zlib.dll">
+      <Link>bin32/zlib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>        
+    <None Include="native/HDF5_1.8/bin64/hdf5.dll">
+      <Link>bin64/hdf5.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.8/bin64/hdf5_hl.dll">
+      <Link>bin64/hdf5_hl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.8/bin64/szip.dll">
+      <Link>bin64/szip.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>         
+    <None Include="native/HDF5_1.8/bin64/zlib.dll">
+      <Link>bin64/zlib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>            
+    <None Include="native/HDF5_1.8/linux64/libhdf5.so">
+      <Link>libhdf5.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>        
+    <None Include="native/HDF5_1.8/linux64/libhdf5_hl.so">
+      <Link>libhdf5_hl.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>           
+  </ItemGroup>   
+  <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.10_Debug' Or '$(Configuration)' == 'HDF5_1.10_Release'">  
+    <None Include="native/HDF5_1.10/bin32/hdf5.dll">
+      <Link>bin32/hdf5.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.10/bin32/hdf5_hl.dll">
+      <Link>bin32/hdf5_hl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.10/bin32/szip.dll">
+      <Link>bin32/szip.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>         
+    <None Include="native/HDF5_1.10/bin32/zlib.dll">
+      <Link>bin32/zlib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>        
+    <None Include="native/HDF5_1.10/bin64/hdf5.dll">
+      <Link>bin64/hdf5.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.10/bin64/hdf5_hl.dll">
+      <Link>bin64/hdf5_hl.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>  
+    <None Include="native/HDF5_1.10/bin64/szip.dll">
+      <Link>bin64/szip.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>         
+    <None Include="native/HDF5_1.10/bin64/zlib.dll">
+      <Link>bin64/zlib.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>            
+    <None Include="native/HDF5_1.10/linux64/libhdf5.so">
+      <Link>libhdf5.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>        
+    <None Include="native/HDF5_1.10/linux64/libhdf5_hl.so">
+      <Link>libhdf5_hl.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>           
+  </ItemGroup> 
   <ItemGroup>
     <PackageReference Include="System.Configuration" Version="2.0.5" />
   </ItemGroup>

@@ -1,3 +1,4 @@
+#nowarn "44"
 #r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
 open Fake.PaketTemplate
@@ -19,9 +20,9 @@ let VER =
         tracefn "Using version: %s" ver
         ver
 
-let name = sprintf "HDF5 %s" VER
+let name = sprintf "HDF5_%s" VER
 
-let slnConfiguration = sprintf "HDF5 %s Release" VER
+let slnConfiguration = sprintf "HDF5_%s_Release" VER
 
 let fileAssemblyInfo = "Properties/AssemblyInfo.cs"
 
@@ -42,26 +43,21 @@ Target "UpdateAssemblyInfo" (fun _ ->
 *)
 
 Target "Build" (fun _ ->
-    "HDF.PInvoke.sln"
-    |> build (fun p ->
+    DotNetCli.Build (fun p ->
         {p with
-            Verbosity = Some Minimal
-            NoLogo = true
-            Targets = ["Build"]
-            Properties =
-                ["Configuration", slnConfiguration
-                 "Platform", "Any CPU"
-                 "WarningLevel", "0"
-                 "AssemblyVersion", releaseNotes.AssemblyVersion]
+            Project = "HDF.PInvoke.sln"
+            Configuration = slnConfiguration
+            AdditionalArgs = [sprintf "/property:AssemblyVersion=%s" releaseNotes.AssemblyVersion]
         })
 )
 
 Target "Test" (fun _ ->
-    !! ("UnitTests/bin" </> slnConfiguration </> "UnitTests.dll" )
-    |> MSTest.MSTest (fun p ->
+    DotNetCli.Test (fun p ->
         {p with
+            Project = "UnitTests/UnitTests.csproj"
+            Configuration = slnConfiguration
             TimeOut = TimeSpan.FromMinutes 5.
-            NoIsolation = true
+            //NoIsolation = true
         })
 )
 
@@ -93,8 +89,8 @@ Target "GenTemplate" (fun _ ->
             Files =
                 [
                 // https://docs.nuget.org/ndocs/create-packages/creating-a-package#from-a-convention-based-working-directory
-                Include ("native" </> name </> "**/*.*", "build")
-                Include ("bin" </> slnConfiguration </> "*.*", "lib")
+                //Include ("native" </> name </> "**/*.*", "build")
+                Include ("bin" </> slnConfiguration </> "**/*.*", "lib")
                 Exclude ("bin" </> slnConfiguration </> "*.pdb")
                 ]
         })

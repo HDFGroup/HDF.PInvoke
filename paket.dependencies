@@ -3,4 +3,4 @@ source https://www.nuget.org/api/v2/
 group Build
 	source https://www.nuget.org/api/v2/
 
-	nuget FAKE
+	nuget FAKE >= 5.0.0-alpha014 

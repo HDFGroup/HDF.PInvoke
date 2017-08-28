@@ -3,4 +3,4 @@
 GROUP Build
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.48)
+    FAKE (5.0.0-alpha014)
