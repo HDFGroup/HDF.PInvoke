@@ -86,6 +86,7 @@ Target "GenTemplate" (fun _ ->
                 //"gheber"
                 //"hokb"
                 ]
+            References = ["HDF.PInvoke.dll"]
             Files =
                 [
                 // https://docs.nuget.org/ndocs/create-packages/creating-a-package#from-a-convention-based-working-directory
