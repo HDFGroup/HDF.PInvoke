@@ -52,5 +52,16 @@
       <Link>bin64\zlib.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
+
+	<!-- linux64 -->
+    <None Include="$(MSBuildThisFileDirectory)linux64\libhdf5.so">
+      <Link>libhdf5.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)linux64\libhdf5_hl.so">
+      <Link>libhdf5_hl.so</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+
+  </ItemGroup>  
 </Project>
