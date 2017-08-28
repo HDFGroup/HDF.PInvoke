@@ -88,10 +88,11 @@ Target "GenTemplate" (fun _ ->
                 ]
             Files =
                 [
-                // https://docs.nuget.org/ndocs/create-packages/creating-a-package#from-a-convention-based-working-directory
-                //Include ("native" </> name </> "**/*.*", "build")
                 Include ("bin" </> slnConfiguration </> "**/*.*", "lib")
                 Exclude ("bin" </> slnConfiguration </> "*.pdb")
+                // Native libraries for non .NET standard targets:
+                // https://docs.nuget.org/ndocs/create-packages/creating-a-package#from-a-convention-based-working-directory
+                Include ("native" </> name </> "**/*.*", "build")
                 ]
         })
 )
