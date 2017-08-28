@@ -12,32 +12,13 @@ namespace HDF.PInvoke
 
         public static void ResolvePathToExternalDependencies()
         {
-            bool updatePath;
-#if NET_STANDARD    
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) 
+            string NativeDllPath;
+            if (!GetDllPathFromAppConfig(out NativeDllPath))
             {
-                // In .NET Core on Linux native libraries for DllImport are always loaded 
-                // from the application directory and neither PATH nor LD_LIBRARY_PATH are 
-                // taken into account. Thus modifying them makes no sense.
-                updatePath = false;
-            } 
-            else
-            {
-                updatePath = true;
+               GetDllPathFromAssembly(out NativeDllPath);
             }
-#else
-            updatePath = true;
-#endif
-
-            if (updatePath)
-            {
-                string NativeDllPath;
-                if (!GetDllPathFromAppConfig(out NativeDllPath))
-                {
-                GetDllPathFromAssembly(out NativeDllPath);
-                }               
-                AddPathStringToEnvironment(NativeDllPath);
-            }
+            
+            AddPathStringToEnvironment(NativeDllPath);
         }
 
         //----------------------------------------------------------------
@@ -82,36 +63,50 @@ namespace HDF.PInvoke
 
         private static void GetDllPathFromAssembly(out string aPath)
         {
-            switch (IntPtr.Size)
-            {
-            case 8:
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL64bitPath);
-                break;
-            case 4:
-                aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), Constants.DLL32bitPath);
-                break;
-            default:
-                throw new NotImplementedException();
-            }
+            string dllDir;
+            if (IntPtr.Size == 8 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                dllDir = Constants.DLL64bitWindowsPath;
+            else if (IntPtr.Size == 8 && RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                dllDir = Constants.DLL64bitLinuxPath;
+            else if (IntPtr.Size == 4 && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                dllDir = Constants.DLL32bitWindowsPath;
+            else
+                throw new NotImplementedException("Platform not supported");
+            aPath = Path.Combine(Path.GetDirectoryName(GetAssemblyName()), dllDir);
         }
 
         private static void AddPathStringToEnvironment(string aPath)
         {
             try
             {
-                string EnvPath = Environment.GetEnvironmentVariable("PATH");
-                if (EnvPath.Contains(aPath)) return;
-                
-                Environment.SetEnvironmentVariable("PATH", aPath + ";" + EnvPath);
+                string pathVar, pathSep;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    //pathVar = "LD_LIBRARY_PATH";
+                    pathVar = "PATH";
+                    pathSep = ":";
+                }
+                else
+                {
+                    pathVar = "PATH";
+                    pathSep = ";";
+                }
 
+                string EnvPath = Environment.GetEnvironmentVariable(pathVar);
+                if (EnvPath == null)
+                    EnvPath = "";
+                if (EnvPath.Contains(aPath)) 
+                    return;
+                
+                Environment.SetEnvironmentVariable(pathVar, aPath + pathSep + EnvPath);
 
                 System.Diagnostics.Trace.WriteLine(string.Format(
-                    "{0} added to Path.", aPath));
+                    "{0} added to {1}.", aPath, pathVar));
             }
             catch(SecurityException) 
             { 
                 System.Diagnostics.Trace.WriteLine(
-                    "Changing PATH not allowed");
+                    "Changing environment not allowed");
             }
         }
     }

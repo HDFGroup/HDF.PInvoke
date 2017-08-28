@@ -16,6 +16,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.IO;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -151,15 +152,22 @@ namespace HDF.PInvoke
 
         public H5UnixDllImporter(string libName)
         {
+#if NET_STANDARD
+            // In .NET Core native libraries for DllImport are always loaded from the application 
+            // directory and neither PATH nor LD_LIBRARY_PATH are taken into account.
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                libName = Path.Combine(Path.GetDirectoryName(NativeDependencies.GetAssemblyName()), 
+                                       "lib" + libName + ".so");
+            else
+                throw new NotImplementedException("Platform not supported");
+#else            
 			if (libName == "hdf5.dll") {
 				libName = "/usr/lib/libhdf5.so";
-
 			}
 			if (libName == "hdf5_hd.dll") {
 				libName = "/usr/lib/libhdf5_hl.so";
 			}
-				
-
+#endif				
 
 			hLib = dlopen(libName, RTLD_NOW);
 			if (hLib==IntPtr.Zero)
