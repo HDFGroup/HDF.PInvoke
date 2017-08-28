@@ -972,8 +972,6 @@ namespace HDF.PInvoke
         /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetFileSpacePageSize
         /// </summary>
         /// <param name="fcpl">The file creation property list identifier.</param>
-        /// <param name="strategy">The current file space management strategy
-        /// in use for the file.</param>
         /// <param name="fsp_size">File space page size</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
@@ -1073,7 +1071,7 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="plist_id">Dataset or group creation property list 
         /// identifier.</param>
-        /// <param name="idx">Sequence number within the filter pipeline of the
+        /// <param name="filter">Sequence number within the filter pipeline of the
         /// filter for which information is sought.</param>
         /// <param name="flags">Bit vector specifying certain general
         /// properties of the filter.</param>
@@ -1440,7 +1438,7 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="fapl_id">File access property list identifier</param>
         /// <param name="buf_size">Maximum size, in bytes, of the page buffer</param>
-        /// <param name="min_meta_prec">Minimum metadata percentage to keep in
+        /// <param name="min_meta_perc">Minimum metadata percentage to keep in
         /// the page buffer before allowing pages containing metadata to be
         /// evicted</param>
         /// <param name="min_raw_perc">Minimum raw data percentage to keep in
@@ -2691,8 +2689,6 @@ namespace HDF.PInvoke
         /// See https://support.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-SetFileSpacePageSize
         /// </summary>
         /// <param name="fcpl">The file creation property list identifier.</param>
-        /// <param name="strategy">The current file space management strategy
-        /// in use for the file.</param>
         /// <param name="fsp_size">File space page size</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
@@ -3096,7 +3092,7 @@ namespace HDF.PInvoke
         /// the file.
         /// See https://www.hdfgroup.org/HDF5/docNewFeatures/SWMR/H5Pset_object_flush_cb.htm
         /// </summary>
-        /// <param name="fapl_id">Identifier for a file access property list.</param>
+        /// <param name="plist_id">Identifier for a file access property list.</param>
         /// <param name="func">The user-defined callback function.</param>
         /// <param name="udata">The user-defined input data for the callback
         /// function.</param>
@@ -3115,7 +3111,7 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="fapl_id">File access property list identifier</param>
         /// <param name="buf_size">Maximum size, in bytes, of the page buffer</param>
-        /// <param name="min_meta_prec">Minimum metadata percentage to keep in
+        /// <param name="min_meta_perc">Minimum metadata percentage to keep in
         /// the page buffer before allowing pages containing metadata to be
         /// evicted</param>
         /// <param name="min_raw_perc">Minimum raw data percentage to keep in

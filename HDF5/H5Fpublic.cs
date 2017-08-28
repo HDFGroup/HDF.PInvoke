@@ -226,7 +226,7 @@ namespace HDF.PInvoke
                 /// </summary>
                 public hsize_t hdr_size;
                 /// <summary>
-                /// Shared object header message index & heap size
+                /// Shared object header message index and heap size
                 /// </summary>
                 public H5.ih_info_t msgs_info;
             }
@@ -686,9 +686,9 @@ namespace HDF.PInvoke
         /// </summary>
         /// <param name="file_id">Identifier of the target file.</param>
         /// <param name="image_addr">Offset of the cache image if it exists,
-        /// or <code>HADDR_UNDEF</code> if it does not.
+        /// or <code>HADDR_UNDEF</code> if it does not.</param>
         /// <param name="image_len">Length of the cache image if it exists,
-        /// or 0 if it does not.
+        /// or 0 if it does not.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_mdc_image_info",
