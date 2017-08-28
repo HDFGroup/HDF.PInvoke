@@ -153,7 +153,7 @@ namespace HDF.PInvoke
         public H5UnixDllImporter(string libName)
         {
 #if NET_STANDARD
-            // In .NET Core native libraries for DllImport are always loaded from the application 
+            // In .NET Core native libraries for DllImport are always loaded from the library assembly 
             // directory and neither PATH nor LD_LIBRARY_PATH are taken into account.
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 libName = Path.Combine(Path.GetDirectoryName(NativeDependencies.GetAssemblyName()), 
