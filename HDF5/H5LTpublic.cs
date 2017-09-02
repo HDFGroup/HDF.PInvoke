@@ -98,6 +98,286 @@ namespace HDF.PInvoke
          SecuritySafeCritical]
         public static extern herr_t make_dataset(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, hid_t type_id, IntPtr buffer);
 
+        /// <summary>
+        /// Creates and writes a dataset of type 'character' (<see cref="H5T.NATIVE_CHAR"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_char
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_char",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_char(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
 
+        /// <summary>
+        /// Creates and writes a dataset of type 'short signed integer' (<see cref="H5T.NATIVE_SHORT"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_short
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_short",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_short(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
+
+        /// <summary>
+        /// Creates and writes a dataset of type 'native signed integer' (<see cref="H5T.NATIVE_INT"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_int
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_int",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_int(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
+
+        /// <summary>
+        /// Creates and writes a dataset of type 'long signed integer' (<see cref="H5T.NATIVE_LONG"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
+
+        /// <summary>
+        /// Creates and writes a dataset of type 'native floating point' (<see cref="H5T.NATIVE_FLOAT"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_float
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_float",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_float(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
+
+        /// <summary>
+        /// Creates and writes a dataset of type 'native floating-point double' (<see cref="H5T.NATIVE_DOUBLE"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_double
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="rank">Number of dimensions of dataspace.</param>
+        /// <param name="dims">An array of the size of each dimension.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_double",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_double(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, int rank, [MarshalAs(UnmanagedType.LPArray)] hsize_t[] dims, IntPtr buffer);
+
+        /// <summary>
+        /// Creates and writes a dataset of type 'C string' (<see cref="H5T.C_S1"/>).
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTmake_dataset_string
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to create.</param>
+        /// <param name="buffer">Buffer with data to be written to the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTmake_dataset_string",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t make_dataset_string(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="type_id">Identifier of the datatype to use when reading the dataset.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, hid_t type_id, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'character' (<see cref="H5T.NATIVE_CHAR"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_char
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_char",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_char(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'short signed integer' (<see cref="H5T.NATIVE_SHORT"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_short
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_short",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_short(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'native signed integer' (<see cref="H5T.NATIVE_INT"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_int
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_int",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_int(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'long signed integer' (<see cref="H5T.NATIVE_LONG"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'native floating point' (<see cref="H5T.NATIVE_FLOAT"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_float
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_float",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_float(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'native floating point double' (<see cref="H5T.NATIVE_DOUBLE"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_double
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_double",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_double(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Reads a dataset of type 'C string' (<see cref="H5T.C_S1"/>) from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTread_dataset_string
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to read the dataset within.</param>
+        /// <param name="dset_name">The name of the dataset to read.</param>
+        /// <param name="buffer">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTread_dataset_string",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t read_dataset_string(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr buffer);
+
+        /// <summary>
+        /// Determines whether a dataset exists.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTfind_dataset
+        /// </summary>
+        /// <param name="loc_id">Identifier of the group containing the dataset.</param>
+        /// <param name="dset_name">Dataset name.</param>
+        /// <returns>Returns 1 if the dataset exists, returns 0 otherwise.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTfind_dataset",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t find_dataset(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name);
+
+        /// <summary>
+        /// Gets the dimensionality of a dataset.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_dataset_ndims
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object to locate the dataset within.</param>
+        /// <param name="dset_name">Dataset name.</param>
+        /// <param name="rank">The dimensionality of the dataset.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_dataset_ndims",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_dataset_ndims(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, out int rank);
+
+        /// <summary>
+        /// Gets information about a dataset.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_dataset_info
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object to locate the dataset within.</param>
+        /// <param name="dset_name">Dataset name.</param>
+        /// <param name="dims">The dimensions of the dataset.</param>
+        /// <param name="class_id">The class identifier.</param>
+        /// <param name="type_size">The size of the datatype in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_dataset_info",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_dataset_info(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string dset_name, IntPtr /* hsize_t* */ dims, out H5T.class_t class_id, out size_t type_size);
+
+        /// <summary>
+        /// Creates and writes a string attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_string
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="attr_data">Buffer with data to be written to the attribute.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_string",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_string(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, [MarshalAs(UnmanagedType.LPStr)] string attr_data);
     }
 }

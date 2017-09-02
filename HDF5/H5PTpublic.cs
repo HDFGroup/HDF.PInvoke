@@ -63,12 +63,37 @@ namespace HDF.PInvoke
         public static extern hid_t create (hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string table_name, hid_t dtype_id, hsize_t chunk_size, hid_t plist_id);
 
         /// <summary>
+        /// Creates a packet table to store fixed-length packets.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5PT.html#H5PTcreate_fl
+        /// </summary>
+        /// <param name="loc_id">Identifier of the file or group to create the table within.</param>
+        /// <param name="table_name">The name of the packet table to create.</param>
+        /// <param name="dtype_id">The datatype of the packet.</param>
+        /// <param name="chunk_size">
+        /// Chunk size, in number of table entries per chunk.
+        /// Packet table datasets use HDF5 chunked storage to allow them to grow.
+        /// This value allows the user to set the size of a chunk. The chunk size affects performance.
+        /// </param>
+        /// <param name="compression">
+        /// Compression level, a value of 0 through 9. Level 0 is faster but offers the least compression;
+        /// level 9 is slower but offers maximum compression.
+        /// A setting of -1 indicates that no compression is desired.
+        /// </param>
+        /// <returns>Returns an identifier for the new packet table or <see cref="H5I.H5I_INVALID_HID"/> on error.</returns>
+        [Obsolete("Call H5PT.create() instead.")]
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5PTcreate_fl",
+             CallingConvention = CallingConvention.Cdecl),
+         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t create_fl(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string table_name, hid_t dtype_id, hsize_t chunk_size, int compression);
+
+        /// <summary>
         /// Opens an existing packet table.
         /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5PT.html#H5PTopen
         /// </summary>
         /// <param name="loc_id">Identifier of the file or group within which the packet table can be found.</param>
         /// <param name="dset_name">The name of the packet table to open.</param>
-        /// <returns>Returns an identifier for the packet table, or <see cref="H5I.H5I_BADID"/> on error.</returns>
+        /// <returns>Returns an identifier for the packet table, or <see cref="H5I.H5I_INVALID_HID"/> on error.</returns>
         [DllImport(Constants.HLDLLFileName,
              EntryPoint = "H5PTopen",
              CallingConvention = CallingConvention.Cdecl),
@@ -94,7 +119,7 @@ namespace HDF.PInvoke
         /// <param name="table_id">Identifier of packet table to which packets should be appended.</param>
         /// <param name="nrecords">Number of packets to be appended.</param>
         /// <param name="data">Buffer holding data to write.</param>
-        /// <returns>Returns an identifier for the packet table, or <see cref="H5I.H5I_BADID"/> on error.</returns>
+        /// <returns>Returns an identifier for the packet table, or <see cref="H5I.H5I_INVALID_HID"/> on error.</returns>
         [DllImport(Constants.HLDLLFileName,
              EntryPoint = "H5PTappend",
              CallingConvention = CallingConvention.Cdecl),
