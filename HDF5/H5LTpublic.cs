@@ -17,7 +17,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Security;
-
+using System.Text;
 using herr_t = System.Int32;
 using hsize_t = System.UInt64;
 using size_t = System.IntPtr;
@@ -44,6 +44,57 @@ namespace HDF.PInvoke
         static H5LT()
         {
             H5.open();
+        }
+
+        #region Flag definitions for H5LTopen_file_image()
+
+        /// <summary>
+        /// Open image for read-write.
+        /// </summary>
+        public const uint H5LT_FILE_IMAGE_OPEN_RW = 0x0001u;
+
+        /// <summary>
+        /// The HDF5 lib won't copy user supplied image buffer.
+        /// The same image is open with the core driver.
+        /// </summary>
+        public const uint H5LT_FILE_IMAGE_DONT_COPY = 0x0002u;
+
+        /// <summary>
+        /// The HDF5 lib won't deallocate user supplied image buffer.
+        /// The user application is reponsible for doing so.
+        /// </summary>
+        public const uint H5LT_FILE_IMAGE_DONT_RELEASE = 0x0004u;
+
+        public const uint H5LT_FILE_IMAGE_ALL = 0x0007u;
+
+        #endregion
+
+        public enum lang_t
+        {
+            /// <summary>
+            /// this is the first
+            /// </summary>
+            LANG_ERR = -1,
+
+            /// <summary>
+            /// DDL (Data Definition Language).
+            /// </summary>
+            DDL = 0,
+
+            /// <summary>
+            /// C language.
+            /// </summary>
+            C = 1,
+
+            /// <summary>
+            /// FORTRAN language.
+            /// </summary>
+            FORTRAN = 2,
+
+            /// <summary>
+            /// this is the last
+            /// </summary>
+            NO_LANG = 3
         }
 
         /// <summary>
@@ -379,5 +430,509 @@ namespace HDF.PInvoke
          SecuritySafeCritical]
         public static extern herr_t set_attribute_string(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
             [MarshalAs(UnmanagedType.LPStr)] string attr_name, [MarshalAs(UnmanagedType.LPStr)] string attr_data);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_char
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_char",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_char(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* sbyte* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_uchar
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_uchar",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_uchar(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* byte* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_short
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_short",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_short(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* short* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_ushort
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_ushort",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_ushort(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* ushort* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_int
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_int",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_int(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* int* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_uint
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_uint",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_uint(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* uint* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* long* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_ulong
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_ulong",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_ulong(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* ulong* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_long_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_long_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_long_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* long* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_float
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_float",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_float(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* float* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Creates and writes an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTset_attribute_double
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to create the attribute within.</param>
+        /// <param name="obj_name">The name of the object to attach the attribute.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="buffer">Buffer with data to be written to the attribute.</param>
+        /// <param name="size">
+        /// The size of the 1D array (one in the case of a scalar attribute).
+        /// This value is used by <c>H5Screate_simple</c> to create the dataspace.
+        /// </param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTset_attribute_double",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t set_attribute_double(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* float* */ buffer, hsize_t size);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="mem_type_id">Identifier of the memory datatype.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, hid_t mem_type_id, IntPtr /* void* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_string
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_string",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_string(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* sbyte* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_char
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_char",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_char(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* sbyte* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_uchar
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_uchar",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_uchar(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* byte* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_short
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_short",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_short(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* short* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_ushort
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_ushort",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_ushort(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* ushort* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_int
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_int",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_int(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* int* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_uint
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_uint",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_uint(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* uint* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* long* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_long_long
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_long_long",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_long_long(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* long* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_ulong
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_ulong",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_ulong(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* ulong* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_float
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_float",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_float(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* float* */ data);
+
+        /// <summary>
+        /// Reads an attribute from disk.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_double
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="data">Buffer with data.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_double",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_double(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* double* */ data);
+
+        /// <summary>
+        /// Determines whether an attribute exists.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTfind_attribute
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object to which the attribute is expected to be attached.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <returns>Returns 1 if the attribute exists; returns 0 otherwise.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTfind_attribute",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t find_attribute(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string attr_name);
+
+        /// <summary>
+        /// Gets the dimensionality of an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_ndims
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="rank">The dimensionality of the attribute.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_ndims",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_ndims(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, out int rank);
+
+        /// <summary>
+        /// Gets the dimensionality of an attribute.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTget_attribute_info
+        /// </summary>
+        /// <param name="loc_id">Identifier of the object (dataset or group) to read the attribute from.</param>
+        /// <param name="obj_name">The name of the object that the attribute is attached to.</param>
+        /// <param name="attr_name">The attribute name.</param>
+        /// <param name="dims">The dimensions of the attribute.</param>
+        /// <param name="type_class">The class identifier. To a list of the HDF5 class types please refer to the Datatype Interface API (H5T) help.</param>
+        /// <param name="type_size">The size of the datatype in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTget_attribute_info",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t get_attribute_info(hid_t loc_id, [MarshalAs(UnmanagedType.LPStr)] string obj_name,
+            [MarshalAs(UnmanagedType.LPStr)] string attr_name, IntPtr /* hsize_t* */ dims, out H5T.class_t type_class, out size_t type_size);
+
+        /// <summary>
+        /// Creates an HDF5 datatype given a text description.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTtext_to_dtype
+        /// </summary>
+        /// <param name="text">A character string containing a DDL definition of the datatype to be created.</param>
+        /// <param name="lang_type">The language used to describe the datatype. The only currently supported language is <see cref="lang_t.DDL"/>.</param>
+        /// <returns>Returns the datatype identifier(non-negative) if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTtext_to_dtype",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern hid_t text_to_dtype([MarshalAs(UnmanagedType.LPStr)] string text, lang_t lang_type);
+
+        /// <summary>
+        /// Creates a text description of an HDF5 datatype.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_H5LT.html#H5LTdtype_to_text
+        /// </summary>
+        /// <param name="datatype">Identifier of the datatype to be converted.</param>
+        /// <param name="str">Buffer for the text description of the datatype.</param>
+        /// <param name="lang_type">The language used to describe the datatype. The currently supported language is <see cref="lang_t.DDL"/>.</param>
+        /// <param name="len">The size of buffer needed to store the text description.</param>
+        /// <returns>Returns non-negative if successful; otherwise returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName,
+             EntryPoint = "H5LTdtype_to_text",
+             CallingConvention = CallingConvention.Cdecl),
+         SecuritySafeCritical]
+        public static extern herr_t dtype_to_text(hid_t datatype, [MarshalAs(UnmanagedType.LPStr)] StringBuilder str, lang_t lang_type, out size_t len);
     }
 }

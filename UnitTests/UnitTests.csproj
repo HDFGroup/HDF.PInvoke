@@ -189,6 +189,7 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5LTTest\H5LTTest.cs" />
     <Compile Include="H5OTest\H5Ovisit_by_name.cs" />
     <Compile Include="H5OTest\H5Ovisit.cs" />
     <Compile Include="H5OTest\H5Olink.cs" />
