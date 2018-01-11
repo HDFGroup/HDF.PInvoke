@@ -1,3 +1,6 @@
+##### 1.8.20.0
+* Updated native dependencies (HDF5 1.8.20) 
+
 ##### 1.10.1.0
 * Updated native dependencies (HDF5 1.10.1) 
 * New functions for metadata cache image handling
