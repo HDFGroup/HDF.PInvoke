@@ -318,8 +318,32 @@ namespace HDF.PInvoke
             public hsize_t size;
         }
 
-#endif
+        /// <summary>
+        /// Library's file format versions
+        /// </summary>
+        public enum libver_t
+        {
+            ERROR = -1,
+            /// <summary>
+            /// Use the earliest possible format for storing objects
+            /// </summary>
+            EARLIEST = 0,
+            /// <summary>
+            /// Use the latest v18 format for storing objects
+            /// </summary>
+            V18 = 1,
+            /// <summary>
+            /// Use the latest v110 format for storing objects
+            /// </summary>
+            V110 = 2,
+            /// <summary>
+            /// Use the latest possible format for storing objects
+            /// </summary>
+            LATEST = 2,
+            NBOUNDS
+        }
 
+#else
         /// <summary>
         /// Library's file format versions
         /// </summary>
@@ -334,6 +358,7 @@ namespace HDF.PInvoke
             /// </summary>
             LATEST
         }
+#endif
 
 #if HDF5_VER1_10
 
