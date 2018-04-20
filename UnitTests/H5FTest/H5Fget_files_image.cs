@@ -41,14 +41,14 @@ namespace UnitTests
             Assert.IsTrue(file >= 0);
 
             IntPtr buf_len = new IntPtr();
-            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
+            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, buf_len);
             Assert.IsTrue(size.ToInt32() > 0);
 
             IntPtr buf = H5.allocate_memory(new IntPtr(size.ToInt32()), 1);
             Assert.IsTrue(buf != IntPtr.Zero);
 
             Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
-                ref buf_len).ToInt32() > 0);
+                buf_len).ToInt32() > 0);
 
             Assert.IsTrue(H5.free_memory(buf) >= 0);
             
@@ -64,14 +64,14 @@ namespace UnitTests
             Assert.IsTrue(file >= 0);
 
             IntPtr buf_len = new IntPtr();
-            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, ref buf_len);
+            ssize_t size = H5F.get_file_image(file, IntPtr.Zero, buf_len);
             Assert.IsTrue(size.ToInt32() > 0);
 
             IntPtr buf = Marshal.AllocHGlobal((int) size);
             Assert.IsTrue(buf != IntPtr.Zero);
 
             Assert.IsTrue(H5F.get_file_image(file, IntPtr.Zero,
-                ref buf_len).ToInt32() > 0);
+                buf_len).ToInt32() > 0);
 
             Marshal.FreeHGlobal(buf);
 

@@ -582,7 +582,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_file_image
-            (hid_t file_id, IntPtr buf_ptr, ref IntPtr buf_len);
+            (hid_t file_id, IntPtr buf_ptr, IntPtr buf_len);
 
         /// <summary>
         /// Returns the size of an HDF5 file.
