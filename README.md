@@ -71,6 +71,7 @@ This can be done using [Homebrew](https://brew.sh/) by executing the command
 ```
 brew install hdf5
 ```
+Currently some tests are failing on Mac OS and thus you might experience issues.
 
 ## The DLL Resolution Process
 
