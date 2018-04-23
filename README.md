@@ -19,14 +19,6 @@ It's practically *code-free*, which means we can blame all the bugs on Microsoft
 It is **not** a high-level .NET interface for HDF5. "It's the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)
 of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_common_multiple)." :bowtie:
 
-## Current Release Version(s)
-
-| HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
-| ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- |
-| [1.10.1](https://www.hdfgroup.org/HDF5/release/obtain5.html) | 1.10.1.0         | [1.10.1.0](https://www.nuget.org/packages/HDF.PInvoke/1.10.1.0) | v1.10.1.0 |
-
-[How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
-
 ## Quick Install:
 
 To install the latest HDF.PInvoke 1.10 for .NET core, create a `NuGet.config` file with the following contents in your project directory.
