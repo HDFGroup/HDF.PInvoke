@@ -68,88 +68,88 @@
   </ItemGroup>
   <!-- Native libraries for .NET standard targets: -->  
   <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.8_Debug' Or '$(Configuration)' == 'HDF5_1.8_Release'">  
-    <None Include="native/HDF5_1.8/bin32/hdf5.dll">
+    <Content Include="native/HDF5_1.8/bin32/hdf5.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.8/bin32/hdf5_hl.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.8/bin32/hdf5_hl.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5_hl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.8/bin32/szip.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.8/bin32/szip.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/szip.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>         
-    <None Include="native/HDF5_1.8/bin32/zlib.dll">
+    </Content>         
+    <Content Include="native/HDF5_1.8/bin32/zlib.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/zlib.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>        
-    <None Include="native/HDF5_1.8/bin64/hdf5.dll">
+    </Content>        
+    <Content Include="native/HDF5_1.8/bin64/hdf5.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.8/bin64/hdf5_hl.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.8/bin64/hdf5_hl.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/hdf5_hl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.8/bin64/szip.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.8/bin64/szip.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/szip.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>         
-    <None Include="native/HDF5_1.8/bin64/zlib.dll">
+    </Content>         
+    <Content Include="native/HDF5_1.8/bin64/zlib.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/zlib.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>            
-    <None Include="native/HDF5_1.8/linux64/libhdf5.so">
+    </Content>            
+    <Content Include="native/HDF5_1.8/linux64/libhdf5.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>        
-    <None Include="native/HDF5_1.8/linux64/libhdf5_hl.so">
+    </Content>        
+    <Content Include="native/HDF5_1.8/linux64/libhdf5_hl.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5_hl.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>           
+    </Content>           
   </ItemGroup>   
   <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.10_Debug' Or '$(Configuration)' == 'HDF5_1.10_Release'">  
-    <None Include="native/HDF5_1.10/bin32/hdf5.dll">
+    <Content Include="native/HDF5_1.10/bin32/hdf5.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.10/bin32/hdf5_hl.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.10/bin32/hdf5_hl.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5_hl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.10/bin32/szip.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.10/bin32/szip.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/szip.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>         
-    <None Include="native/HDF5_1.10/bin32/zlib.dll">
+    </Content>         
+    <Content Include="native/HDF5_1.10/bin32/zlib.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/zlib.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>        
-    <None Include="native/HDF5_1.10/bin64/hdf5.dll">
+    </Content>        
+    <Content Include="native/HDF5_1.10/bin64/hdf5.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.10/bin64/hdf5_hl.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.10/bin64/hdf5_hl.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/hdf5_hl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>  
-    <None Include="native/HDF5_1.10/bin64/szip.dll">
+    </Content>  
+    <Content Include="native/HDF5_1.10/bin64/szip.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/szip.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>         
-    <None Include="native/HDF5_1.10/bin64/zlib.dll">
+    </Content>         
+    <Content Include="native/HDF5_1.10/bin64/zlib.dll" PackagePath="runtimes/win-x64/native">
       <Link>bin64/zlib.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>            
-    <None Include="native/HDF5_1.10/linux64/libhdf5.so">
+    </Content>            
+    <Content Include="native/HDF5_1.10/linux64/libhdf5.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>        
-    <None Include="native/HDF5_1.10/linux64/libhdf5_hl.so">
+    </Content>        
+    <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5_hl.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>           
+    </Content>           
   </ItemGroup> 
   <ItemGroup>
     <PackageReference Include="System.Configuration" Version="2.0.5" />
