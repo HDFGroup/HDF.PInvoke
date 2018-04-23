@@ -13,6 +13,9 @@
 * MDC H5P.set_evict_on_close
 * New functions for file space management (page buffering, paged aggr.)
 
+##### 1.8.20.0
+* Updated native dependencies (HDF5 1.8.20) 
+
 ##### 1.8.19.0
 * Updated native dependencies (HDF5 1.8.19) 
 * New H5PL functions
