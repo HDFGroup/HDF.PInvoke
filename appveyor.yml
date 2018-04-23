@@ -9,7 +9,8 @@ test_script:
 
 after_test:
   - dotnet pack -c Release
-  - cd NugetTest ; dotnet nuget locals all --clear ; dotnet run
+  - dotnet nuget locals all --clear 
+  - dotnet run -p NugetTest
 
 artifacts:
   - path: bin\Release\*.nupkg

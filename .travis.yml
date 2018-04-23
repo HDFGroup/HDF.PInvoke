@@ -13,9 +13,10 @@ before_install:
 script: 
   - unset DOTNET_CLI_TELEMETRY_OPTOUT
   - dotnet build -c Release
-  - dotnet test -c Release UnitTests/UnitTests.csproj
+  - if [ "$TRAVIS_OS_NAME" != "osx" ]; then dotnet test -c Release UnitTests/UnitTests.csproj ; fi
   - dotnet pack -c Release
-  - cd NugetTest ; dotnet nuget locals all --clear ; dotnet run
+  - dotnet nuget locals all --clear
+  - dotnet run -p NugetTest
 # deploy:
 #   - provider: script
 #     script: bash deploy.sh
