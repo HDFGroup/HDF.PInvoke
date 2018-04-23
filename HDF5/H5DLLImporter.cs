@@ -139,13 +139,13 @@ namespace HDF.PInvoke
 
 	internal class H5UnixDllImporter : H5DLLImporter{
 
-		[DllImport("libdl.so")]
+		[DllImport("libdl")]
 		protected static extern IntPtr dlopen(string filename, int flags);
 
-		[DllImport("libdl.so")]
+		[DllImport("libdl")]
 		protected static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-		[DllImport("libdl.so")]
+		[DllImport("libdl")]
 		protected static extern IntPtr dlerror ();
 
         private IntPtr hLib;
@@ -158,6 +158,8 @@ namespace HDF.PInvoke
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 libName = Path.Combine(Path.GetDirectoryName(NativeDependencies.GetAssemblyName()), 
                                        "lib" + libName + ".so");
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                libName = "lib" + libName + ".dylib";
             else
                 throw new NotImplementedException("Platform not supported");
 #else            
