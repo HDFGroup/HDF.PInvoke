@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The purpose of this project is to test the created NuGet package on all 
+       platforms supported by .NET core. It performs a simple HDF5 call to check
+       that the native HDF5 libs have been correctly embedded into the NuGet 
+       package. -->
+
+  <Import Project="../Revision.targets" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HDF.PInvoke" Version="$(PackageVersion)" />
+  </ItemGroup>
+
+</Project>

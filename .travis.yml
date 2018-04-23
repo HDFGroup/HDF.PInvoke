@@ -12,9 +12,10 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo rm '/usr/local/include/c++' ; brew update ; brew install hdf5 ; fi
 script: 
   - unset DOTNET_CLI_TELEMETRY_OPTOUT
-  - dotnet build -c HDF5_1.10_Release
-  - dotnet test -c HDF5_1.10_Release UnitTests/UnitTests.csproj
-  - dotnet pack -c HDF5_1.10_Release
+  - dotnet build -c Release
+  - dotnet test -c Release UnitTests/UnitTests.csproj
+  - dotnet pack -c Release
+  - cd NugetTest ; dotnet nuget locals all --clear ; dotnet run
 # deploy:
 #   - provider: script
 #     script: bash deploy.sh

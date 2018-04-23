@@ -2,13 +2,14 @@ version: 1.0.{build}
 image: Visual Studio 2017
 
 build_script:
-  - dotnet build -c HDF5_1.10_Release
+  - dotnet build -c Release
 
 test_script:
-  - dotnet test -c HDF5_1.10_Release UnitTests/UnitTests.csproj
+  - dotnet test -c Release UnitTests/UnitTests.csproj
 
 after_test:
-  - dotnet pack -c HDF5_1.10_Release
+  - dotnet pack -c Release
+  - cd NugetTest ; dotnet nuget locals all --clear ; dotnet run
 
 artifacts:
-  - path: bin\HDF5_1.10_Release\*.nupkg
+  - path: bin\Release\*.nupkg
