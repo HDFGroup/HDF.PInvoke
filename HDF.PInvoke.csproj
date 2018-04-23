@@ -19,7 +19,7 @@
     <PackageLicenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</PackageLicenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <PackageTags>HDF5</PackageTags>
-    <PackageProjectUrl>https://github.com/HDFGroup/HDF.PInvoke"</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/HDFGroup/HDF.PInvoke</PackageProjectUrl>
     <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
     <FileVersion>$(PackageVersion)</FileVersion>  
   </PropertyGroup>

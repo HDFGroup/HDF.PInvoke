@@ -12,10 +12,16 @@ namespace NugetTest
         {
             Console.WriteLine("Starting HDF5 NuGet package consumption test...");
 
-            var handle = H5F.create("test.h5", H5F.ACC_TRUNC);
+            var fileAccessProps = H5P.create(H5P.FILE_ACCESS);
+            Debug.Assert(fileAccessProps >= 0);
+    
+            var retval = H5P.set_libver_bounds(fileAccessProps, H5F.libver_t.LATEST, H5F.libver_t.LATEST);
+            Debug.Assert(retval >= 0);
+
+            var handle = H5F.create("test.h5", H5F.ACC_TRUNC, access_plist: fileAccessProps);
             Debug.Assert(handle >= 0);
 
-            var retval = H5F.close(handle);
+            retval = H5F.close(handle);
             Debug.Assert(retval >= 0);
 
             File.Delete ("test.h5");
