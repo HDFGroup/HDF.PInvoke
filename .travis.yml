@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+    - os: osx
+      osx_image: xcode9.3
+language: csharp
+mono: none
+dotnet: 2.1.105
+solution: HDF.PInvoke.sln
+script: 
+  - unset DOTNET_CLI_TELEMETRY_OPTOUT
+  - dotnet build -c HDF5_1.10_Release
+  - dotnet test -c HDF5_1.10_Release UnitTests/UnitTests.csproj
+  - dotnet pack -c HDF5_1.10_Release
+# deploy:
+#   - provider: script
+#     script: bash deploy.sh
+#     skip-cleanup: true
+#     on:
+#       condition: $TRAVIS_OS_NAME = linux
