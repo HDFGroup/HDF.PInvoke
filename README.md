@@ -7,7 +7,7 @@
 
 ## .NET Core 2.0 port
 
-This is an unofficial port of HDF.PInvoke to .NET Core 2.0 by [Sebastian Urban](surban@surban.net).
+This is an unofficial port of HDF.PInvoke to .NET Core 2.0 by [Sebastian Urban](mailto:surban@surban.net).
 It has been tested on Linux, Mac OS X and Microsoft Windows.
 
 ## What it is (not)
