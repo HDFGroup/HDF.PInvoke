@@ -153,15 +153,30 @@ namespace HDF.PInvoke
         public H5UnixDllImporter(string libName)
         {
 #if NET_STANDARD
-            // In .NET Core native libraries for DllImport are always loaded from the library assembly 
-            // directory and neither PATH nor LD_LIBRARY_PATH are taken into account.
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                libName = Path.Combine(Path.GetDirectoryName(NativeDependencies.GetAssemblyName()), 
-                                       "lib" + libName + ".so");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
+                // If the library is referenced directly, i.e. for UnitTests.csproj, the native libs 
+                // are located in the same directory as the library itself.
+                // If the library is referenced via a NuGet package, the native libs are located
+                // in the runtimes/linux-x64/native subfolder of the package.
+                var filename = "lib" + libName + ".so"; 
+                var libDir = Path.GetDirectoryName(NativeDependencies.GetAssemblyName());
+                var inLibDir = Path.Combine(libDir, filename);
+                var inPkgDir = Path.Combine(libDir, "..", "..", "runtimes", "linux-x64", "native", filename);
+                if (File.Exists(inLibDir))
+                    libName = inLibDir;
+                else if (File.Exists(inPkgDir))
+                    libName = inPkgDir;
+            }
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                // For Mac OS X, the native library is installed globally and thus the dynamic 
+                // linker finds it automatically when only the filename is specified.
                 libName = "lib" + libName + ".dylib";
+            }
             else
+            {
                 throw new NotImplementedException("Platform not supported");
+            }
 #else            
 			if (libName == "hdf5.dll") {
 				libName = "/usr/lib/libhdf5.so";

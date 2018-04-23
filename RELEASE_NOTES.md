@@ -1,3 +1,6 @@
+##### 1.10.4
+* Fix for native libraries.
+
 ##### 1.10.3
 * Support for Mac OS
 
