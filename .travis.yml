@@ -17,10 +17,11 @@ script:
   - dotnet pack -c Release
   - dotnet nuget locals all --clear
   - dotnet run -p NugetTest
-# deploy:
-#   - provider: script
-#     script: bash deploy.sh
-#     skip-cleanup: true
-#     on:
-#       condition: $TRAVIS_OS_NAME = linux
+deploy:
+  - provider: script
+    script: bash deploy.sh
+    skip-cleanup: true
+    on:
+      branch: master
+      condition: $TRAVIS_OS_NAME = linux
  
