@@ -9,7 +9,7 @@ mono: none
 dotnet: 2.1.105
 solution: HDF.PInvoke.sln
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update ; brew install hdf5 ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo rm '/usr/local/include/c++' ; brew update ; brew install hdf5 ; fi
 script: 
   - unset DOTNET_CLI_TELEMETRY_OPTOUT
   - dotnet build -c HDF5_1.10_Release
