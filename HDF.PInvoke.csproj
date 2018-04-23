@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="Revision.targets" />
+
+  <PropertyGroup>
+    <PackageId>HDF.PInvoke</PackageId>
+    <title>HDF.PInvoke</title>
+    <summary>.NET interop with native HDF5 libraries</summary>
+    <Product>HDF.PInvoke</Product>    
+    <Company>The HDF Group</Company>
+    <authors>The HDF Group</authors>
+    <owners>The HDF Group</owners>
+    <Copyright>Copyright © 2016</Copyright>
+    <description>
+      This package contains PInvoke declarations for the (unmanaged) HDF5 1.10.x C-API. 
+      For documenation, see the "HDF5: API Specification Reference Manual" at http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html.
+    </description>
+    <PackageLicenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</PackageLicenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <PackageTags>HDF5</PackageTags>
+    <PackageProjectUrl>https://github.com/HDFGroup/HDF.PInvoke"</PackageProjectUrl>
+    <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
+    <FileVersion>$(PackageVersion)</FileVersion>  
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProjectGuid>{4450F800-93E2-4D4A-B224-966E2338CDED}</ProjectGuid>    
@@ -12,29 +36,20 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <DocumentationFile>HDF.PInvoke.xml</DocumentationFile>
     <NoWarn>CS1591</NoWarn>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <DefineConstants>NET_STANDARD</DefineConstants>    
+    <DefineConstants>HDF5_VER1_10;NET_STANDARD</DefineConstants>    
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'HDF5_1.8_Debug'">
-    <DefineConstants>NET_STANDARD;TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'HDF5_1.8_Release'">
-    <DefineConstants>NET_STANDARD</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'HDF5_1.10_Debug'">
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DefineConstants>HDF5_VER1_10;NET_STANDARD;TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'HDF5_1.10_Release'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DefineConstants>HDF5_VER1_10;NET_STANDARD</DefineConstants>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="HDF5\Constants.cs" />
     <Compile Include="HDF5\H5ACpublic.cs" />
@@ -63,53 +78,10 @@
     <Compile Include="HDF5\H5Tpublic.cs" />
     <Compile Include="HDF5\NativeDependencies.cs" />
     <Compile Include="HDF5\Typology.cs" />
-    <Compile Include="Properties/AssemblyInfo.cs" />
-    <Compile Include="Properties/AssemblyInfo.gen.cs" />
   </ItemGroup>
+
   <!-- Native libraries for .NET standard targets: -->  
-  <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.8_Debug' Or '$(Configuration)' == 'HDF5_1.8_Release'">  
-    <Content Include="native/HDF5_1.8/bin32/hdf5.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/hdf5.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>  
-    <Content Include="native/HDF5_1.8/bin32/hdf5_hl.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/hdf5_hl.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>  
-    <Content Include="native/HDF5_1.8/bin32/szip.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/szip.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>         
-    <Content Include="native/HDF5_1.8/bin32/zlib.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/zlib.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>        
-    <Content Include="native/HDF5_1.8/bin64/hdf5.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/hdf5.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>  
-    <Content Include="native/HDF5_1.8/bin64/hdf5_hl.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/hdf5_hl.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>  
-    <Content Include="native/HDF5_1.8/bin64/szip.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/szip.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>         
-    <Content Include="native/HDF5_1.8/bin64/zlib.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/zlib.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>            
-    <Content Include="native/HDF5_1.8/linux64/libhdf5.so" PackagePath="runtimes/linux-x64/native">
-      <Link>libhdf5.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>        
-    <Content Include="native/HDF5_1.8/linux64/libhdf5_hl.so" PackagePath="runtimes/linux-x64/native">
-      <Link>libhdf5_hl.so</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>           
-  </ItemGroup>   
-  <ItemGroup Condition="'$(Configuration)' == 'HDF5_1.10_Debug' Or '$(Configuration)' == 'HDF5_1.10_Release'">  
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">  
     <Content Include="native/HDF5_1.10/bin32/hdf5.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -150,14 +122,10 @@
       <Link>libhdf5_hl.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>           
-  </ItemGroup> 
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Configuration" Version="2.0.5" />
   </ItemGroup>
-  <Target Name="BeforeBuild">
-    <WriteLinesToFile File="Properties\AssemblyInfo.gen.cs" Overwrite="True" Lines="[assembly: System.Reflection.AssemblyVersion(&quot;$(AssemblyVersion)&quot;)] // Generated by build" />
-  </Target>
-  <Target Name="AfterBuild">
-    <WriteLinesToFile File="Properties\AssemblyInfo.gen.cs" Overwrite="True" Lines="[assembly: System.Reflection.AssemblyVersion(&quot;0.0.0.0&quot;)] // Generated by build" />
-  </Target>
+
 </Project>

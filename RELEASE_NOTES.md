@@ -1,3 +1,6 @@
+##### 1.10.1.2
+* Support for Mac OS
+
 ##### 1.10.1.1
 * experimental .NET standard 2.0 support
 
