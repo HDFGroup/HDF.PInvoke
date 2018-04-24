@@ -1,3 +1,7 @@
+##### 1.10.5
+* Embed debug info.
+* Remove dependency on System.Configuration.
+
 ##### 1.10.4
 * Fix for native libraries.
 
