@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <!-- Native libraries for .NET standard targets: -->  
-  <ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">  
+  <ItemGroup>  
     <Content Include="native/HDF5_1.10/bin32/hdf5.dll" PackagePath="runtimes/win-x86/native">
       <Link>bin32/hdf5.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
