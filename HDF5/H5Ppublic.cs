@@ -1740,7 +1740,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern ssize_t get_virtual_prefix
-            (hid_t dapl, [In][Out]byte[] prefix, size_t size);
+            (hid_t dapl, [In][Out]StringBuilder prefix, size_t size);
 
         /// <summary>
         /// Returns the maximum number of missing source files and/or datasets

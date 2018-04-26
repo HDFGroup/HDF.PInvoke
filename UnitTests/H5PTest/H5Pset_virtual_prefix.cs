@@ -15,6 +15,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HDF.PInvoke;
@@ -28,31 +29,19 @@ namespace UnitTests
 {
     public partial class H5PTest
     {
-
         [TestMethod]
-        public void H5Pset_mdc_image_configTest1()
+        public void H5Pset_virtual_prefixTest1()
         {
-            hid_t fapl = H5P.create(H5P.FILE_ACCESS);
-            Assert.IsTrue(fapl >= 0);
-
-            Assert.IsTrue(H5P.set_libver_bounds(fapl, H5F.libver_t.LATEST) >= 0);
+            hid_t dapl = H5P.create(H5P.DATASET_ACCESS);
+            Assert.IsTrue(dapl >= 0);
+            string prefix = "foo";
+            Assert.IsTrue(H5P.set_virtual_prefix(dapl, prefix) >= 0);
             
-            H5AC.cache_image_config_t conf =  new H5AC.cache_image_config_t();
-            conf.version = H5AC.CURR_CACHE_IMAGE_CONFIG_VERSION;
-            conf.entry_ageout = H5AC.CACHE_IMAGE__ENTRY_AGEOUT__NONE;
+            StringBuilder sb = new StringBuilder(4);
+            IntPtr size = new IntPtr(4);
+            Assert.IsTrue(H5P.get_virtual_prefix(dapl, sb, size).ToInt32() == 3);
 
-            IntPtr config_ptr = Marshal.AllocHGlobal(Marshal.SizeOf(conf));
-            Marshal.StructureToPtr(conf, config_ptr, false);
-
-            H5AC.cache_image_config_t conf1 = new H5AC.cache_image_config_t();
-
-            conf1 = (H5AC.cache_image_config_t)Marshal.PtrToStructure(
-                config_ptr, typeof(H5AC.cache_image_config_t));
-
-            //Assert.IsTrue(H5P.set_mdc_image_config(fapl, config_ptr) >= 0);
-            
-            Assert.IsTrue(H5P.close(fapl) >= 0);
-            Marshal.FreeHGlobal(config_ptr);
+            Assert.IsTrue(H5P.close(dapl) >= 0);
         }
     }
 }
