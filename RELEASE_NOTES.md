@@ -1,3 +1,6 @@
+##### 1.10.6
+* Fix libdl.so not found on Linux.
+
 ##### 1.10.5
 * Embed debug info.
 * Remove dependency on System.Configuration.

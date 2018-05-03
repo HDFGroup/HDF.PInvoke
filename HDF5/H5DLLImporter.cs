@@ -40,22 +40,14 @@ namespace HDF.PInvoke
         {
             H5.open();
 
-            switch (Environment.OSVersion.Platform)
-            {
-            case PlatformID.Win32NT:
-            case PlatformID.Win32S:
-            case PlatformID.Win32Windows:
-            case PlatformID.WinCE:
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                Instance = new H5LinuxDllImporter(Constants.DLLFileName);
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                Instance = new H5MacDllImporter(Constants.DLLFileName);
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 Instance = new H5WindowsDLLImporter(Constants.DLLFileName);
-                break;
-            case PlatformID.Xbox:
-            case PlatformID.MacOSX:
-            case PlatformID.Unix:
-                Instance = new H5UnixDllImporter(Constants.DLLFileName);
-                break;
-            default:
-                throw new NotImplementedException();;
-            }
+            else
+                throw new PlatformNotSupportedException();
         }
 
         protected abstract IntPtr _GetAddress(string varName);
@@ -137,62 +129,39 @@ namespace HDF.PInvoke
     }
     #endregion
 
-	internal class H5UnixDllImporter : H5DLLImporter{
-
-		[DllImport("libdl")]
+	internal class H5LinuxDllImporter : H5DLLImporter
+    {
+		[DllImport("libdl.so.2")]
 		protected static extern IntPtr dlopen(string filename, int flags);
 
-		[DllImport("libdl")]
+		[DllImport("libdl.so.2")]
 		protected static extern IntPtr dlsym(IntPtr handle, string symbol);
 
-		[DllImport("libdl")]
-		protected static extern IntPtr dlerror ();
+		[DllImport("libdl.so.2")]
+		protected static extern IntPtr dlerror();
 
         private IntPtr hLib;
 
-        public H5UnixDllImporter(string libName)
+        public H5LinuxDllImporter(string libName)
         {
-#if NET_STANDARD
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                // If the library is referenced directly, i.e. for UnitTests.csproj, the native libs 
-                // are located in the same directory as the library itself.
-                // If the library is referenced via a NuGet package, the native libs are located
-                // in the runtimes/linux-x64/native subfolder of the package.
-                var filename = "lib" + libName + ".so"; 
-                var libDir = Path.GetDirectoryName(NativeDependencies.GetAssemblyName());
-                var inLibDir = Path.Combine(libDir, filename);
-                var inPkgDir = Path.Combine(libDir, "..", "..", "runtimes", "linux-x64", "native", filename);
-                if (File.Exists(inLibDir))
-                    libName = inLibDir;
-                else if (File.Exists(inPkgDir))
-                    libName = inPkgDir;
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                // For Mac OS X, the native library is installed globally and thus the dynamic 
-                // linker finds it automatically when only the filename is specified.
-                libName = "lib" + libName + ".dylib";
-            }
-            else
-            {
-                throw new NotImplementedException("Platform not supported");
-            }
-#else            
-			if (libName == "hdf5.dll") {
-				libName = "/usr/lib/libhdf5.so";
-			}
-			if (libName == "hdf5_hd.dll") {
-				libName = "/usr/lib/libhdf5_hl.so";
-			}
-#endif				
+            // If the library is referenced directly, i.e. for UnitTests.csproj, the native libs 
+            // are located in the same directory as the library itself.
+            // If the library is referenced via a NuGet package, the native libs are located
+            // in the runtimes/linux-x64/native subfolder of the package.
+            var filename = "lib" + libName + ".so"; 
+            var libDir = Path.GetDirectoryName(NativeDependencies.GetAssemblyName());
+            var inLibDir = Path.Combine(libDir, filename);
+            var inPkgDir = Path.Combine(libDir, "..", "..", "runtimes", "linux-x64", "native", filename);
+            if (File.Exists(inLibDir))
+                libName = inLibDir;
+            else if (File.Exists(inPkgDir))
+                libName = inPkgDir;
 
 			hLib = dlopen(libName, RTLD_NOW);
 			if (hLib==IntPtr.Zero)
 			{
 				throw new ArgumentException(
-					String.Format(
-						"Unable to load unmanaged module \"{0}\"",
-						libName));
+					String.Format("Unable to load unmanaged module \"{0}\"", libName));
 			}
         }
 
@@ -201,11 +170,49 @@ namespace HDF.PInvoke
 		{
 			var address = dlsym(hLib, varName);
 			var errPtr = dlerror();
-			if(errPtr != IntPtr.Zero){
+			if (errPtr != IntPtr.Zero){
 				throw new Exception("dlsym: " + Marshal.PtrToStringAnsi(errPtr));
 			}
-
 			return address;
 		}
 	}
+
+	internal class H5MacDllImporter : H5DLLImporter 
+    {
+		[DllImport("libdl")]
+		protected static extern IntPtr dlopen(string filename, int flags);
+
+		[DllImport("libdl")]
+		protected static extern IntPtr dlsym(IntPtr handle, string symbol);
+
+		[DllImport("libdl")]
+		protected static extern IntPtr dlerror();
+
+        private IntPtr hLib;
+
+        public H5MacDllImporter(string libName)
+        {
+            // For Mac OS X, the native library is installed globally and thus the dynamic 
+            // linker finds it automatically when only the filename is specified.
+            libName = "lib" + libName + ".dylib";
+
+			hLib = dlopen(libName, RTLD_NOW);
+			if (hLib==IntPtr.Zero)
+			{
+				throw new ArgumentException(
+					String.Format("Unable to load unmanaged module \"{0}\"", libName));
+			}
+        }
+
+		const int RTLD_NOW = 2; // for dlopen's flags
+		protected override IntPtr _GetAddress(string varName)
+		{
+			var address = dlsym(hLib, varName);
+			var errPtr = dlerror();
+			if (errPtr != IntPtr.Zero){
+				throw new Exception("dlsym: " + Marshal.PtrToStringAnsi(errPtr));
+			}
+			return address;
+		}
+	}    
 }
