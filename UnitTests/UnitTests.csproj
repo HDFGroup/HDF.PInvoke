@@ -208,9 +208,11 @@
     <Compile Include="H5PLTest\H5PLTest.cs" />
     <Compile Include="H5PLTest\H5PLsize.cs" />
     <Compile Include="H5PTest\H5Pget_mdc_image_config.cs" />
+    <Compile Include="H5PTest\H5Pglobals_test.cs" />
     <Compile Include="H5PTest\H5Pset_evict_on_close.cs" />
     <Compile Include="H5PTest\H5Pset_mdc_image_config.cs" />
     <Compile Include="H5PTest\H5Pset_userblock.cs" />
+    <Compile Include="H5PTest\H5Pset_virtual_prefix.cs" />
     <Compile Include="H5PTest\H5PTest.cs" />
     <Compile Include="H5RTest\H5Rget_obj_type.cs" />
     <Compile Include="H5RTest\H5Rdereference.cs" />

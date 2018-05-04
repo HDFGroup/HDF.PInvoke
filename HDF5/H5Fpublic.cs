@@ -318,8 +318,32 @@ namespace HDF.PInvoke
             public hsize_t size;
         }
 
-#endif
+        /// <summary>
+        /// Library's file format versions
+        /// </summary>
+        public enum libver_t
+        {
+            ERROR = -1,
+            /// <summary>
+            /// Use the earliest possible format for storing objects
+            /// </summary>
+            EARLIEST = 0,
+            /// <summary>
+            /// Use the latest v18 format for storing objects
+            /// </summary>
+            V18 = 1,
+            /// <summary>
+            /// Use the latest v110 format for storing objects
+            /// </summary>
+            V110 = 2,
+            /// <summary>
+            /// Use the latest possible format for storing objects
+            /// </summary>
+            LATEST = 2,
+            NBOUNDS
+        }
 
+#else
         /// <summary>
         /// Library's file format versions
         /// </summary>
@@ -334,6 +358,7 @@ namespace HDF.PInvoke
             /// </summary>
             LATEST
         }
+#endif
 
 #if HDF5_VER1_10
 
@@ -557,7 +582,7 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static ssize_t get_file_image
-            (hid_t file_id, IntPtr buf_ptr, ref IntPtr buf_len);
+            (hid_t file_id, IntPtr buf_ptr, IntPtr buf_len);
 
         /// <summary>
         /// Returns the size of an HDF5 file.
