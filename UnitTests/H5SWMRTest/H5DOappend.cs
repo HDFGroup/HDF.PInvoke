@@ -82,6 +82,38 @@ namespace UnitTests
             Assert.IsTrue(H5P.close(dcpl) >= 0);
             Assert.IsTrue(H5S.close(dsp) >= 0);
         }
+
+        [TestMethod]
+        public void H5DOappendTestSWMR2()
+        {
+            hsize_t[] dims = { 0 };
+            hsize_t[] maxdims = { H5S.UNLIMITED };
+            hsize_t[] chunk_dims = { 10 };
+            uint[] cbuf = { 123, 456, 789 };
+
+            hid_t dsp = H5S.create_simple(1, dims, maxdims);
+            Assert.IsTrue(dsp >= 0);
+
+            hid_t dcpl = H5P.create(H5P.DATASET_CREATE);
+            Assert.IsTrue(dcpl >= 0);
+            Assert.IsTrue(H5P.set_chunk(dcpl, 1, chunk_dims) >= 0);
+
+            hid_t dst = H5D.create(m_v3_test_file_no_swmr, "dset1",
+                H5T.NATIVE_UINT, dsp, H5P.DEFAULT, dcpl, H5P.DEFAULT);
+            Assert.IsTrue(dst >= 0);
+
+            GCHandle hnd = GCHandle.Alloc(cbuf, GCHandleType.Pinned);
+
+            Assert.IsTrue(
+                H5DO.append(dst, H5P.DEFAULT, 0, new IntPtr(3),
+                H5T.NATIVE_UINT, hnd.AddrOfPinnedObject()) >= 0);
+            
+            hnd.Free();
+
+            Assert.IsTrue(H5D.close(dst) >= 0);
+            Assert.IsTrue(H5P.close(dcpl) >= 0);
+            Assert.IsTrue(H5S.close(dsp) >= 0);
+        }
     }
 }
 

@@ -1724,6 +1724,23 @@ namespace HDF.PInvoke
             (hid_t dcpl_id, size_t index, [In][Out]StringBuilder name, size_t size);
 
         /// <summary>
+        /// Retrieves prefix applied to VDS source file paths
+        /// See https://portal.hdfgroup.org/display/HDF5/H5P_GET_VIRTUAL_PREFIX
+        /// </summary>
+        /// <param name="dapl">Dataset access property list identifier.</param>
+        /// <param name="prefix">Prefix applied to VDS source file paths.</param>
+        /// <param name="size">Size of prefix buffer (including null terminator) in bytes.</param>
+        /// <returns>Returns the size of <paramref name="prefix"/> and the
+        /// prefix string will be stored in <paramref name="prefix"/> if
+        /// successful. Otherwise returns a negative value and the contents of
+        /// <paramref name="prefix"/> will be undefined.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pget_virtual_prefix",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern ssize_t get_virtual_prefix
+            (hid_t dapl, [In][Out]StringBuilder prefix, size_t size);
+
+        /// <summary>
         /// Returns the maximum number of missing source files and/or datasets
         /// with the printf-style names when getting the extent for an
         /// unlimited virtual dataset.
@@ -3343,6 +3360,22 @@ namespace HDF.PInvoke
         public static extern herr_t set_virtual
             (hid_t dcpl_id, hid_t vspace_id, string src_file_name,
             string src_dset_name, hid_t src_space_id);
+
+        /// <summary>
+        /// Sets prefix to be applied to VDS source file paths.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5P_SET_VIRTUAL_PREFIX
+        /// </summary>
+        /// <param name="dapl">Dataset access property list identifier.</param>
+        /// <param name="prefix">Prefix to be applied to VDS source file paths.</param>
+        /// <returns>Returns a non-negative value if successful;
+        /// otherwise returns a negative value.</returns>
+        /// /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Pset_virtual_prefix",
+            CharSet = CharSet.Ansi,
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_virtual_prefix
+            (hid_t dapl, string prefix);
 
         /// <summary>
         /// Sets the maximum number of missing source files and/or datasets
