@@ -168,14 +168,6 @@ namespace HDF.PInvoke
             public hbool_t save_resize_status;
 
             public int entry_ageout;
-
-            public cache_image_config_t(hbool_t generate_image_flg)
-            {
-                version = CURR_CACHE_IMAGE_CONFIG_VERSION;
-                generate_image = generate_image_flg;
-                save_resize_status = 0;
-                entry_ageout = CACHE_IMAGE__ENTRY_AGEOUT__MAX;
-            }
         }
     }
 }

@@ -34,9 +34,9 @@ namespace UnitTests
             hid_t fapl = H5P.create(H5P.FILE_ACCESS);
             Assert.IsTrue(fapl >= 0);
             H5AC.cache_image_config_t conf =
-                new H5AC.cache_image_config_t(0);
-            int sz = Marshal.SizeOf(conf.GetType());
-            IntPtr config_ptr = Marshal.AllocHGlobal(sz);
+                new H5AC.cache_image_config_t();
+            conf.version = H5AC.CURR_CACHE_IMAGE_CONFIG_VERSION;
+            IntPtr config_ptr = Marshal.AllocHGlobal(Marshal.SizeOf(conf));
             Marshal.StructureToPtr((H5AC.cache_image_config_t)conf,
                 config_ptr, false);
             Assert.IsTrue(H5P.get_mdc_image_config(fapl, config_ptr) >= 0);

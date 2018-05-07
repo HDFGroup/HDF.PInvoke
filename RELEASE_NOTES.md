@@ -1,18 +1,10 @@
-##### 1.10.6
-* Fix libdl.so not found on Linux.
+##### 1.10.2.0
+* Updated native dependencies (HDF5 1.10.2) 
+* VDS H5P.[g,s]et_virtual_prefix
+* Fixed H5F.get_file_image() declaration (thanks polivbr)
 
-##### 1.10.5
-* Embed debug info.
-* Remove dependency on System.Configuration.
-
-##### 1.10.4
-* Fix for native libraries.
-
-##### 1.10.3
-* Support for Mac OS
-
-##### 1.10.1.1
-* experimental .NET standard 2.0 support
+##### 1.8.20.0
+* Updated native dependencies (HDF5 1.8.20) 
 
 ##### 1.10.1.0
 * Updated native dependencies (HDF5 1.10.1) 
