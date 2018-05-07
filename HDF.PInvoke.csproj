@@ -39,7 +39,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
     <EmbedAllSources>true</EmbedAllSources>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
