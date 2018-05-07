@@ -1,6 +1,9 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 
+before_build:
+  - ps: .\fetch_native.ps1
+
 build_script:
   - dotnet build -c Release
 
