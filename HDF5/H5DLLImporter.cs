@@ -192,9 +192,18 @@ namespace HDF.PInvoke
 
         public H5MacDllImporter(string libName)
         {
-            // For Mac OS X, the native library is installed globally and thus the dynamic 
-            // linker finds it automatically when only the filename is specified.
-            libName = "lib" + libName + ".dylib";
+            // If the library is referenced directly, i.e. for UnitTests.csproj, the native libs 
+            // are located in the same directory as the library itself.
+            // If the library is referenced via a NuGet package, the native libs are located
+            // in the runtimes/osx-x64/native subfolder of the package.
+            var filename = "lib" + libName + ".dylib"; 
+            var libDir = Path.GetDirectoryName(NativeDependencies.GetAssemblyName());
+            var inLibDir = Path.Combine(libDir, filename);
+            var inPkgDir = Path.Combine(libDir, "..", "..", "runtimes", "osx-x64", "native", filename);
+            if (File.Exists(inLibDir))
+                libName = inLibDir;
+            else if (File.Exists(inPkgDir))
+                libName = inPkgDir;
 
 			hLib = dlopen(libName, RTLD_NOW);
 			if (hLib==IntPtr.Zero)
