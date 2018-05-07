@@ -9,6 +9,7 @@ mono: none
 dotnet: 2.1.105
 before_install:
 #  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo rm '/usr/local/include/c++' ; brew update ; brew install hdf5 ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install wget ; fi
   - bash fetch_native.sh
   script: 
   - unset DOTNET_CLI_TELEMETRY_OPTOUT
