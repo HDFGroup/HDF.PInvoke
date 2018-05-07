@@ -8,15 +8,12 @@ language: csharp
 mono: none
 dotnet: 2.1.105
 before_install:
-#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then sudo rm '/usr/local/include/c++' ; brew update ; brew install hdf5 ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install wget ; fi
   - bash fetch_native.sh
-  script: 
+script: 
   - unset DOTNET_CLI_TELEMETRY_OPTOUT
   - dotnet build -c Release
   - dotnet test -c Release UnitTests/UnitTests.csproj 
-#  - if [ "$TRAVIS_OS_NAME" != "osx" ]; then dotnet test -c Release UnitTests/UnitTests.csproj ; fi
-#  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then dotnet test -c Release UnitTests/UnitTests.csproj || true; fi
   - dotnet pack -c Release
   - dotnet nuget locals all --clear
   - dotnet run -p NugetTest
