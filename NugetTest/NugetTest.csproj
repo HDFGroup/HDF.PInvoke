@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HDF.PInvoke" Version="$(PackageVersion)" />
+    <PackageReference Include="HDF.PInvoke.NETStandard" Version="$(PackageVersion)$(Prerelease)" />
   </ItemGroup>
 
 </Project>

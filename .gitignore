@@ -204,3 +204,4 @@ HDF.PInvoke.xml
 native/HDF5_1.10/bin32
 native/HDF5_1.10/bin64
 native/HDF5_1.10/linux64
+native/HDF5_1.10/mac

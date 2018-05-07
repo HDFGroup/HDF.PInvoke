@@ -4,24 +4,30 @@
   <Import Project="Revision.targets" />
 
   <PropertyGroup>
-    <PackageId>HDF.PInvoke</PackageId>
-    <title>HDF.PInvoke</title>
-    <summary>.NET interop with native HDF5 libraries</summary>
-    <Product>HDF.PInvoke</Product>    
+    <PackageId>HDF.PInvoke.NETStandard</PackageId>
+    <title>HDF.PInvoke for .NET Standard</title>
+    <summary>.NET Standard interop with native HDF5 libraries</summary>
+    <Product>HDF.PInvoke.NETStandard</Product>    
     <Company>The HDF Group</Company>
-    <authors>The HDF Group</authors>
-    <owners>The HDF Group</owners>
-    <Copyright>Copyright © 2016</Copyright>
+    <authors>The HDF Group, Sebastian Urban (.NET Standard port)</authors>
+    <owners>Sebastian Urban</owners>
+    <Copyright>Copyright © 2016-2018</Copyright>
     <description>
+      This is an inofficial port of HDF.PInvoke to .NET Standard 2.0, based on 
+      the code published by the HDF Group at https://github.com/HDFGroup/HDF.PInvoke.
+      It has been tested on Linux, MacOS and Windows.
+
       This package contains PInvoke declarations for the (unmanaged) HDF5 1.10.x C-API. 
-      For documenation, see the "HDF5: API Specification Reference Manual" at http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html.
+      For documenation, see the "HDF5: API Specification Reference Manual" at 
+      http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html.
     </description>
     <PackageLicenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</PackageLicenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <PackageTags>HDF5</PackageTags>
-    <PackageProjectUrl>https://github.com/HDFGroup/HDF.PInvoke</PackageProjectUrl>
-    <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
-    <FileVersion>$(PackageVersion)</FileVersion>  
+    <PackageProjectUrl>https://github.com/surban/HDF.PInvoke</PackageProjectUrl>
+    <PackageVersion>$(Version)$(Prerelease)</PackageVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>  
   </PropertyGroup>
 
   <PropertyGroup>
