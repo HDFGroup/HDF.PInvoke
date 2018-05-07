@@ -65,12 +65,8 @@
       <Link>bin32/hdf5_hl.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>  
-    <Content Include="native/HDF5_1.10/bin32/szip.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/szip.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>         
-    <Content Include="native/HDF5_1.10/bin32/zlib.dll" PackagePath="runtimes/win-x86/native">
-      <Link>bin32/zlib.dll</Link>
+    <Content Include="native/HDF5_1.10/bin32/zlib1.dll" PackagePath="runtimes/win-x86/native">
+      <Link>bin32/zlib1.dll</Link>    
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>        
     <Content Include="native/HDF5_1.10/bin64/hdf5.dll" PackagePath="runtimes/win-x64/native">
@@ -78,23 +74,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>  
     <Content Include="native/HDF5_1.10/bin64/hdf5_hl.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/hdf5_hl.dll</Link>
+      <Link>bin64/hdf5_hl.dll</Link>    
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>  
-    <Content Include="native/HDF5_1.10/bin64/szip.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/szip.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>         
-    <Content Include="native/HDF5_1.10/bin64/zlib.dll" PackagePath="runtimes/win-x64/native">
-      <Link>bin64/zlib.dll</Link>
+    <Content Include="native/HDF5_1.10/bin64/zlib1.dll" PackagePath="runtimes/win-x64/native">
+      <Link>bin64/zlib1.dll</Link>    
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>            
     <Content Include="native/HDF5_1.10/linux64/libhdf5.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>        
+    <Content Include="native/HDF5_1.10/linux64/libhdf5.so.101" PackagePath="runtimes/linux-x64/native">
+      <Link>libhdf5.so.101</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>        
     <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so" PackagePath="runtimes/linux-x64/native">
-      <Link>libhdf5_hl.so</Link>
+      <Link>libhdf5_hl.so</Link>      
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>           
+    <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so.101" PackagePath="runtimes/linux-x64/native">
+      <Link>libhdf5_hl.so.101</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>           
   </ItemGroup>
