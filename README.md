@@ -1,4 +1,4 @@
-# HDF.PInvoke
+# HDF.PInvoke.NETStandard
 
 [![Build Status](https://travis-ci.org/surban/HDF.PInvoke.svg?branch=master)](https://travis-ci.org/surban/HDF.PInvoke)
 [![Build status](https://ci.appveyor.com/api/projects/status/k9f3fqys0hwdvxnu?svg=true)](https://ci.appveyor.com/project/surban/hdf-pinvoke)
@@ -7,8 +7,8 @@
 
 ## .NET Core 2.0 port
 
-This is an unofficial port of HDF.PInvoke to .NET Core 2.0 by [Sebastian Urban](mailto:surban@surban.net).
-It has been tested on Linux, Mac OS X and Microsoft Windows.
+This is an unofficial port of [HDF.PInvoke](https://github.com/HDFGroup/HDF.PInvoke) to .NET Standard 2.0 by [Sebastian Urban](mailto:surban@surban.net).
+It has been tested on Linux, MacOS and Microsoft Windows.
 
 ## What it is (not)
 
@@ -21,30 +21,28 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 
 ## Quick Install
 
-To install the latest HDF.PInvoke 1.10 for .NET core, create a `NuGet.config` file with the following contents in your project directory.
+To install the latest HDF.PInvoke 1.10 for .NET core, run the following command.
+
 ```
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <add key="CorePorts" value="https://www.myget.org/F/coreports/api/v3/index.json" />
-  </packageSources>
-</configuration>
+dotnet add package HDF.PInvoke.NETStandard
 ```
-Then, run the following command.
-```
-dotnet add package HDF.PInvoke 
-```
+
+You can also grab the NuGet package from <https://www.nuget.org/packages/HDF.PInvoke.NETStandard>.
 
 # Prerequisites
 
 The ``HDF.PInvoke.dll`` managed assembly depends on the following native libraries (32-bit and 64-bit):
 - HDF5 core API, ``hdf5.dll``, ``libhdf5.so`` or ``libhdf5.dylib``
 - HDF5 high-level APIs, ``hdf5_hl.dll``, ``libhdf5_hl.so`` or ``libhdf5_hl.dylib``
-- Gzip compression, ``zlib.dll`` (Windows only)
+- Gzip compression, ``zlib1.dll`` (Windows only)
 - Szip compression, ``szip.dll`` (Windows only)
-- The C-runtime of the Visual Studio version used to build the former, e.g., ``msvcr120.dll`` for Visual Studio 2013 (Windows only)
+- The C-runtime of the Visual Studio version used to build the former, e.g., ``msvcr120.dll`` for Visual Studio 2017 (Windows only)
 
 ## Linux
+
+Everything you need should be included in the NuGet package.
+
+## Mac OS
 
 Everything you need should be included in the NuGet package.
 
@@ -52,18 +50,9 @@ Everything you need should be included in the NuGet package.
 
 All native dependencies, built with [thread-safety enabled](https://support.hdfgroup.org/HDF5/faq/threadsafe.html),
 are included in the NuGet package.
-You additionally require the Visual Studio C-runtime, which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2013](https://www.microsoft.com/en-us/download/details.aspx?id=40784). 
+You additionally require the Visual Studio C-runtime, which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads). 
 In the unlikely event that they aren't already installed on your system, go get 'em!
 (See [this link](https://msdn.microsoft.com/en-us/library/ms235299.aspx) for the rationale behind not distributing the Visual Studio C-runtime in the NuGet package.)
-
-## Mac OS
-
-You need to install the native dependencies yourself.
-This can be done using [Homebrew](https://brew.sh/) by executing the command
-```
-brew install hdf5
-```
-Currently some tests are failing on Mac OS and thus you might experience issues.
 
 ## The DLL Resolution Process
 
