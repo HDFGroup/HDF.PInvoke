@@ -1,4 +1,4 @@
 <Project><PropertyGroup>
     <Version>1.10.200</Version>
-    <Prerelease>-preview1</Prerelease>
+    <Prerelease></Prerelease>
 </PropertyGroup></Project>
