@@ -1,4 +1,7 @@
-##### 1.10.2.0
+# Release Notes
+
+##### 1.10.200
+* First .NET Standard release on NuGet.
 * Updated native dependencies (HDF5 1.10.2) 
 * VDS H5P.[g,s]et_virtual_prefix
 * Fixed H5F.get_file_image() declaration (thanks polivbr)
