@@ -24,7 +24,7 @@
     <PackageLicenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</PackageLicenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <PackageTags>HDF5</PackageTags>
-    <PackageProjectUrl>https://github.com/surban/HDF.PInvoke</PackageProjectUrl>
+    <PackageProjectUrl>https://surban.github.io/HDF.PInvoke</PackageProjectUrl>
     <PackageVersion>$(Version)$(Prerelease)</PackageVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>  
