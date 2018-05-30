@@ -336,8 +336,8 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Conditional target selection: -->
-  <Import Condition="$(Configuration.StartsWith('HDF5 1.8'))" Project="$(SolutionDir)\native\HDF5 1.8\hdf5.targets" />
-  <Import Condition="$(Configuration.StartsWith('HDF5 1.10'))" Project="$(SolutionDir)\native\HDF5 1.10\hdf5.targets" />
+  <Import Condition="$(Configuration.StartsWith('HDF5 1.8'))" Project="$(SolutionDir)\native\HDF5 1.8\HDF.PInvoke.targets" />
+  <Import Condition="$(Configuration.StartsWith('HDF5 1.10'))" Project="$(SolutionDir)\native\HDF5 1.10\HDF.PInvoke.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
