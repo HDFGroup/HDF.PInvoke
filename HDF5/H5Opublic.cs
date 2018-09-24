@@ -596,7 +596,7 @@ namespace HDF.PInvoke
         /// <param name="oinfo">Buffer in which to return object information</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info(hid_t loc_id, ref info_t oinfo);
@@ -616,7 +616,7 @@ namespace HDF.PInvoke
         /// <param name="lapl_id">Link access property list</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_idx
@@ -640,7 +640,7 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx1",
             CallingConvention = CallingConvention.Cdecl,
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -662,7 +662,7 @@ namespace HDF.PInvoke
         /// <param name="lapl_id">Link access property list</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t get_info_by_name
@@ -683,7 +683,7 @@ namespace HDF.PInvoke
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
         /// <remarks>ASCII strings ONLY!</remarks>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name1",
             CallingConvention = CallingConvention.Cdecl,
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
@@ -875,7 +875,7 @@ namespace HDF.PInvoke
         /// processed with no operator returning non-zero. On failure, returns
         /// a negative value if something goes wrong within the library, or the
         /// first negative value returned by an operator.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit
@@ -901,7 +901,7 @@ namespace HDF.PInvoke
         /// processed with no operator returning non-zero. On failure, returns
         /// a negative value if something goes wrong within the library, or the
         /// first negative value returned by an operator.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static herr_t visit_by_name
@@ -928,7 +928,7 @@ namespace HDF.PInvoke
         /// processed with no operator returning non-zero. On failure, returns
         /// a negative value if something goes wrong within the library, or the
         /// first negative value returned by an operator.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name1",
             CallingConvention = CallingConvention.Cdecl,
             CharSet = CharSet.Ansi),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
