@@ -1,3 +1,9 @@
+##### 1.10.3.0
+* Updated native dependencies (HDF5 1.10.3) 
+* API versioning for H5O[get_info*,visit*]
+* Moved H5DO[read,write]_chunk to H5D[read,write]_chunk
+* General performance improvements (native library)
+
 ##### 1.10.2.0
 * Updated native dependencies (HDF5 1.10.2) 
 * VDS H5P.[g,s]et_virtual_prefix
