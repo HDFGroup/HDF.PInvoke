@@ -587,6 +587,8 @@ namespace HDF.PInvoke
             (hid_t loc_id, string name, [In][Out]StringBuilder comment, size_t size,
             hid_t lapl_id = H5P.DEFAULT);
 
+#if HDF5_VER1_10
+
         /// <summary>
         /// Retrieves the metadata for an object specified by an identifier.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfo
@@ -690,6 +692,114 @@ namespace HDF.PInvoke
         public extern static herr_t get_info_by_name
             (hid_t loc_id, string name, ref info_t oinfo,
             hid_t lapl_id = H5P.DEFAULT);
+
+#else
+
+        /// <summary>
+        /// Retrieves the metadata for an object specified by an identifier.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfo
+        /// </summary>
+        /// <param name="loc_id">Identifier for object of type specified by
+        /// <code>H5O.type_t</code></param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info(hid_t loc_id, ref info_t oinfo);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by an
+        /// index position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="group_name">Name of group in which object is located</param>
+        /// <param name="idx_type">Index or field that determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Object for which information is to be returned</param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_idx
+            (hid_t loc_id, byte[] group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by an
+        /// index position.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByIdx
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="group_name">Name of group in which object is located</param>
+        /// <param name="idx_type">Index or field that determines the order</param>
+        /// <param name="order">Order within field or index</param>
+        /// <param name="n">Object for which information is to be returned</param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_idx",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_idx
+            (hid_t loc_id, string group_name, H5.index_t idx_type,
+            H5.iter_order_t order, hsize_t n, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by
+        /// location and relative name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByName
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="name">Name of object, relative to
+        /// <paramref name="loc_id"/></param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_name
+            (hid_t loc_id, byte[] name, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Retrieves the metadata for an object, identifying the object by
+        /// location and relative name.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-GetInfoByName
+        /// </summary>
+        /// <param name="loc_id">File or group identifier specifying location
+        /// of group in which object is located</param>
+        /// <param name="name">Name of group, relative to
+        /// <paramref name="loc_id"/></param>
+        /// <param name="oinfo">Buffer in which to return object information</param>
+        /// <param name="lapl_id">Link access property list</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        /// <remarks>ASCII strings ONLY!</remarks>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Oget_info_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t get_info_by_name
+            (hid_t loc_id, string name, ref info_t oinfo,
+            hid_t lapl_id = H5P.DEFAULT);
+
+#endif
 
         /// <summary>
         /// Increments an object's reference count.
@@ -858,6 +968,8 @@ namespace HDF.PInvoke
             (hid_t loc_id, string group_name, H5.index_t idx_type,
             H5.iter_order_t order, hsize_t n, hid_t lapl_id = H5P.DEFAULT);
 
+#if HDF5_VER1_10
+
         /// <summary>
         /// Recursively visits all objects accessible from a specified object.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Visit
@@ -936,5 +1048,89 @@ namespace HDF.PInvoke
             (hid_t loc_id, string obj_name, H5.index_t idx_type,
             H5.iter_order_t order, iterate_t op, IntPtr op_data,
             hid_t lapl_id = H5P.DEFAULT);
+
+#else
+
+        /// <summary>
+        /// Recursively visits all objects accessible from a specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-Visit
+        /// </summary>
+        /// <param name="obj_id">Identifier of the object at which the
+        /// recursive iteration begins.</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the
+        /// object to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the object</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit
+            (hid_t obj_id, H5.index_t idx_type, H5.iter_order_t order,
+            iterate_t op, IntPtr op_data);
+
+        /// <summary>
+        /// Recursively visits all objects starting from a specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-VisitByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file or group</param>
+        /// <param name="obj_name">Name of the object, generally relative to
+        /// <paramref name="loc_id"/>, that will serve as root of the iteration</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the
+        /// object to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the object</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit_by_name
+            (hid_t loc_id, byte[] obj_name, H5.index_t idx_type,
+            H5.iter_order_t order, iterate_t op, IntPtr op_data,
+            hid_t lapl_id = H5P.DEFAULT);
+
+        /// <summary>
+        /// Recursively visits all objects starting from a specified object.
+        /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5O.html#Object-VisitByName
+        /// </summary>
+        /// <param name="loc_id">Identifier of a file or group</param>
+        /// <param name="obj_name">Name of the object, generally relative to
+        /// <paramref name="loc_id"/>, that will serve as root of the iteration</param>
+        /// <param name="idx_type">Type of index</param>
+        /// <param name="order">Order in which index is traversed</param>
+        /// <param name="op">Callback function passing data regarding the
+        /// object to the calling application</param>
+        /// <param name="op_data">User-defined pointer to data required by the
+        /// application for its processing of the object</param>
+        /// <param name="lapl_id">Link access property list identifier</param>
+        /// <returns>On success, returns the return value of the first operator
+        /// that returns a positive value, or zero if all members were
+        /// processed with no operator returning non-zero. On failure, returns
+        /// a negative value if something goes wrong within the library, or the
+        /// first negative value returned by an operator.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Ovisit_by_name",
+            CallingConvention = CallingConvention.Cdecl,
+            CharSet = CharSet.Ansi),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public extern static herr_t visit_by_name
+            (hid_t loc_id, string obj_name, H5.index_t idx_type,
+            H5.iter_order_t order, iterate_t op, IntPtr op_data,
+            hid_t lapl_id = H5P.DEFAULT);
+
+#endif
+
     }
 }
