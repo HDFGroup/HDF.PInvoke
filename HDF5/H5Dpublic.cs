@@ -24,6 +24,7 @@ using hsize_t = System.UInt64;
 using htri_t = System.Int32;
 using size_t = System.IntPtr;
 using ssize_t = System.IntPtr;
+using uint32_t = System.UInt32;
 
 #if HDF5_VER1_10
 using hid_t = System.Int64;
@@ -600,6 +601,27 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
 
         /// <summary>
+        /// Reads a raw data chunk directly from a dataset in a file into a buffer.
+        /// See https://support.hdfgroup.org/HDF5/doc/HL/RM_HDF5Optimized.html#H5DOread_chunk
+        /// </summary>
+        /// <param name="dset_id">Identifier for the dataset to be read</param>
+        /// <param name="dxpl_id">Transfer property list identifier for this
+        /// I/O operation</param>
+        /// <param name="filter_mask">Mask for identifying the filters used
+        /// with the chunk</param>
+        /// <param name="offset">Logical position of the chunk’s first element
+        /// in the dataspace</param>
+        /// <param name="buf">Buffer containing the chunk read from the dataset</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5Dread_chunk",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t read_chunk
+            (hid_t dset_id, hid_t dxpl_id, ref hsize_t offset,
+            ref uint32_t filter_mask, IntPtr buf);
+
+        /// <summary>
         /// Refreshes all buffers associated with a dataset.
         /// See https://www.hdfgroup.org/HDF5/docNewFeatures/FineTuneMDC/H5Drefresh.htm
         /// </summary>
@@ -720,5 +742,30 @@ namespace HDF.PInvoke
         public static extern herr_t write
             (hid_t dset_id, hid_t mem_type_id, hid_t mem_space_id,
             hid_t file_space_id, hid_t plist_id, IntPtr buf);
+
+#if HDF5_VER1_10
+
+        /// <summary>
+        /// Writes a raw data chunk from a buffer directly to a dataset.
+        /// See https://www.hdfgroup.org/HDF5/doc/HL/RM_HDF5Optimized.html
+        /// </summary>
+        /// <param name="dset_id">Identifier for the dataset to write to</param>
+        /// <param name="dxpl_id">UNUSED</param>
+        /// <param name="filter_mask">Mask for identifying the filters in use</param>
+        /// <param name="offset">Logical position of the chunk’s first element
+        /// in the dataspace</param>
+        /// <param name="data_size">Size of the actual data to be written in
+        /// bytes</param>
+        /// <param name="buf">Buffer containing data to be written to the file</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5Dwrite_chunk",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t write_chunk
+            (hid_t dset_id, hid_t dxpl_id, uint32_t filter_mask,
+            ref hsize_t offset, size_t data_size, IntPtr buf);
+
+#endif
     }
 }
