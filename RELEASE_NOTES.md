@@ -1,3 +1,6 @@
+##### 1.10.4.0
+* Updated native dependencies (HDF5 1.10.4) 
+
 ##### 1.10.3.0
 * Updated native dependencies (HDF5 1.10.3) 
 * API versioning for H5O[get_info*,visit*]
