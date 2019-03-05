@@ -567,6 +567,23 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public extern static hid_t get_create_plist(hid_t file_id);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// Retrieves the setting for whether or not a file will create minimized dataset object headers.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5F_GET_DSET_NO_ATTRS_HINT
+        /// </summary>
+        /// <param name="file_id">File identifier</param>
+        /// <param name="minimize">Flag indicating whether the library will or will not
+        /// create minimized dataset object headers</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fget_dset_no_attrs_hint",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_dset_no_attrs_hint(hid_t file_id, ref hbool_t minimize);
+#endif
+
         /// <summary>
         /// Retrieves a copy of the image of an existing, open file.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5F.html#File-GetFileImage
@@ -645,15 +662,15 @@ namespace HDF.PInvoke
         /// information.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        #if HDF5_VER1_10
+ #if HDF5_VER1_10
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_info2",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        #else
+ #else
         [DllImport(Constants.DLLFileName, EntryPoint = "H5Fget_info",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
-        #endif
+ #endif
         public extern static herr_t get_info
             (hid_t obj_id, ref H5F.info_t bh_info);
 
@@ -1002,6 +1019,21 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t reset_page_buffering_stats(hid_t file_id);
+
+        /// <summary>
+        /// Sets the flag to create minimized dataset object headers.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5F_SET_DSET_NO_ATTRS_HINT
+        /// </summary>
+        /// <param name="file_id">File identifier</param>
+        /// <param name="minimize">Flag indicating whether the library will or will not
+        /// create minimized dataset object headers</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Fset_dset_no_attrs_hint",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_dset_no_attrs_hint(hid_t file_id, hbool_t minimize);
 
 #endif
 
