@@ -1,3 +1,8 @@
+##### 1.10.5.0
+* Updated native dependencies (HDF5 1.10.5) 
+* New chunk info functions H5Dget_chunk[info,info_by_coord], H5Dget_num_chunks
+* New object header minimization functions H5[F,P][g,s]et_dset_no_attrs_hint
+
 ##### 1.10.4.0
 * Updated native dependencies (HDF5 1.10.4) 
 
