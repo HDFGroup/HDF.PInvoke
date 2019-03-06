@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -55,6 +55,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -96,6 +98,9 @@
     <Compile Include="H5ATest\H5ATest.cs" />
     <Compile Include="H5ATest\H5Acreate.cs" />
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
+    <Compile Include="H5DTest\H5Dget_chunk_info.cs" />
+    <Compile Include="H5DTest\H5Dget_chunk_info_by_coord.cs" />
+    <Compile Include="H5DTest\H5Dget_chunk_storage_size.cs" />
     <Compile Include="H5DTest\H5Dvlen_get_buf_size.cs" />
     <Compile Include="H5DTest\H5Dvlen_reclaim.cs" />
     <Compile Include="H5DTest\H5Dopen.cs" />

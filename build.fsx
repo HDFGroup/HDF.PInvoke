@@ -1,5 +1,7 @@
 #r @"packages/build/FAKE/tools/FakeLib.dll"
 open Fake
+open Fake.EnvironmentHelper
+open Fake.MSTest
 open Fake.PaketTemplate
 open Fake.ReleaseNotesHelper
 open Fake.AssemblyInfoFile
@@ -24,6 +26,12 @@ let name = sprintf "HDF5 %s" VER
 let slnConfiguration = sprintf "HDF5 %s Release" VER
 
 let fileAssemblyInfo = "Properties/AssemblyInfo.cs"
+
+let mstestPath =
+    if hasBuildParam "mstestPath" then
+        getBuildParam "mstestPath"
+    else
+        "MSTest.exe" 
 
 let releaseNotes =
     allReleaseNotes
@@ -58,10 +66,11 @@ Target "Build" (fun _ ->
 
 Target "Test" (fun _ ->
     !! ("UnitTests/bin" </> slnConfiguration </> "UnitTests.dll" )
-    |> MSTest.MSTest (fun p ->
+    |> MSTest (fun p ->
         {p with
             TimeOut = TimeSpan.FromMinutes 5.
             NoIsolation = true
+            ToolPath = mstestPath
         })
 )
 
