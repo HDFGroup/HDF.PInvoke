@@ -100,7 +100,7 @@
     <Compile Include="H5ATest\H5Aget_create_plist.cs" />
     <Compile Include="H5DTest\H5Dget_chunk_info.cs" />
     <Compile Include="H5DTest\H5Dget_chunk_info_by_coord.cs" />
-    <Compile Include="H5DTest\H5Dget_chunk_storage_size.cs" />
+    <Compile Include="H5DTest\H5Dget_num_chunks.cs" />
     <Compile Include="H5DTest\H5Dvlen_get_buf_size.cs" />
     <Compile Include="H5DTest\H5Dvlen_reclaim.cs" />
     <Compile Include="H5DTest\H5Dopen.cs" />

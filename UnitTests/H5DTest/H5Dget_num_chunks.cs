@@ -38,7 +38,7 @@ namespace UnitTests
 #if HDF5_VER1_10
 
         [TestMethod]
-        public void H5Dget_chunk_storage_sizeTest1()
+        public void H5Dget_num_chunksTest1()
         {
             hsize_t[] dims = { 10, 10 };
             hsize_t[] max_dims = { H5S.UNLIMITED, H5S.UNLIMITED };
