@@ -1,3 +1,9 @@
+##### 1.10.5.1
+* Bugfix for https://github.com/HDFGroup/HDF.PInvoke/issues/154.
+
+##### 1.8.21.1
+* Bugfix for https://github.com/HDFGroup/HDF.PInvoke/issues/154.
+
 ##### 1.8.21.0
 * Updated native dependencies (HDF5 1.8.21) 
 
