@@ -429,7 +429,86 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_chunk_index_type
             (hid_t did, ref chunk_index_t idx_type);
-#endif
+
+        /// <summary>
+        /// Retrieves information about a chunk specified by the chunk index.
+        /// </summary>
+        /// <param name="dset_id"> Dataset identifier.</param>
+        /// <param name="fspace_id">File dataspace selection identifier.</param>
+        /// <param name="index">Chunk index in the selection.</param>
+        /// <param name="offset">Pointer to a one-dimensional array with a size
+        /// equal to the dataset’s rank.</param>
+        /// <param name="filter_mask"> Filter mask that indicates which filters
+        /// were used with the chunk when written.</param>
+        /// <param name="addr">Chunk address in the file.</param>
+        /// <param name="size">Chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_info
+            (hid_t dset_id, hid_t fspace_id, hsize_t index, hsize_t* offset,
+            ref uint32_t filter_mask, ref haddr_t addr, ref hsize_t size);
+
+        /// <summary>
+        /// Retrieves information about a chunk specified by the chunk index.
+        /// </summary>
+        /// <param name="dset_id"> Dataset identifier.</param>
+        /// <param name="fspace_id">File dataspace selection identifier.</param>
+        /// <param name="index">Chunk index in the selection.</param>
+        /// <param name="offset">Reference to a one-dimensional array with a size
+        /// equal to the dataset’s rank.</param>
+        /// <param name="filter_mask"> Filter mask that indicates which filters
+        /// were used with the chunk when written.</param>
+        /// <param name="addr">Chunk address in the file.</param>
+        /// <param name="size">Chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_info",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_info
+            (hid_t dset_id, hid_t fspace_id, hsize_t index, [In][Out] hsize_t[] offset,
+            ref uint32_t filter_mask, ref haddr_t addr, ref hsize_t size);
+
+        /// <summary>
+        /// Retrieves information about a chunk specified by its coordinates
+        /// </summary>
+        /// <param name="dset_id"> Dataset identifier.</param>
+        /// <param name="offset">Pointer to a one-dimensional array with a size
+        /// equal to the dataset’s rank.</param>
+        /// <param name="filter_mask"> Filter mask that indicates which filters
+        /// were used with the chunk when written.</param>
+        /// <param name="addr">Chunk address in the file.</param>
+        /// <param name="size">Chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_info_by_coord",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_info_by_coord
+            (hid_t dset_id, hsize_t* offset, ref uint32_t filter_mask,
+            ref haddr_t addr, ref hsize_t size);
+
+        /// <summary>
+        /// Retrieves information about a chunk specified by its coordinates
+        /// </summary>
+        /// <param name="dset_id"> Dataset identifier.</param>
+        /// <param name="offset">Reference to a one-dimensional array with a size
+        /// equal to the dataset’s rank.</param>
+        /// <param name="filter_mask"> Filter mask that indicates which filters
+        /// were used with the chunk when written.</param>
+        /// <param name="addr">Chunk address in the file.</param>
+        /// <param name="size">Chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_info_by_coord",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_info_by_coord
+            (hid_t dset_id, [In][Out] hsize_t[] offset, ref uint32_t filter_mask,
+            ref haddr_t addr, ref hsize_t size);
 
         /// <summary>
         /// Determines the storage size (in bytes) of a chunk.
@@ -444,7 +523,23 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t get_chunk_storage_size
-            (hid_t dset_id, ref hsize_t offset, ref hsize_t chunk_bytes);
+            (hid_t dset_id, hsize_t* offset, ref hsize_t chunk_bytes);
+
+        /// <summary>
+        /// Determines the storage size (in bytes) of a chunk.
+        /// </summary>
+        /// <param name="dset_id">Identifier of the dataset to query.</param>
+        /// /// <param name="offset">Logical position of the chunk’s first
+        /// element in the dataspace</param>
+        /// <param name="chunk_bytes">The chunk size in bytes.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_chunk_storage_size",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_chunk_storage_size
+            (hid_t dset_id, [In][Out] hsize_t[] offset, ref hsize_t chunk_bytes);
+#endif
 
         /// <summary>
         /// Returns an identifier for a copy of the dataset creation property
@@ -458,6 +553,22 @@ namespace HDF.PInvoke
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern hid_t get_create_plist(hid_t dset_id);
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Retrieves number of chunks that have nonempty intersection with a specified selection.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5D_GET_NUM_CHUNKS
+        /// </summary>
+        /// <param name="dset_id">Dataset identifier.</param>
+        /// <param name="fspace_id">File dataspace selection identifier.</param>
+        /// <param name="nchunks">Number of chunks in the selection.</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dget_num_chunks",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern hid_t get_num_chunks(hid_t dset_id, hid_t fspace_id, ref hsize_t nchunks);
+#endif
 
         /// <summary>
         /// Returns dataset address in file.
