@@ -1,3 +1,6 @@
+##### 1.8.21.0
+* Updated native dependencies (HDF5 1.8.21) 
+
 ##### 1.10.5.0
 * Updated native dependencies (HDF5 1.10.5) 
 * New chunk info functions H5Dget_chunk[info,info_by_coord], H5Dget_num_chunks
