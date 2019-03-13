@@ -127,7 +127,7 @@ namespace HDF.PInvoke
         public delegate herr_t walk_t
         (
         uint n,
-        ref error_t err_desc,
+        [In]ref error_t err_desc,
         IntPtr client_data
         );
 
