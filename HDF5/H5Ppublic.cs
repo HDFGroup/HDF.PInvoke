@@ -638,6 +638,23 @@ namespace HDF.PInvoke
         public static extern ssize_t get_data_transform
             (hid_t plist_id, [In][Out]StringBuilder expression, size_t size);
 
+#if HDF5_VER1_10
+        /// <summary>
+        /// Retrieves the setting for whether or not a file will create minimized dataset object headers.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5P_GET_DSET_NO_ATTRS_HINT
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier</param>
+        /// <param name="minimize">Flag indicating whether the library will or will not
+        /// create minimized dataset object headers</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pget_dset_no_attrs_hint",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t get_dset_no_attrs_hint(hid_t plist_id, ref hbool_t minimize);
+#endif
+
         /// <summary>
         /// Returns low-lever driver identifier.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5P.html#Property-GetDriver
@@ -2328,6 +2345,23 @@ namespace HDF.PInvoke
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t set_driver
             (hid_t plist_id, hid_t new_driver_id, IntPtr new_driver_info);
+
+#if HDF5_VER1_10
+        /// <summary>
+        /// Sets the flag to create minimized dataset object headers.
+        /// See https://portal.hdfgroup.org/display/HDF5/H5P_SET_DSET_NO_ATTRS_HINT
+        /// </summary>
+        /// <param name="plist_id">Dataset creation property list identifier</param>
+        /// <param name="minimize">Flag indicating whether the library will or will not
+        /// create minimized dataset object headers</param>
+        /// <returns>Returns a non-negative value if successful; otherwise
+        /// returns a negative value.</returns>
+        [DllImport(Constants.DLLFileName,
+            EntryPoint = "H5Pset_dset_no_attrs_hint",
+            CallingConvention = CallingConvention.Cdecl),
+        SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
+        public static extern herr_t set_dset_no_attrs_hint(hid_t plist_id, hbool_t minimize);
+#endif
 
         /// <summary>
         /// Sets whether to enable error-detection when reading a dataset.
