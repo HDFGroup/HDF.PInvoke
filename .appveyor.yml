@@ -1,0 +1,30 @@
+version: '{build}'
+clone_depth: 1
+
+image:
+- Visual Studio 2017
+- Ubuntu
+
+branches:
+  only:
+  - master
+  - dev
+
+configuration:
+  - Release
+
+init:
+  - ps: git config --global core.autocrlf true
+
+before_build:
+- ps: dotnet --info
+- ps: "Get-ChildItem Env:"
+
+build_script:
+- ps: dotnet build ./src/HDF.PInvoke.NETStandard/HDF.PInvoke.NETStandard.csproj -c $Env:CONFIGURATION
+
+test_script:
+- ps: dotnet test ./test/UnitTests/UnitTests.csproj -c $Env:CONFIGURATION /p:BuildProjectReferences=false
+
+artifacts:
+  - path: ./artifacts/packages/**/*.nupkg

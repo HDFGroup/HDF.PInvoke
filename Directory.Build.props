@@ -1,0 +1,37 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- NuGet and AssemblyInfo properties -->
+    <Authors>The HDF Group</Authors>
+    <Copyright>Copyright © 2019</Copyright>
+    <PackageLicenseFile>COPYING</PackageLicenseFile>
+    <PackageProjectUrl>https://www.hdfgroup.org/</PackageProjectUrl>
+    <Product>HDF.PInvoke</Product>
+    <RepositoryUrl>https://github.com/HDFGroup/HDF.PInvoke</RepositoryUrl>
+    <Version>1.10.6</Version>
+    <Prerelease>.1</Prerelease>
+
+    <!-- Derived properties -->
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <Company>$(Authors)</Company>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageVersion>$(Version)$(Prerelease)</PackageVersion>
+   
+    <!-- Artifacts -->
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+    <BaseIntermediateOutputPath>$(ArtifactsPath)/obj/$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)/$(Configuration)</IntermediateOutputPath>
+    <OutputPath>$(ArtifactsPath)/bin/$(MSBuildProjectName)/$(Configuration)</OutputPath>
+    <PackageOutputPath>$(ArtifactsPath)/packages</PackageOutputPath>
+
+    <!-- Misc -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);HDF5_VER1_10</DefineConstants>
+    <Root>$(MSBuildThisFileDirectory)</Root>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)COPYING" Pack="true" PackagePath="" Visible="false" />
+  </ItemGroup>
+  
+</Project>

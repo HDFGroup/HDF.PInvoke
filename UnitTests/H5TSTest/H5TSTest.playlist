@@ -1,1 +1,0 @@
-<Playlist Version="1.0"><Add Test="UnitTests.H5TSTest.H5TSfile_creationTest1" /><Add Test="UnitTests.H5TSTest.H5TSdataset_creationTest1" /><Add Test="UnitTests.H5TSTest.H5TSattribute_creationTest1" /><Add Test="UnitTests.H5TSTest.H5TSforeachTest1" /></Playlist>

@@ -1,0 +1,3 @@
+[submodule "submodules/HDF.PInvoke"]
+	path = submodules/HDF.PInvoke
+	url = https://github.com/HDFGroup/HDF.PInvoke
