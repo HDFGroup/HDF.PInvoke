@@ -102,12 +102,17 @@ namespace HDF.PInvoke
 
         public H5WindowsDLLImporter(string libName)
         {
+            Console.WriteLine("Step1");
+
             hLib = GetModuleHandle(libName);
+            Console.WriteLine("Step2");
             if (hLib == IntPtr.Zero)  // the library hasn't been loaded
             {
+                Console.WriteLine("Step3");
                 hLib = LoadLibrary(libName);
                 if (hLib == IntPtr.Zero)
                 {
+                    Console.WriteLine("Step4");
                     try
                     {
                         Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
@@ -116,8 +121,9 @@ namespace HDF.PInvoke
                     {
                         throw new Exception(string.Format("Couldn't load library \"{0}\"", libName), e);
                     }
-                }
+                } 
             }
+            Console.WriteLine("Step5");
         }
 
         protected override IntPtr _GetAddress(string varName)

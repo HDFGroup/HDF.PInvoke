@@ -18,11 +18,30 @@
              Exclude="$(SourceFolder)Constants.cs;$(SourceFolder)H5DLLImporter.cs;$(SourceFolder)NativeDependencies.cs" />
 
     <!-- Add native files -->
-    <Content Include="$(Root)runtimes/**/*">
+    <!--<Content Include="$(Root)runtimes/**/*">
       <Link>runtimes/%(RecursiveDir)%(Filename)%(Extension)</Link>
       <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>-->
+
+    <Content Include="$(Root)runtimes/**/lib*">
+      <Link>%(Filename)%(Extension)</Link>
+      <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="$(Root)runtimes/win-x86/**/*.dll">
+      <Link>bin32/%(Filename)%(Extension)</Link>
+      <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="$(Root)runtimes/win-x64/**/*.dll">
+      <Link>bin64/%(Filename)%(Extension)</Link>
+      <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    
   </ItemGroup>
  
 </Project>
