@@ -32,13 +32,13 @@
 
     <Content Include="$(Root)runtimes/win-x86/**/*.dll">
       <Link>bin32/%(Filename)%(Extension)</Link>
-      <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+      <PackagePath>runtimes/win-x86/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
     <Content Include="$(Root)runtimes/win-x64/**/*.dll">
       <Link>bin64/%(Filename)%(Extension)</Link>
-      <PackagePath>runtimes/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
+      <PackagePath>runtimes/win-x64/%(RecursiveDir)%(Filename)%(Extension)</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     
