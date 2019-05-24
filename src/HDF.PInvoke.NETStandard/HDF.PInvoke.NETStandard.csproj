@@ -13,9 +13,12 @@
   <ItemGroup>
 
     <!-- Add source files -->
-    <Compile Include="$(Root)src/HDF.PInvoke.NETStandard/*.cs" />
-    <Compile Include="$(Root)submodules/HDF.PInvoke/HDF5/*.cs" 
-             Exclude="$(SourceFolder)Constants.cs;$(SourceFolder)H5DLLImporter.cs;$(SourceFolder)NativeDependencies.cs" />
+    <Compile Include="$(Root)src/HDF.PInvoke.NETStandard/*.cs"/>
+
+    <Compile Include="$(Root)submodules/HDF.PInvoke/HDF5/*.cs"
+             Exclude="$(SourceFolder)Constants.cs;$(SourceFolder)H5DLLImporter.cs;$(SourceFolder)NativeDependencies.cs">
+      <Link>submodule/src/%(Filename)%(Extension)</Link>
+    </Compile>
 
     <!-- Add native files -->
     <!--<Content Include="$(Root)runtimes/**/*">

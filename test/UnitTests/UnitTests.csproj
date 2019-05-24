@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="$(Root)submodules/HDF.PInvoke/UnitTests/**/*.cs" />
-    <Compile Remove="$(Root)submodules/HDF.PInvoke/UnitTests/Properties/AssemblyInfo.cs" />
+    <Compile Include="$(Root)submodules/HDF.PInvoke/UnitTests/**/*.cs"
+             Exclude="$(Root)submodules/HDF.PInvoke/UnitTests/Properties/AssemblyInfo.cs">
+      <Link>submodule/tests/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>
