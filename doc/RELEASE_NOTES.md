@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.10.500
+* Updated native dependencies (HDF5 1.10.5) 
+
 ##### 1.10.200
 * First .NET Standard release on NuGet.
 * Updated native dependencies (HDF5 1.10.2) 
