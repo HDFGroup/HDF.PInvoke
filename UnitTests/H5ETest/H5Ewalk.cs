@@ -27,7 +27,7 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5Test
+    public partial class H5ETest
     {
         [TestMethod]
         public void H5EwalkTest1()
@@ -82,6 +82,7 @@ namespace UnitTests
             IntPtr client_data
             )
         {
+            Assert.IsTrue(err_desc.line > 0);
             return 0;
         }
     }

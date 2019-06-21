@@ -27,7 +27,7 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
-    public partial class H5Test
+    public partial class H5ETest
     {
         [TestMethod]
         public void H5Eget_numTest1()
