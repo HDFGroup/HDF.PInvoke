@@ -91,16 +91,16 @@
       <Link>libhdf5.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>        
-    <Content Include="native/HDF5_1.10/linux64/libhdf5.so.101" PackagePath="runtimes/linux-x64/native">
-      <Link>libhdf5.so.101</Link>
+    <Content Include="native/HDF5_1.10/linux64/libhdf5.so.103" PackagePath="runtimes/linux-x64/native">
+      <Link>libhdf5.so.103</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>        
     <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so" PackagePath="runtimes/linux-x64/native">
       <Link>libhdf5_hl.so</Link>      
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>           
-    <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so.101" PackagePath="runtimes/linux-x64/native">
-      <Link>libhdf5_hl.so.101</Link>
+    <Content Include="native/HDF5_1.10/linux64/libhdf5_hl.so.100" PackagePath="runtimes/linux-x64/native">
+      <Link>libhdf5_hl.so.100</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>           
 
