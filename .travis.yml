@@ -16,7 +16,7 @@ script:
   - dotnet pack -c Release
   - dotnet nuget locals all --clear
   - dotnet run -p NugetTest
-  # - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_OS_NAME" = "linux" ] ; then bash doc/build.sh ; fi  
+  - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_OS_NAME" = "linux" ] ; then bash doc/build.sh ; fi  
 deploy:
   - provider: script
     script: bash deploy.sh
@@ -24,12 +24,12 @@ deploy:
     on:
       branch: master
       condition: $TRAVIS_OS_NAME = linux
-  # - provider: pages
-  #   local-dir: doc/_site
-  #   skip-cleanup: true
-  #   target-branch: gh-pages
-  #   github-token: $GITHUB_TOKEN  
-  #   keep-history: true
-  #   on:
-  #     branch: master
-  #     condition: $TRAVIS_OS_NAME = linux
+  - provider: pages
+    local-dir: doc/_site
+    skip-cleanup: true
+    target-branch: gh-pages
+    github-token: $GITHUB_TOKEN  
+    keep-history: true
+    on:
+      branch: master
+      condition: $TRAVIS_OS_NAME = linux
