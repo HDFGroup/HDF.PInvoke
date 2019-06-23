@@ -3,13 +3,18 @@
 [![Build Status](https://travis-ci.org/surban/HDF.PInvoke.svg?branch=master)](https://travis-ci.org/surban/HDF.PInvoke)
 [![Build status](https://ci.appveyor.com/api/projects/status/k9f3fqys0hwdvxnu?svg=true)](https://ci.appveyor.com/project/surban/hdf-pinvoke)
 
-## .NET Core 2.0 port
+## .NET Standard 2.0 port
 
 This is an unofficial port of [HDF.PInvoke from the HDF group](https://github.com/HDFGroup/HDF.PInvoke) to .NET Standard 2.0 by [Sebastian Urban](mailto:surban@surban.net).
 It has been tested on Linux, MacOS and Microsoft Windows.
 
 The source code is available at <https://github.com/surban/HDF.PInvoke>.
 Please use this GitHub repository to report issues and send pull requests.
+
+## Multithreaded operation
+
+All HDF5 operations are thread-safe as described in the [official document](https://support.hdfgroup.org/HDF5/faq/threadsafe.html),
+
 
 ## What it is (not)
 
