@@ -12,6 +12,8 @@ namespace NugetTest
         {
             Console.WriteLine("Starting HDF5 NuGet package consumption test...");
 
+            Console.WriteLine("H5P.ROOT: {0}", H5P.ROOT);
+
             var fileAccessProps = H5P.create(H5P.FILE_ACCESS);
             Debug.Assert(fileAccessProps >= 0);
     

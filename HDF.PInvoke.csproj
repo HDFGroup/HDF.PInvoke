@@ -11,20 +11,26 @@
     <Company>The HDF Group</Company>
     <authors>The HDF Group, Sebastian Urban (.NET Standard port)</authors>
     <owners>Sebastian Urban</owners>
-    <Copyright>Copyright © 2016-2018</Copyright>
+    <Copyright>Copyright © 2016-2019</Copyright>
     <description>
-      This is an inofficial port of HDF.PInvoke to .NET Standard 2.0, based on 
-      the code published by the HDF Group at https://github.com/HDFGroup/HDF.PInvoke.
-      It has been tested on Linux, MacOS and Windows.
+This package contains PInvoke declarations for the (unmanaged) HDF5 1.10.x API and
+the native HDF5 libraries for 64-bit Linux, MacOS and Microsoft Windows built with
+thread-safety enabled.
 
-      This package contains PInvoke declarations for the (unmanaged) HDF5 1.10.x C-API. 
-      For documenation, see the "HDF5: API Specification Reference Manual" at 
-      http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html.
+Full API reference documentation is provided at
+https://surban.github.io/HDF.PInvoke/api/HDF.PInvoke.html
+
+For information on how to use the HDF5 libraries please refer to
+https://portal.hdfgroup.org/display/HDF5/HDF5
+
+This is an inofficial port of HDF.PInvoke to .NET Standard 2.0, based on 
+the code published by the HDF Group at https://github.com/HDFGroup/HDF.PInvoke.
     </description>
     <PackageLicenseUrl>http://www.hdfgroup.org/ftp/HDF5/current/src/unpacked/COPYING</PackageLicenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <PackageTags>HDF5</PackageTags>
+    <PackageTags>HDF5 HDF Hierarchical Data Format</PackageTags>
     <PackageProjectUrl>https://surban.github.io/HDF.PInvoke</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/HDFGroup/HDF.PInvoke/master/images/hdf.png</PackageIconUrl>
     <PackageVersion>$(Version)$(Prerelease)</PackageVersion>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <FileVersion>$(Version)</FileVersion>  
