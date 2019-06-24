@@ -152,10 +152,13 @@ namespace HDF.PInvoke
             var libDir = Path.GetDirectoryName(NativeDependencies.GetAssemblyName());
             var inLibDir = Path.Combine(libDir, filename);
             var inPkgDir = Path.Combine(libDir, "..", "..", "runtimes", "linux-x64", "native", filename);
+            var inPkgDir3 = Path.Combine(libDir, "runtimes", "linux-x64", "native", filename);
             if (File.Exists(inLibDir))
                 libName = inLibDir;
             else if (File.Exists(inPkgDir))
                 libName = inPkgDir;
+            else if (File.Exists(inPkgDir3))
+                libName = inPkgDir3;            
 
 			hLib = dlopen(libName, RTLD_NOW);
 			if (hLib==IntPtr.Zero)

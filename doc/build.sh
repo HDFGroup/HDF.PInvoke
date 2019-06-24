@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="2.43.1"
+VERSION="2.42.4"
 
 set -e
 pushd "$(dirname "${BASH_SOURCE[0]}")" 
