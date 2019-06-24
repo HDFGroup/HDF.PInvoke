@@ -1,5 +1,8 @@
 # Release Notes
 
+##### 1.10.502
+* Support consumption by .NET Core 3.0.
+
 ##### 1.10.500
 * Updated native dependencies (HDF5 1.10.5) 
 
