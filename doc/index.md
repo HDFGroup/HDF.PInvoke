@@ -45,7 +45,7 @@ You can also grab the NuGet package from <https://www.nuget.org/packages/HDF.PIn
 
 ## Native dependencies
 
-The HDF5 native libraries for all supported are included in the NuGet package.
+The HDF5 native libraries for all supported platforms are included in the NuGet package.
 For Windows, you additionally require the Visual C++ runtime, which is available from Microsoft as [Visual C++ Redistributable Packages for Visual Studio 2017](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
 
 ## License
