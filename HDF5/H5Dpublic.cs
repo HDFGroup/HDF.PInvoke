@@ -725,7 +725,7 @@ namespace HDF.PInvoke
         /// <param name="buf">Buffer containing the chunk read from the dataset</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5Dread_chunk",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dread_chunk",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t read_chunk
@@ -870,7 +870,7 @@ namespace HDF.PInvoke
         /// <param name="buf">Buffer containing data to be written to the file</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.HLDLLFileName, EntryPoint = "H5Dwrite_chunk",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Dwrite_chunk",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t write_chunk
