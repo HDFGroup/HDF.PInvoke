@@ -1,3 +1,6 @@
+##### 1.10.5.2
+* Bugfix for https://github.com/HDFGroup/HDF.PInvoke/issues/161.
+
 ##### 1.10.5.1
 * Bugfix for https://github.com/HDFGroup/HDF.PInvoke/issues/154.
 
