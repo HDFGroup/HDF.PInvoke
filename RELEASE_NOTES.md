@@ -1,3 +1,6 @@
+##### 1.10.6.1
+* Fixed the documentation link.
+
 ##### 1.10.6.0
 * Updated native dependencies (HDF5 1.10.6) 
 

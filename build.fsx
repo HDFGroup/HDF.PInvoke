@@ -89,7 +89,7 @@ Target "GenTemplate" (fun _ ->
             Language = Some "en-US"
             Description =
                 [
-                """This package contains PInvoke declarations for the (unmanaged) HDF5 """ + VER + """.x C-API. For documenation, see the "HDF5: API Specification Reference Manual" at http://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html."""
+                """This package contains PInvoke declarations for the (unmanaged) HDF5 """ + VER + """.x C-API. For documenation, see the "Core Libray" at https://portal.hdfgroup.org/display/HDF5/Core+Library."""
                 ]
             Owners = ["The HDF Group"]
             Authors =
