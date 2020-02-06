@@ -1,3 +1,9 @@
+##### 1.10.6.1
+* Fixed the documentation link.
+
+##### 1.10.6.0
+* Updated native dependencies (HDF5 1.10.6) 
+
 ##### 1.10.5.2
 * Bugfix for https://github.com/HDFGroup/HDF.PInvoke/issues/161.
 

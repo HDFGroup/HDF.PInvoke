@@ -16,7 +16,7 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 | HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
 | ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- |
 | [1.8.21](https://portal.hdfgroup.org/display/support/Downloads)  | 1.8.21.1         | [1.8.21.1](https://www.nuget.org/packages/HDF.PInvoke/1.8.21.1) | v1.8.21.1  |
-| [1.10.5](https://portal.hdfgroup.org/display/support/Downloads) | 1.10.5.1         | [1.10.5.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.5.1) | v1.10.5.1 |
+| [1.10.6](https://portal.hdfgroup.org/display/support/Downloads) | 1.10.6.1         | [1.10.6.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.6.1) | v1.10.6.1 |
 
 [How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
 
@@ -30,7 +30,7 @@ To install the latest HDF.PInvoke 1.8, run the following command in the
 To install the latest HDF.PInvoke 1.10, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ```
-    Install-Package HDF.PInvoke -Version 1.10.5.1
+    Install-Package HDF.PInvoke -Version 1.10.6.1
 ```
 
 # Prerequisites
