@@ -85,7 +85,7 @@ namespace HDF.PInvoke
 #if HDF5_VER1_10
             /// <summary>
             /// Single Chunk index (cur dims[]=max dims[]=chunk dims[];
-            /// filtered & non-filtered)
+            /// filtered &amp; non-filtered)
             /// </summary>
             SINGLE = 1,
             /// <summary>

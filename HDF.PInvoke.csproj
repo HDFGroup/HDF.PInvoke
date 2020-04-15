@@ -74,7 +74,9 @@
     <Compile Include="HDF5\Constants.cs" />
     <Compile Include="HDF5\H5ACpublic.cs" />
     <Compile Include="HDF5\H5Eglobals.cs" />
+    <Compile Include="HDF5\H5LTpublic.cs" />
     <Compile Include="HDF5\H5Pglobals.cs" />
+    <Compile Include="HDF5\H5PTpublic.cs" />
     <Compile Include="HDF5\H5Rpublic.cs" />
     <Compile Include="HDF5\H5PLpublic.cs" />
     <Compile Include="HDF5\H5Dpublic.cs" />

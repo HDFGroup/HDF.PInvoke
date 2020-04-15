@@ -226,7 +226,7 @@ namespace HDF.PInvoke
                 /// </summary>
                 public hsize_t hdr_size;
                 /// <summary>
-                /// Shared object header message index & heap size
+                /// Shared object header message index &amp; heap size
                 /// </summary>
                 public H5.ih_info_t msgs_info;
             }
