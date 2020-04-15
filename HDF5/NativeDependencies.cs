@@ -27,9 +27,7 @@ namespace HDF.PInvoke
             aPath = string.Empty;
             try
             {
-                if (ConfigurationManager.AppSettings.Count <= 0) return false;
-                string pathFromAppSettings = ConfigurationManager.
-                    AppSettings[NativePathSetting].ToString();
+                string pathFromAppSettings = ConfigurationManager.AppSettings[NativePathSetting];
                 if (string.IsNullOrEmpty(pathFromAppSettings))
                     return false;
 
