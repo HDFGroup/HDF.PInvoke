@@ -628,7 +628,7 @@ namespace HDF.PInvoke
         public extern static hsize_t get_storage_size(hid_t attr_id);
 
         /// <summary>
-        /// Returns the amount of storage required for an attribute.
+        /// Retrieves a copy of the datatype for an attribute.
         /// See https://www.hdfgroup.org/HDF5/doc/RM/RM_H5A.html#Annot-GetType
         /// </summary>
         /// <param name="attr_id">Identifier of an attribute.</param>
