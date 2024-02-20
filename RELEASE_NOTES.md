@@ -1,3 +1,11 @@
+##### 1.10.11
+* HDF5 1.10.x is no longer supported
+* This release includes 1.14.3 binaries with 1.10 API compatibility
+* Remove globals that are no longer available
+* Version APIs for H5L and H5S calls
+* Solution and project updates for VS 2022
+* Updates paket version
+
 ##### 1.10.6.1
 * Fixed the documentation link.
 

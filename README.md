@@ -1,11 +1,10 @@
 ![AppVeyor Project status badge](https://ci.appveyor.com/api/projects/status/github/HDFGroup/HDF.PInvoke?branch=master&svg=true)
 [![Gitter](https://badges.gitter.im/HDFGroup/HDF.PInvoke.svg)](https://gitter.im/HDFGroup/HDF.PInvoke?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Google Group](https://groups.google.com/forum/my-groups-color.png)](https://groups.google.com/forum/#!forum/sharp-hdf5)
 
 # What it is (not)
 
 HDF.PInvoke is a collection of [PInvoke](https://en.wikipedia.org/wiki/Platform_Invocation_Services)
-signatures for the [HDF5 C-API](https://www.hdfgroup.org/HDF5/doc/RM/RM_H5Front.html).
+signatures for the [HDF5 C-API](https://docs.hdfgroup.org/hdf5/develop).
 It's practically *code-free*, which means we can blame all the bugs on Microsoft or [The HDF Group](https://www.hdfgroup.org/) :smile:
 
 It is **not** a high-level .NET interface for HDF5. "It's the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)
@@ -15,8 +14,8 @@ of .NET bindings for HDF5, not the [LCM](https://en.wikipedia.org/wiki/Least_com
 
 | HDF5 Release Version                                                   | Assembly Version | Assembly File Version | Git Tag |
 | ---------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------- | ------- |
-| [1.8.21](https://portal.hdfgroup.org/display/support/Downloads)  | 1.8.21.1         | [1.8.21.1](https://www.nuget.org/packages/HDF.PInvoke/1.8.21.1) | v1.8.21.1  |
-| [1.10.6](https://portal.hdfgroup.org/display/support/Downloads) | 1.10.6.1         | [1.10.6.1](https://www.nuget.org/packages/HDF.PInvoke/1.10.6.1) | v1.10.6.1 |
+| [1.8.21](https://portal.hdfgroup.org/downloads/index.html)  | 1.8.21.1         | [1.8.21.1](https://www.nuget.org/packages/HDF.PInvoke/1.8.21.1) | v1.8.21.1  |
+| [1.10.11](https://portal.hdfgroup.org/downloads/index.html) | 1.10.11         | [1.10.11](https://www.nuget.org/packages/HDF.PInvoke/1.10.11) | v1.10.11 |
 
 [How "stuff" is versioned.](../../wiki/Versioning-and-Releases)
 
@@ -30,7 +29,7 @@ To install the latest HDF.PInvoke 1.8, run the following command in the
 To install the latest HDF.PInvoke 1.10, run the following command in the
 [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ```
-    Install-Package HDF.PInvoke -Version 1.10.6.1
+    Install-Package HDF.PInvoke -Version 1.10.11
 ```
 
 # Prerequisites
@@ -62,9 +61,9 @@ the native DLLs in ``C:\bin\bin32`` and ``C:\bin\bin64``.
 Finally, the ``PATH`` environment variable of the running process is searched for other locations,
 such as installed by the [HDF5 installers](https://www.hdfgroup.org/HDF5/).
 
-# Two Major HDF5 Versions for the Price of One (Free)
+# One Major HDF5 Version
 
-The HDF Group currently maintains two major HDF5 release families, HDF5 1.8 and HDF5 1.10. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects.
+The HDF Group currently maintains **one** major HDF5 release family, HDF5 1.14. The Visual Studio Solution is set up to build the `HDF.PInvoke.dll` .NET assemblies for the `"Any CPU"` platform in the `Debug` and `Release` configurations. Support for the HDF5 1.8 or 1.10 API is toggled via the `HDF5_VER1_10` conditional compilation symbol in the *Build* properties of the *HDF.PInvoke* and *UnitTest* projects.
 
 # License
 
