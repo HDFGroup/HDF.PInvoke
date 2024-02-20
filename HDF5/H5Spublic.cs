@@ -256,7 +256,7 @@ namespace HDF.PInvoke
         /// of the buffer needed.</param>
         /// <returns>Returns a non-negative value if successful; otherwise
         /// returns a negative value.</returns>
-        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sencode",
+        [DllImport(Constants.DLLFileName, EntryPoint = "H5Sencode1",
             CallingConvention = CallingConvention.Cdecl),
         SuppressUnmanagedCodeSecurity, SecuritySafeCritical]
         public static extern herr_t encode

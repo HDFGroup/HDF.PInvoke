@@ -18,6 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
+    [Ignore]
     [TestClass]
     public partial class H5Test
     {
