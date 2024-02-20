@@ -39,12 +39,12 @@ namespace UnitTests
             hsize_t[] dims = { 10, 20, 30 };
             hid_t space =  H5S.create_simple(dims.Length, dims, dims);
             Assert.IsTrue(space > 0);
-            
             Assert.IsTrue(H5S.set_extent_none(space) >= 0);
             Assert.IsTrue(
-                H5S.get_simple_extent_type(space) == H5S.class_t.NO_CLASS);
+                H5S.get_simple_extent_type(space) == H5S.class_t.NULL);
             
             Assert.IsTrue(H5S.close(space) >= 0);
+            
         }
 
         [TestMethod]
