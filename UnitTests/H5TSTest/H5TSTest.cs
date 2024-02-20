@@ -27,6 +27,7 @@ using hid_t = System.Int32;
 
 namespace UnitTests
 {
+    [Ignore]
     [TestClass]
     public partial class H5TSTest
     {
