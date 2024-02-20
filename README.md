@@ -4,7 +4,7 @@
 # What it is (not)
 
 HDF.PInvoke is a collection of [PInvoke](https://en.wikipedia.org/wiki/Platform_Invocation_Services)
-signatures for the [HDF5 C-API](https://docs.hdfgroup.org/hdf5/develop).
+signatures for the [HDF5 C-API](https://docs.hdfgroup.org/hdf5/develop/).
 It's practically *code-free*, which means we can blame all the bugs on Microsoft or [The HDF Group](https://www.hdfgroup.org/) :smile:
 
 It is **not** a high-level .NET interface for HDF5. "It's the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor)
@@ -69,8 +69,8 @@ The HDF Group currently maintains **one** major HDF5 release family, HDF5 1.14. 
 
 HDF.PInvoke is part of [HDF5](https://www.hdfgroup.org/HDF5/). It is subject to
 the *same* terms and conditions as HDF5. Please review [COPYING](COPYING) or
-[https://support.hdfgroup.org/ftp/HDF5/releases/COPYING](https://support.hdfgroup.org/ftp/HDF5/releases/COPYING)
-for the details. If you have any questions, please [contact us](http://www.hdfgroup.org/about/contact.html).
+[https://www.hdfgroup.org/licenses/](https://www.hdfgroup.org/licenses/)
+for the details. If you have any questions, please [contact us](https://www.hdfgroup.org/about/contact.html).
 
 # Supporting HDF.PInvoke
 
