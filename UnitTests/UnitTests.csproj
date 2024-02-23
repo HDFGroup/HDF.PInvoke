@@ -195,6 +195,7 @@
     <Compile Include="H5LTest\H5Lcreate_external.cs" />
     <Compile Include="H5LTest\H5Lcopy.cs" />
     <Compile Include="H5LTest\H5LTest.cs" />
+    <Compile Include="H5LTTest\H5LTTest.cs" />
     <Compile Include="H5OTest\H5Ovisit_by_name.cs" />
     <Compile Include="H5OTest\H5Ovisit.cs" />
     <Compile Include="H5OTest\H5Olink.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="H5PTest\H5Pset_userblock.cs" />
     <Compile Include="H5PTest\H5Pset_virtual_prefix.cs" />
     <Compile Include="H5PTest\H5PTest.cs" />
+    <Compile Include="H5PTTest\H5PTTest.cs" />
     <Compile Include="H5RTest\H5Rget_obj_type.cs" />
     <Compile Include="H5RTest\H5Rdereference.cs" />
     <Compile Include="H5RTest\H5Rget_region.cs" />
